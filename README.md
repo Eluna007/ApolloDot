@@ -1,7 +1,6 @@
-# Clavis Shell
 
 > [!NOTE]
-> Clavis is under active development.
+> This project is under active development.
 
 A desktop shell for [niri](https://github.com/YaLTeR/niri), built with [Quickshell](https://quickshell.org/), QML, Qt 6 and native C++ modules.
 
