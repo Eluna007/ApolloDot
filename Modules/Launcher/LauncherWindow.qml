@@ -760,11 +760,12 @@ PanelWindow {
         SpotlightResultsPanel {
             id: resultsPanel
 
-            width: root.wallpaperMode ? Math.min(style.wallpaperPanelWidth, spotlightRoot.width) : (root.appGridMode
-                                                                                                    ? Math.min(
-                                                                                                          style.appGridPanelWidth,
-                                                                                                          spotlightRoot.width) :
-                                                                                                      searchBar.requestedMainWidth)
+            targetWidth: root.wallpaperMode ? Math.min(style.wallpaperPanelWidth, spotlightRoot.width) : (
+                                                  root.appGridMode ? Math.min(style.appGridPanelWidth,
+                                                                              spotlightRoot.width) :
+                                                                     searchBar.requestedMainWidth)
+            width: targetWidth
+            animationsEnabled: root.showing
 
             anchors.top: searchBar.bottom
             anchors.topMargin: style.resultGap

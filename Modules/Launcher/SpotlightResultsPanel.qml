@@ -33,6 +33,8 @@ Item {
     property bool wallpaperHasMore: false
     property real availableHeight: 100000
     property real contentOpacity: 1
+    property real targetWidth: width
+    property bool animationsEnabled: true
     readonly property bool appGridActive: mode === "apps" && UiPreferences.spotlightAppStyle === "grid"
     readonly property int modeIndex: mode === "wallpapers" ? 1 : (mode === "clipboard" ? 2 : 0)
     readonly property int clipboardHeaderHeight: mode === "clipboard" ? 46 : 0
@@ -74,6 +76,7 @@ Item {
     visible: height > 0.5 || opacity > 0.01
 
     Behavior on width {
+        enabled: root.animationsEnabled
         NumberAnimation {
             duration: root.style.panelDuration
             easing.type: Easing.BezierSpline
@@ -82,6 +85,7 @@ Item {
     }
 
     Behavior on height {
+        enabled: root.animationsEnabled
         NumberAnimation {
             duration: root.style.panelDuration
             easing.type: Easing.BezierSpline
@@ -90,6 +94,7 @@ Item {
     }
 
     Behavior on opacity {
+        enabled: root.animationsEnabled
         NumberAnimation {
             duration: root.style.panelDuration
             easing.type: Easing.BezierSpline
@@ -98,8 +103,10 @@ Item {
     }
 
     onModeChanged: {
-        root.contentOpacity = 0;
-        contentFade.restart();
+        contentFade.stop();
+        root.contentOpacity = root.animationsEnabled ? 0 : 1;
+        if (root.animationsEnabled)
+            contentFade.restart();
     }
 
     onSelectedIndexChanged: ensureCurrentVisible()
@@ -325,7 +332,13 @@ Item {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: Math.min(parent.width, Math.max(1, Math.floor(parent.width / root.style.appGridCellWidth))
+                // Column count follows the destination size, not each frame
+                // of the panel's width transition between launcher modes.
+                readonly property real layoutWidth: Math.max(0, root.targetWidth - root.style.resultPadding
+                                                             * 2)
+
+                width: Math.min(layoutWidth, Math.max(1, Math.floor(layoutWidth
+                                                                    / root.style.appGridCellWidth))
                                 * root.style.appGridCellWidth)
                 visible: root.appGridActive
                 style: root.style
