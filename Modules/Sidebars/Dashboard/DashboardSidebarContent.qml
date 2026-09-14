@@ -8,6 +8,8 @@ import qs.Widgets.common
 Item {
     id: root
 
+    signal imageSelectionRequested(bool forAvatar)
+
     property string screenName: ""
     property bool foreground: false
     property bool presentationActive: false
@@ -228,6 +230,7 @@ Item {
                 id: infoComponent
 
                 InfoView {
+                    onImageSelectionRequested: forAvatar => root.imageSelectionRequested(forAvatar)
                     screenName: root.screenName
                     foreground: root.foreground && root.activeView === "info"
                 }

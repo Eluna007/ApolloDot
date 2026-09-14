@@ -7,6 +7,8 @@ import "./infoTools"
 Item {
     id: root
 
+    signal imageSelectionRequested(bool forAvatar)
+
     property string screenName: ""
     property bool foreground: false
     readonly property bool isForeground: root.foreground
@@ -32,6 +34,7 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: implicitHeight
             screenName: root.screenName
+            onImageSelectionRequested: forAvatar => root.imageSelectionRequested(forAvatar)
         }
 
         NotificationList {

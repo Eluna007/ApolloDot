@@ -1,6 +1,5 @@
 import QtQuick
 import Quickshell
-import qs.Modules.FilePicker
 import qs.Modules.ControlCenter
 import qs.Common
 import qs.Services
@@ -8,6 +7,8 @@ import qs.Widgets.common
 
 AccountProfileHeader {
     id: root
+
+    signal imageSelectionRequested(bool forAvatar)
 
     property string screenName: ""
     coverHeight: Math.round(width / 2.5)
@@ -28,7 +29,7 @@ AccountProfileHeader {
         id: bannerEditor
         parentModal: root.QsWindow.window
     }
-    onBannerFileActivated: bannerEditor.chooseFile()
+    onBannerFileActivated: root.imageSelectionRequested(false)
     onBannerColorActivated: bannerEditor.chooseColor()
     onBannerCleared: bannerEditor.clear()
     Connections {
@@ -36,20 +37,8 @@ AccountProfileHeader {
         function onDashboardSidebarOpenChanged() {
             if (!WidgetState.dashboardSidebarOpen) {
                 bannerEditor.close();
-                avatarPicker.dismiss();
             }
         }
     }
-    onAvatarActivated: avatarPicker.openAt(avatarPicker.picturesDir)
-
-    FilePickerWindow {
-        id: avatarPicker
-        parentModal: root.QsWindow.window
-        requiresParentWindow: true
-        dialogTitle: qsTranslate("AccountPage", "Choose avatar")
-        onAccepted: (path, isDirectory) => {
-            if (!isDirectory)
-                AvatarService.setAvatar(path);
-        }
-    }
+    onAvatarActivated: root.imageSelectionRequested(true)
 }
