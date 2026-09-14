@@ -322,7 +322,11 @@ Item {
             SpotlightAppGrid {
                 id: appGrid
 
-                anchors.fill: parent
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: Math.min(parent.width, Math.max(1, Math.floor(parent.width / root.style.appGridCellWidth))
+                                * root.style.appGridCellWidth)
                 visible: root.appGridActive
                 style: root.style
                 results: root.appGridActive ? root.results : []

@@ -745,11 +745,8 @@ PanelWindow {
             modeFocusIndex: root.modeFocusIndex
             railProgress: root.railProgress
             webProgress: root.webProgress
-            requestedMainWidth: root.appGridMode ? Math.min(style.appGridPanelWidth, width) : Math.min(width, Math.max(
-                                                                                                           Math.min(420,
-                                                                                                                    width), Math.min(
-                                                                                                               style.searchWidth,
-                                                                                                               width - style.compactSideReserve)))
+            requestedMainWidth: Math.min(width, Math.max(Math.min(420, width), Math.min(style.searchWidth, width
+                                                                                        - style.compactSideReserve)))
             text: root.query
             onTextChanged: root.query = text
             onRoutedKey: event => root.handleKey(event)
@@ -763,8 +760,11 @@ PanelWindow {
         SpotlightResultsPanel {
             id: resultsPanel
 
-            width: root.wallpaperMode ? Math.min(style.wallpaperPanelWidth, spotlightRoot.width) :
-                                        searchBar.requestedMainWidth
+            width: root.wallpaperMode ? Math.min(style.wallpaperPanelWidth, spotlightRoot.width) : (root.appGridMode
+                                                                                                    ? Math.min(
+                                                                                                          style.appGridPanelWidth,
+                                                                                                          spotlightRoot.width) :
+                                                                                                      searchBar.requestedMainWidth)
 
             anchors.top: searchBar.bottom
             anchors.topMargin: style.resultGap

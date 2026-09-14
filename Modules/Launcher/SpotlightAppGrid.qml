@@ -11,15 +11,14 @@ GridView {
     required property var results
     required property int selectedIndex
     property bool searchActive: false
-    readonly property int columns: Math.max(1, Math.min(style.appGridMaxColumns, Math.floor(width
-                                                                                            / style.appGridMinCellWidth)))
+    readonly property int columns: Math.max(1, Math.floor(width / style.appGridCellWidth))
 
     signal selectionRequested(int index)
     signal activationRequested(int index)
 
     model: root.results
     currentIndex: root.selectedIndex
-    cellWidth: width / root.columns
+    cellWidth: Math.min(width, root.style.appGridCellWidth)
     cellHeight: root.style.appGridCellHeight
     clip: true
     boundsBehavior: Flickable.StopAtBounds
@@ -52,16 +51,9 @@ GridView {
                                                                              tileMouse.containsMouse
                                                                              ? root.style.hoverColor :
                                                                                "transparent"))
-            border.width: 1
-            border.color: root.searchActive && tile.selected ? Appearance.colors.colPrimary : "transparent"
             scale: tileMouse.pressed ? root.style.appGridPressedScale : 1
 
             Behavior on color {
-                ColorAnimation {
-                    duration: root.style.panelDuration
-                }
-            }
-            Behavior on border.color {
                 ColorAnimation {
                     duration: root.style.panelDuration
                 }

@@ -37,14 +37,13 @@ QtObject {
     readonly property int resultScrollDuration: 240
     readonly property int appGridPanelWidth: 920
     readonly property int appGridMaxHeight: 560
-    readonly property int appGridMinCellWidth: 132
-    readonly property int appGridMaxColumns: 5
+    readonly property int appGridCellWidth: 148
     readonly property int appGridCellHeight: 134
     readonly property int appGridGap: 8
     readonly property int appGridIconSize: 56
     readonly property int appGridLabelHeight: 40
     readonly property int appGridLabelFontSize: 14
-    readonly property real appGridHoverScale: 1.08
+    readonly property real appGridHoverScale: 1.24
     readonly property real appGridPressedScale: 0.94
     // Wayland blur regions have a hard, integer edge. Keep that edge beneath
     // the antialiased translucent surface so X-Ray wallpaper-only blur cannot
