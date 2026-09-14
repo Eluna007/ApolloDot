@@ -1,0 +1,153 @@
+pragma ComponentBehavior: Bound
+import QtQuick
+import QtQuick.Controls
+import qs.Common
+import qs.Services
+
+GridView {
+    id: root
+
+    required property SpotlightStyle style
+    required property var results
+    required property int selectedIndex
+    readonly property int columns: Math.max(1, Math.min(style.appGridMaxColumns, Math.floor(width
+                                                                                            / style.appGridMinCellWidth)))
+
+    signal selectionRequested(int index)
+    signal activationRequested(int index)
+
+    model: root.results
+    currentIndex: root.selectedIndex
+    cellWidth: width / root.columns
+    cellHeight: root.style.appGridCellHeight
+    clip: true
+    boundsBehavior: Flickable.StopAtBounds
+    keyNavigationEnabled: false
+
+    function ensureCurrentVisible() {
+        if (root.visible && root.selectedIndex >= 0 && root.selectedIndex < root.count)
+            root.positionViewAtIndex(root.selectedIndex, GridView.Contain);
+    }
+
+    onSelectedIndexChanged: Qt.callLater(root.ensureCurrentVisible)
+    onColumnsChanged: Qt.callLater(root.ensureCurrentVisible)
+    onHeightChanged: Qt.callLater(root.ensureCurrentVisible)
+    onCountChanged: Qt.callLater(root.ensureCurrentVisible)
+    onVisibleChanged: Qt.callLater(root.ensureCurrentVisible)
+
+    ScrollBar.vertical: ScrollBar {
+        policy: ScrollBar.AsNeeded
+    }
+
+    delegate: Item {
+        id: tile
+
+        required property int index
+        required property var modelData
+        readonly property bool selected: tile.index === root.selectedIndex
+        width: root.cellWidth
+        height: root.cellHeight
+
+        Rectangle {
+            id: tileSurface
+
+            anchors.fill: parent
+            anchors.margins: root.style.appGridGap / 2
+            radius: Appearance.rounding.large
+            color: tile.selected ? root.style.selectedColor : (tileMouse.containsMouse ? root.style.hoverColor :
+                                                                                         "transparent")
+            border.width: 1
+            border.color: tile.selected ? Appearance.colors.colPrimary : "transparent"
+            scale: tileMouse.pressed ? root.style.appGridPressedScale : 1
+
+            Behavior on color {
+                ColorAnimation {
+                    duration: root.style.panelDuration
+                }
+            }
+            Behavior on border.color {
+                ColorAnimation {
+                    duration: root.style.panelDuration
+                }
+            }
+            Behavior on scale {
+                NumberAnimation {
+                    duration: root.style.panelDuration
+                    easing.type: Easing.BezierSpline
+                    easing.bezierCurve: root.style.effectsCurve
+                }
+            }
+
+            Image {
+                id: appIcon
+
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.topMargin: 12
+                width: root.style.appGridIconSize
+                height: width
+                source: ApplicationService.iconSource(tile.modelData.icon)
+                sourceSize.width: root.style.appGridIconSize * 2
+                sourceSize.height: root.style.appGridIconSize * 2
+                asynchronous: true
+                fillMode: Image.PreserveAspectFit
+                scale: tile.selected || tileMouse.containsMouse ? root.style.appGridHoverScale : 1
+
+                Behavior on scale {
+                    NumberAnimation {
+                        duration: root.style.panelDuration
+                        easing.type: Easing.BezierSpline
+                        easing.bezierCurve: root.style.effectsCurve
+                    }
+                }
+            }
+
+            Text {
+                id: appName
+
+                anchors.top: appIcon.bottom
+                anchors.topMargin: 10
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.margins: 8
+                height: root.style.appGridLabelHeight
+                text: tile.modelData.title
+                textFormat: Text.PlainText
+                font.family: Fonts.ui
+                font.pixelSize: root.style.appGridLabelFontSize
+                font.weight: Font.Medium
+                color: tile.selected ? root.style.selectedContentColor : Appearance.colors.colOnSurface
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignTop
+                maximumLineCount: 2
+                wrapMode: Text.Wrap
+                elide: Text.ElideRight
+            }
+        }
+
+        MouseArea {
+            id: tileMouse
+
+            anchors.fill: tileSurface
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            acceptedButtons: Qt.LeftButton
+            Accessible.name: tile.modelData.title
+            Accessible.role: Accessible.ListItem
+            Accessible.selected: tile.selected
+            Accessible.onPressAction: root.activationRequested(tile.index)
+            onPositionChanged: {
+                if (containsMouse)
+                    root.selectionRequested(tile.index);
+            }
+            onClicked: {
+                root.selectionRequested(tile.index);
+                root.activationRequested(tile.index);
+            }
+        }
+
+        ToolTip.visible: tileMouse.containsMouse && appName.truncated
+        ToolTip.delay: 600
+        ToolTip.text: tile.modelData.title
+    }
+}

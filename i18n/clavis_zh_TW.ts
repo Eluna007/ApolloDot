@@ -5418,13 +5418,13 @@ Scroll to adjust</source>
 <context>
     <name>LauncherWindow</name>
     <message>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="398"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="399"/>
         <source>A clipboard operation is already running</source>
         <translation>已有剪貼簿操作正在執行</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="409"/>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="437"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="410"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="438"/>
         <source>Copy failed</source>
         <translation>複製失敗</translation>
     </message>
@@ -6581,22 +6581,22 @@ Click to open network settings</source>
         <translation>網路需要密碼</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1071"/>
+        <location filename="../Services/NetworkService.qml" line="1080"/>
         <source>Connection did not complete</source>
         <translation>連線未完成</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1105"/>
+        <location filename="../Services/NetworkService.qml" line="1114"/>
         <source>NetworkManager did not confirm the profile update</source>
         <translation>NetworkManager 未確認設定檔寫入</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1118"/>
+        <location filename="../Services/NetworkService.qml" line="1127"/>
         <source>NetworkManager did not confirm profile deletion</source>
         <translation>NetworkManager 未確認設定檔刪除</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1138"/>
+        <location filename="../Services/NetworkService.qml" line="1147"/>
         <source>Network operation timed out</source>
         <translation>網路操作超時</translation>
     </message>
@@ -9101,29 +9101,54 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="30"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="31"/>
+        <source>Applications</source>
+        <translation>應用程式</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="36"/>
+        <source>Layout</source>
+        <translation>版面配置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="46"/>
+        <source>List</source>
+        <translation>清單</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="50"/>
+        <source>Grid</source>
+        <translation>網格</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="55"/>
+        <source>Application layout</source>
+        <translation>應用程式版面配置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="64"/>
         <source>Web search</source>
         <translation>網頁搜尋</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="35"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="48"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="69"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="82"/>
         <source>Search engine</source>
         <translation>搜尋引擎</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="72"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="106"/>
         <source>Clipboard</source>
         <translation>剪貼簿</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="77"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="88"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="111"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="122"/>
         <source>History limit</source>
         <translation>歷史紀錄上限</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="78"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="112"/>
         <source>Oldest items are removed when new content is saved.</source>
         <translation>儲存新內容時會移除最早的紀錄。</translation>
     </message>
@@ -9131,63 +9156,63 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightResultsPanel</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="527"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="554"/>
         <source>wl-copy is missing: restore is unavailable</source>
         <translation>缺少 wl-copy：還原功能無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="529"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="556"/>
         <source>Clipboard history</source>
         <translation>剪貼簿歷史</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="544"/>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="868"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="571"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="895"/>
         <source>Clear</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="737"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="764"/>
         <source>Delete clipboard entry</source>
         <translation>刪除剪貼簿項目</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="770"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="797"/>
         <source>Copied</source>
         <translation>已複製</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="770"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="797"/>
         <source>Copy failed</source>
         <translation>複製失敗</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="830"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="857"/>
         <source>Reading…</source>
         <translation>正在讀取…</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="832"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="859"/>
         <source>Current provider is unavailable</source>
         <translation>目前 Provider 無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="833"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="860"/>
         <source>No matching results</source>
         <translation>沒有符合結果</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="848"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="875"/>
         <source>Clear clipboard history?</source>
         <translation>清空剪貼簿歷史？</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="849"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="876"/>
         <source>This clears all clipboard history in cliphist and cannot be undone.</source>
         <translation>此操作會清除 cliphist 中的全部歷史記錄，無法復原。</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="862"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="889"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -10603,7 +10628,7 @@ detected</source>
 <context>
     <name>UiPreferences</name>
     <message>
-        <location filename="../Services/UiPreferences.qml" line="687"/>
+        <location filename="../Services/UiPreferences.qml" line="700"/>
         <source>Unable to sync the system color scheme</source>
         <translation>無法同步系統明暗色設定</translation>
     </message>

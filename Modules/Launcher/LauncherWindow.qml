@@ -86,6 +86,7 @@ PanelWindow {
     SpotlightAppProvider {
         id: appProvider
         query: root.query
+        limit: UiPreferences.spotlightAppStyle === "grid" ? 0 : 50
     }
 
     SpotlightWallpaperProvider {
@@ -600,12 +601,14 @@ PanelWindow {
             event.accepted = true;
             return;
         }
-        if (root.mode === "wallpapers" && event.key === Qt.Key_Left) {
+        const gridNavigation = root.mode === "wallpapers" || (resultsPanel.appGridActive && !control &&
+                                                              !shift);
+        if (gridNavigation && event.key === Qt.Key_Left) {
             root.moveSelectionByOffset(-1);
             event.accepted = true;
             return;
         }
-        if (root.mode === "wallpapers" && event.key === Qt.Key_Right) {
+        if (gridNavigation && event.key === Qt.Key_Right) {
             root.moveSelectionByOffset(1);
             event.accepted = true;
             return;

@@ -5419,13 +5419,13 @@ Scroll to adjust</translation>
 <context>
     <name>LauncherWindow</name>
     <message>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="398"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="399"/>
         <source>A clipboard operation is already running</source>
         <translation>A clipboard operation is already running</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="409"/>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="437"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="410"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="438"/>
         <source>Copy failed</source>
         <translation>Copy failed</translation>
     </message>
@@ -6582,22 +6582,22 @@ Click to open network settings</translation>
         <translation>Network password required</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1071"/>
+        <location filename="../Services/NetworkService.qml" line="1080"/>
         <source>Connection did not complete</source>
         <translation>Connection did not complete</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1105"/>
+        <location filename="../Services/NetworkService.qml" line="1114"/>
         <source>NetworkManager did not confirm the profile update</source>
         <translation>NetworkManager did not confirm the profile update</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1118"/>
+        <location filename="../Services/NetworkService.qml" line="1127"/>
         <source>NetworkManager did not confirm profile deletion</source>
         <translation>NetworkManager did not confirm profile deletion</translation>
     </message>
     <message>
-        <location filename="../Services/NetworkService.qml" line="1138"/>
+        <location filename="../Services/NetworkService.qml" line="1147"/>
         <source>Network operation timed out</source>
         <translation>Network operation timed out</translation>
     </message>
@@ -9103,29 +9103,54 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="30"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="31"/>
+        <source>Applications</source>
+        <translation>Applications</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="36"/>
+        <source>Layout</source>
+        <translation>Layout</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="46"/>
+        <source>List</source>
+        <translation>List</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="50"/>
+        <source>Grid</source>
+        <translation>Grid</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="55"/>
+        <source>Application layout</source>
+        <translation>Application layout</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="64"/>
         <source>Web search</source>
         <translation>Web search</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="35"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="48"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="69"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="82"/>
         <source>Search engine</source>
         <translation>Search engine</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="72"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="106"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="77"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="88"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="111"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="122"/>
         <source>History limit</source>
         <translation>History limit</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="78"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="112"/>
         <source>Oldest items are removed when new content is saved.</source>
         <translation>Oldest items are removed when new content is saved.</translation>
     </message>
@@ -9133,63 +9158,63 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightResultsPanel</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="527"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="554"/>
         <source>wl-copy is missing: restore is unavailable</source>
         <translation>wl-copy is missing: restore is unavailable</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="529"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="556"/>
         <source>Clipboard history</source>
         <translation>Clipboard history</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="544"/>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="868"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="571"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="895"/>
         <source>Clear</source>
         <translation>Clear</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="737"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="764"/>
         <source>Delete clipboard entry</source>
         <translation>Delete clipboard entry</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="770"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="797"/>
         <source>Copied</source>
         <translation>Copied</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="770"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="797"/>
         <source>Copy failed</source>
         <translation>Copy failed</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="830"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="857"/>
         <source>Reading…</source>
         <translation>Reading…</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="832"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="859"/>
         <source>Current provider is unavailable</source>
         <translation>Current provider is unavailable</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="833"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="860"/>
         <source>No matching results</source>
         <translation>No matching results</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="848"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="875"/>
         <source>Clear clipboard history?</source>
         <translation>Clear clipboard history?</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="849"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="876"/>
         <source>This clears all clipboard history in cliphist and cannot be undone.</source>
         <translation>This clears all clipboard history in cliphist and cannot be undone.</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="862"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="889"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
@@ -10609,7 +10634,7 @@ detected</translation>
 <context>
     <name>UiPreferences</name>
     <message>
-        <location filename="../Services/UiPreferences.qml" line="687"/>
+        <location filename="../Services/UiPreferences.qml" line="700"/>
         <source>Unable to sync the system color scheme</source>
         <translation>Unable to sync the system color scheme</translation>
     </message>
