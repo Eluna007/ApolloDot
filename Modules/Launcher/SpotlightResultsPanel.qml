@@ -242,6 +242,8 @@ Item {
                 highlightMoveDuration: root.style.resultScrollDuration
                 highlightMoveVelocity: -1
 
+                ScrollBar.vertical: StyledScrollBar {}
+
                 delegate: Item {
                     id: appDelegate
 
