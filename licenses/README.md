@@ -3,6 +3,16 @@
 Existing license files in this directory continue to cover their respective
 components.
 
+## Animated Weather Cards
+
+Source: [Animated Weather Cards](https://codepen.io/ste-vg/pen/GqaZbo) by Steve Gardner.
+The current-weather animation at the top of Clavis's sidebar weather view
+recreates the original web project's visuals and animation in Qt/QML.
+
+The original project is licensed under MIT. [AnimatedWeatherCards-MIT.txt](AnimatedWeatherCards-MIT.txt)
+preserves the complete license and copyright notice verbatim from the downloaded
+CodePen project's `LICENSE.txt`.
+
 ## Zen Browser
 
 Source: [Zen Browser / zen-browser/desktop](https://github.com/zen-browser/desktop),

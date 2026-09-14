@@ -29,6 +29,7 @@ Clavis takes inspiration from and integrates ideas or components from projects i
 - [Caelestia Shell](https://github.com/caelestia-dots/shell)
 - [qml-niri](https://github.com/imiric/qml-niri)
 - [Breezy Weather](https://github.com/breezy-weather/breezy-weather)
+- [Animated Weather Cards](https://codepen.io/ste-vg/pen/GqaZbo) by Steve Gardner — the current-weather animation at the top of the sidebar weather view is a Qt/QML recreation of this web project. The original is licensed under MIT; see the [full license and copyright notice](licenses/AnimatedWeatherCards-MIT.txt).
 - [m3shapes](https://github.com/soramanew/m3shapes)
 
 Third-party license notices are kept in [`licenses/`](licenses/).
