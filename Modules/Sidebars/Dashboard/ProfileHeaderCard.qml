@@ -13,8 +13,8 @@ AccountProfileHeader {
     coverHeight: Math.round(width / 2.5)
     profileAreaHeight: 112
     avatarSize: 96
-    wallpaperPath: WallpaperPaletteSession.previewForScreen("banner", "")
-                   || PersonalizationConfig.bannerSource || WallpaperService.currentWallpaper
+    wallpaperPath: PersonalizationConfig.bannerSource || WallpaperService.currentWallpaper
+    previewWallpaperPath: WallpaperPaletteSession.previewForScreen("banner", "")
     colorWallpaper: WallpaperService.isColorSource(wallpaperPath)
     avatarUrl: AvatarService.avatarUrl
     fallbackAvatarUrl: Paths.fileUrl(Paths.defaultAvatar)
