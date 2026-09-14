@@ -8,6 +8,7 @@ Item {
     id: root
 
     signal imageSelectionRequested(bool forAvatar)
+    signal bannerColorRequested
 
     property string screenName: ""
     property bool foreground: false
@@ -34,6 +35,7 @@ Item {
             Layout.fillWidth: true
             Layout.preferredHeight: implicitHeight
             screenName: root.screenName
+            onBannerColorRequested: root.bannerColorRequested()
             onImageSelectionRequested: forAvatar => root.imageSelectionRequested(forAvatar)
         }
 

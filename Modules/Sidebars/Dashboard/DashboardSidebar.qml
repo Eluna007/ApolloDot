@@ -1,4 +1,5 @@
 import QtQuick
+import qs.Modules.ControlCenter
 import qs.Modules.FilePicker
 import qs.Common
 import qs.Services
@@ -232,6 +233,12 @@ Item {
         }
     }
 
+    // The palette session must survive unloading the information page as well.
+    WallpaperColorPicker {
+        id: bannerColorPicker
+        requiresParentWindow: false
+    }
+
     Component {
         id: dashboardSidebarContentComponent
 
@@ -239,6 +246,7 @@ Item {
             anchors.fill: parent
             screenName: root.panelScreen ? root.panelScreen.name : ""
             onImageSelectionRequested: forAvatar => profileImagePicker.chooseImage(forAvatar)
+            onBannerColorRequested: bannerColorPicker.showFor("banner", "")
             weatherSourceOverride: root.weatherSourceOverride
             foreground: root.contentOperational
             presentationActive: root.contentOperational

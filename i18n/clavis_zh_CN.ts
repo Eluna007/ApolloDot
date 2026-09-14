@@ -287,7 +287,7 @@
     </message>
     <message>
         <location filename="../Modules/ControlCenter/AccountPage.qml" line="772"/>
-        <location filename="../Modules/Sidebars/Dashboard/ProfileHeaderCard.qml" line="49"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebar.qml" line="210"/>
         <source>Choose avatar</source>
         <translation>选择头像</translation>
     </message>
@@ -296,6 +296,7 @@
     <name>AccountProfileHeader</name>
     <message>
         <location filename="../Modules/ControlCenter/ProfileBannerEditor.qml" line="31"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebar.qml" line="210"/>
         <location filename="../Widgets/common/AccountProfileHeader.qml" line="139"/>
         <source>Choose banner image</source>
         <translation>选择横幅图片</translation>
@@ -2953,17 +2954,17 @@ Scroll to adjust</source>
 <context>
     <name>DashboardSidebarContent</name>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="37"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="40"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="42"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="45"/>
         <source>Drawer</source>
         <translation>抽屉</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="47"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebarContent.qml" line="50"/>
         <source>Weather</source>
         <translation>天气</translation>
     </message>
@@ -3852,6 +3853,7 @@ Scroll to adjust</source>
     <name>FilePickerWindow</name>
     <message>
         <location filename="../Modules/FilePicker/FilePickerWindow.qml" line="28"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebar.qml" line="212"/>
         <source>Choose an image for your user avatar</source>
         <translation>选择一张图片作为用户头像</translation>
     </message>
@@ -3867,6 +3869,7 @@ Scroll to adjust</source>
     </message>
     <message>
         <location filename="../Modules/FilePicker/FilePickerWindow.qml" line="34"/>
+        <location filename="../Modules/Sidebars/Dashboard/DashboardSidebar.qml" line="213"/>
         <source>Choose an image</source>
         <translation>选择一张图片</translation>
     </message>
@@ -5418,13 +5421,13 @@ Scroll to adjust</source>
 <context>
     <name>LauncherWindow</name>
     <message>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="399"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="400"/>
         <source>A clipboard operation is already running</source>
         <translation>已有剪贴板操作正在执行</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="410"/>
-        <location filename="../Modules/Launcher/LauncherWindow.qml" line="438"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="411"/>
+        <location filename="../Modules/Launcher/LauncherWindow.qml" line="439"/>
         <source>Copy failed</source>
         <translation>复制失败</translation>
     </message>
@@ -9156,63 +9159,63 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightResultsPanel</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="554"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="561"/>
         <source>wl-copy is missing: restore is unavailable</source>
         <translation>缺少 wl-copy：恢复功能不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="556"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="563"/>
         <source>Clipboard history</source>
         <translation>剪贴板历史</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="571"/>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="895"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="578"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="902"/>
         <source>Clear</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="764"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="771"/>
         <source>Delete clipboard entry</source>
         <translation>删除剪贴板条目</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="797"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="804"/>
         <source>Copied</source>
         <translation>已复制</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="797"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="804"/>
         <source>Copy failed</source>
         <translation>复制失败</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="857"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="864"/>
         <source>Reading…</source>
         <translation>正在读取…</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="859"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="866"/>
         <source>Current provider is unavailable</source>
         <translation>当前 Provider 不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="860"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="867"/>
         <source>No matching results</source>
         <translation>没有匹配结果</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="875"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="882"/>
         <source>Clear clipboard history?</source>
         <translation>清空剪贴板历史？</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="876"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="883"/>
         <source>This clears all clipboard history in cliphist and cannot be undone.</source>
         <translation>此操作会清除 cliphist 中的全部历史记录，无法撤销。</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="889"/>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="896"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
@@ -10776,17 +10779,17 @@ Scroll to adjust; click to open sound</source>
 <context>
     <name>WallpaperColorPicker</name>
     <message>
-        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="75"/>
+        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="80"/>
         <source>Wallpaper palette</source>
         <translation>壁纸调色板</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="82"/>
+        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="87"/>
         <source>Close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="106"/>
+        <location filename="../Modules/ControlCenter/WallpaperColorPicker.qml" line="167"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
