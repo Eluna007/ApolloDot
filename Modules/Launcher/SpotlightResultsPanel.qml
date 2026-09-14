@@ -19,6 +19,7 @@ Item {
     required property var wallpaperModel
     required property var clipboardModel
     required property int selectedIndex
+    property string query: ""
 
     property bool expanded: mode !== "web"
     property bool loading: false
@@ -50,8 +51,8 @@ Item {
         if (loading || !providerAvailable || results.length === 0)
             return Math.min(availableHeight, style.emptyHeight + clipboardHeaderHeight);
         if (root.appGridActive)
-            return Math.min(availableHeight, style.resultMaxHeight, Math.ceil(results.length
-                                                                              / appGrid.columns)
+            return Math.min(availableHeight, style.appGridMaxHeight, Math.ceil(results.length
+                                                                               / appGrid.columns)
                             * style.appGridCellHeight + style.resultPadding * 2);
         if (mode === "wallpapers")
             return Math.min(style.wallpaperGridHeight, Math.max(0, availableHeight));
@@ -102,7 +103,6 @@ Item {
     }
 
     onSelectedIndexChanged: ensureCurrentVisible()
-    onAppGridActiveChanged: Qt.callLater(root.ensureCurrentVisible)
 
     function fallbackIconSource() {
         const fallback = Quickshell.iconPath("application-x-executable", "");
@@ -159,10 +159,8 @@ Item {
             wallpaperGrid.positionViewAtIndex(root.selectedIndex, GridView.Contain);
         else if (root.mode === "clipboard")
             clipboardList.positionViewAtIndex(root.selectedIndex, ListView.Contain);
-        else if (root.appGridActive)
-            appGrid.ensureCurrentVisible();
-        else
-            appList.positionViewAtIndex(root.selectedIndex, ListView.Contain);
+        // Application views follow currentIndex with their native scroll
+        // animation. Immediate positioning here would interrupt that motion.
     }
 
     function requestMoreWallpapers() {
@@ -232,6 +230,10 @@ Item {
                 model: root.mode === "apps" && !root.appGridActive ? root.results : []
                 currentIndex: root.selectedIndex
                 boundsBehavior: Flickable.StopAtBounds
+                keyNavigationEnabled: false
+                highlight: Item {}
+                highlightMoveDuration: root.style.resultScrollDuration
+                highlightMoveVelocity: -1
 
                 delegate: Item {
                     id: appDelegate
@@ -325,6 +327,7 @@ Item {
                 style: root.style
                 results: root.appGridActive ? root.results : []
                 selectedIndex: root.selectedIndex
+                searchActive: root.query.trim().length > 0
                 onSelectionRequested: index => root.selectionRequested(index)
                 onActivationRequested: index => root.activationRequested(index, false)
             }

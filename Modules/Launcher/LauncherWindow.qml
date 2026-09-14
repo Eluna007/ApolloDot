@@ -63,6 +63,7 @@ PanelWindow {
     readonly property bool spotlightModalActive: resultsPanel.modalActive
     readonly property bool clipboardCanRestore: clipboardProvider.canRestore
     readonly property bool wallpaperMode: mode === "wallpapers"
+    readonly property bool appGridMode: mode === "apps" && UiPreferences.spotlightAppStyle === "grid"
     readonly property bool showing: windowPhase !== "hidden" && root.visible
     readonly property bool searchHasFocus: searchBar.inputActiveFocus
     readonly property real searchMainLeft: searchBar.mainLeft
@@ -710,7 +711,9 @@ PanelWindow {
                                                                              - searchBar.height / 2,
                                                                              root.height - searchBar.height
                                                                              - style.resultGap - Math.min(
-                                                                                 style.resultMaxHeight,
+                                                                                 root.appGridMode
+                                                                                 ? style.appGridMaxHeight :
+                                                                                   style.resultMaxHeight,
                                                                                  root.height * 0.55)
                                                                              - style.windowBottomMargin))
 
@@ -742,8 +745,11 @@ PanelWindow {
             modeFocusIndex: root.modeFocusIndex
             railProgress: root.railProgress
             webProgress: root.webProgress
-            requestedMainWidth: Math.min(width, Math.max(Math.min(420, width), Math.min(style.searchWidth, width
-                                                                                        - style.compactSideReserve)))
+            requestedMainWidth: root.appGridMode ? Math.min(style.appGridPanelWidth, width) : Math.min(width, Math.max(
+                                                                                                           Math.min(420,
+                                                                                                                    width), Math.min(
+                                                                                                               style.searchWidth,
+                                                                                                               width - style.compactSideReserve)))
             text: root.query
             onTextChanged: root.query = text
             onRoutedKey: event => root.handleKey(event)
@@ -766,6 +772,7 @@ PanelWindow {
             style: style
             mode: root.mode
             results: root.activeResults
+            query: root.query
             wallpaperModel: wallpaperProvider.resultModel
             clipboardModel: clipboardProvider.resultModel
             selectedIndex: root.selectedResultIndex

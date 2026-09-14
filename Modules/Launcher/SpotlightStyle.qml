@@ -34,6 +34,9 @@ QtObject {
     readonly property int resultMaxHeight: 440
     readonly property int resultRowHeight: 64
     readonly property int resultIconSize: 40
+    readonly property int resultScrollDuration: 240
+    readonly property int appGridPanelWidth: 920
+    readonly property int appGridMaxHeight: 560
     readonly property int appGridMinCellWidth: 132
     readonly property int appGridMaxColumns: 5
     readonly property int appGridCellHeight: 134

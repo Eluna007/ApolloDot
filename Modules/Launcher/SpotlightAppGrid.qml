@@ -10,6 +10,7 @@ GridView {
     required property SpotlightStyle style
     required property var results
     required property int selectedIndex
+    property bool searchActive: false
     readonly property int columns: Math.max(1, Math.min(style.appGridMaxColumns, Math.floor(width
                                                                                             / style.appGridMinCellWidth)))
 
@@ -23,17 +24,10 @@ GridView {
     clip: true
     boundsBehavior: Flickable.StopAtBounds
     keyNavigationEnabled: false
-
-    function ensureCurrentVisible() {
-        if (root.visible && root.selectedIndex >= 0 && root.selectedIndex < root.count)
-            root.positionViewAtIndex(root.selectedIndex, GridView.Contain);
-    }
-
-    onSelectedIndexChanged: Qt.callLater(root.ensureCurrentVisible)
-    onColumnsChanged: Qt.callLater(root.ensureCurrentVisible)
-    onHeightChanged: Qt.callLater(root.ensureCurrentVisible)
-    onCountChanged: Qt.callLater(root.ensureCurrentVisible)
-    onVisibleChanged: Qt.callLater(root.ensureCurrentVisible)
+    // A nonvisual highlight lets the view animate scrolling to the current
+    // item, including retargeting while an earlier movement is still running.
+    highlight: Item {}
+    highlightMoveDuration: root.style.resultScrollDuration
 
     ScrollBar.vertical: ScrollBar {
         policy: ScrollBar.AsNeeded
@@ -54,10 +48,12 @@ GridView {
             anchors.fill: parent
             anchors.margins: root.style.appGridGap / 2
             radius: Appearance.rounding.large
-            color: tile.selected ? root.style.selectedColor : (tileMouse.containsMouse ? root.style.hoverColor :
-                                                                                         "transparent")
+            color: !root.searchActive ? "transparent" : (tile.selected ? root.style.selectedColor : (
+                                                                             tileMouse.containsMouse
+                                                                             ? root.style.hoverColor :
+                                                                               "transparent"))
             border.width: 1
-            border.color: tile.selected ? Appearance.colors.colPrimary : "transparent"
+            border.color: root.searchActive && tile.selected ? Appearance.colors.colPrimary : "transparent"
             scale: tileMouse.pressed ? root.style.appGridPressedScale : 1
 
             Behavior on color {
@@ -116,7 +112,8 @@ GridView {
                 font.family: Fonts.ui
                 font.pixelSize: root.style.appGridLabelFontSize
                 font.weight: Font.Medium
-                color: tile.selected ? root.style.selectedContentColor : Appearance.colors.colOnSurface
+                color: root.searchActive && tile.selected ? root.style.selectedContentColor :
+                                                            Appearance.colors.colOnSurface
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignTop
                 maximumLineCount: 2
