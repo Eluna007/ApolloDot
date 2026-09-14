@@ -53,11 +53,6 @@ GridView {
                                                                                "transparent"))
             scale: tileMouse.pressed ? root.style.appGridPressedScale : 1
 
-            Behavior on color {
-                ColorAnimation {
-                    duration: root.style.panelDuration
-                }
-            }
             Behavior on scale {
                 NumberAnimation {
                     duration: root.style.panelDuration
