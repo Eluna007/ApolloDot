@@ -210,11 +210,22 @@ ColumnLayout {
                     id: picture
                     anchors.fill: parent
                     anchors.margins: 8
-                    source: root.imageUrl
+                    source: decodeReady ? root.imageUrl : ""
                     asynchronous: true
                     cache: false
                     currentFrame: 0
                     fillMode: Image.PreserveAspectFit
+                    // Start only after layout settles, avoiding an initial decode
+                    // at a placeholder size followed by another decode 250 ms later.
+                    // Retain pixels only for resizing the same source, never when
+                    // selection changes to a different clipboard image.
+                    property bool decodeReady: false
+                    property string loadedSource: ""
+                    retainWhileLoading: source.toString() === loadedSource
+                    onStatusChanged: {
+                        if (status === Image.Ready)
+                            loadedSource = source.toString();
+                    }
                     // Quantize and settle the decode budget after resize animations.
                     property int decodeSize: Math.min(2048, Math.max(256, Math.ceil(Math.max(width, height)
                                                                                     * Screen.devicePixelRatio
@@ -225,7 +236,10 @@ ColumnLayout {
                     Timer {
                         id: resizeDelay
                         interval: 250
-                        onTriggered: picture.settledSize = picture.decodeSize
+                        onTriggered: {
+                            picture.settledSize = picture.decodeSize;
+                            picture.decodeReady = true;
+                        }
                     }
                     sourceSize: Qt.size(settledSize, settledSize)
                 }
