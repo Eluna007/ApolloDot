@@ -285,6 +285,11 @@ Item {
                 anchors.centerIn: parent
                 text: modeButton.modelData.icon
                 iconSize: 23
+                // Selection changes only FILL, keeping font metrics and the
+                // centered icon box stable across outlined and filled states.
+                width: iconSize
+                height: iconSize
+                font.weight: Font.Normal
                 fill: modeButton.iconSelected ? 1 : 0
                 color: Appearance.colors.colOnSurfaceVariant
             }
