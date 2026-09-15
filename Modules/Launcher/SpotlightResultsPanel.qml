@@ -57,6 +57,10 @@ Item {
     readonly property int targetHeight: {
         if (!expanded)
             return 0;
+        // Reserve the full clipboard viewport before history finishes loading.
+        // Filtering, empty states and refreshes must not resize the panel.
+        if (mode === "clipboard")
+            return Math.min(style.resultMaxHeight, Math.max(0, availableHeight));
         if (loading || !providerAvailable || results.length === 0)
             return Math.min(availableHeight, style.emptyHeight + clipboardHeaderHeight + fileHeaderHeight);
         if (root.appGridActive)
