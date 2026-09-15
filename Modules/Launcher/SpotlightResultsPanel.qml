@@ -349,12 +349,6 @@ Item {
                                 root.activationRequested(appDelegate.index, false);
                         }
                     }
-                    StyledToolTip {
-                        textFormat: Text.PlainText
-                        extraVisibleCondition: root.fileMode && appMouse.containsMouse
-                        text: root.fileMode ? qsTr("%1\nEnter — Open\nCtrl+Enter — Show in file manager").arg(
-                                                  appDelegate.modelData.file.path) : ""
-                    }
                     Menu {
                         id: fileMenu
                         onOpened: root.fileMenuActive = true
@@ -895,7 +889,6 @@ Item {
     }
 
     Text {
-        id: fileStatusLabel
         visible: root.fileHeaderHeight > 0
         x: 20
         y: 8
@@ -908,14 +901,6 @@ Item {
         font.family: Fonts.ui
         font.pixelSize: 12
         color: root.fileError ? Appearance.colors.colError : Appearance.colors.colOnSurfaceVariant
-        HoverHandler {
-            id: fileStatusHover
-        }
-        StyledToolTip {
-            text: fileStatusLabel.text
-            textFormat: Text.PlainText
-            extraVisibleCondition: fileStatusHover.hovered
-        }
     }
 
     Item {

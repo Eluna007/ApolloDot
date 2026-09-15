@@ -245,7 +245,7 @@ Item {
                 label: qsTr("Clipboard")
             },
             {
-                icon: "folder_search",
+                icon: "draft",
                 label: qsTr("Files")
             }
         ]

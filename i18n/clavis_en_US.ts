@@ -9237,15 +9237,6 @@ Right click: Control Center</translation>
         <translation>No matching results</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="347"/>
-        <source>%1
-Enter — Open
-Ctrl+Enter — Show in file manager</source>
-        <translation>%1
-Enter — Open
-Ctrl+Enter — Show in file manager</translation>
-    </message>
-    <message>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="358"/>
         <source>Open</source>
         <translation>Open</translation>

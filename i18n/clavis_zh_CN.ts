@@ -9235,15 +9235,6 @@ Right click: Control Center</source>
         <translation>没有匹配结果</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="347"/>
-        <source>%1
-Enter — Open
-Ctrl+Enter — Show in file manager</source>
-        <translation>%1
-Enter — 打开
-Ctrl+Enter — 在文件管理器中显示</translation>
-    </message>
-    <message>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="358"/>
         <source>Open</source>
         <translation>打开</translation>
