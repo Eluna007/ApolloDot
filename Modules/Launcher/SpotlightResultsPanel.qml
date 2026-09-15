@@ -120,8 +120,6 @@ Item {
             contentFade.restart();
     }
 
-    onSelectedIndexChanged: ensureCurrentVisible()
-
     function fallbackIconSource() {
         const fallback = Quickshell.iconPath(root.fileMode ? "text-x-generic" : "application-x-executable",
                                              "");
@@ -171,17 +169,6 @@ Item {
         return mode === "wallpapers" ? direction * gridColumns() : (root.appGridActive ? direction
                                                                                          * appGrid.columns :
                                                                                          direction);
-    }
-
-    function ensureCurrentVisible() {
-        if (root.selectedIndex < 0 || root.results.length === 0)
-            return;
-        if (root.mode === "wallpapers")
-            wallpaperGrid.positionViewAtIndex(root.selectedIndex, GridView.Contain);
-        else if (root.mode === "clipboard")
-            clipboardList.positionViewAtIndex(root.selectedIndex, ListView.Contain);
-        // Application views follow currentIndex with their native scroll
-        // animation. Immediate positioning here would interrupt that motion.
     }
 
     function requestMoreWallpapers() {
@@ -408,6 +395,9 @@ Item {
             cellWidth: root.wallpaperCellWidth
             cellHeight: root.wallpaperCellHeight
             boundsBehavior: Flickable.StopAtBounds
+            keyNavigationEnabled: false
+            highlight: Item {}
+            highlightMoveDuration: root.style.resultScrollDuration
             cacheBuffer: 0
             onContentYChanged: root.requestMoreWallpapers()
             onHeightChanged: Qt.callLater(root.requestMoreWallpapers)
@@ -652,6 +642,10 @@ Item {
                 model: root.mode === "clipboard" ? root.clipboardModel : []
                 currentIndex: root.selectedIndex
                 boundsBehavior: Flickable.StopAtBounds
+                keyNavigationEnabled: false
+                highlight: Item {}
+                highlightMoveDuration: root.style.resultScrollDuration
+                highlightMoveVelocity: -1
 
                 delegate: Item {
                     id: clipboardDelegate

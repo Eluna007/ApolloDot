@@ -233,11 +233,11 @@ Item {
     Repeater {
         model: [
             {
-                icon: "apps",
+                icon: "grid_view",
                 label: qsTr("Apply")
             },
             {
-                icon: "wallpaper",
+                icon: "image",
                 label: qsTr("Wallpaper")
             },
             {
@@ -257,6 +257,8 @@ Item {
             required property var modelData
             readonly property real reveal: root.iconProgress(index)
             readonly property bool logicalFocus: root.modeRailExpanded && root.modeFocusIndex === index
+            readonly property bool iconSelected: root.modeRailExpanded && root.modeFocusIndex >= 0
+                                                 ? logicalFocus : activeMode
             readonly property bool activeMode: (index === 0 && root.mode === "apps") || (index === 1
                                                                                          && root.mode
                                                                                          === "wallpapers") || (
@@ -274,22 +276,17 @@ Item {
             Rectangle {
                 anchors.fill: parent
                 radius: width / 2
-                color: modeMouse.pressed || modeButton.logicalFocus ? Appearance.colors.colPrimary : (
-                                                                          modeMouse.containsMouse
-                                                                          ? Appearance.applyAlpha(
-                                                                                root.style.hoverColor, 0.42) :
-                                                                            "transparent")
+                color: modeMouse.pressed || modeMouse.containsMouse ? Appearance.applyAlpha(
+                                                                          root.style.hoverColor, 0.42) :
+                                                                      "transparent"
             }
 
             MaterialSymbol {
                 anchors.centerIn: parent
                 text: modeButton.modelData.icon
                 iconSize: 23
-                fill: modeButton.activeMode ? 1 : 0
-                color: modeMouse.pressed || modeButton.logicalFocus ? Appearance.colors.colOnPrimary : (
-                                                                          modeButton.activeMode
-                                                                          ? root.style.selectedContentColor :
-                                                                            Appearance.colors.colOnSurfaceVariant)
+                fill: modeButton.iconSelected ? 1 : 0
+                color: Appearance.colors.colOnSurfaceVariant
             }
 
             MouseArea {
