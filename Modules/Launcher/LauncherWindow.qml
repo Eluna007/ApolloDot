@@ -1,8 +1,10 @@
 import QtQuick
+import QtQuick.Window
 import QtQuick.Controls
 import QtQuick.Controls.Material
 import Quickshell
 import Quickshell.Wayland
+import Clavis.Keyboard
 import qs.Common
 import qs.Services
 import qs.Widgets.common
@@ -35,6 +37,7 @@ PanelWindow {
     property bool modeRailExpanded: false
     property int modeFocusIndex: -1
     property string query: ""
+    property bool controlHeld: false
     property int selectedResultIndex: -1
     property string selectedResultId: ""
     property string clipboardActionState: "idle"
@@ -58,13 +61,16 @@ PanelWindow {
                                                                                   ? wallpaperProvider.results :
                                                                                     (mode === "clipboard"
                                                                                      ? clipboardProvider.results :
-                                                                                       []))
+                                                                                       (mode === "files"
+                                                                                        ? fileProvider.results :
+                                                                                          [])))
     readonly property bool clipboardMode: mode === "clipboard"
     readonly property bool spotlightModalActive: resultsPanel.modalActive
     readonly property bool clipboardCanRestore: clipboardProvider.canRestore
     readonly property bool wallpaperMode: mode === "wallpapers"
     readonly property bool appGridMode: mode === "apps" && UiPreferences.spotlightAppStyle === "grid"
     readonly property bool showing: windowPhase !== "hidden" && root.visible
+    readonly property bool windowActive: searchBar.Window.active
     readonly property bool searchHasFocus: searchBar.inputActiveFocus
     readonly property real searchMainLeft: searchBar.mainLeft
     readonly property real searchMainRight: searchBar.mainRight
@@ -95,6 +101,29 @@ PanelWindow {
         query: root.query
     }
 
+    SpotlightFileProvider {
+        id: fileProvider
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "files"
+        query: root.query
+        onActivated: root.requestClose()
+    }
+
+    ShortcutRecorder {
+        id: modifierSnapshot
+        target: searchBar
+        enabled: false
+    }
+
+    function syncControlHeld() {
+        root.controlHeld = root.showing && root.windowActive && root.searchHasFocus &&
+                !root.spotlightModalActive && (modifierSnapshot.currentModifiers() & Qt.ControlModifier)
+                !== 0;
+    }
+    onWindowActiveChanged: Qt.callLater(root.syncControlHeld)
+    onSearchHasFocusChanged: Qt.callLater(root.syncControlHeld)
+    onSpotlightModalActiveChanged: Qt.callLater(root.syncControlHeld)
+    onShowingChanged: Qt.callLater(root.syncControlHeld)
+
     SpotlightClipboardProvider {
         id: clipboardProvider
         query: root.query
@@ -122,11 +151,13 @@ PanelWindow {
 
     function normalizedMode(value) {
         const requested = String(value || "").toLowerCase();
-        return requested === "apps" || requested === "wallpapers" || requested === "clipboard" ? requested :
-                                                                                                 "";
+        return requested === "apps" || requested === "wallpapers" || requested === "clipboard" || requested
+                === "files" ? requested : "";
     }
 
     function modeIndex(value) {
+        if (value === "files")
+            return 3;
         if (value === "wallpapers")
             return 1;
         if (value === "clipboard")
@@ -135,7 +166,8 @@ PanelWindow {
     }
 
     function modeForIndex(index) {
-        return ["apps", "wallpapers", "clipboard"][Math.max(0, Math.min(2, index))];
+        return ["apps", "wallpapers", "clipboard", "files"][Math.max(0, Math.min(style.modeButtonCount - 1,
+                                                                                 index))];
     }
 
     function animateWindow(target) {
@@ -288,7 +320,7 @@ PanelWindow {
             return;
         }
         const current = root.modeFocusIndex < 0 ? 0 : root.modeFocusIndex;
-        root.modeFocusIndex = (current + delta + 3) % 3;
+        root.modeFocusIndex = (current + delta + style.modeButtonCount) % style.modeButtonCount;
     }
 
     function selectResult(index) {
@@ -484,6 +516,8 @@ PanelWindow {
             }
             return false;
         }
+        if (root.mode === "files")
+            return fileProvider.execute(root.selectedResultIndex, false);
         if (root.mode === "wallpapers")
             return wallpaperProvider.execute(root.selectedResultIndex);
         if (root.mode === "clipboard")
@@ -556,6 +590,9 @@ PanelWindow {
     function handleKey(event) {
         if (root.spotlightModalActive)
             return;
+        root.controlHeld = event.key === Qt.Key_Control || (event.modifiers & Qt.ControlModifier) !== 0;
+        if (searchBar.inputComposing)
+            return;
         const control = (event.modifiers & Qt.ControlModifier) !== 0;
         const shift = (event.modifiers & Qt.ShiftModifier) !== 0;
 
@@ -573,6 +610,12 @@ PanelWindow {
         }
         if (control && event.key === Qt.Key_3) {
             root.setLocalMode("clipboard");
+            root.setRailExpanded(false);
+            event.accepted = true;
+            return;
+        }
+        if (control && event.key === Qt.Key_4) {
+            root.setLocalMode("files");
             root.setRailExpanded(false);
             event.accepted = true;
             return;
@@ -615,7 +658,15 @@ PanelWindow {
             return;
         }
         if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-            root.activateSelected(root.mode === "clipboard" && shift);
+            const modifiers = event.modifiers & ~Qt.KeypadModifier;
+            if (root.mode === "files" && modifiers === Qt.ControlModifier && !root.modeRailExpanded) {
+                if (!event.isAutoRepeat)
+                    fileProvider.execute(root.selectedResultIndex, true);
+            } else if (modifiers === Qt.NoModifier || (root.mode === "clipboard" && modifiers
+                                                       === Qt.ShiftModifier)) {
+                if (root.mode !== "files" || !event.isAutoRepeat)
+                    root.activateSelected(root.mode === "clipboard" && shift);
+            }
             event.accepted = true;
             return;
         }
@@ -706,6 +757,9 @@ PanelWindow {
         focus: true
         Keys.priority: Keys.BeforeItem
         Keys.onPressed: event => root.handleKey(event)
+        Keys.onReleased: event => {
+            Qt.callLater(root.syncControlHeld);
+        }
 
         readonly property real baseY: Math.max(Metrics.popupMargin, Math.min(root.height * 0.22
                                                                              - searchBar.height / 2,
@@ -745,11 +799,17 @@ PanelWindow {
             modeFocusIndex: root.modeFocusIndex
             railProgress: root.railProgress
             webProgress: root.webProgress
-            requestedMainWidth: Math.min(width, Math.max(Math.min(420, width), Math.min(style.searchWidth, width
-                                                                                        - style.compactSideReserve)))
+            requestedMainWidth: Math.min(Math.max(0, width - style.effectBleed * 2), Math.max(Math.min(420,
+                                                                                                       width), Math.min(
+                                                                                                  style.searchWidth,
+                                                                                                  width - style.compactSideReserve)))
             text: root.query
             onTextChanged: root.query = text
             onRoutedKey: event => root.handleKey(event)
+            onReleasedKey: event => {
+                root.controlHeld = (event.modifiers & Qt.ControlModifier) !== 0 && event.key
+                        !== Qt.Key_Control;
+            }
             onModeClicked: index => {
                 root.modeFocusIndex = index;
                 root.setLocalMode(root.modeForIndex(index));
@@ -777,10 +837,17 @@ PanelWindow {
             wallpaperModel: wallpaperProvider.resultModel
             clipboardModel: clipboardProvider.resultModel
             selectedIndex: root.selectedResultIndex
-            loading: root.clipboardMode && clipboardProvider.loading
-            providerAvailable: !root.clipboardMode || clipboardProvider.available
+            controlHeld: root.controlHeld
+            fileState: fileProvider.searchState
+            fileError: fileProvider.error
+            onRevealRequested: index => fileProvider.execute(index, true)
+            loading: root.mode === "files" ? fileProvider.searchState === "loading" : root.clipboardMode
+                                             && clipboardProvider.loading
+            providerAvailable: root.mode === "files" ? fileProvider.searchState !== "unavailable" :
+                                                       !root.clipboardMode || clipboardProvider.available
             canRestore: !root.clipboardMode || clipboardProvider.canRestore
-            providerError: root.clipboardMode ? clipboardProvider.error : null
+            providerError: root.mode === "files" ? fileProvider.error : root.clipboardMode
+                                                   ? clipboardProvider.error : null
             clipboardActionState: root.clipboardActionState
             clipboardActionEntryId: root.clipboardActionEntryId
             clipboardActionError: root.clipboardActionError

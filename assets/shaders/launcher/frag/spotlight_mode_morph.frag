@@ -14,15 +14,19 @@ layout(std140, binding = 0) uniform buf {
     vec2 button0Center;
     vec2 button1Center;
     vec2 button2Center;
+    vec2 button3Center;
     float button0Radius;
     float button1Radius;
     float button2Radius;
+    float button3Radius;
     float button0Blend;
     float button1Blend;
     float button2Blend;
+    float button3Blend;
     float button0BridgeRadius;
     float button1BridgeRadius;
     float button2BridgeRadius;
+    float button3BridgeRadius;
     float edgeSoftness;
 } ubuf;
 
@@ -128,6 +132,24 @@ void main()
             surface,
             bridge2,
             ubuf.button2BridgeRadius * 0.75
+        );
+    }
+    surface = smoothMinimum(
+        surface,
+        circleDistance(pixel - ubuf.button3Center, ubuf.button3Radius),
+        ubuf.button3Blend
+    );
+    if (ubuf.button3BridgeRadius > 0.001) {
+        float bridge3 = capsuleDistance(
+            pixel,
+            ubuf.button2Center,
+            ubuf.button3Center,
+            ubuf.button3BridgeRadius
+        );
+        surface = smoothMinimum(
+            surface,
+            bridge3,
+            ubuf.button3BridgeRadius * 0.75
         );
     }
 

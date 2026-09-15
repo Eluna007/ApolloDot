@@ -1,5 +1,6 @@
 import QtQuick
 import qs.Common
+import "../../Common/functions/FileUtils.js" as FileUtils
 import qs.Services
 
 Item {
@@ -36,21 +37,6 @@ Item {
                                                                                                              )).filter(
                   line => line !== "");
         return lines;
-    }
-
-    function humanReadableSize(value) {
-        const bytes = Number(value);
-        if (!isFinite(bytes) || bytes <= 0)
-            return "";
-        const units = ["B", "KB", "MB", "GB", "TB"];
-        let amount = bytes;
-        let unit = 0;
-        while (amount >= 1024 && unit < units.length - 1) {
-            amount /= 1024;
-            unit += 1;
-        }
-        const digits = unit === 0 || amount >= 100 ? 0 : amount >= 10 ? 1 : 2;
-        return amount.toFixed(digits) + " " + units[unit];
     }
 
     function compactParentPath(value) {
@@ -123,7 +109,7 @@ Item {
         const category = String(file && file.category || "file").toLowerCase();
         parts.push(root.friendlyFileType(file));
         if (category !== "folder") {
-            const size = root.humanReadableSize(file && file.byteSize);
+            const size = FileUtils.humanReadableSize(file && file.byteSize);
             if (size !== "")
                 parts.push(size);
         }

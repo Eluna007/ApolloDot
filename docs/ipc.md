@@ -78,3 +78,31 @@ spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
 灵动岛歌词界面通过 `qs -c clavis ipc call keystone lyrics` 切换展开与收起，返回
 `LYRICS_OPENED` / `LYRICS_CLOSED`。两种样式均作用于当前输出（无匹配时使用首个屏幕），
 展开时收起其他灵动岛面板。快捷键设置提供歌词动作占位，不绑定默认快捷键。
+
+### Spotlight Files
+
+`qs -c clavis ipc call spotlight openMode files` and
+`qs -c clavis ipc call spotlight files` open Files and focus its input. Repeated
+calls keep it open. Existing Apps/Wallpapers/Clipboard and web methods remain.
+
+Ctrl+1/2/3/4 selects Apps/Wallpapers/Clipboard/Files. Tab and Shift+Tab navigate
+the expanded four-mode rail. In Files, Enter opens the selected file or enters
+the folder; Ctrl+Enter requests selection in a file manager. Holding Ctrl shows
+the selected result's containing path; the right-click menu also exposes Open
+and Show in file manager. Clipboard retains Shift+Enter.
+
+Search uses the public `key file` capability through `${CLAVIS_KEY:-key}`. Install
+fd plus key-cli supporting `file.status`/`file.search`; there is no invented
+minimum release version. HOME is the default root, with fd's normal ignore/hidden
+rules and no directory-symlink traversal. Queries are literal and case-insensitive;
+slash-containing queries match paths. A 180 ms debounce feeds at most 50 results
+from 400 candidates with a 3-second search budget. Limited searches are identified
+in the UI. Empty input does not enumerate HOME.
+
+Open uses the system default association and blocks launching executable content.
+Reveal first requests FileManager1 selection, then falls back to opening the
+parent directory without promising selection. Failures keep Spotlight open.
+
+Settings → keyboard shortcuts includes **Spotlight: Find files** as an unbound
+action. Bind/save it using the existing editor if desired; no default global
+shortcut is added and existing user bindings are preserved.

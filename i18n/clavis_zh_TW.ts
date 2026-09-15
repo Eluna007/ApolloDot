@@ -7612,6 +7612,11 @@ Click to open network settings</source>
         <translation>電源選單：開啟</translation>
     </message>
     <message>
+        <location filename="../Common/NiriActionNames.js" line="4"/>
+        <source>Spotlight: Find files</source>
+        <translation>Spotlight：尋找檔案</translation>
+    </message>
+    <message>
         <location filename="../Common/NiriActionNames.js" line="193"/>
         <source>Power menu: close</source>
         <translation>電源選單：關閉</translation>
@@ -9190,9 +9195,34 @@ Right click: Control Center</source>
         <translation>複製失敗</translation>
     </message>
     <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="894"/>
+        <source>Limited results — refine your search</source>
+        <translation>結果受限，請縮小搜尋範圍</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="896"/>
+        <source>Enter — Open · Ctrl+Enter — Show in file manager</source>
+        <translation>Enter — 開啟 · Ctrl+Enter — 在檔案管理員中顯示</translation>
+    </message>
+    <message>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="864"/>
         <source>Reading…</source>
         <translation>正在讀取…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="933"/>
+        <source>Searching…</source>
+        <translation>正在搜尋…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="937"/>
+        <source>Search files and folders</source>
+        <translation>搜尋檔案與資料夾</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="940"/>
+        <source>Search stopped before completion — refine your search</source>
+        <translation>搜尋未完成便已停止，請縮小搜尋範圍</translation>
     </message>
     <message>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="866"/>
@@ -9203,6 +9233,25 @@ Right click: Control Center</source>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="867"/>
         <source>No matching results</source>
         <translation>沒有符合結果</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="347"/>
+        <source>%1
+Enter — Open
+Ctrl+Enter — Show in file manager</source>
+        <translation>%1
+Enter — 開啟
+Ctrl+Enter — 在檔案管理員中顯示</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="358"/>
+        <source>Open</source>
+        <translation>開啟</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="362"/>
+        <source>Show in file manager</source>
+        <translation>在檔案管理員中顯示</translation>
     </message>
     <message>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="882"/>
@@ -9226,6 +9275,11 @@ Right click: Control Center</source>
         <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="175"/>
         <source>Search apps</source>
         <translation>搜尋應用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="178"/>
+        <source>Search files and folders</source>
+        <translation>搜尋檔案與資料夾</translation>
     </message>
     <message>
         <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="186"/>
@@ -9256,6 +9310,16 @@ Right click: Control Center</source>
         <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="241"/>
         <source>Clipboard</source>
         <translation>剪貼簿</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="249"/>
+        <source>Files</source>
+        <translation>檔案</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="314"/>
+        <source>%1 (Ctrl+%2)</source>
+        <translation>%1 (Ctrl+%2)</translation>
     </message>
 </context>
 <context>
@@ -12247,6 +12311,102 @@ Windows: </source>
         <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="540"/>
         <source>Grain: %1%</source>
         <translation>顆粒：%1%</translation>
+    </message>
+</context>
+<context>
+    <name>FileSearchService</name>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="41"/>
+        <source>Install fd to search files</source>
+        <translation>請安裝 fd 以搜尋檔案</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="42"/>
+        <source>Update key-cli to enable file search</source>
+        <translation>請更新 key-cli 以啟用檔案搜尋</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="43"/>
+        <source>The file service returned invalid data</source>
+        <translation>檔案服務傳回無效資料</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="44"/>
+        <source>The file or link target no longer exists</source>
+        <translation>檔案或連結目標已不存在</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="45"/>
+        <source>The containing folder no longer exists</source>
+        <translation>所在資料夾已不存在</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="46"/>
+        <source>Use Apps to launch this item, or show it in the file manager</source>
+        <translation>請在應用程式模式中啟動此項目，或在檔案管理員中顯示</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="47"/>
+        <source>The system file opener is unavailable</source>
+        <translation>系統檔案開啟程式無法使用</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="48"/>
+        <source>The system did not confirm the request in time</source>
+        <translation>系統未及時確認請求</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="49"/>
+        <source>File search failed</source>
+        <translation>檔案搜尋失敗</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="50"/>
+        <source>Unable to open or show this item</source>
+        <translation>無法開啟或顯示此項目</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="54"/>
+        <source>File operation failed</source>
+        <translation>檔案操作失敗</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightFileProvider</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="29"/>
+        <source>Folder</source>
+        <translation>資料夾</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="29"/>
+        <source>%1 audio</source>
+        <translation>%1 音訊</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="34"/>
+        <source>%1 image</source>
+        <translation>%1 圖片</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="38"/>
+        <source>%1 video</source>
+        <translation>%1 影片</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="41"/>
+        <source>%1 file</source>
+        <translation>%1 檔案</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="43"/>
+        <source>File</source>
+        <translation>檔案</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="50"/>
+        <source>%1 %2</source>
+        <translation>%1 %2</translation>
     </message>
 </context>
 </TS>

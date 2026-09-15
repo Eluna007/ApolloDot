@@ -21,6 +21,12 @@ Item {
     required property int selectedIndex
     property string query: ""
 
+    property bool controlHeld: false
+    property string fileState: "idle"
+    property var fileError: null
+    readonly property bool fileMode: mode === "files"
+    readonly property int fileHeaderHeight: fileMode && results.length > 0 ? 32 : 0
+    signal revealRequested(int index)
     property bool expanded: mode !== "web"
     property bool loading: false
     property bool providerAvailable: true
@@ -46,12 +52,13 @@ Item {
                                                 + style.wallpaperLabelHeight + style.wallpaperGridGap
     readonly property Item blurRegionItem: panelBlurRegion
     readonly property Item modalBlurRegionItem: clearDialog.blurRegionItem
-    readonly property bool modalActive: clearDialog.visible
+    property bool fileMenuActive: false
+    readonly property bool modalActive: clearDialog.visible || fileMenuActive
     readonly property int targetHeight: {
         if (!expanded)
             return 0;
         if (loading || !providerAvailable || results.length === 0)
-            return Math.min(availableHeight, style.emptyHeight + clipboardHeaderHeight);
+            return Math.min(availableHeight, style.emptyHeight + clipboardHeaderHeight + fileHeaderHeight);
         if (root.appGridActive)
             return Math.min(availableHeight, style.appGridMaxHeight, Math.ceil(results.length
                                                                                / appGrid.columns)
@@ -59,7 +66,7 @@ Item {
         if (mode === "wallpapers")
             return Math.min(style.wallpaperGridHeight, Math.max(0, availableHeight));
         return Math.min(availableHeight, style.resultMaxHeight, results.length * style.resultRowHeight
-                        + style.resultPadding * 2 + clipboardHeaderHeight);
+                        + style.resultPadding * 2 + clipboardHeaderHeight + fileHeaderHeight);
     }
 
     signal selectionRequested(int index)
@@ -112,8 +119,10 @@ Item {
     onSelectedIndexChanged: ensureCurrentVisible()
 
     function fallbackIconSource() {
-        const fallback = Quickshell.iconPath("application-x-executable", "");
-        return fallback && fallback !== "" ? fallback : "image://icon/application-x-executable";
+        const fallback = Quickshell.iconPath(root.fileMode ? "text-x-generic" : "application-x-executable",
+                                             "");
+        return fallback && fallback !== "" ? fallback : root.fileMode ? "image://icon/text-x-generic" :
+                                                                        "image://icon/application-x-executable";
     }
 
     function iconSource(icon) {
@@ -123,7 +132,8 @@ Item {
             return "file://" + icon;
         if (String(icon).startsWith("file://") || String(icon).startsWith("image://"))
             return icon;
-        const resolved = Quickshell.iconPath(icon, "application-x-executable");
+        const resolved = Quickshell.iconPath(icon, root.fileMode ? "text-x-generic" :
+                                                                   "application-x-executable");
         return resolved && resolved !== "" ? resolved : fallbackIconSource();
     }
 
@@ -221,6 +231,7 @@ Item {
 
     StackLayout {
         anchors.fill: parent
+        anchors.topMargin: root.fileHeaderHeight + root.style.resultPadding
         anchors.margins: root.mode === "wallpapers" ? root.style.wallpaperPanelPadding :
                                                       root.style.resultPadding
         currentIndex: root.modeIndex
@@ -234,7 +245,7 @@ Item {
                 visible: !root.appGridActive
                 clip: true
                 spacing: 0
-                model: root.mode === "apps" && !root.appGridActive ? root.results : []
+                model: (root.mode === "apps" || root.fileMode) && !root.appGridActive ? root.results : []
                 currentIndex: root.selectedIndex
                 boundsBehavior: Flickable.StopAtBounds
                 keyNavigationEnabled: false
@@ -284,6 +295,9 @@ Item {
                             Text {
                                 Layout.fillWidth: true
                                 text: appDelegate.modelData.title
+                                textFormat: Text.PlainText
+                                maximumLineCount: 1
+                                clip: true
                                 color: appDelegate.index === root.selectedIndex
                                        ? root.style.selectedContentColor : Appearance.colors.colOnSurface
                                 font.family: Fonts.ui
@@ -294,13 +308,19 @@ Item {
 
                             Text {
                                 Layout.fillWidth: true
-                                text: appDelegate.modelData.subtitle
+                                text: root.fileMode && root.controlHeld && appDelegate.index
+                                      === root.selectedIndex ? appDelegate.modelData.location :
+                                                               appDelegate.modelData.subtitle
+                                textFormat: Text.PlainText
+                                maximumLineCount: 1
+                                clip: true
                                 color: appDelegate.index === root.selectedIndex
                                        ? root.style.selectedContentColor :
                                          Appearance.colors.colOnSurfaceVariant
                                 font.family: Fonts.ui
                                 font.pixelSize: 13
-                                elide: Text.ElideRight
+                                elide: root.fileMode && root.controlHeld && appDelegate.index
+                                       === root.selectedIndex ? Text.ElideMiddle : Text.ElideRight
                             }
                         }
 
@@ -320,9 +340,35 @@ Item {
                         cursorShape: Qt.PointingHandCursor
                         Accessible.name: appDelegate.modelData.title
                         Accessible.role: Accessible.ListItem
-                        onClicked: {
+                        acceptedButtons: root.fileMode ? Qt.LeftButton | Qt.RightButton : Qt.LeftButton
+                        onClicked: mouse => {
                             root.selectionRequested(appDelegate.index);
-                            root.activationRequested(appDelegate.index, false);
+                            if (root.fileMode && mouse.button === Qt.RightButton)
+                                fileMenu.popup();
+                            else
+                                root.activationRequested(appDelegate.index, false);
+                        }
+                    }
+                    StyledToolTip {
+                        textFormat: Text.PlainText
+                        extraVisibleCondition: root.fileMode && appMouse.containsMouse
+                        text: root.fileMode ? qsTr("%1\nEnter — Open\nCtrl+Enter — Show in file manager").arg(
+                                                  appDelegate.modelData.file.path) : ""
+                    }
+                    Menu {
+                        id: fileMenu
+                        onOpened: root.fileMenuActive = true
+                        onClosed: {
+                            root.fileMenuActive = false;
+                            root.modalClosed();
+                        }
+                        MenuItem {
+                            text: qsTr("Open")
+                            onTriggered: root.activationRequested(appDelegate.index, false)
+                        }
+                        MenuItem {
+                            text: qsTr("Show in file manager")
+                            onTriggered: root.revealRequested(appDelegate.index)
                         }
                     }
                 }
@@ -848,6 +894,30 @@ Item {
         }
     }
 
+    Text {
+        id: fileStatusLabel
+        visible: root.fileHeaderHeight > 0
+        x: 20
+        y: 8
+        width: parent.width - 40
+        text: root.fileError ? root.fileError.message : root.fileState === "limited" ? qsTr(
+                                                                                           "Limited results — refine your search") :
+                                                                                       qsTr("Enter — Open · Ctrl+Enter — Show in file manager")
+        textFormat: Text.PlainText
+        elide: Text.ElideRight
+        font.family: Fonts.ui
+        font.pixelSize: 12
+        color: root.fileError ? Appearance.colors.colError : Appearance.colors.colOnSurfaceVariant
+        HoverHandler {
+            id: fileStatusHover
+        }
+        StyledToolTip {
+            text: fileStatusLabel.text
+            textFormat: Text.PlainText
+            extraVisibleCondition: fileStatusHover.hovered
+        }
+    }
+
     Item {
         anchors.fill: parent
         anchors.topMargin: root.clipboardHeaderHeight
@@ -868,7 +938,8 @@ Item {
             MaterialSymbol {
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: !root.loading
-                text: !root.providerAvailable ? "content_paste_off" : "search_off"
+                text: root.fileMode ? "folder_search" : !root.providerAvailable ? "content_paste_off" :
+                                                                                  "search_off"
                 iconSize: 32
                 color: Appearance.colors.colOnSurfaceVariant
             }
@@ -876,10 +947,20 @@ Item {
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: Math.min(520, root.width - 48)
-                text: root.loading ? qsTr("Reading…") : (!root.providerAvailable ? (root.providerError
-                                                                                    ? root.providerError.message :
-                                                                                      qsTr("Current provider is unavailable")) :
-                                                                                   qsTr("No matching results"))
+                text: root.fileMode ? (root.fileError ? root.fileError.message : root.loading ? qsTr(
+                                                                                                    "Searching…") :
+                                                                                                root.fileState
+                                                                                                === "idle"
+                                                                                                ? qsTr("Search files and folders") :
+                                                                                                  root.fileState
+                                                                                                  === "limited"
+                                                                                                  ? qsTr("Search stopped before completion — refine your search") :
+                                                                                                    qsTr("No matching results")) :
+                                      root.loading ? qsTr("Reading…") : (!root.providerAvailable ? (
+                                                                                                       root.providerError
+                                                                                                       ? root.providerError.message :
+                                                                                                         qsTr("Current provider is unavailable")) :
+                                                                                                   qsTr("No matching results"))
                 color: Appearance.colors.colOnSurfaceVariant
                 font.family: Fonts.ui
                 font.pixelSize: 15

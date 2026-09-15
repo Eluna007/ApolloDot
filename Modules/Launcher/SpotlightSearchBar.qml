@@ -18,10 +18,11 @@ Item {
 
     property alias text: searchInput.text
     property real requestedMainWidth: style.searchWidth
-    readonly property real expandedMainWidth: Math.max(Math.min(style.minimumExpandedSearchWidth, Math.max(
-                                                                    style.searchHeight, requestedMainWidth
-                                                                    - style.railWidthContraction)),
-                                                       requestedMainWidth - style.railWidthContraction)
+    readonly property real buttonDiameter: Math.min(style.modeButtonDiameter, Math.max(24, (requestedMainWidth
+                                                                                            - 160) / style.modeButtonCount
+                                                                                       - style.modeButtonGap))
+    readonly property real expandedMainWidth: Math.max(0, requestedMainWidth - style.modeButtonCount * (
+                                                           buttonDiameter + style.modeButtonGap))
     readonly property real stableMainLeft: (width - requestedMainWidth) / 2
     readonly property real mainCenterX: morphSurface.mainCenterX
     readonly property real mainWidth: morphSurface.mainWidth
@@ -37,6 +38,8 @@ Item {
     readonly property bool inputActiveFocus: searchInput.activeFocus
     readonly property var blurRegionItems: morphSurface.blurRegionItems
 
+    readonly property bool inputComposing: searchInput.inputMethodComposing
+    signal releasedKey(var event)
     signal routedKey(var event)
     signal modeClicked(int index)
 
@@ -107,7 +110,7 @@ Item {
         expandedMainWidth: root.expandedMainWidth
         shapeCenterY: height / 2
         shapeHeight: root.style.searchHeight
-        buttonDiameter: root.style.modeButtonDiameter
+        buttonDiameter: root.buttonDiameter
         buttonGap: root.style.modeButtonGap
         blurEdgeInset: root.style.blurEdgeInset
         edgeSoftness: root.style.edgeSoftness
@@ -167,12 +170,12 @@ Item {
             id: inputArea
 
             x: searchIcon.x + searchIcon.width + 14 + (root.style.enginePillWidth + 10) * root.webTextProgress
-            width: parent.width - x - root.style.searchHorizontalPadding
+            width: Math.max(0, parent.width - x - root.style.searchHorizontalPadding)
             height: parent.height
 
             Text {
                 anchors.fill: parent
-                text: qsTr("Search apps")
+                text: root.mode === "files" ? qsTr("Search files and folders") : qsTr("Search apps")
                 color: Appearance.applyAlpha(Appearance.colors.colOnSurfaceVariant, 0.72)
                 font.family: Fonts.ui
                 font.pixelSize: 20
@@ -212,6 +215,7 @@ Item {
 
                 Keys.priority: Keys.BeforeItem
                 Keys.onPressed: event => root.routedKey(event)
+                Keys.onReleased: event => root.releasedKey(event)
             }
         }
 
@@ -239,6 +243,10 @@ Item {
             {
                 icon: "content_paste",
                 label: qsTr("Clipboard")
+            },
+            {
+                icon: "folder_search",
+                label: qsTr("Files")
             }
         ]
 
@@ -252,11 +260,13 @@ Item {
             readonly property bool activeMode: (index === 0 && root.mode === "apps") || (index === 1
                                                                                          && root.mode
                                                                                          === "wallpapers") || (
-                                                   index === 2 && root.mode === "clipboard")
+                                                   index === 2 && root.mode === "clipboard") || (index === 3
+                                                                                                 && root.mode
+                                                                                                 === "files")
 
-            x: root.buttonCenterX(index) - root.style.modeButtonDiameter / 2
-            y: root.height / 2 - root.style.modeButtonDiameter / 2
-            width: root.style.modeButtonDiameter
+            x: root.buttonCenterX(index) - root.buttonDiameter / 2
+            y: root.height / 2 - root.buttonDiameter / 2
+            width: root.buttonDiameter
             height: width
             opacity: reveal
             scale: 0.9 + reveal * 0.1
@@ -301,7 +311,7 @@ Item {
 
             StyledToolTip {
                 extraVisibleCondition: modeMouse.containsMouse && modeMouse.enabled
-                text: modeButton.modelData.label
+                text: qsTr("%1 (Ctrl+%2)").arg(modeButton.modelData.label).arg(modeButton.index + 1)
             }
         }
     }

@@ -205,6 +205,10 @@ Item {
                     return "WEB";
                 }
 
+                function files(): string {
+                    return openMode("files");
+                }
+
                 function openMode(mode: string): string {
                     if (spotlightLauncher.normalizedMode(mode || "") === "")
                         return "INVALID_MODE";

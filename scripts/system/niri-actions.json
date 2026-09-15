@@ -1008,6 +1008,15 @@
     "method": "openMode"
   },
   {
+    "id": "clavis:spotlight:files",
+    "category": "clavis",
+    "name": "Spotlight: Find files",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"files\"",
+    "parameters": false,
+    "target": "spotlight",
+    "method": "files"
+  },
+  {
     "id": "clavis:spotlight:openMode:apps",
     "category": "clavis",
     "name": "Spotlight: open applications",

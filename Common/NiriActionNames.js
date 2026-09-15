@@ -1,6 +1,7 @@
 // Names extracted from the bundled action catalog. IDs are language-independent.
 function translated(name) {
     switch (name) {
+    case "Spotlight: Find files": return qsTranslate("NiriActions", "Spotlight: Find files");
     case "Quit": return qsTranslate("NiriActions", "Quit");
     case "Suspend": return qsTranslate("NiriActions", "Suspend");
     case "Power off monitors": return qsTranslate("NiriActions", "Power off monitors");

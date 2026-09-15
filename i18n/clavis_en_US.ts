@@ -7613,6 +7613,11 @@ Click to open network settings</translation>
         <translation>Power menu: open</translation>
     </message>
     <message>
+        <location filename="../Common/NiriActionNames.js" line="4"/>
+        <source>Spotlight: Find files</source>
+        <translation>Spotlight: Find files</translation>
+    </message>
+    <message>
         <location filename="../Common/NiriActionNames.js" line="193"/>
         <source>Power menu: close</source>
         <translation>Power menu: close</translation>
@@ -9192,9 +9197,34 @@ Right click: Control Center</translation>
         <translation>Copy failed</translation>
     </message>
     <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="894"/>
+        <source>Limited results — refine your search</source>
+        <translation>Limited results — refine your search</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="896"/>
+        <source>Enter — Open · Ctrl+Enter — Show in file manager</source>
+        <translation>Enter — Open · Ctrl+Enter — Show in file manager</translation>
+    </message>
+    <message>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="864"/>
         <source>Reading…</source>
         <translation>Reading…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="933"/>
+        <source>Searching…</source>
+        <translation>Searching…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="937"/>
+        <source>Search files and folders</source>
+        <translation>Search files and folders</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="940"/>
+        <source>Search stopped before completion — refine your search</source>
+        <translation>Search stopped before completion — refine your search</translation>
     </message>
     <message>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="866"/>
@@ -9205,6 +9235,25 @@ Right click: Control Center</translation>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="867"/>
         <source>No matching results</source>
         <translation>No matching results</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="347"/>
+        <source>%1
+Enter — Open
+Ctrl+Enter — Show in file manager</source>
+        <translation>%1
+Enter — Open
+Ctrl+Enter — Show in file manager</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="358"/>
+        <source>Open</source>
+        <translation>Open</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="362"/>
+        <source>Show in file manager</source>
+        <translation>Show in file manager</translation>
     </message>
     <message>
         <location filename="../Modules/Launcher/SpotlightResultsPanel.qml" line="882"/>
@@ -9228,6 +9277,11 @@ Right click: Control Center</translation>
         <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="175"/>
         <source>Search apps</source>
         <translation>Search apps</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="178"/>
+        <source>Search files and folders</source>
+        <translation>Search files and folders</translation>
     </message>
     <message>
         <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="186"/>
@@ -9258,6 +9312,16 @@ Right click: Control Center</translation>
         <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="241"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="249"/>
+        <source>Files</source>
+        <translation>Files</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="314"/>
+        <source>%1 (Ctrl+%2)</source>
+        <translation>%1 (Ctrl+%2)</translation>
     </message>
 </context>
 <context>
@@ -12253,6 +12317,102 @@ Windows: </translation>
         <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="540"/>
         <source>Grain: %1%</source>
         <translation>Grain: %1%</translation>
+    </message>
+</context>
+<context>
+    <name>FileSearchService</name>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="41"/>
+        <source>Install fd to search files</source>
+        <translation>Install fd to search files</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="42"/>
+        <source>Update key-cli to enable file search</source>
+        <translation>Update key-cli to enable file search</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="43"/>
+        <source>The file service returned invalid data</source>
+        <translation>The file service returned invalid data</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="44"/>
+        <source>The file or link target no longer exists</source>
+        <translation>The file or link target no longer exists</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="45"/>
+        <source>The containing folder no longer exists</source>
+        <translation>The containing folder no longer exists</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="46"/>
+        <source>Use Apps to launch this item, or show it in the file manager</source>
+        <translation>Use Apps to launch this item, or show it in the file manager</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="47"/>
+        <source>The system file opener is unavailable</source>
+        <translation>The system file opener is unavailable</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="48"/>
+        <source>The system did not confirm the request in time</source>
+        <translation>The system did not confirm the request in time</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="49"/>
+        <source>File search failed</source>
+        <translation>File search failed</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="50"/>
+        <source>Unable to open or show this item</source>
+        <translation>Unable to open or show this item</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="54"/>
+        <source>File operation failed</source>
+        <translation>File operation failed</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightFileProvider</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="29"/>
+        <source>Folder</source>
+        <translation>Folder</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="29"/>
+        <source>%1 audio</source>
+        <translation>%1 audio</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="34"/>
+        <source>%1 image</source>
+        <translation>%1 image</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="38"/>
+        <source>%1 video</source>
+        <translation>%1 video</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="41"/>
+        <source>%1 file</source>
+        <translation>%1 file</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="43"/>
+        <source>File</source>
+        <translation>File</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="50"/>
+        <source>%1 %2</source>
+        <translation>%1 %2</translation>
     </message>
 </context>
 </TS>

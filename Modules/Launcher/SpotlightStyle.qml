@@ -22,7 +22,7 @@ QtObject {
     readonly property int searchHeight: 64
     readonly property int searchHorizontalPadding: 22
     readonly property int searchIconSize: 24
-    readonly property int modeButtonCount: 3
+    readonly property int modeButtonCount: 4
     readonly property int modeButtonDiameter: searchHeight
     readonly property int modeButtonGap: 10
     readonly property int modeRailReservedWidth: modeButtonCount * (modeButtonDiameter + modeButtonGap)
