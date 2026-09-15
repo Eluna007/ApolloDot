@@ -9,6 +9,7 @@ StyledFlickable {
 
     function closeChildWindows() {
         appStylePicker.closeMenu();
+        clipboardStylePicker.closeMenu();
         enginePicker.closeMenu();
     }
 
@@ -105,6 +106,30 @@ StyledFlickable {
             flat: true
             title: qsTr("Clipboard")
             iconName: "content_paste"
+
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("Layout")
+                iconName: "view_sidebar"
+                trailing: SearchSelectMenuField {
+                    id: clipboardStylePicker
+                    Layout.preferredWidth: 220
+                    options: [
+                        {
+                            value: "default",
+                            label: qsTr("Default")
+                        },
+                        {
+                            value: "details",
+                            label: qsTr("Details")
+                        }
+                    ]
+                    value: UiPreferences.spotlightClipboardStyle
+                    closeOnAccept: true
+                    Accessible.name: qsTr("Clipboard layout")
+                    onAccepted: value => UiPreferences.setSpotlightClipboardStyle(value)
+                }
+            }
 
             SettingsRow {
                 Layout.fillWidth: true

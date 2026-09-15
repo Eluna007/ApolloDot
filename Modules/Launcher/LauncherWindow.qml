@@ -64,6 +64,8 @@ PanelWindow {
                                                                                        (mode === "files"
                                                                                         ? fileProvider.results :
                                                                                           [])))
+    readonly property bool clipboardDetailsMode: mode === "clipboard"
+                                                 && UiPreferences.spotlightClipboardStyle === "details"
     readonly property bool clipboardMode: mode === "clipboard"
     readonly property bool spotlightModalActive: resultsPanel.modalActive
     readonly property bool clipboardCanRestore: clipboardProvider.canRestore
@@ -801,8 +803,12 @@ PanelWindow {
             webProgress: root.webProgress
             requestedMainWidth: Math.min(Math.max(0, width - style.effectBleed * 2), Math.max(Math.min(420,
                                                                                                        width), Math.min(
-                                                                                                  style.searchWidth,
-                                                                                                  width - style.compactSideReserve)))
+                                                                                                  (root.clipboardDetailsMode
+                                                                                                   ? style.clipboardDetailsWidth :
+                                                                                                     style.searchWidth),
+                                                                                                  width - (root.clipboardDetailsMode
+                                                                                                           ? style.effectBleed
+                                                                                                             * 2 : style.compactSideReserve))))
             text: root.query
             onTextChanged: root.query = text
             onRoutedKey: event => root.handleKey(event)
@@ -820,10 +826,17 @@ PanelWindow {
         SpotlightResultsPanel {
             id: resultsPanel
 
-            targetWidth: root.wallpaperMode ? Math.min(style.wallpaperPanelWidth, spotlightRoot.width) : (
-                                                  root.appGridMode ? Math.min(style.appGridPanelWidth,
-                                                                              spotlightRoot.width) :
-                                                                     searchBar.requestedMainWidth)
+            onPreviewKey: event => root.handleKey(event)
+            previewActive: root.windowPhase === "open" || root.windowPhase === "opening"
+            selectedClipboardId: root.selectedResultId
+            targetWidth: root.clipboardDetailsMode ? Math.min(style.clipboardDetailsWidth,
+                                                              spotlightRoot.width) : root.wallpaperMode
+                                                     ? Math.min(style.wallpaperPanelWidth,
+                                                                spotlightRoot.width) : (root.appGridMode
+                                                                                        ? Math.min(
+                                                                                              style.appGridPanelWidth,
+                                                                                              spotlightRoot.width) :
+                                                                                          searchBar.requestedMainWidth)
             width: targetWidth
             // Opening already animates the whole surface. Apply restored
             // window geometry immediately before animating mode changes.

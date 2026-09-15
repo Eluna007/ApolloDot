@@ -9111,54 +9111,70 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="31"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="32"/>
         <source>Applications</source>
         <translation>Applications</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="36"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="37"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="112"/>
         <source>Layout</source>
         <translation>Layout</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="46"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="47"/>
         <source>List</source>
         <translation>List</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="50"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="51"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="55"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="56"/>
         <source>Application layout</source>
         <translation>Application layout</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="64"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="65"/>
         <source>Web search</source>
         <translation>Web search</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="69"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="82"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="70"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="83"/>
         <source>Search engine</source>
         <translation>Search engine</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="106"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="107"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="111"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="122"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="120"/>
+        <source>Default</source>
+        <translation>Default</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="124"/>
+        <source>Details</source>
+        <translation>Details</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="129"/>
+        <source>Clipboard layout</source>
+        <translation>Clipboard layout</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="136"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="147"/>
         <source>History limit</source>
         <translation>History limit</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="112"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="137"/>
         <source>Oldest items are removed when new content is saved.</source>
         <translation>Oldest items are removed when new content is saved.</translation>
     </message>
@@ -12404,6 +12420,106 @@ Windows: </translation>
         <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="50"/>
         <source>%1 %2</source>
         <translation>%1 %2</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightClipboardDetails</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="85"/>
+        <source>Remote location not read</source>
+        <translation>Remote location not read</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="87"/>
+        <source>File no longer exists</source>
+        <translation>File no longer exists</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="89"/>
+        <source>Unable to read file</source>
+        <translation>Unable to read file</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="91"/>
+        <source>Metadata unavailable</source>
+        <translation>Metadata unavailable</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="95"/>
+        <source>Folder</source>
+        <translation>Folder</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="95"/>
+        <source>File</source>
+        <translation>File</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="109"/>
+        <source>Characters: %1</source>
+        <translation>Characters: %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="111"/>
+        <source>Lines: %1</source>
+        <translation>Lines: %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="113"/>
+        <source>Size: %1</source>
+        <translation>Size: %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="119"/>
+        <source>Modified: %1 %2</source>
+        <translation>Modified: %1 %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="124"/>
+        <source>Binary clipboard content</source>
+        <translation>Binary clipboard content</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="126"/>
+        <source>%1 × %2</source>
+        <translation>%1 × %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="145"/>
+        <source>Select an entry</source>
+        <translation>Select an entry</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="145"/>
+        <source>Reading…</source>
+        <translation>Reading…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="147"/>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="233"/>
+        <source>Preview unavailable</source>
+        <translation>Preview unavailable</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="251"/>
+        <source>%n file(s)</source>
+        <translation><numerusform>%n file</numerusform>
+            <numerusform>%n files</numerusform></translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="286"/>
+        <source>Showing the first %1 of %2 characters. Restoring copies the full content.</source>
+        <translation>Showing the first %1 of %2 characters. Restoring copies the full content.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="289"/>
+        <source>Preview</source>
+        <translation>Preview</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="320"/>
+        <source>Restore to clipboard</source>
+        <translation>Restore to clipboard</translation>
     </message>
 </context>
 </TS>

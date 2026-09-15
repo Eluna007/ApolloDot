@@ -9109,54 +9109,70 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="31"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="32"/>
         <source>Applications</source>
         <translation>應用程式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="36"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="37"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="112"/>
         <source>Layout</source>
         <translation>版面配置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="46"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="47"/>
         <source>List</source>
         <translation>清單</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="50"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="51"/>
         <source>Grid</source>
         <translation>網格</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="55"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="56"/>
         <source>Application layout</source>
         <translation>應用程式版面配置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="64"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="65"/>
         <source>Web search</source>
         <translation>網頁搜尋</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="69"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="82"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="70"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="83"/>
         <source>Search engine</source>
         <translation>搜尋引擎</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="106"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="107"/>
         <source>Clipboard</source>
         <translation>剪貼簿</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="111"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="122"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="120"/>
+        <source>Default</source>
+        <translation>預設</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="124"/>
+        <source>Details</source>
+        <translation>詳細資訊</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="129"/>
+        <source>Clipboard layout</source>
+        <translation>剪貼簿版面配置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="136"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="147"/>
         <source>History limit</source>
         <translation>歷史紀錄上限</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="112"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="137"/>
         <source>Oldest items are removed when new content is saved.</source>
         <translation>儲存新內容時會移除最早的紀錄。</translation>
     </message>
@@ -12398,6 +12414,105 @@ Windows: </source>
         <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="50"/>
         <source>%1 %2</source>
         <translation>%1 %2</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightClipboardDetails</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="85"/>
+        <source>Remote location not read</source>
+        <translation>未讀取遠端位置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="87"/>
+        <source>File no longer exists</source>
+        <translation>檔案已不存在</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="89"/>
+        <source>Unable to read file</source>
+        <translation>無法讀取檔案</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="91"/>
+        <source>Metadata unavailable</source>
+        <translation>中繼資料無法使用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="95"/>
+        <source>Folder</source>
+        <translation>資料夾</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="95"/>
+        <source>File</source>
+        <translation>檔案</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="109"/>
+        <source>Characters: %1</source>
+        <translation>字元：%1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="111"/>
+        <source>Lines: %1</source>
+        <translation>行數：%1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="113"/>
+        <source>Size: %1</source>
+        <translation>大小：%1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="119"/>
+        <source>Modified: %1 %2</source>
+        <translation>修改時間：%1 %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="124"/>
+        <source>Binary clipboard content</source>
+        <translation>二進位剪貼簿內容</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="126"/>
+        <source>%1 × %2</source>
+        <translation>%1 × %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="145"/>
+        <source>Select an entry</source>
+        <translation>選取一筆記錄</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="145"/>
+        <source>Reading…</source>
+        <translation>正在讀取…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="147"/>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="233"/>
+        <source>Preview unavailable</source>
+        <translation>無法預覽</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="251"/>
+        <source>%n file(s)</source>
+        <translation><numerusform>%n 個檔案</numerusform></translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="286"/>
+        <source>Showing the first %1 of %2 characters. Restoring copies the full content.</source>
+        <translation>顯示前 %1 個字元，共 %2 個字元。還原時會複製完整內容。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="289"/>
+        <source>Preview</source>
+        <translation>預覽</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="320"/>
+        <source>Restore to clipboard</source>
+        <translation>還原至剪貼簿</translation>
     </message>
 </context>
 </TS>

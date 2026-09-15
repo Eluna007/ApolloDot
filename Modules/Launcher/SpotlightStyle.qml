@@ -31,6 +31,10 @@ QtObject {
     readonly property int resultGap: 12
     readonly property int resultRadius: Appearance.rounding.extraLarge
     readonly property int resultPadding: 10
+    readonly property int clipboardDetailsWidth: 1100
+    readonly property int clipboardDetailsHeight: 600
+    readonly property int clipboardDetailsBreakpoint: 720
+    readonly property int clipboardDetailsRowHeight: 48
     readonly property int resultMaxHeight: 440
     readonly property int resultRowHeight: 64
     readonly property int resultIconSize: 40

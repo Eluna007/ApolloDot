@@ -20,6 +20,11 @@ Item {
     required property var clipboardModel
     required property int selectedIndex
     property string query: ""
+    property bool previewActive: false
+    property string selectedClipboardId: ""
+    readonly property bool clipboardDetails: mode === "clipboard" && UiPreferences.spotlightClipboardStyle
+                                             === "details"
+    signal previewKey(var event)
 
     property bool controlHeld: false
     property string fileState: "idle"
@@ -60,7 +65,8 @@ Item {
         // Reserve the full clipboard viewport before history finishes loading.
         // Filtering, empty states and refreshes must not resize the panel.
         if (mode === "clipboard")
-            return Math.min(style.resultMaxHeight, Math.max(0, availableHeight));
+            return Math.min(clipboardDetails ? style.clipboardDetailsHeight : style.resultMaxHeight, Math.max(
+                                0, availableHeight));
         if (loading || !providerAvailable || results.length === 0)
             return Math.min(availableHeight, style.emptyHeight + clipboardHeaderHeight + fileHeaderHeight);
         if (root.appGridActive)
@@ -403,6 +409,8 @@ Item {
             onHeightChanged: Qt.callLater(root.requestMoreWallpapers)
             onCountChanged: Qt.callLater(root.requestMoreWallpapers)
 
+            ScrollBar.vertical: StyledScrollBar {}
+
             delegate: Item {
                 id: wallpaperDelegate
 
@@ -632,257 +640,313 @@ Item {
                 }
             }
 
-            ListView {
-                id: clipboardList
-
+            GridLayout {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                clip: true
-                spacing: 0
-                model: root.mode === "clipboard" ? root.clipboardModel : []
-                currentIndex: root.selectedIndex
-                boundsBehavior: Flickable.StopAtBounds
-                keyNavigationEnabled: false
-                highlight: Item {}
-                highlightMoveDuration: root.style.resultScrollDuration
-                highlightMoveVelocity: -1
+                columns: root.clipboardDetails && width >= root.style.clipboardDetailsBreakpoint ? 2 : 1
+                columnSpacing: root.style.resultPadding
+                rowSpacing: root.style.resultPadding
 
-                delegate: Item {
-                    id: clipboardDelegate
+                ListView {
+                    id: clipboardList
 
-                    required property int index
-                    required property string clipboardEntryId
-                    readonly property int detailsRevision: ClipboardService.detailsRevision
-                    readonly property var clipboardEntry: {
-                        // The ListModel carries only the stable ID.  Keeping
-                        // the result object in the provider's JS array avoids
-                        // QVariant role type changes when a lightweight row
-                        // is replaced by its inspected detail.
-                        const currentResults = root.results;
-                        const id = clipboardDelegate.clipboardEntryId;
-                        for (let resultIndex = 0; resultIndex < currentResults.length; resultIndex += 1) {
-                            const result = currentResults[resultIndex];
-                            if (String(result.id || "") === id)
-                                return result;
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: root.clipboardDetails ? (parent.columns === 2 ? parent.width / 3 :
+                                                                                           parent.width) :
+                                                                   parent.width
+                    Layout.preferredHeight: root.clipboardDetails && parent.columns === 1 ? parent.height
+                                                                                            * 0.32 : parent.height
+                    Layout.minimumWidth: 0
+                    Layout.minimumHeight: 0
+                    clip: true
+                    spacing: 0
+                    model: root.mode === "clipboard" ? root.clipboardModel : []
+                    currentIndex: root.selectedIndex
+                    boundsBehavior: Flickable.StopAtBounds
+                    keyNavigationEnabled: false
+                    highlight: Item {}
+                    highlightMoveDuration: root.style.resultScrollDuration
+                    highlightMoveVelocity: -1
+
+                    ScrollBar.vertical: StyledScrollBar {}
+
+                    delegate: Item {
+                        id: clipboardDelegate
+
+                        required property int index
+                        required property string clipboardEntryId
+                        readonly property int detailsRevision: ClipboardService.detailsRevision
+                        readonly property var clipboardEntry: {
+                            // The ListModel carries only the stable ID.  Keeping
+                            // the result object in the provider's JS array avoids
+                            // QVariant role type changes when a lightweight row
+                            // is replaced by its inspected detail.
+                            const currentResults = root.results;
+                            const id = clipboardDelegate.clipboardEntryId;
+                            for (let resultIndex = 0; resultIndex < currentResults.length; resultIndex += 1) {
+                                const result = currentResults[resultIndex];
+                                if (String(result.id || "") === id)
+                                    return result;
+                            }
+                            return {};
                         }
-                        return {};
-                    }
-                    readonly property var displayData: {
-                        // ClipboardService stores inspection results in a
-                        // keyed object.  The revision is an explicit
-                        // dependency because dynamic object keys do not
-                        // produce QML notifications.
-                        const ignoredRevision = clipboardDelegate.detailsRevision;
-                        const detail = ClipboardService.detail(String(clipboardDelegate.clipboardEntry.id
-                                                                      || ""));
-                        if (!detail)
-                            return clipboardDelegate.clipboardEntry;
-                        return Object.assign({}, clipboardDelegate.clipboardEntry, detail);
-                    }
-                    readonly property bool actionForThis: String(clipboardEntry.id)
-                                                          === root.clipboardActionEntryId
-                    readonly property alias activationArea: clipboardMouse
-                    readonly property alias textArea: clipboardTextColumn
-                    readonly property alias actionArea: clipboardActionArea
-                    readonly property alias titleLabel: clipboardTitle
-                    readonly property alias subtitleLabel: clipboardSubtitle
-                    width: ListView.view.width
-                    height: root.style.resultRowHeight
+                        readonly property bool detailsLayout: root.clipboardDetails
+                        onDetailsLayoutChanged: {
+                            if (!detailsLayout)
+                                root.inspectionRequested(clipboardEntryId);
+                            else
+                                root.inspectionReleased(clipboardEntryId);
+                        }
+                        readonly property var displayData: {
+                            if (root.clipboardDetails)
+                                return clipboardDelegate.clipboardEntry;
+                            // ClipboardService stores inspection results in a
+                            // keyed object.  The revision is an explicit
+                            // dependency because dynamic object keys do not
+                            // produce QML notifications.
+                            const ignoredRevision = clipboardDelegate.detailsRevision;
+                            const detail = ClipboardService.detail(String(clipboardDelegate.clipboardEntry.id
+                                                                          || ""));
+                            if (!detail)
+                                return clipboardDelegate.clipboardEntry;
+                            return Object.assign({}, clipboardDelegate.clipboardEntry, detail);
+                        }
+                        readonly property bool actionForThis: String(clipboardEntry.id)
+                                                              === root.clipboardActionEntryId
+                        readonly property alias activationArea: clipboardMouse
+                        readonly property alias textArea: clipboardTextColumn
+                        readonly property alias actionArea: clipboardActionArea
+                        readonly property alias titleLabel: clipboardTitle
+                        readonly property alias subtitleLabel: clipboardSubtitle
+                        width: ListView.view.width
+                        height: root.clipboardDetails ? root.style.clipboardDetailsRowHeight :
+                                                        root.style.resultRowHeight
 
-                    Component.onCompleted: root.inspectionRequested(String(
-                                                                        clipboardDelegate.clipboardEntry.id))
-                    Component.onDestruction: root.inspectionReleased(String(
-                                                                         clipboardDelegate.clipboardEntry.id))
+                        Component.onCompleted: {
+                            if (!root.clipboardDetails)
+                                root.inspectionRequested(String(clipboardDelegate.clipboardEntry.id));
+                        }
+                        Component.onDestruction: root.inspectionReleased(String(
+                                                                             clipboardDelegate.clipboardEntry.id))
 
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: Appearance.rounding.large
-                        color: clipboardDelegate.index === root.selectedIndex ? root.style.selectedColor : (
-                                                                                    clipboardMouse.containsMouse
-                                                                                    ? root.style.hoverColor :
-                                                                                      "transparent")
-                    }
+                        Rectangle {
+                            anchors.fill: parent
+                            radius: Appearance.rounding.large
+                            color: clipboardDelegate.index === root.selectedIndex ? root.style.selectedColor :
+                                                                                    (clipboardMouse.containsMouse
+                                                                                     ? root.style.hoverColor :
+                                                                                       "transparent")
+                        }
 
-                    RowLayout {
-                        anchors.fill: parent
-                        anchors.leftMargin: 14
-                        anchors.rightMargin: 6
-                        spacing: 13
-
-                        Item {
-                            Layout.preferredWidth: 42
-                            Layout.minimumWidth: 42
-                            Layout.maximumWidth: 42
-                            Layout.preferredHeight: 42
-                            Layout.minimumHeight: 42
-                            Layout.maximumHeight: 42
+                        RowLayout {
+                            anchors.fill: parent
+                            anchors.leftMargin: 14
+                            anchors.rightMargin: 6
+                            spacing: 13
 
                             Item {
-                                id: clipboardPreviewFrame
+                                visible: !root.clipboardDetails
+                                Layout.preferredWidth: 42
+                                Layout.minimumWidth: 42
+                                Layout.maximumWidth: 42
+                                Layout.preferredHeight: 42
+                                Layout.minimumHeight: 42
+                                Layout.maximumHeight: 42
 
-                                anchors.fill: parent
-                                visible: String(clipboardDelegate.displayData.previewUrl || "") !== ""
-                                layer.enabled: visible
-                                layer.effect: OpacityMask {
-                                    maskSource: Rectangle {
-                                        width: clipboardPreviewFrame.width
-                                        height: clipboardPreviewFrame.height
-                                        radius: Appearance.rounding.large
+                                Item {
+                                    id: clipboardPreviewFrame
+
+                                    anchors.fill: parent
+                                    visible: String(clipboardDelegate.displayData.previewUrl || "") !== ""
+                                    layer.enabled: visible
+                                    layer.effect: OpacityMask {
+                                        maskSource: Rectangle {
+                                            width: clipboardPreviewFrame.width
+                                            height: clipboardPreviewFrame.height
+                                            radius: Appearance.rounding.large
+                                        }
+                                    }
+
+                                    Rectangle {
+                                        anchors.fill: parent
+                                        color: root.style.hoverColor
+                                    }
+
+                                    Image {
+                                        anchors.fill: parent
+                                        source: root.clipboardDetails ? "" :
+                                                                        clipboardDelegate.displayData.previewUrl
+                                                                        || ""
+                                        sourceSize.width: 96
+                                        sourceSize.height: 96
+                                        asynchronous: true
+                                        cache: true
+                                        smooth: true
+                                        fillMode: Image.PreserveAspectCrop
                                     }
                                 }
 
-                                Rectangle {
-                                    anchors.fill: parent
-                                    color: root.style.hoverColor
-                                }
-
-                                Image {
-                                    anchors.fill: parent
-                                    source: clipboardDelegate.displayData.previewUrl || ""
-                                    sourceSize.width: 96
-                                    sourceSize.height: 96
-                                    asynchronous: true
-                                    cache: true
-                                    smooth: true
-                                    fillMode: Image.PreserveAspectCrop
-                                }
-                            }
-
-                            MaterialSymbol {
-                                anchors.centerIn: parent
-                                visible: !clipboardPreviewFrame.visible
-                                text: clipboardDelegate.displayData.icon
-                                iconSize: 24
-                                color: clipboardDelegate.index === root.selectedIndex
-                                       ? root.style.selectedContentColor : Appearance.colors.colPrimary
-                            }
-                        }
-
-                        ColumnLayout {
-                            id: clipboardTextColumn
-
-                            Layout.fillWidth: true
-                            Layout.minimumWidth: 0
-                            clip: true
-                            spacing: 1
-
-                            Text {
-                                id: clipboardTitle
-
-                                Layout.fillWidth: true
-                                Layout.minimumWidth: 0
-                                text: clipboardDelegate.displayData.title
-                                color: clipboardDelegate.index === root.selectedIndex
-                                       ? root.style.selectedContentColor : Appearance.colors.colOnSurface
-                                font.family: Fonts.ui
-                                textFormat: Text.PlainText
-                                font.pixelSize: 16
-                                maximumLineCount: 1
-                                wrapMode: Text.NoWrap
-                                elide: Text.ElideRight
-                                clip: true
-                            }
-
-                            Text {
-                                id: clipboardSubtitle
-
-                                Layout.fillWidth: true
-                                Layout.minimumWidth: 0
-                                text: clipboardDelegate.actionForThis && root.clipboardActionState
-                                      === "error" && root.clipboardActionError !== ""
-                                      ? root.clipboardActionError : clipboardDelegate.displayData.subtitle
-                                color: clipboardDelegate.index === root.selectedIndex
-                                       ? root.style.selectedContentColor :
-                                         Appearance.colors.colOnSurfaceVariant
-                                font.family: Fonts.ui
-                                textFormat: Text.PlainText
-                                font.pixelSize: 12
-                                maximumLineCount: 1
-                                wrapMode: Text.NoWrap
-                                elide: Text.ElideRight
-                                clip: true
-                            }
-                        }
-
-                        Item {
-                            id: clipboardActionArea
-
-                            Layout.preferredWidth: 92
-                            Layout.minimumWidth: 92
-                            Layout.maximumWidth: 92
-                            Layout.preferredHeight: 42
-                            Layout.minimumHeight: 42
-                            Layout.maximumHeight: 42
-
-                            IconButton {
-                                anchors.right: parent.right
-                                anchors.verticalCenter: parent.verticalCenter
-                                controlSize: 42
-                                visible: !clipboardDelegate.actionForThis || root.clipboardActionState
-                                         === "idle"
-                                enabled: !root.clipboardActionRunning
-                                iconName: "delete"
-                                iconSize: 20
-                                iconColor: Appearance.colors.colOnSurfaceVariant
-                                accessibleName: qsTr("Delete clipboard entry")
-                                onClicked: root.deleteRequested(clipboardDelegate.index)
-                            }
-
-                            BusyIndicator {
-                                anchors.centerIn: parent
-                                width: 24
-                                height: 24
-                                visible: clipboardDelegate.actionForThis && root.clipboardActionState
-                                         === "copying"
-                                running: visible
-                                Material.accent: Appearance.colors.colPrimary
-                            }
-
-                            Row {
-                                anchors.centerIn: parent
-                                spacing: 5
-                                visible: clipboardDelegate.actionForThis && (root.clipboardActionState
-                                                                             === "copied"
-                                                                             || root.clipboardActionState
-                                                                             === "error")
-
                                 MaterialSymbol {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    text: root.clipboardActionState === "copied" ? "check" : "error"
-                                    iconSize: 18
-                                    fill: 1
-                                    color: root.clipboardActionState === "copied"
-                                           ? Appearance.colors.colPrimary : Appearance.colors.colError
+                                    anchors.centerIn: parent
+                                    visible: !clipboardPreviewFrame.visible
+                                    text: clipboardDelegate.displayData.icon
+                                    iconSize: 24
+                                    color: clipboardDelegate.index === root.selectedIndex
+                                           ? root.style.selectedContentColor : Appearance.colors.colPrimary
+                                }
+                            }
+
+                            ColumnLayout {
+                                id: clipboardTextColumn
+
+                                Layout.fillWidth: true
+                                Layout.minimumWidth: 0
+                                clip: true
+                                spacing: 1
+
+                                Text {
+                                    id: clipboardTitle
+
+                                    Layout.fillWidth: true
+                                    Layout.minimumWidth: 0
+                                    text: clipboardDelegate.displayData.title
+                                    color: clipboardDelegate.index === root.selectedIndex
+                                           ? root.style.selectedContentColor : Appearance.colors.colOnSurface
+                                    font.family: Fonts.ui
+                                    textFormat: Text.PlainText
+                                    font.pixelSize: 16
+                                    maximumLineCount: 1
+                                    wrapMode: Text.NoWrap
+                                    elide: Text.ElideRight
+                                    clip: true
                                 }
 
                                 Text {
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    text: root.clipboardActionState === "copied" ? qsTr("Copied") : qsTr(
-                                                                                       "Copy failed")
-                                    color: root.clipboardActionState === "copied"
-                                           ? Appearance.colors.colPrimary : Appearance.colors.colError
+                                    id: clipboardSubtitle
+                                    visible: !root.clipboardDetails
+
+                                    Layout.fillWidth: true
+                                    Layout.minimumWidth: 0
+                                    text: clipboardDelegate.actionForThis && root.clipboardActionState
+                                          === "error" && root.clipboardActionError !== ""
+                                          ? root.clipboardActionError : clipboardDelegate.displayData.subtitle
+                                    color: clipboardDelegate.index === root.selectedIndex
+                                           ? root.style.selectedContentColor :
+                                             Appearance.colors.colOnSurfaceVariant
                                     font.family: Fonts.ui
+                                    textFormat: Text.PlainText
                                     font.pixelSize: 12
+                                    maximumLineCount: 1
+                                    wrapMode: Text.NoWrap
+                                    elide: Text.ElideRight
+                                    clip: true
+                                }
+                            }
+
+                            Item {
+                                id: clipboardActionArea
+
+                                Layout.preferredWidth: 92
+                                Layout.minimumWidth: 92
+                                Layout.maximumWidth: 92
+                                Layout.preferredHeight: 42
+                                Layout.minimumHeight: 42
+                                Layout.maximumHeight: 42
+
+                                IconButton {
+                                    anchors.right: parent.right
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    controlSize: 42
+                                    visible: !clipboardDelegate.actionForThis || root.clipboardActionState
+                                             === "idle"
+                                    enabled: !root.clipboardActionRunning
+                                    iconName: "delete"
+                                    iconSize: 20
+                                    iconColor: Appearance.colors.colOnSurfaceVariant
+                                    accessibleName: qsTr("Delete clipboard entry")
+                                    onClicked: root.deleteRequested(clipboardDelegate.index)
+                                }
+
+                                BusyIndicator {
+                                    anchors.centerIn: parent
+                                    width: 24
+                                    height: 24
+                                    visible: clipboardDelegate.actionForThis && root.clipboardActionState
+                                             === "copying"
+                                    running: visible
+                                    Material.accent: Appearance.colors.colPrimary
+                                }
+
+                                Row {
+                                    anchors.centerIn: parent
+                                    spacing: 5
+                                    visible: clipboardDelegate.actionForThis && (root.clipboardActionState
+                                                                                 === "copied"
+                                                                                 || root.clipboardActionState
+                                                                                 === "error")
+
+                                    MaterialSymbol {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: root.clipboardActionState === "copied" ? "check" : "error"
+                                        iconSize: 18
+                                        fill: 1
+                                        color: root.clipboardActionState === "copied"
+                                               ? Appearance.colors.colPrimary : Appearance.colors.colError
+                                    }
+
+                                    Text {
+                                        anchors.verticalCenter: parent.verticalCenter
+                                        text: root.clipboardActionState === "copied" ? qsTr("Copied") : qsTr(
+                                                                                           "Copy failed")
+                                        color: root.clipboardActionState === "copied"
+                                               ? Appearance.colors.colPrimary : Appearance.colors.colError
+                                        font.family: Fonts.ui
+                                        font.pixelSize: 12
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    MouseArea {
-                        id: clipboardMouse
+                        MouseArea {
+                            id: clipboardMouse
 
-                        anchors.fill: parent
-                        anchors.rightMargin: 96
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        acceptedButtons: Qt.LeftButton
-                        Accessible.name: clipboardDelegate.displayData.title
-                        Accessible.role: Accessible.ListItem
-                        onClicked: mouse => {
-                            root.selectionRequested(clipboardDelegate.index);
-                            root.activationRequested(clipboardDelegate.index, (mouse.modifiers
-                                                                               & Qt.ControlModifier) !== 0);
+                            anchors.fill: parent
+                            anchors.rightMargin: 96
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            acceptedButtons: Qt.LeftButton
+                            Accessible.name: clipboardDelegate.displayData.title
+                            Accessible.role: Accessible.ListItem
+                            onClicked: mouse => {
+                                root.selectionRequested(clipboardDelegate.index);
+                                if (!root.clipboardDetails)
+                                    root.activationRequested(clipboardDelegate.index, (mouse.modifiers
+                                                                                       & Qt.ControlModifier)
+                                                             !== 0);
+                            }
                         }
+                    }
+                }
+                Loader {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: parent.width * 2 / 3
+                    Layout.preferredHeight: parent.height * 0.68
+                    Layout.minimumWidth: 0
+                    Layout.minimumHeight: 0
+                    visible: root.clipboardDetails
+                    active: root.clipboardDetails && root.previewActive && root.providerAvailable
+                            && root.results.length > 0
+                    sourceComponent: SpotlightClipboardDetails {
+                        entryId: root.selectedClipboardId
+                        canRestore: root.canRestore
+                        actionRunning: root.clipboardActionRunning
+                        actionError: root.clipboardActionError || (ClipboardService.lastActionError
+                                                                   ? ClipboardService.lastActionError.message :
+                                                                     "")
+                        onRestoreRequested: root.activationRequested(root.selectedIndex, false)
+                        onRoutedKey: event => root.previewKey(event)
                     }
                 }
             }
@@ -907,7 +971,8 @@ Item {
     Item {
         anchors.fill: parent
         anchors.topMargin: root.clipboardHeaderHeight
-        visible: root.loading || !root.providerAvailable || root.results.length === 0
+        visible: (root.loading && (!root.clipboardDetails || root.results.length === 0)) ||
+                 !root.providerAvailable || root.results.length === 0
         opacity: root.contentOpacity
 
         Column {

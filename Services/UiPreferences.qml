@@ -14,6 +14,7 @@ Singleton {
     readonly property string filePath: configDir + "/ui-preferences.json"
     property string spotlightSearchEngine: "google"
     property string spotlightAppStyle: "list"
+    property string spotlightClipboardStyle: "default"
     property bool dndEnabled: false
     property bool darkMode: false
     property string language: I18nManager.systemLanguage
@@ -87,6 +88,14 @@ Singleton {
             return;
 
         root.spotlightAppStyle = normalized;
+        root.save();
+    }
+
+    function setSpotlightClipboardStyle(value) {
+        const normalized = root.allowedValue(value, ["default", "details"], "default");
+        if (root.spotlightClipboardStyle === normalized)
+            return;
+        root.spotlightClipboardStyle = normalized;
         root.save();
     }
 
@@ -514,6 +523,7 @@ Singleton {
                                              "systemTemperatureUnit": root.systemTemperatureUnit,
                                              "spotlightSearchEngine": root.spotlightSearchEngine,
                                              "spotlightAppStyle": root.spotlightAppStyle,
+                                             "spotlightClipboardStyle": root.spotlightClipboardStyle,
                                              "weatherMapBaseProvider": root.weatherMapBaseProvider,
                                              "weatherMapOverlayProvider": root.weatherMapOverlayProvider,
                                              "systemMonitorGpuId": root.systemMonitorGpuId,
@@ -582,6 +592,9 @@ Singleton {
                 root.language = root.normalizedLanguage(parsed.language || I18nManager.systemLanguage);
                 root.weatherTemperatureUnit = root.normalizedTemperatureUnit(parsed.weatherTemperatureUnit);
                 root.systemTemperatureUnit = root.normalizedTemperatureUnit(parsed.systemTemperatureUnit);
+                root.spotlightClipboardStyle = root.allowedValue(parsed.spotlightClipboardStyle, ["default",
+                                                                                                  "details"],
+                                                                 "default");
                 root.spotlightSearchEngine = SpotlightSearch.normalizedEngine(parsed.spotlightSearchEngine);
                 root.spotlightAppStyle = root.allowedValue(parsed.spotlightAppStyle, ["list", "grid"],
                                                            "list");
