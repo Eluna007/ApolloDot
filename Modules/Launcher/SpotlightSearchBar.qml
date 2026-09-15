@@ -274,13 +274,11 @@ Item {
             Rectangle {
                 anchors.fill: parent
                 radius: width / 2
-                color: modeMouse.pressed ? Appearance.applyAlpha(root.style.selectedColor, 0.46) : (
-                                               modeButton.logicalFocus ? Appearance.applyAlpha(
-                                                                             root.style.selectedColor, 0.34) :
-                                                                         (modeMouse.containsMouse
+                color: modeMouse.pressed || modeButton.logicalFocus ? Appearance.colors.colPrimary : (
+                                                                          modeMouse.containsMouse
                                                                           ? Appearance.applyAlpha(
                                                                                 root.style.hoverColor, 0.42) :
-                                                                            "transparent"))
+                                                                            "transparent")
             }
 
             MaterialSymbol {
@@ -288,8 +286,10 @@ Item {
                 text: modeButton.modelData.icon
                 iconSize: 23
                 fill: modeButton.activeMode ? 1 : 0
-                color: modeButton.logicalFocus || modeButton.activeMode ? root.style.selectedContentColor :
-                                                                          Appearance.colors.colOnSurfaceVariant
+                color: modeMouse.pressed || modeButton.logicalFocus ? Appearance.colors.colOnPrimary : (
+                                                                          modeButton.activeMode
+                                                                          ? root.style.selectedContentColor :
+                                                                            Appearance.colors.colOnSurfaceVariant)
             }
 
             MouseArea {
