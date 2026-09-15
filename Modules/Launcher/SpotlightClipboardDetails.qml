@@ -268,6 +268,7 @@ ColumnLayout {
                 }
                 Text {
                     width: parent.width
+                    visible: root.files.length > 1
                     text: root.fileDescription(parent.modelData)
                     textFormat: Text.PlainText
                     wrapMode: Text.WrapAnywhere
@@ -308,22 +309,32 @@ ColumnLayout {
         font.family: Fonts.ui
         font.pixelSize: 12
     }
-    Text {
+    RowLayout {
         Layout.fillWidth: true
-        visible: root.actionError !== ""
-        text: root.actionError
-        wrapMode: Text.Wrap
-        textFormat: Text.PlainText
-        color: Appearance.colors.colError
-        font.family: Fonts.ui
-    }
-    ActionButton {
-        Layout.alignment: Qt.AlignRight
-        text: qsTr("Restore to clipboard")
-        iconName: "content_paste"
-        enabled: root.entryId !== "" && root.canRestore && !root.actionRunning && (!root.detail
-                                                                                   || root.detail.restorable
-                                                                                   !== false)
-        onClicked: root.restoreRequested()
+        spacing: 10
+
+        Text {
+            Layout.fillWidth: true
+            Layout.minimumWidth: 0
+            text: root.actionError
+            maximumLineCount: 1
+            elide: Text.ElideRight
+            textFormat: Text.PlainText
+            color: Appearance.colors.colError
+            font.family: Fonts.ui
+            ToolTip.visible: truncated && errorHover.hovered
+            ToolTip.text: text
+            HoverHandler {
+                id: errorHover
+            }
+        }
+        ActionButton {
+            text: qsTr("Restore to clipboard")
+            iconName: "content_paste"
+            enabled: root.entryId !== "" && root.canRestore && !root.actionRunning && (!root.detail
+                                                                                       || root.detail.restorable
+                                                                                       !== false)
+            onClicked: root.restoreRequested()
+        }
     }
 }
