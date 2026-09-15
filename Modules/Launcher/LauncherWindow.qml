@@ -825,7 +825,9 @@ PanelWindow {
                                                                               spotlightRoot.width) :
                                                                      searchBar.requestedMainWidth)
             width: targetWidth
-            animationsEnabled: root.showing
+            // Opening already animates the whole surface. Apply restored
+            // window geometry immediately before animating mode changes.
+            animationsEnabled: root.windowPhase === "open"
 
             anchors.top: searchBar.bottom
             anchors.topMargin: style.resultGap

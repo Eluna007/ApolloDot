@@ -229,6 +229,32 @@ Item {
         shadowHorizontalOffset: 0
     }
 
+    // Keep the grid centered on the panel itself while a newly shown
+    // window settles its geometry; StackLayout updates its pages later.
+    SpotlightAppGrid {
+        id: appGrid
+
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: root.style.resultPadding
+        anchors.bottomMargin: root.style.resultPadding
+        opacity: root.contentOpacity
+        // Column count follows the destination size, not each frame
+        // of the panel's width transition between launcher modes.
+        readonly property real layoutWidth: Math.max(0, root.targetWidth - root.style.resultPadding * 2)
+
+        width: Math.min(layoutWidth, Math.max(1, Math.floor(layoutWidth / root.style.appGridCellWidth))
+                        * root.style.appGridCellWidth)
+        visible: root.appGridActive
+        style: root.style
+        results: root.appGridActive ? root.results : []
+        selectedIndex: root.selectedIndex
+        searchActive: root.query.trim().length > 0
+        onSelectionRequested: index => root.selectionRequested(index)
+        onActivationRequested: index => root.activationRequested(index, false)
+    }
+
     StackLayout {
         anchors.fill: parent
         anchors.topMargin: root.fileHeaderHeight + root.style.resultPadding
@@ -366,29 +392,6 @@ Item {
                         }
                     }
                 }
-            }
-
-            SpotlightAppGrid {
-                id: appGrid
-
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.horizontalCenter: parent.horizontalCenter
-                // Column count follows the destination size, not each frame
-                // of the panel's width transition between launcher modes.
-                readonly property real layoutWidth: Math.max(0, root.targetWidth - root.style.resultPadding
-                                                             * 2)
-
-                width: Math.min(layoutWidth, Math.max(1, Math.floor(layoutWidth
-                                                                    / root.style.appGridCellWidth))
-                                * root.style.appGridCellWidth)
-                visible: root.appGridActive
-                style: root.style
-                results: root.appGridActive ? root.results : []
-                selectedIndex: root.selectedIndex
-                searchActive: root.query.trim().length > 0
-                onSelectionRequested: index => root.selectionRequested(index)
-                onActivationRequested: index => root.activationRequested(index, false)
             }
         }
 
