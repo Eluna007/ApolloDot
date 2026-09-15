@@ -9281,52 +9281,62 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightSearchBar</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="175"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="185"/>
         <source>Search apps</source>
         <translation>Search apps</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="178"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="180"/>
         <source>Search files and folders</source>
         <translation>Search files and folders</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="186"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="182"/>
+        <source>Search clipboard history</source>
+        <translation>Search clipboard history</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="184"/>
+        <source>Search wallpapers</source>
+        <translation>Search wallpapers</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="197"/>
         <source>Search the web</source>
         <translation>Search the web</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="210"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="221"/>
         <source>Web search</source>
         <translation>Web search</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="210"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="221"/>
         <source>Spotlight search</source>
         <translation>Spotlight search</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="233"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="245"/>
         <source>Apply</source>
         <translation>Apply</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="237"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="249"/>
         <source>Wallpaper</source>
         <translation>Wallpaper</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="241"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="253"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="249"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="257"/>
         <source>Files</source>
         <translation>Files</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="314"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="324"/>
         <source>%1 (Ctrl+%2)</source>
         <translation>%1 (Ctrl+%2)</translation>
     </message>

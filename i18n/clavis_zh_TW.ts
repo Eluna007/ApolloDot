@@ -9279,52 +9279,62 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightSearchBar</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="175"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="185"/>
         <source>Search apps</source>
         <translation>搜尋應用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="178"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="180"/>
         <source>Search files and folders</source>
         <translation>搜尋檔案與資料夾</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="186"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="182"/>
+        <source>Search clipboard history</source>
+        <translation>搜尋剪貼簿歷史</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="184"/>
+        <source>Search wallpapers</source>
+        <translation>搜尋桌布</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="197"/>
         <source>Search the web</source>
         <translation>搜尋網頁</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="210"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="221"/>
         <source>Web search</source>
         <translation>網頁搜尋</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="210"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="221"/>
         <source>Spotlight search</source>
         <translation>聚焦搜尋</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="233"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="245"/>
         <source>Apply</source>
         <translation>應用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="237"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="249"/>
         <source>Wallpaper</source>
         <translation>桌布</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="241"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="253"/>
         <source>Clipboard</source>
         <translation>剪貼簿</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="249"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="257"/>
         <source>Files</source>
         <translation>檔案</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="314"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="324"/>
         <source>%1 (Ctrl+%2)</source>
         <translation>%1 (Ctrl+%2)</translation>
     </message>

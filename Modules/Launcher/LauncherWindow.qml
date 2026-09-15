@@ -803,12 +803,8 @@ PanelWindow {
             webProgress: root.webProgress
             requestedMainWidth: Math.min(Math.max(0, width - style.effectBleed * 2), Math.max(Math.min(420,
                                                                                                        width), Math.min(
-                                                                                                  (root.clipboardDetailsMode
-                                                                                                   ? style.clipboardDetailsWidth :
-                                                                                                     style.searchWidth),
-                                                                                                  width - (root.clipboardDetailsMode
-                                                                                                           ? style.effectBleed
-                                                                                                             * 2 : style.compactSideReserve))))
+                                                                                                  style.searchWidth,
+                                                                                                  width - style.compactSideReserve)))
             text: root.query
             onTextChanged: root.query = text
             onRoutedKey: event => root.handleKey(event)

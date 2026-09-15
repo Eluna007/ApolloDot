@@ -175,7 +175,15 @@ Item {
 
             Text {
                 anchors.fill: parent
-                text: root.mode === "files" ? qsTr("Search files and folders") : qsTr("Search apps")
+                text: {
+                    if (root.mode === "files")
+                        return qsTr("Search files and folders");
+                    if (root.mode === "clipboard")
+                        return qsTr("Search clipboard history");
+                    if (root.mode === "wallpapers")
+                        return qsTr("Search wallpapers");
+                    return qsTr("Search apps");
+                }
                 color: Appearance.applyAlpha(Appearance.colors.colOnSurfaceVariant, 0.72)
                 font.family: Fonts.ui
                 font.pixelSize: 20
