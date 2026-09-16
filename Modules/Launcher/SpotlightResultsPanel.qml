@@ -301,10 +301,22 @@ Item {
                         anchors.rightMargin: 16
                         spacing: 14
 
-                        Image {
+                        FileThemeIcon {
+                            active: root.fileMode
+                            visible: root.fileMode
                             Layout.preferredWidth: root.style.resultIconSize
                             Layout.preferredHeight: root.style.resultIconSize
-                            source: root.iconSource(appDelegate.modelData.icon)
+                            entryKey: root.fileMode ? appDelegate.modelData.id : ""
+                            themeIcon: root.fileMode ? appDelegate.modelData.icon : ""
+                            mimeType: root.fileMode ? appDelegate.modelData.file.mimeType : ""
+                            directory: root.fileMode && appDelegate.modelData.file.isDirectory
+                        }
+
+                        Image {
+                            visible: !root.fileMode
+                            Layout.preferredWidth: root.style.resultIconSize
+                            Layout.preferredHeight: root.style.resultIconSize
+                            source: root.fileMode ? "" : root.iconSource(appDelegate.modelData.icon)
                             sourceSize.width: root.style.resultIconSize * 2
                             sourceSize.height: root.style.resultIconSize * 2
                             asynchronous: true

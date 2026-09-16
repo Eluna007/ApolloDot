@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import qs.Services
+import "../../Common/functions/SpotlightAppOrder.js" as AppOrder
 
 Item {
     id: root
@@ -93,25 +94,40 @@ Item {
                           appObject: app
                       });
         }
-        next.sort((left, right) => {
-            if (right.score !== left.score)
-                return right.score - left.score;
-            const byName = left.title.localeCompare(right.title);
-            return byName !== 0 ? byName : left.id.localeCompare(right.id);
-        });
-        root.results = root.limit > 0 ? next.slice(0, root.limit) : next;
+        const ordered = AppOrder.sortedResults(next, UiPreferences.spotlightAppOrder,
+                                               SpotlightAppUsage.records, Date.now());
+        root.results = root.limit > 0 ? ordered.slice(0, root.limit) : ordered;
     }
 
     function execute(index) {
         const result = root.results[index];
         if (!result || !result.appObject)
             return false;
-        return ApplicationService.launchApplication(result.appObject);
+        const launched = ApplicationService.launchApplication(result.appObject);
+        if (launched)
+            SpotlightAppUsage.recordLaunch(String(result.appObject.id || ""));
+        // Publish new usage ordering on the next rebuild/open, so launching
+        // does not shuffle the visible grid during its closing animation.
+        return launched;
     }
 
     onQueryChanged: rebuild()
     onLimitChanged: rebuild()
     Component.onCompleted: rebuild()
+
+    Connections {
+        target: UiPreferences
+        function onSpotlightAppOrderChanged() {
+            root.rebuild();
+        }
+    }
+    Connections {
+        target: SpotlightAppUsage
+        function onReadyChanged() {
+            if (SpotlightAppUsage.ready)
+                root.rebuild();
+        }
+    }
 
     Connections {
         target: ApplicationService

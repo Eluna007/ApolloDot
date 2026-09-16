@@ -9109,70 +9109,96 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="32"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="33"/>
         <source>Applications</source>
         <translation>應用程式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="37"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="112"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="38"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="144"/>
         <source>Layout</source>
         <translation>版面配置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="47"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="48"/>
         <source>List</source>
         <translation>清單</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="51"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="52"/>
         <source>Grid</source>
         <translation>網格</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="56"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="57"/>
         <source>Application layout</source>
         <translation>應用程式版面配置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="65"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="63"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="88"/>
+        <source>Application order</source>
+        <translation>應用程式排序</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="71"/>
+        <source>Smart</source>
+        <translation>智慧</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="75"/>
+        <source>Most used</source>
+        <translation>最常使用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="79"/>
+        <source>Recently used</source>
+        <translation>最近使用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="83"/>
+        <source>Name</source>
+        <translation>名稱</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="97"/>
         <source>Web search</source>
         <translation>網頁搜尋</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="70"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="83"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="102"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="115"/>
         <source>Search engine</source>
         <translation>搜尋引擎</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="107"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="139"/>
         <source>Clipboard</source>
         <translation>剪貼簿</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="120"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="152"/>
         <source>Default</source>
         <translation>預設</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="124"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="156"/>
         <source>Details</source>
         <translation>詳細資訊</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="129"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="161"/>
         <source>Clipboard layout</source>
         <translation>剪貼簿版面配置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="136"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="147"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="168"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="179"/>
         <source>History limit</source>
         <translation>歷史紀錄上限</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="137"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="169"/>
         <source>Oldest items are removed when new content is saved.</source>
         <translation>儲存新內容時會移除最早的紀錄。</translation>
     </message>

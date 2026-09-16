@@ -81,3 +81,21 @@ file; top-level `byteSize` describes the URI payload. Directories are never scan
 for total size. Missing, unreadable and remote references have explicit states.
 `modifiedTime` is Unix seconds, matching Files, and is adapted to JavaScript
 milliseconds only for display. No copying timestamp or source application is inferred.
+
+## File theme icons
+
+Files results and Clipboard Details share `FileThemeIcon`, which resolves semantic
+MIME names using Quickshell's current icon theme. Candidates are bounded: specific
+MIME, MIME-family generic, then `text-x-generic`; directories use `folder`. Missing
+names and resource-load failures both advance the fallback, ending in a Material
+Symbol. Entry/theme changes reset failures. Theme icons keep their native colors
+and normal small-resource cache; application icon resolution is separate.
+
+Clipboard `files[].themeIcon` is a theme name, unlike its existing Material Symbol
+`icon`. Old backends without the new field still use MIME/generic fallbacks.
+Single files without a content preview show a centered icon and literal filename,
+with the existing metadata and restore action below. A failed image-file preview
+can fall back to that overview while retaining its unavailable message. Missing,
+unreadable and remote-file states remain in metadata. Multiple files retain the
+virtualized list; Default and the compact Details history retain their existing
+appearance. This adds no content readers, media tools, file actions or background work.

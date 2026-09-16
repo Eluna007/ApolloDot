@@ -1,6 +1,7 @@
 pragma Singleton
 import QtCore
 import QtQuick
+import "../Common/functions/SpotlightAppOrder.js" as AppOrder
 import Quickshell
 import Quickshell.Io
 import Clavis.I18n
@@ -13,6 +14,7 @@ Singleton {
     readonly property string configDir: Paths.configHome
     readonly property string filePath: configDir + "/ui-preferences.json"
     property string spotlightSearchEngine: "google"
+    property string spotlightAppOrder: "name"
     property string spotlightAppStyle: "list"
     property string spotlightClipboardStyle: "default"
     property bool dndEnabled: false
@@ -79,6 +81,14 @@ Singleton {
             return;
 
         root.spotlightSearchEngine = normalized;
+        root.save();
+    }
+
+    function setSpotlightAppOrder(value) {
+        const normalized = AppOrder.normalizedOrder(value);
+        if (root.spotlightAppOrder === normalized)
+            return;
+        root.spotlightAppOrder = normalized;
         root.save();
     }
 
@@ -523,6 +533,7 @@ Singleton {
                                              "systemTemperatureUnit": root.systemTemperatureUnit,
                                              "spotlightSearchEngine": root.spotlightSearchEngine,
                                              "spotlightAppStyle": root.spotlightAppStyle,
+                                             "spotlightAppOrder": root.spotlightAppOrder,
                                              "spotlightClipboardStyle": root.spotlightClipboardStyle,
                                              "weatherMapBaseProvider": root.weatherMapBaseProvider,
                                              "weatherMapOverlayProvider": root.weatherMapOverlayProvider,
@@ -596,6 +607,7 @@ Singleton {
                                                                                                   "details"],
                                                                  "default");
                 root.spotlightSearchEngine = SpotlightSearch.normalizedEngine(parsed.spotlightSearchEngine);
+                root.spotlightAppOrder = AppOrder.normalizedOrder(parsed.spotlightAppOrder);
                 root.spotlightAppStyle = root.allowedValue(parsed.spotlightAppStyle, ["list", "grid"],
                                                            "list");
                 root.weatherMapBaseProvider = root.normalizedWeatherMapBaseProvider(

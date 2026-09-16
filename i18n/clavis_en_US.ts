@@ -9111,70 +9111,96 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="32"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="33"/>
         <source>Applications</source>
         <translation>Applications</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="37"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="112"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="38"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="144"/>
         <source>Layout</source>
         <translation>Layout</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="47"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="48"/>
         <source>List</source>
         <translation>List</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="51"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="52"/>
         <source>Grid</source>
         <translation>Grid</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="56"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="57"/>
         <source>Application layout</source>
         <translation>Application layout</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="65"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="63"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="88"/>
+        <source>Application order</source>
+        <translation>Application order</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="71"/>
+        <source>Smart</source>
+        <translation>Smart</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="75"/>
+        <source>Most used</source>
+        <translation>Most used</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="79"/>
+        <source>Recently used</source>
+        <translation>Recently used</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="83"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="97"/>
         <source>Web search</source>
         <translation>Web search</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="70"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="83"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="102"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="115"/>
         <source>Search engine</source>
         <translation>Search engine</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="107"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="139"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="120"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="152"/>
         <source>Default</source>
         <translation>Default</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="124"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="156"/>
         <source>Details</source>
         <translation>Details</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="129"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="161"/>
         <source>Clipboard layout</source>
         <translation>Clipboard layout</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="136"/>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="147"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="168"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="179"/>
         <source>History limit</source>
         <translation>History limit</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="137"/>
+        <location filename="../Modules/ControlCenter/SpotlightPage.qml" line="169"/>
         <source>Oldest items are removed when new content is saved.</source>
         <translation>Oldest items are removed when new content is saved.</translation>
     </message>

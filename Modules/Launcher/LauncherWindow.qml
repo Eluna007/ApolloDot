@@ -266,6 +266,8 @@ PanelWindow {
         const localMode = normalizedMode(requestedMode);
         if (localMode === "")
             return false;
+        if (localMode === "apps")
+            appProvider.rebuild();
         const enteringWallpapers = root.mode !== "wallpapers" && localMode === "wallpapers";
         const enteringClipboard = root.mode !== "clipboard" && localMode === "clipboard";
         if (root.mode === "web")

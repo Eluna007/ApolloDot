@@ -9,6 +9,7 @@ StyledFlickable {
 
     function closeChildWindows() {
         appStylePicker.closeMenu();
+        appOrderPicker.closeMenu();
         clipboardStylePicker.closeMenu();
         enginePicker.closeMenu();
     }
@@ -55,6 +56,37 @@ StyledFlickable {
                     closeOnAccept: true
                     Accessible.name: qsTr("Application layout")
                     onAccepted: value => UiPreferences.setSpotlightAppStyle(value)
+                }
+            }
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("Application order")
+                iconName: "sort"
+                trailing: SearchSelectMenuField {
+                    id: appOrderPicker
+                    Layout.preferredWidth: 220
+                    options: [
+                        {
+                            value: "smart",
+                            label: qsTr("Smart")
+                        },
+                        {
+                            value: "most-used",
+                            label: qsTr("Most used")
+                        },
+                        {
+                            value: "recently-used",
+                            label: qsTr("Recently used")
+                        },
+                        {
+                            value: "name",
+                            label: qsTr("Name")
+                        }
+                    ]
+                    value: UiPreferences.spotlightAppOrder
+                    closeOnAccept: true
+                    Accessible.name: qsTr("Application order")
+                    onAccepted: value => UiPreferences.setSpotlightAppOrder(value)
                 }
             }
         }

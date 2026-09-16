@@ -5,6 +5,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import qs.Common
+import qs.Components
 import qs.Services
 import qs.Widgets.common
 import "../../Common/functions/FileUtils.js" as FileUtils
@@ -36,6 +37,7 @@ ColumnLayout {
         return ["image/png", "image/jpeg", "image/gif", "image/webp"].indexOf(mime) >= 0 && candidate.indexOf(
                     "file:///") === 0 ? candidate : "";
     }
+    readonly property bool imageFailed: imagePreview.item ? imagePreview.item.loadFailed : false
     signal restoreRequested
     signal routedKey(var event)
     spacing: 10
@@ -133,6 +135,7 @@ ColumnLayout {
     }
 
     Item {
+        id: previewArea
         Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.minimumHeight: 0
@@ -201,9 +204,12 @@ ColumnLayout {
             }
         }
         Loader {
+            id: imagePreview
             anchors.fill: parent
             active: root.imageUrl !== ""
             sourceComponent: Rectangle {
+                readonly property bool loadFailed: picture.status === Image.Error
+                visible: !loadFailed || !root.singleFile
                 color: Appearance.colors.colLayer2
                 radius: Appearance.rounding.normal
                 Image {
@@ -252,10 +258,60 @@ ColumnLayout {
                 }
             }
         }
+        Column {
+            anchors.centerIn: parent
+            width: Math.max(0, Math.min(parent.width - 24, 360))
+            spacing: 12
+            visible: root.singleFile !== null && (root.imageUrl === "" || root.imageFailed) && !root.waiting
+                     && root.failure === ""
+
+            FileThemeIcon {
+                active: parent.visible
+                category: root.singleFile ? String(root.singleFile.category || "") : ""
+                anchors.horizontalCenter: parent.horizontalCenter
+                iconSize: Math.max(0, Math.min(112, previewArea.height - fileNameLabel.height - (
+                                                   imageErrorLabel.visible ? imageErrorLabel.height : 0)
+                                               - 24))
+                width: iconSize
+                height: iconSize
+                entryKey: root.entryId
+                themeIcon: root.singleFile ? String(root.singleFile.themeIcon || "") : ""
+                mimeType: root.singleFile ? String(root.singleFile.mimeType || "") : ""
+                directory: root.singleFile ? root.singleFile.directory === true : false
+                fallbackSymbol: root.singleFile ? String(root.singleFile.icon || "draft") : "draft"
+            }
+            Text {
+                id: fileNameLabel
+                width: parent.width
+                text: root.singleFile ? String(root.singleFile.name || root.singleFile.uri) : ""
+                textFormat: Text.PlainText
+                wrapMode: Text.WrapAnywhere
+                maximumLineCount: 3
+                elide: Text.ElideMiddle
+                horizontalAlignment: Text.AlignHCenter
+                color: Appearance.colors.colOnSurface
+                font.family: Fonts.ui
+                font.pixelSize: 16
+                ToolTip.visible: truncated && fileNameHover.hovered
+                ToolTip.text: text
+                HoverHandler {
+                    id: fileNameHover
+                }
+            }
+            Text {
+                id: imageErrorLabel
+                width: parent.width
+                visible: root.imageFailed
+                text: qsTr("Preview unavailable")
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.Wrap
+                color: Appearance.colors.colOnSurfaceVariant
+                font.family: Fonts.ui
+            }
+        }
         ListView {
             anchors.fill: parent
-            visible: (root.kind === "file" || root.kind === "file-list") && root.imageUrl === "" && !root.waiting
-                     && root.failure === ""
+            visible: root.files.length > 1 && !root.waiting && root.failure === ""
             clip: true
             model: visible ? root.files : []
             boundsBehavior: Flickable.StopAtBounds
