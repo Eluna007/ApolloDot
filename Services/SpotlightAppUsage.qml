@@ -1,6 +1,7 @@
 pragma Singleton
 
 import QtQuick
+import qs.Services
 import Quickshell
 import Quickshell.Io
 import qs.Common
@@ -26,6 +27,14 @@ Singleton {
         ready = true;
         if (hadPending)
             save();
+    }
+
+    function launch(id) {
+        const app = ApplicationService.findById(id);
+        if (!app || !ApplicationService.launchApplication(app))
+            return false;
+        recordLaunch(String(app.id));
+        return true;
     }
 
     function recordLaunch(id) {

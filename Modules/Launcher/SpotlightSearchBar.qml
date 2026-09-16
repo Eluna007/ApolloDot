@@ -42,6 +42,7 @@ Item {
     signal releasedKey(var event)
     signal routedKey(var event)
     signal modeClicked(int index)
+    signal searchRequested
 
     height: style.searchHeight + style.effectBleed * 2
 
@@ -141,6 +142,23 @@ Item {
             iconSize: root.style.searchIconSize
             color: Appearance.colors.colOnSurfaceVariant
         }
+        MouseArea {
+            id: returnSearchMouse
+            x: searchIcon.x - 8
+            y: searchIcon.y - 8
+            width: searchIcon.width + 16
+            height: searchIcon.height + 16
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            Accessible.role: Accessible.Button
+            Accessible.name: qsTr("Search (Ctrl+0)")
+            onClicked: root.searchRequested()
+            Accessible.onPressAction: root.searchRequested()
+            StyledToolTip {
+                extraVisibleCondition: returnSearchMouse.containsMouse
+                text: qsTr("Search (Ctrl+0)")
+            }
+        }
 
         Rectangle {
             id: enginePill
@@ -176,6 +194,8 @@ Item {
             Text {
                 anchors.fill: parent
                 text: {
+                    if (root.mode === "search")
+                        return qsTr("Search");
                     if (root.mode === "files")
                         return qsTr("Search files and folders");
                     if (root.mode === "clipboard")

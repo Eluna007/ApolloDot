@@ -2577,6 +2577,20 @@ Scroll to adjust</translation>
     </message>
 </context>
 <context>
+    <name>ControlCenterService</name>
+    <message>
+        <location filename="../Services/ControlCenterService.qml" line="51"/>
+        <location filename="../Services/ControlCenterService.qml" line="106"/>
+        <source>This setting is currently unavailable</source>
+        <translation>This setting is currently unavailable</translation>
+    </message>
+    <message>
+        <location filename="../Services/ControlCenterService.qml" line="59"/>
+        <source>Settings could not be opened</source>
+        <translation>Settings could not be opened</translation>
+    </message>
+</context>
+<context>
     <name>ControlCenterWindow</name>
     <message>
         <location filename="../Modules/ControlCenter/ControlCenterWindow.qml" line="23"/>
@@ -3962,6 +3976,64 @@ Scroll to adjust</translation>
     </message>
 </context>
 <context>
+    <name>FileSearchService</name>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="41"/>
+        <source>Install fd to search files</source>
+        <translation>Install fd to search files</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="42"/>
+        <source>Update key-cli to enable file search</source>
+        <translation>Update key-cli to enable file search</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="43"/>
+        <source>The file service returned invalid data</source>
+        <translation>The file service returned invalid data</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="44"/>
+        <source>The file or link target no longer exists</source>
+        <translation>The file or link target no longer exists</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="45"/>
+        <source>The containing folder no longer exists</source>
+        <translation>The containing folder no longer exists</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="46"/>
+        <source>Use Apps to launch this item, or show it in the file manager</source>
+        <translation>Use Apps to launch this item, or show it in the file manager</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="47"/>
+        <source>The system file opener is unavailable</source>
+        <translation>The system file opener is unavailable</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="48"/>
+        <source>The system did not confirm the request in time</source>
+        <translation>The system did not confirm the request in time</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="49"/>
+        <source>File search failed</source>
+        <translation>File search failed</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="50"/>
+        <source>Unable to open or show this item</source>
+        <translation>Unable to open or show this item</translation>
+    </message>
+    <message>
+        <location filename="../Services/FileSearchService.qml" line="54"/>
+        <source>File operation failed</source>
+        <translation>File operation failed</translation>
+    </message>
+</context>
+<context>
     <name>GammaControlPage</name>
     <message>
         <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="31"/>
@@ -4224,87 +4296,37 @@ Scroll to adjust</translation>
 <context>
     <name>GeneralOverviewPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="26"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1804"/>
         <source>Interface</source>
         <translation>Interface</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="32"/>
-        <source>Bar</source>
-        <translation>Bar</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="40"/>
-        <source>Sidebar</source>
-        <translation>Sidebar</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="56"/>
-        <source>Transparency and blur</source>
-        <translation>Transparency and blur</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="64"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1805"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="70"/>
-        <source>Displays</source>
-        <translation>Displays</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="78"/>
-        <source>Keyboard shortcuts</source>
-        <translation>Keyboard shortcuts</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="86"/>
-        <source>Language &amp; region</source>
-        <translation>Language &amp; region</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="94"/>
-        <source>Network</source>
-        <translation>Network</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="104"/>
-        <source>Connected devices</source>
-        <translation>Connected devices</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="107"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="121"/>
         <source>Bluetooth unavailable</source>
         <translation>Bluetooth unavailable</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="110"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="124"/>
         <source>Bluetooth is off</source>
         <translation>Bluetooth is off</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="116"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="130"/>
         <source>%1 devices connected</source>
         <translation>%1 devices connected</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="127"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1806"/>
         <source>Applications</source>
         <translation>Applications</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="133"/>
-        <source>Autostart</source>
-        <translation>Autostart</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="141"/>
-        <source>Default applications</source>
-        <translation>Default applications</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="95"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="109"/>
         <source>Network unavailable</source>
         <translation>Network unavailable</translation>
     </message>
@@ -4312,69 +4334,69 @@ Scroll to adjust</translation>
 <context>
     <name>GeneralPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="71"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1763"/>
         <source>Displays</source>
         <translation>Displays</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="73"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1764"/>
         <source>Bar</source>
         <translation>Bar</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="75"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1765"/>
         <source>Sidebars</source>
         <translation>Sidebars</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="79"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1766"/>
+        <source>Spotlight</source>
+        <translation>Spotlight</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1767"/>
         <source>Transparency and blur</source>
         <translation>Transparency and blur</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="81"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1768"/>
         <source>Keyboard shortcuts</source>
         <translation>Keyboard shortcuts</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="83"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1769"/>
         <source>Language &amp; region</source>
         <translation>Language &amp; region</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="85"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1770"/>
         <source>Autostart</source>
         <translation>Autostart</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="87"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1771"/>
         <source>Default applications</source>
         <translation>Default applications</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="89"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1772"/>
         <source>Network</source>
         <translation>Network</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="91"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1773"/>
         <source>Connected devices</source>
         <translation>Connected devices</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="93"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1774"/>
         <source>Pair new device</source>
         <translation>Pair new device</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="97"/>
+        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="98"/>
         <source>Bluetooth device</source>
         <translation>Bluetooth device</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/GeneralPage.qml" line="100"/>
-        <source>General</source>
-        <translation>General</translation>
     </message>
 </context>
 <context>
@@ -6653,977 +6675,982 @@ Click to open network settings</translation>
 <context>
     <name>NiriActions</name>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="4"/>
+        <location filename="../Common/NiriActionNames.js" line="6"/>
         <source>Quit</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="5"/>
+        <location filename="../Common/NiriActionNames.js" line="7"/>
         <source>Suspend</source>
         <translation>Suspend</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="6"/>
+        <location filename="../Common/NiriActionNames.js" line="8"/>
         <source>Power off monitors</source>
         <translation>Power off monitors</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="7"/>
+        <location filename="../Common/NiriActionNames.js" line="9"/>
         <source>Power on monitors</source>
         <translation>Power on monitors</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="8"/>
+        <location filename="../Common/NiriActionNames.js" line="10"/>
         <source>Toggle debug tint</source>
         <translation>Toggle debug tint</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="9"/>
+        <location filename="../Common/NiriActionNames.js" line="11"/>
         <source>Debug toggle opaque regions</source>
         <translation>Debug toggle opaque regions</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="10"/>
+        <location filename="../Common/NiriActionNames.js" line="12"/>
         <source>Debug toggle damage</source>
         <translation>Debug toggle damage</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="11"/>
+        <location filename="../Common/NiriActionNames.js" line="13"/>
         <source>Do screen transition</source>
         <translation>Do screen transition</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="12"/>
+        <location filename="../Common/NiriActionNames.js" line="14"/>
         <source>Screenshot</source>
         <translation>Screenshot</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="13"/>
+        <location filename="../Common/NiriActionNames.js" line="15"/>
         <source>Screenshot screen</source>
         <translation>Screenshot screen</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="14"/>
+        <location filename="../Common/NiriActionNames.js" line="16"/>
         <source>Screenshot window</source>
         <translation>Screenshot window</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="15"/>
+        <location filename="../Common/NiriActionNames.js" line="17"/>
         <source>Toggle keyboard shortcuts inhibit</source>
         <translation>Toggle keyboard shortcuts inhibit</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="16"/>
+        <location filename="../Common/NiriActionNames.js" line="18"/>
         <source>Close window</source>
         <translation>Close window</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="17"/>
+        <location filename="../Common/NiriActionNames.js" line="19"/>
         <source>Fullscreen window</source>
         <translation>Fullscreen window</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="18"/>
+        <location filename="../Common/NiriActionNames.js" line="20"/>
         <source>Toggle windowed fullscreen</source>
         <translation>Toggle windowed fullscreen</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="19"/>
+        <location filename="../Common/NiriActionNames.js" line="21"/>
         <source>Focus window in column</source>
         <translation>Focus window in column</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="20"/>
+        <location filename="../Common/NiriActionNames.js" line="22"/>
         <source>Focus window previous</source>
         <translation>Focus window previous</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="21"/>
+        <location filename="../Common/NiriActionNames.js" line="23"/>
         <source>Focus column left</source>
         <translation>Focus column left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="22"/>
+        <location filename="../Common/NiriActionNames.js" line="24"/>
         <source>Focus column right</source>
         <translation>Focus column right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="23"/>
+        <location filename="../Common/NiriActionNames.js" line="25"/>
         <source>Focus column first</source>
         <translation>Focus column first</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="24"/>
+        <location filename="../Common/NiriActionNames.js" line="26"/>
         <source>Focus column last</source>
         <translation>Focus column last</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="25"/>
+        <location filename="../Common/NiriActionNames.js" line="27"/>
         <source>Focus column right or first</source>
         <translation>Focus column right or first</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="26"/>
+        <location filename="../Common/NiriActionNames.js" line="28"/>
         <source>Focus column left or last</source>
         <translation>Focus column left or last</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="27"/>
+        <location filename="../Common/NiriActionNames.js" line="29"/>
         <source>Focus column</source>
         <translation>Focus column</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="28"/>
+        <location filename="../Common/NiriActionNames.js" line="30"/>
         <source>Focus window or monitor up</source>
         <translation>Focus window or monitor up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="29"/>
+        <location filename="../Common/NiriActionNames.js" line="31"/>
         <source>Focus window or monitor down</source>
         <translation>Focus window or monitor down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="30"/>
+        <location filename="../Common/NiriActionNames.js" line="32"/>
         <source>Focus column or monitor left</source>
         <translation>Focus column or monitor left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="31"/>
+        <location filename="../Common/NiriActionNames.js" line="33"/>
         <source>Focus column or monitor right</source>
         <translation>Focus column or monitor right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="32"/>
+        <location filename="../Common/NiriActionNames.js" line="34"/>
         <source>Focus window down</source>
         <translation>Focus window down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="33"/>
+        <location filename="../Common/NiriActionNames.js" line="35"/>
         <source>Focus window up</source>
         <translation>Focus window up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="34"/>
+        <location filename="../Common/NiriActionNames.js" line="36"/>
         <source>Focus window down or column left</source>
         <translation>Focus window down or column left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="35"/>
+        <location filename="../Common/NiriActionNames.js" line="37"/>
         <source>Focus window down or column right</source>
         <translation>Focus window down or column right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="36"/>
+        <location filename="../Common/NiriActionNames.js" line="38"/>
         <source>Focus window up or column left</source>
         <translation>Focus window up or column left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="37"/>
+        <location filename="../Common/NiriActionNames.js" line="39"/>
         <source>Focus window up or column right</source>
         <translation>Focus window up or column right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="38"/>
+        <location filename="../Common/NiriActionNames.js" line="40"/>
         <source>Focus window or workspace down</source>
         <translation>Focus window or workspace down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="39"/>
+        <location filename="../Common/NiriActionNames.js" line="41"/>
         <source>Focus window or workspace up</source>
         <translation>Focus window or workspace up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="40"/>
+        <location filename="../Common/NiriActionNames.js" line="42"/>
         <source>Focus window top</source>
         <translation>Focus window top</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="41"/>
+        <location filename="../Common/NiriActionNames.js" line="43"/>
         <source>Focus window bottom</source>
         <translation>Focus window bottom</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="42"/>
+        <location filename="../Common/NiriActionNames.js" line="44"/>
         <source>Focus window down or top</source>
         <translation>Focus window down or top</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="43"/>
+        <location filename="../Common/NiriActionNames.js" line="45"/>
         <source>Focus window up or bottom</source>
         <translation>Focus window up or bottom</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="44"/>
+        <location filename="../Common/NiriActionNames.js" line="46"/>
         <source>Move column left</source>
         <translation>Move column left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="45"/>
+        <location filename="../Common/NiriActionNames.js" line="47"/>
         <source>Move column right</source>
         <translation>Move column right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="46"/>
+        <location filename="../Common/NiriActionNames.js" line="48"/>
         <source>Move column to first</source>
         <translation>Move column to first</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="47"/>
+        <location filename="../Common/NiriActionNames.js" line="49"/>
         <source>Move column to last</source>
         <translation>Move column to last</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="48"/>
+        <location filename="../Common/NiriActionNames.js" line="50"/>
         <source>Move column left or to monitor left</source>
         <translation>Move column left or to monitor left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="49"/>
+        <location filename="../Common/NiriActionNames.js" line="51"/>
         <source>Move column right or to monitor right</source>
         <translation>Move column right or to monitor right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="50"/>
+        <location filename="../Common/NiriActionNames.js" line="52"/>
         <source>Move column to index</source>
         <translation>Move column to index</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="51"/>
+        <location filename="../Common/NiriActionNames.js" line="53"/>
         <source>Move window down</source>
         <translation>Move window down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="52"/>
+        <location filename="../Common/NiriActionNames.js" line="54"/>
         <source>Move window up</source>
         <translation>Move window up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="53"/>
+        <location filename="../Common/NiriActionNames.js" line="55"/>
         <source>Move window down or to workspace down</source>
         <translation>Move window down or to workspace down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="54"/>
+        <location filename="../Common/NiriActionNames.js" line="56"/>
         <source>Move window up or to workspace up</source>
         <translation>Move window up or to workspace up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="55"/>
+        <location filename="../Common/NiriActionNames.js" line="57"/>
         <source>Consume or expel window left</source>
         <translation>Consume or expel window left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="56"/>
+        <location filename="../Common/NiriActionNames.js" line="58"/>
         <source>Consume or expel window right</source>
         <translation>Consume or expel window right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="57"/>
+        <location filename="../Common/NiriActionNames.js" line="59"/>
         <source>Consume window into column</source>
         <translation>Consume window into column</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="58"/>
+        <location filename="../Common/NiriActionNames.js" line="60"/>
         <source>Expel window from column</source>
         <translation>Expel window from column</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="59"/>
+        <location filename="../Common/NiriActionNames.js" line="61"/>
         <source>Swap window left</source>
         <translation>Swap window left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="60"/>
+        <location filename="../Common/NiriActionNames.js" line="62"/>
         <source>Swap window right</source>
         <translation>Swap window right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="61"/>
+        <location filename="../Common/NiriActionNames.js" line="63"/>
         <source>Toggle column tabbed display</source>
         <translation>Toggle column tabbed display</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="62"/>
+        <location filename="../Common/NiriActionNames.js" line="64"/>
         <source>Set column display</source>
         <translation>Set column display</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="63"/>
+        <location filename="../Common/NiriActionNames.js" line="65"/>
         <source>Center column</source>
         <translation>Center column</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="64"/>
+        <location filename="../Common/NiriActionNames.js" line="66"/>
         <source>Center window</source>
         <translation>Center window</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="65"/>
+        <location filename="../Common/NiriActionNames.js" line="67"/>
         <source>Center visible columns</source>
         <translation>Center visible columns</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="66"/>
+        <location filename="../Common/NiriActionNames.js" line="68"/>
         <source>Focus workspace down</source>
         <translation>Focus workspace down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="67"/>
+        <location filename="../Common/NiriActionNames.js" line="69"/>
         <source>Focus workspace up</source>
         <translation>Focus workspace up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="68"/>
+        <location filename="../Common/NiriActionNames.js" line="70"/>
         <source>Focus workspace</source>
         <translation>Focus workspace</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="69"/>
+        <location filename="../Common/NiriActionNames.js" line="71"/>
         <source>Focus workspace previous</source>
         <translation>Focus workspace previous</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="70"/>
+        <location filename="../Common/NiriActionNames.js" line="72"/>
         <source>Move window to workspace down</source>
         <translation>Move window to workspace down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="71"/>
+        <location filename="../Common/NiriActionNames.js" line="73"/>
         <source>Move window to workspace up</source>
         <translation>Move window to workspace up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="72"/>
+        <location filename="../Common/NiriActionNames.js" line="74"/>
         <source>Move window to workspace</source>
         <translation>Move window to workspace</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="73"/>
+        <location filename="../Common/NiriActionNames.js" line="75"/>
         <source>Move column to workspace down</source>
         <translation>Move column to workspace down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="74"/>
+        <location filename="../Common/NiriActionNames.js" line="76"/>
         <source>Move column to workspace up</source>
         <translation>Move column to workspace up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="75"/>
+        <location filename="../Common/NiriActionNames.js" line="77"/>
         <source>Move column to workspace</source>
         <translation>Move column to workspace</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="76"/>
+        <location filename="../Common/NiriActionNames.js" line="78"/>
         <source>Move workspace down</source>
         <translation>Move workspace down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="77"/>
+        <location filename="../Common/NiriActionNames.js" line="79"/>
         <source>Move workspace up</source>
         <translation>Move workspace up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="78"/>
+        <location filename="../Common/NiriActionNames.js" line="80"/>
         <source>Move workspace to index</source>
         <translation>Move workspace to index</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="79"/>
+        <location filename="../Common/NiriActionNames.js" line="81"/>
         <source>Move workspace to monitor</source>
         <translation>Move workspace to monitor</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="80"/>
+        <location filename="../Common/NiriActionNames.js" line="82"/>
         <source>Set workspace name</source>
         <translation>Set workspace name</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="81"/>
+        <location filename="../Common/NiriActionNames.js" line="83"/>
         <source>Unset workspace name</source>
         <translation>Unset workspace name</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="82"/>
+        <location filename="../Common/NiriActionNames.js" line="84"/>
         <source>Focus monitor left</source>
         <translation>Focus monitor left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="83"/>
+        <location filename="../Common/NiriActionNames.js" line="85"/>
         <source>Focus monitor right</source>
         <translation>Focus monitor right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="84"/>
+        <location filename="../Common/NiriActionNames.js" line="86"/>
         <source>Focus monitor down</source>
         <translation>Focus monitor down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="85"/>
+        <location filename="../Common/NiriActionNames.js" line="87"/>
         <source>Focus monitor up</source>
         <translation>Focus monitor up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="86"/>
+        <location filename="../Common/NiriActionNames.js" line="88"/>
         <source>Focus monitor previous</source>
         <translation>Focus monitor previous</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="87"/>
+        <location filename="../Common/NiriActionNames.js" line="89"/>
         <source>Focus monitor next</source>
         <translation>Focus monitor next</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="88"/>
+        <location filename="../Common/NiriActionNames.js" line="90"/>
         <source>Focus monitor</source>
         <translation>Focus monitor</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="89"/>
+        <location filename="../Common/NiriActionNames.js" line="91"/>
         <source>Move window to monitor left</source>
         <translation>Move window to monitor left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="90"/>
+        <location filename="../Common/NiriActionNames.js" line="92"/>
         <source>Move window to monitor right</source>
         <translation>Move window to monitor right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="91"/>
+        <location filename="../Common/NiriActionNames.js" line="93"/>
         <source>Move window to monitor down</source>
         <translation>Move window to monitor down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="92"/>
+        <location filename="../Common/NiriActionNames.js" line="94"/>
         <source>Move window to monitor up</source>
         <translation>Move window to monitor up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="93"/>
+        <location filename="../Common/NiriActionNames.js" line="95"/>
         <source>Move window to monitor previous</source>
         <translation>Move window to monitor previous</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="94"/>
+        <location filename="../Common/NiriActionNames.js" line="96"/>
         <source>Move window to monitor next</source>
         <translation>Move window to monitor next</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="95"/>
+        <location filename="../Common/NiriActionNames.js" line="97"/>
         <source>Move window to monitor</source>
         <translation>Move window to monitor</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="96"/>
+        <location filename="../Common/NiriActionNames.js" line="98"/>
         <source>Move column to monitor left</source>
         <translation>Move column to monitor left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="97"/>
+        <location filename="../Common/NiriActionNames.js" line="99"/>
         <source>Move column to monitor right</source>
         <translation>Move column to monitor right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="98"/>
+        <location filename="../Common/NiriActionNames.js" line="100"/>
         <source>Move column to monitor down</source>
         <translation>Move column to monitor down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="99"/>
+        <location filename="../Common/NiriActionNames.js" line="101"/>
         <source>Move column to monitor up</source>
         <translation>Move column to monitor up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="100"/>
+        <location filename="../Common/NiriActionNames.js" line="102"/>
         <source>Move column to monitor previous</source>
         <translation>Move column to monitor previous</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="101"/>
+        <location filename="../Common/NiriActionNames.js" line="103"/>
         <source>Move column to monitor next</source>
         <translation>Move column to monitor next</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="102"/>
+        <location filename="../Common/NiriActionNames.js" line="104"/>
         <source>Move column to monitor</source>
         <translation>Move column to monitor</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="103"/>
+        <location filename="../Common/NiriActionNames.js" line="105"/>
         <source>Set window width</source>
         <translation>Set window width</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="104"/>
+        <location filename="../Common/NiriActionNames.js" line="106"/>
         <source>Set window height</source>
         <translation>Set window height</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="105"/>
+        <location filename="../Common/NiriActionNames.js" line="107"/>
         <source>Reset window height</source>
         <translation>Reset window height</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="106"/>
+        <location filename="../Common/NiriActionNames.js" line="108"/>
         <source>Switch preset column width</source>
         <translation>Switch preset column width</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="107"/>
+        <location filename="../Common/NiriActionNames.js" line="109"/>
         <source>Switch preset column width back</source>
         <translation>Switch preset column width back</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="108"/>
+        <location filename="../Common/NiriActionNames.js" line="110"/>
         <source>Switch preset window width</source>
         <translation>Switch preset window width</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="109"/>
+        <location filename="../Common/NiriActionNames.js" line="111"/>
         <source>Switch preset window width back</source>
         <translation>Switch preset window width back</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="110"/>
+        <location filename="../Common/NiriActionNames.js" line="112"/>
         <source>Switch preset window height</source>
         <translation>Switch preset window height</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="111"/>
+        <location filename="../Common/NiriActionNames.js" line="113"/>
         <source>Switch preset window height back</source>
         <translation>Switch preset window height back</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="112"/>
+        <location filename="../Common/NiriActionNames.js" line="114"/>
         <source>Maximize column</source>
         <translation>Maximize column</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="113"/>
+        <location filename="../Common/NiriActionNames.js" line="115"/>
         <source>Maximize window to edges</source>
         <translation>Maximize window to edges</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="114"/>
+        <location filename="../Common/NiriActionNames.js" line="116"/>
         <source>Set column width</source>
         <translation>Set column width</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="115"/>
+        <location filename="../Common/NiriActionNames.js" line="117"/>
         <source>Expand column to available width</source>
         <translation>Expand column to available width</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="116"/>
+        <location filename="../Common/NiriActionNames.js" line="118"/>
         <source>Switch layout</source>
         <translation>Switch layout</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="117"/>
+        <location filename="../Common/NiriActionNames.js" line="119"/>
         <source>Show hotkey overlay</source>
         <translation>Show hotkey overlay</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="118"/>
+        <location filename="../Common/NiriActionNames.js" line="120"/>
         <source>Move workspace to monitor left</source>
         <translation>Move workspace to monitor left</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="119"/>
+        <location filename="../Common/NiriActionNames.js" line="121"/>
         <source>Move workspace to monitor right</source>
         <translation>Move workspace to monitor right</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="120"/>
+        <location filename="../Common/NiriActionNames.js" line="122"/>
         <source>Move workspace to monitor down</source>
         <translation>Move workspace to monitor down</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="121"/>
+        <location filename="../Common/NiriActionNames.js" line="123"/>
         <source>Move workspace to monitor up</source>
         <translation>Move workspace to monitor up</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="122"/>
+        <location filename="../Common/NiriActionNames.js" line="124"/>
         <source>Move workspace to monitor previous</source>
         <translation>Move workspace to monitor previous</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="123"/>
+        <location filename="../Common/NiriActionNames.js" line="125"/>
         <source>Move workspace to monitor next</source>
         <translation>Move workspace to monitor next</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="124"/>
+        <location filename="../Common/NiriActionNames.js" line="126"/>
         <source>Toggle window floating</source>
         <translation>Toggle window floating</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="125"/>
+        <location filename="../Common/NiriActionNames.js" line="127"/>
         <source>Move window to floating</source>
         <translation>Move window to floating</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="126"/>
+        <location filename="../Common/NiriActionNames.js" line="128"/>
         <source>Move window to tiling</source>
         <translation>Move window to tiling</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="127"/>
+        <location filename="../Common/NiriActionNames.js" line="129"/>
         <source>Focus floating</source>
         <translation>Focus floating</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="128"/>
+        <location filename="../Common/NiriActionNames.js" line="130"/>
         <source>Focus tiling</source>
         <translation>Focus tiling</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="129"/>
+        <location filename="../Common/NiriActionNames.js" line="131"/>
         <source>Switch focus between floating and tiling</source>
         <translation>Switch focus between floating and tiling</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="130"/>
+        <location filename="../Common/NiriActionNames.js" line="132"/>
         <source>Toggle window rule opacity</source>
         <translation>Toggle window rule opacity</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="131"/>
+        <location filename="../Common/NiriActionNames.js" line="133"/>
         <source>Set dynamic cast window</source>
         <translation>Set dynamic cast window</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="132"/>
+        <location filename="../Common/NiriActionNames.js" line="134"/>
         <source>Set dynamic cast monitor</source>
         <translation>Set dynamic cast monitor</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="133"/>
+        <location filename="../Common/NiriActionNames.js" line="135"/>
         <source>Clear dynamic cast target</source>
         <translation>Clear dynamic cast target</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="134"/>
+        <location filename="../Common/NiriActionNames.js" line="136"/>
         <source>Toggle overview</source>
         <translation>Toggle overview</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="135"/>
+        <location filename="../Common/NiriActionNames.js" line="137"/>
         <source>Open overview</source>
         <translation>Open overview</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="136"/>
+        <location filename="../Common/NiriActionNames.js" line="138"/>
         <source>Close overview</source>
         <translation>Close overview</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="137"/>
+        <location filename="../Common/NiriActionNames.js" line="139"/>
         <source>Lock: open</source>
         <translation>Lock: open</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="138"/>
+        <location filename="../Common/NiriActionNames.js" line="140"/>
         <source>Lock: is locked</source>
         <translation>Lock: is locked</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="139"/>
+        <location filename="../Common/NiriActionNames.js" line="141"/>
         <source>Spotlight: toggle</source>
         <translation>Spotlight: toggle</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="140"/>
+        <location filename="../Common/NiriActionNames.js" line="142"/>
         <source>Spotlight: open</source>
         <translation>Spotlight: open</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="141"/>
+        <location filename="../Common/NiriActionNames.js" line="143"/>
         <source>Spotlight: close</source>
         <translation>Spotlight: close</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="142"/>
+        <location filename="../Common/NiriActionNames.js" line="144"/>
         <source>Spotlight: web</source>
         <translation>Spotlight: web</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="143"/>
+        <location filename="../Common/NiriActionNames.js" line="145"/>
         <source>Spotlight: open mode</source>
         <translation>Spotlight: open mode</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="144"/>
+        <location filename="../Common/NiriActionNames.js" line="146"/>
         <source>Wallpaper: set</source>
         <translation>Wallpaper: set</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="145"/>
+        <location filename="../Common/NiriActionNames.js" line="147"/>
         <source>Wallpaper: set for screen</source>
         <translation>Wallpaper: set for screen</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="146"/>
+        <location filename="../Common/NiriActionNames.js" line="148"/>
         <source>Wallpaper: clear</source>
         <translation>Wallpaper: clear</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="147"/>
+        <location filename="../Common/NiriActionNames.js" line="149"/>
         <source>Wallpaper: clear for screen</source>
         <translation>Wallpaper: clear for screen</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="148"/>
+        <location filename="../Common/NiriActionNames.js" line="150"/>
         <source>Wallpaper: previous</source>
         <translation>Wallpaper: previous</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="149"/>
+        <location filename="../Common/NiriActionNames.js" line="151"/>
         <source>Wallpaper: next</source>
         <translation>Wallpaper: next</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="150"/>
+        <location filename="../Common/NiriActionNames.js" line="152"/>
         <source>Wallpaper: random</source>
         <translation>Wallpaper: random</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="151"/>
+        <location filename="../Common/NiriActionNames.js" line="153"/>
         <source>Wallpaper: set folder</source>
         <translation>Wallpaper: set folder</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="152"/>
+        <location filename="../Common/NiriActionNames.js" line="154"/>
         <source>Control center: open</source>
         <translation>Control center: open</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="153"/>
+        <location filename="../Common/NiriActionNames.js" line="155"/>
         <source>Control center: close</source>
         <translation>Control center: close</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="154"/>
+        <location filename="../Common/NiriActionNames.js" line="156"/>
         <source>Control center: toggle</source>
         <translation>Control center: toggle</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="155"/>
+        <location filename="../Common/NiriActionNames.js" line="157"/>
         <source>Keystone: cancel record</source>
         <translation>Keystone: cancel record</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="156"/>
+        <location filename="../Common/NiriActionNames.js" line="158"/>
         <source>Keystone: close all others</source>
         <translation>Keystone: close all others</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="157"/>
+        <location filename="../Common/NiriActionNames.js" line="159"/>
         <source>Keystone: current style</source>
         <translation>Keystone: current style</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="158"/>
+        <location filename="../Common/NiriActionNames.js" line="160"/>
         <source>Keystone: dashboard</source>
         <translation>Keystone: dashboard</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="159"/>
+        <location filename="../Common/NiriActionNames.js" line="161"/>
         <source>Keystone: hub</source>
         <translation>Keystone: hub</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="160"/>
+        <location filename="../Common/NiriActionNames.js" line="162"/>
         <source>Keystone: lyrics</source>
         <translation>Keystone: lyrics</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="161"/>
+        <location filename="../Common/NiriActionNames.js" line="163"/>
         <source>Keystone: tools</source>
         <translation>Keystone: tools</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="162"/>
+        <location filename="../Common/NiriActionNames.js" line="164"/>
         <source>Sidebar: open</source>
         <translation>Sidebar: open</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="163"/>
+        <location filename="../Common/NiriActionNames.js" line="165"/>
         <source>Sidebar: close</source>
         <translation>Sidebar: close</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="164"/>
+        <location filename="../Common/NiriActionNames.js" line="166"/>
         <source>Sidebar: toggle</source>
         <translation>Sidebar: toggle</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="165"/>
+        <location filename="../Common/NiriActionNames.js" line="167"/>
         <source>Run program</source>
         <translation>Run program</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="166"/>
+        <location filename="../Common/NiriActionNames.js" line="168"/>
         <source>Run shell command</source>
         <translation>Run shell command</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="167"/>
+        <location filename="../Common/NiriActionNames.js" line="169"/>
         <source>Spotlight: open applications</source>
         <translation>Spotlight: open applications</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="168"/>
+        <location filename="../Common/NiriActionNames.js" line="170"/>
         <source>Spotlight: open clipboard</source>
         <translation>Spotlight: open clipboard</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="169"/>
+        <location filename="../Common/NiriActionNames.js" line="171"/>
         <source>Spotlight: open wallpaper picker</source>
         <translation>Spotlight: open wallpaper picker</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="170"/>
+        <location filename="../Common/NiriActionNames.js" line="172"/>
         <source>Control center: open Account</source>
         <translation>Control center: open Account</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="171"/>
+        <location filename="../Common/NiriActionNames.js" line="173"/>
         <source>Control center: open General</source>
         <translation>Control center: open General</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="172"/>
+        <location filename="../Common/NiriActionNames.js" line="174"/>
         <source>Control center: open Wallpaper</source>
         <translation>Control center: open Wallpaper</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="173"/>
+        <location filename="../Common/NiriActionNames.js" line="175"/>
         <source>Control center: open Theme</source>
         <translation>Control center: open Theme</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="174"/>
+        <location filename="../Common/NiriActionNames.js" line="176"/>
         <source>Control center: open Keystone</source>
         <translation>Control center: open Keystone</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="175"/>
+        <location filename="../Common/NiriActionNames.js" line="177"/>
         <source>Control center: open Advanced</source>
         <translation>Control center: open Advanced</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="176"/>
+        <location filename="../Common/NiriActionNames.js" line="178"/>
         <source>Control center: open Language &amp; region</source>
         <translation>Control center: open Language &amp; region</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="177"/>
+        <location filename="../Common/NiriActionNames.js" line="179"/>
         <source>Control center: open current page</source>
         <translation>Control center: open current page</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="178"/>
+        <location filename="../Common/NiriActionNames.js" line="180"/>
         <source>Control center: toggle Account</source>
         <translation>Control center: toggle Account</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="179"/>
+        <location filename="../Common/NiriActionNames.js" line="181"/>
         <source>Control center: toggle General</source>
         <translation>Control center: toggle General</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="180"/>
+        <location filename="../Common/NiriActionNames.js" line="182"/>
         <source>Control center: toggle Wallpaper</source>
         <translation>Control center: toggle Wallpaper</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="181"/>
+        <location filename="../Common/NiriActionNames.js" line="183"/>
         <source>Control center: toggle Theme</source>
         <translation>Control center: toggle Theme</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="182"/>
+        <location filename="../Common/NiriActionNames.js" line="184"/>
         <source>Control center: toggle Keystone</source>
         <translation>Control center: toggle Keystone</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="183"/>
+        <location filename="../Common/NiriActionNames.js" line="185"/>
         <source>Control center: toggle Advanced</source>
         <translation>Control center: toggle Advanced</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="184"/>
+        <location filename="../Common/NiriActionNames.js" line="186"/>
         <source>Control center: toggle Language &amp; region</source>
         <translation>Control center: toggle Language &amp; region</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="185"/>
+        <location filename="../Common/NiriActionNames.js" line="187"/>
         <source>Control center: toggle current page</source>
         <translation>Control center: toggle current page</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="186"/>
+        <location filename="../Common/NiriActionNames.js" line="188"/>
         <source>Notifications: open</source>
         <translation>Notifications: open</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="187"/>
+        <location filename="../Common/NiriActionNames.js" line="189"/>
         <source>Quick settings: open</source>
         <translation>Quick settings: open</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="188"/>
+        <location filename="../Common/NiriActionNames.js" line="190"/>
         <source>Notifications: close</source>
         <translation>Notifications: close</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="189"/>
+        <location filename="../Common/NiriActionNames.js" line="191"/>
         <source>Quick settings: close</source>
         <translation>Quick settings: close</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="190"/>
+        <location filename="../Common/NiriActionNames.js" line="192"/>
         <source>Notifications: toggle</source>
         <translation>Notifications: toggle</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="191"/>
+        <location filename="../Common/NiriActionNames.js" line="193"/>
         <source>Quick settings: toggle</source>
         <translation>Quick settings: toggle</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="195"/>
+        <location filename="../Common/NiriActionNames.js" line="197"/>
         <source>Shortcut map: open</source>
         <translation>Shortcut map: open</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="196"/>
+        <location filename="../Common/NiriActionNames.js" line="198"/>
         <source>Shortcut map: close</source>
         <translation>Shortcut map: close</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="197"/>
+        <location filename="../Common/NiriActionNames.js" line="199"/>
         <source>Shortcut map: toggle</source>
         <translation>Shortcut map: toggle</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="192"/>
+        <location filename="../Common/NiriActionNames.js" line="194"/>
         <source>Power menu: open</source>
         <translation>Power menu: open</translation>
     </message>
     <message>
         <location filename="../Common/NiriActionNames.js" line="4"/>
+        <source>Spotlight: Search</source>
+        <translation>Spotlight: Search</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="5"/>
         <source>Spotlight: Find files</source>
         <translation>Spotlight: Find files</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="193"/>
+        <location filename="../Common/NiriActionNames.js" line="195"/>
         <source>Power menu: close</source>
         <translation>Power menu: close</translation>
     </message>
     <message>
-        <location filename="../Common/NiriActionNames.js" line="194"/>
+        <location filename="../Common/NiriActionNames.js" line="196"/>
         <source>Power menu: toggle</source>
         <translation>Power menu: toggle</translation>
     </message>
@@ -9034,6 +9061,320 @@ Right click: Control Center</translation>
     </message>
 </context>
 <context>
+    <name>SpotlightActions</name>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1841"/>
+        <source>Lock screen</source>
+        <translation>Lock screen</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1842"/>
+        <source>Search</source>
+        <translation>Search</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1843"/>
+        <source>Web search</source>
+        <translation>Web search</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1844"/>
+        <source>Find files</source>
+        <translation>Find files</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1845"/>
+        <source>Applications</source>
+        <translation>Applications</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1846"/>
+        <source>Clipboard history</source>
+        <translation>Clipboard history</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1847"/>
+        <source>Wallpaper picker</source>
+        <translation>Wallpaper picker</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1848"/>
+        <source>Reset wallpaper</source>
+        <translation>Reset wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1849"/>
+        <source>Previous wallpaper</source>
+        <translation>Previous wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1850"/>
+        <source>Next wallpaper</source>
+        <translation>Next wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1851"/>
+        <source>Random wallpaper</source>
+        <translation>Random wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1852"/>
+        <source>Close Keystone panels</source>
+        <translation>Close Keystone panels</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1853"/>
+        <source>Keystone dashboard</source>
+        <translation>Keystone dashboard</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1854"/>
+        <source>Keystone hub</source>
+        <translation>Keystone hub</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1855"/>
+        <source>Lyrics</source>
+        <translation>Lyrics</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1856"/>
+        <source>Keystone tools</source>
+        <translation>Keystone tools</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1857"/>
+        <source>Notifications</source>
+        <translation>Notifications</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1858"/>
+        <source>Quick settings</source>
+        <translation>Quick settings</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1859"/>
+        <source>Shortcut map</source>
+        <translation>Shortcut map</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1860"/>
+        <source>Power menu</source>
+        <translation>Power menu</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1867"/>
+        <source>Lock the current session</source>
+        <translation>Lock the current session</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1868"/>
+        <source>Open Spotlight Search</source>
+        <translation>Open Spotlight Search</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1869"/>
+        <source>Enter Spotlight Web search</source>
+        <translation>Enter Spotlight Web search</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1870"/>
+        <source>Open Spotlight Files</source>
+        <translation>Open Spotlight Files</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1871"/>
+        <source>Open the application launcher</source>
+        <translation>Open the application launcher</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1872"/>
+        <source>Open clipboard history</source>
+        <translation>Open clipboard history</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1873"/>
+        <source>Browse and apply wallpapers</source>
+        <translation>Browse and apply wallpapers</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1874"/>
+        <source>Clear the global wallpaper selection</source>
+        <translation>Clear the global wallpaper selection</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1875"/>
+        <source>Apply the previous wallpaper</source>
+        <translation>Apply the previous wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1876"/>
+        <source>Apply the next wallpaper</source>
+        <translation>Apply the next wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1877"/>
+        <source>Apply a random wallpaper</source>
+        <translation>Apply a random wallpaper</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1878"/>
+        <source>Dismiss open Keystone panels</source>
+        <translation>Dismiss open Keystone panels</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1879"/>
+        <source>Toggle the Keystone dashboard</source>
+        <translation>Toggle the Keystone dashboard</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1880"/>
+        <source>Toggle the Keystone hub</source>
+        <translation>Toggle the Keystone hub</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1881"/>
+        <source>Toggle Keystone lyrics</source>
+        <translation>Toggle Keystone lyrics</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1882"/>
+        <source>Toggle the Keystone tools panel</source>
+        <translation>Toggle the Keystone tools panel</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1883"/>
+        <source>Open the notifications sidebar</source>
+        <translation>Open the notifications sidebar</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1884"/>
+        <source>Open the Quick settings sidebar</source>
+        <translation>Open the Quick settings sidebar</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1885"/>
+        <source>Show keyboard shortcuts</source>
+        <translation>Show keyboard shortcuts</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1886"/>
+        <source>Choose a session or power action</source>
+        <translation>Choose a session or power action</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightCatalog</name>
+    <message>
+        <location filename="../Services/SpotlightCatalog.qml" line="72"/>
+        <source>Action unavailable</source>
+        <translation>Action unavailable</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightClipboardDetails</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="89"/>
+        <source>Remote location not read</source>
+        <translation>Remote location not read</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="91"/>
+        <source>File no longer exists</source>
+        <translation>File no longer exists</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="93"/>
+        <source>Unable to read file</source>
+        <translation>Unable to read file</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="95"/>
+        <source>Metadata unavailable</source>
+        <translation>Metadata unavailable</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="99"/>
+        <source>Folder</source>
+        <translation>Folder</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="99"/>
+        <source>File</source>
+        <translation>File</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="113"/>
+        <source>Characters: %1</source>
+        <translation>Characters: %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="115"/>
+        <source>Lines: %1</source>
+        <translation>Lines: %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="117"/>
+        <source>Size: %1</source>
+        <translation>Size: %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="123"/>
+        <source>Modified: %1 %2</source>
+        <translation>Modified: %1 %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="128"/>
+        <source>Binary clipboard content</source>
+        <translation>Binary clipboard content</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="130"/>
+        <source>%1 × %2</source>
+        <translation>%1 × %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="150"/>
+        <source>Select an entry</source>
+        <translation>Select an entry</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="150"/>
+        <source>Reading…</source>
+        <translation>Reading…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="152"/>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="255"/>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="305"/>
+        <source>Preview unavailable</source>
+        <translation>Preview unavailable</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="323"/>
+        <source>%n file(s)</source>
+        <translation>
+            <numerusform>%n file</numerusform>
+            <numerusform>%n files</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="359"/>
+        <source>Showing the first %1 of %2 characters. Restoring copies the full content.</source>
+        <translation>Showing the first %1 of %2 characters. Restoring copies the full content.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="362"/>
+        <source>Preview</source>
+        <translation>Preview</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="402"/>
+        <source>Restore to clipboard</source>
+        <translation>Restore to clipboard</translation>
+    </message>
+</context>
+<context>
     <name>SpotlightClipboardProvider</name>
     <message>
         <location filename="../Modules/Launcher/SpotlightClipboardProvider.qml" line="73"/>
@@ -9106,6 +9447,44 @@ Right click: Control Center</translation>
         <location filename="../Modules/Launcher/SpotlightClipboardProvider.qml" line="334"/>
         <source>This format cannot be restored reliably</source>
         <translation>This format cannot be restored reliably</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightFileProvider</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="29"/>
+        <source>Folder</source>
+        <translation>Folder</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="29"/>
+        <source>%1 audio</source>
+        <translation>%1 audio</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="34"/>
+        <source>%1 image</source>
+        <translation>%1 image</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="38"/>
+        <source>%1 video</source>
+        <translation>%1 video</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="41"/>
+        <source>%1 file</source>
+        <translation>%1 file</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="43"/>
+        <source>File</source>
+        <translation>File</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="50"/>
+        <source>%1 %2</source>
+        <translation>%1 %2</translation>
     </message>
 </context>
 <context>
@@ -9307,64 +9686,133 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightSearchBar</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="185"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="205"/>
         <source>Search apps</source>
         <translation>Search apps</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="180"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="200"/>
         <source>Search files and folders</source>
         <translation>Search files and folders</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="182"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="154"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="159"/>
+        <source>Search (Ctrl+0)</source>
+        <translation>Search (Ctrl+0)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="198"/>
+        <source>Search</source>
+        <translation>Search</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="202"/>
         <source>Search clipboard history</source>
         <translation>Search clipboard history</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="184"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="204"/>
         <source>Search wallpapers</source>
         <translation>Search wallpapers</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="197"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="217"/>
         <source>Search the web</source>
         <translation>Search the web</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="221"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="241"/>
         <source>Web search</source>
         <translation>Web search</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="221"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="241"/>
         <source>Spotlight search</source>
         <translation>Spotlight search</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="245"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="265"/>
         <source>Apply</source>
         <translation>Apply</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="249"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="269"/>
         <source>Wallpaper</source>
         <translation>Wallpaper</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="253"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="273"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="257"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="277"/>
         <source>Files</source>
         <translation>Files</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="324"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="344"/>
         <source>%1 (Ctrl+%2)</source>
         <translation>%1 (Ctrl+%2)</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightSearchProvider</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="36"/>
+        <source>Settings · %1</source>
+        <translation>Settings · %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="43"/>
+        <source>Action · %1</source>
+        <translation>Action · %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="43"/>
+        <source>Action · Currently unavailable</source>
+        <translation>Action · Currently unavailable</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="64"/>
+        <source>Apps</source>
+        <translation>Apps</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="65"/>
+        <source>Settings</source>
+        <translation>Settings</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="66"/>
+        <source>Actions</source>
+        <translation>Actions</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="67"/>
+        <source>Wallpapers</source>
+        <translation>Wallpapers</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="68"/>
+        <source>Show more</source>
+        <translation>Show more</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="69"/>
+        <source>Search files for “%1”</source>
+        <translation>Search files for “%1”</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="70"/>
+        <source>Search the web for “%1”</source>
+        <translation>Search the web for “%1”</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="128"/>
+        <source>This result is currently unavailable</source>
+        <translation>This result is currently unavailable</translation>
     </message>
 </context>
 <context>
@@ -12360,202 +12808,6 @@ Windows: </translation>
         <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="540"/>
         <source>Grain: %1%</source>
         <translation>Grain: %1%</translation>
-    </message>
-</context>
-<context>
-    <name>FileSearchService</name>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="41"/>
-        <source>Install fd to search files</source>
-        <translation>Install fd to search files</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="42"/>
-        <source>Update key-cli to enable file search</source>
-        <translation>Update key-cli to enable file search</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="43"/>
-        <source>The file service returned invalid data</source>
-        <translation>The file service returned invalid data</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="44"/>
-        <source>The file or link target no longer exists</source>
-        <translation>The file or link target no longer exists</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="45"/>
-        <source>The containing folder no longer exists</source>
-        <translation>The containing folder no longer exists</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="46"/>
-        <source>Use Apps to launch this item, or show it in the file manager</source>
-        <translation>Use Apps to launch this item, or show it in the file manager</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="47"/>
-        <source>The system file opener is unavailable</source>
-        <translation>The system file opener is unavailable</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="48"/>
-        <source>The system did not confirm the request in time</source>
-        <translation>The system did not confirm the request in time</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="49"/>
-        <source>File search failed</source>
-        <translation>File search failed</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="50"/>
-        <source>Unable to open or show this item</source>
-        <translation>Unable to open or show this item</translation>
-    </message>
-    <message>
-        <location filename="../Services/FileSearchService.qml" line="54"/>
-        <source>File operation failed</source>
-        <translation>File operation failed</translation>
-    </message>
-</context>
-<context>
-    <name>SpotlightFileProvider</name>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="29"/>
-        <source>Folder</source>
-        <translation>Folder</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="29"/>
-        <source>%1 audio</source>
-        <translation>%1 audio</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="34"/>
-        <source>%1 image</source>
-        <translation>%1 image</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="38"/>
-        <source>%1 video</source>
-        <translation>%1 video</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="41"/>
-        <source>%1 file</source>
-        <translation>%1 file</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="43"/>
-        <source>File</source>
-        <translation>File</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="50"/>
-        <source>%1 %2</source>
-        <translation>%1 %2</translation>
-    </message>
-</context>
-<context>
-    <name>SpotlightClipboardDetails</name>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="85"/>
-        <source>Remote location not read</source>
-        <translation>Remote location not read</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="87"/>
-        <source>File no longer exists</source>
-        <translation>File no longer exists</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="89"/>
-        <source>Unable to read file</source>
-        <translation>Unable to read file</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="91"/>
-        <source>Metadata unavailable</source>
-        <translation>Metadata unavailable</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="95"/>
-        <source>Folder</source>
-        <translation>Folder</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="95"/>
-        <source>File</source>
-        <translation>File</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="109"/>
-        <source>Characters: %1</source>
-        <translation>Characters: %1</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="111"/>
-        <source>Lines: %1</source>
-        <translation>Lines: %1</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="113"/>
-        <source>Size: %1</source>
-        <translation>Size: %1</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="119"/>
-        <source>Modified: %1 %2</source>
-        <translation>Modified: %1 %2</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="124"/>
-        <source>Binary clipboard content</source>
-        <translation>Binary clipboard content</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="126"/>
-        <source>%1 × %2</source>
-        <translation>%1 × %2</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="145"/>
-        <source>Select an entry</source>
-        <translation>Select an entry</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="145"/>
-        <source>Reading…</source>
-        <translation>Reading…</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="147"/>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="233"/>
-        <source>Preview unavailable</source>
-        <translation>Preview unavailable</translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="251"/>
-        <source>%n file(s)</source>
-        <translation><numerusform>%n file</numerusform>
-            <numerusform>%n files</numerusform></translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="286"/>
-        <source>Showing the first %1 of %2 characters. Restoring copies the full content.</source>
-        <translation>Showing the first %1 of %2 characters. Restoring copies the full content.</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="289"/>
-        <source>Preview</source>
-        <translation>Preview</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightClipboardDetails.qml" line="320"/>
-        <source>Restore to clipboard</source>
-        <translation>Restore to clipboard</translation>
     </message>
 </context>
 </TS>

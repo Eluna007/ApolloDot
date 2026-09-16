@@ -28,9 +28,16 @@ StyledFlickable {
         y: Metrics.pageMargin
 
         SettingsSection {
+            id: searchSection0
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Applications")
+            title: searchAnchor0.title
+            SettingsSearchAnchor {
+                id: searchAnchor0
+                target: searchSection0
+                declaration:
+                    '{"id":"general.spotlight.section.applications","route":"general.spotlight","title":"Applications","context":"SpotlightPage","icon":"search","aliases":[]}'
+            }
             iconName: "apps"
 
             SettingsRow {
@@ -92,9 +99,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection1
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Web search")
+            title: searchAnchor1.title
+            SettingsSearchAnchor {
+                id: searchAnchor1
+                target: searchSection1
+                declaration:
+                    '{"id":"general.spotlight.section.web-search","route":"general.spotlight","title":"Web search","context":"SpotlightPage","icon":"search","aliases":[]}'
+            }
             iconName: "language"
 
             SettingsRow {
@@ -134,9 +148,16 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: searchSection2
             Layout.fillWidth: true
             flat: true
-            title: qsTr("Clipboard")
+            title: searchAnchor2.title
+            SettingsSearchAnchor {
+                id: searchAnchor2
+                target: searchSection2
+                declaration:
+                    '{"id":"general.spotlight.section.clipboard","route":"general.spotlight","title":"Clipboard","context":"SpotlightPage","icon":"search","aliases":[]}'
+            }
             iconName: "content_paste"
 
             SettingsRow {

@@ -19,6 +19,8 @@ Item {
     required property var wallpaperModel
     required property var clipboardModel
     required property int selectedIndex
+    property string searchError: ""
+    signal searchActivationRequested(string id)
     property string query: ""
     property bool previewActive: false
     property string selectedClipboardId: ""
@@ -62,6 +64,8 @@ Item {
     readonly property int targetHeight: {
         if (!expanded)
             return 0;
+        if (mode === "search")
+            return Math.min(availableHeight, searchResults.rowsHeight + style.resultPadding * 2);
         // Reserve the full clipboard viewport before history finishes loading.
         // Filtering, empty states and refreshes must not resize the panel.
         if (mode === "clipboard")
@@ -252,7 +256,21 @@ Item {
         onActivationRequested: index => root.activationRequested(index, false)
     }
 
+    SpotlightSearchResults {
+        id: searchResults
+        anchors.fill: parent
+        anchors.margins: root.style.resultPadding
+        visible: root.mode === "search"
+        style: root.style
+        results: root.mode === "search" ? root.results : []
+        selectedIndex: root.selectedIndex
+        error: root.searchError
+        onSelectionRequested: index => root.selectionRequested(index)
+        onActivationRequested: id => root.searchActivationRequested(id)
+    }
+
     StackLayout {
+        visible: root.mode !== "search"
         anchors.fill: parent
         anchors.topMargin: root.fileHeaderHeight + root.style.resultPadding
         anchors.margins: root.mode === "wallpapers" ? root.style.wallpaperPanelPadding :
@@ -302,14 +320,14 @@ Item {
                         spacing: 14
 
                         FileThemeIcon {
-                            active: root.fileMode
-                            visible: root.fileMode
+                            active: root.fileMode && !!appDelegate.modelData.file
+                            visible: active
                             Layout.preferredWidth: root.style.resultIconSize
                             Layout.preferredHeight: root.style.resultIconSize
                             entryKey: root.fileMode ? appDelegate.modelData.id : ""
                             themeIcon: root.fileMode ? appDelegate.modelData.icon : ""
-                            mimeType: root.fileMode ? appDelegate.modelData.file.mimeType : ""
-                            directory: root.fileMode && appDelegate.modelData.file.isDirectory
+                            mimeType: active ? appDelegate.modelData.file.mimeType : ""
+                            directory: active && appDelegate.modelData.file.isDirectory
                         }
 
                         Image {
@@ -983,8 +1001,8 @@ Item {
     Item {
         anchors.fill: parent
         anchors.topMargin: root.clipboardHeaderHeight
-        visible: (root.loading && (!root.clipboardDetails || root.results.length === 0)) ||
-                 !root.providerAvailable || root.results.length === 0
+        visible: root.mode !== "search" && ((root.loading && (!root.clipboardDetails || root.results.length === 0))
+                                            || !root.providerAvailable || root.results.length === 0)
         opacity: root.contentOpacity
 
         Column {

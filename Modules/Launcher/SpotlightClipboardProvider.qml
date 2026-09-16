@@ -6,6 +6,14 @@ import qs.Services
 Item {
     id: root
 
+    property bool active: false
+    onActiveChanged: {
+        if (active) {
+            rebuild();
+            inspectSearchCandidates();
+        } else
+            ClipboardService.cancelPendingInspections();
+    }
     property string query: ""
     property var results: []
     readonly property bool loading: ClipboardService.loading
@@ -232,6 +240,8 @@ Item {
     }
 
     function rebuild() {
+        if (!active)
+            return;
         const needle = String(root.query || "").trim().toLocaleLowerCase();
         const source = ClipboardService.entries || [];
         const next = [];
@@ -246,6 +256,8 @@ Item {
     }
 
     function updateResult(id) {
+        if (!active)
+            return false;
         if (String(root.query || "").trim() !== "")
             return false;
         const normalizedId = String(id || "");
@@ -284,11 +296,12 @@ Item {
     }
 
     function refresh() {
-        ClipboardService.refresh(750);
+        if (active)
+            ClipboardService.refresh(750);
     }
 
     function requestDetails(id) {
-        return ClipboardService.inspect(id);
+        return active && ClipboardService.inspect(id);
     }
 
     function releaseDetails(id) {
@@ -296,6 +309,8 @@ Item {
     }
 
     function inspectSearchCandidates() {
+        if (!active)
+            return;
         if (String(root.query || "").trim() === "")
             return;
         const source = ClipboardService.entries || [];
@@ -334,6 +349,7 @@ Item {
     }
 
     onQueryChanged: {
+        ClipboardService.cancelPendingInspections();
         root.rebuild();
         root.inspectSearchCandidates();
     }

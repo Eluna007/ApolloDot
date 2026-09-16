@@ -30,10 +30,12 @@ PanelWindow {
     Material.theme: Appearance.m3colors.darkmode ? Material.Dark : Material.Light
     Material.accent: Appearance.colors.colPrimary
 
+    property var pendingSearchActivation: null
+    property bool queryUpdating: false
     property string pendingWebUrl: ""
     property string windowPhase: "hidden"
-    property string mode: "apps"
-    property string previousLocalMode: "apps"
+    property string mode: "search"
+    property string previousLocalMode: "search"
     property bool modeRailExpanded: false
     property int modeFocusIndex: -1
     property string query: ""
@@ -57,13 +59,14 @@ PanelWindow {
 
     onWebProgressChanged: spotlightBlur.publish()
 
-    readonly property var activeResults: mode === "apps" ? appProvider.results : (mode === "wallpapers"
-                                                                                  ? wallpaperProvider.results :
-                                                                                    (mode === "clipboard"
-                                                                                     ? clipboardProvider.results :
-                                                                                       (mode === "files"
-                                                                                        ? fileProvider.results :
-                                                                                          [])))
+    readonly property var activeResults: mode === "search" ? searchProvider.results : mode === "apps"
+                                                             ? appProvider.results : (mode === "wallpapers"
+                                                                                      ? wallpaperProvider.results :
+                                                                                        (mode === "clipboard"
+                                                                                         ? clipboardProvider.results :
+                                                                                           (mode === "files"
+                                                                                            ? fileProvider.results :
+                                                                                              [])))
     readonly property bool clipboardDetailsMode: mode === "clipboard"
                                                  && UiPreferences.spotlightClipboardStyle === "details"
     readonly property bool clipboardMode: mode === "clipboard"
@@ -94,20 +97,46 @@ PanelWindow {
 
     SpotlightAppProvider {
         id: appProvider
-        query: root.query
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "apps"
+        query: active ? root.query : ""
         limit: UiPreferences.spotlightAppStyle === "grid" ? 0 : 50
     }
 
     SpotlightWallpaperProvider {
         id: wallpaperProvider
-        query: root.query
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "wallpapers"
+        query: active ? root.query : ""
     }
 
     SpotlightFileProvider {
         id: fileProvider
         active: root.showing && root.windowPhase !== "closing" && root.mode === "files"
-        query: root.query
+        query: active ? root.query : ""
         onActivated: root.requestClose()
+    }
+
+    SpotlightSearchProvider {
+        id: searchProvider
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "search"
+        query: root.query
+        onModeRequested: (mode, query) => {
+            root.query = query;
+            if (mode === "web")
+                root.enterWeb();
+            else
+                root.setLocalMode(mode);
+            root.setRailExpanded(false);
+        }
+        onSelectionIdRequested: id => root.selectResult(root.activeResults.findIndex(row => row.id === id))
+        onCloseRequested: root.requestClose()
+        onDeferredRequested: (provider, sourceId, query) => {
+            root.pendingSearchActivation = {
+                provider: provider,
+                sourceId: sourceId,
+                query: query
+            };
+            root.requestClose();
+        }
     }
 
     ShortcutRecorder {
@@ -128,7 +157,8 @@ PanelWindow {
 
     SpotlightClipboardProvider {
         id: clipboardProvider
-        query: root.query
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "clipboard"
+        query: active ? root.query : ""
         onRestored: id => root.finishClipboardRestore(id)
         onRestoreFailed: (id, code, message) => root.failClipboardRestore(id, code, message)
         onDeleteFailed: (id, code, message) => {
@@ -153,8 +183,8 @@ PanelWindow {
 
     function normalizedMode(value) {
         const requested = String(value || "").toLowerCase();
-        return requested === "apps" || requested === "wallpapers" || requested === "clipboard" || requested
-                === "files" ? requested : "";
+        return requested === "search" || requested === "apps" || requested === "wallpapers" || requested
+                === "clipboard" || requested === "files" ? requested : "";
     }
 
     function modeIndex(value) {
@@ -164,7 +194,7 @@ PanelWindow {
             return 1;
         if (value === "clipboard")
             return 2;
-        return 0;
+        return value === "apps" ? 0 : -1;
     }
 
     function modeForIndex(index) {
@@ -203,12 +233,19 @@ PanelWindow {
 
     function openSpotlight(requestedMode) {
         root.pendingWebUrl = "";
+        root.pendingSearchActivation = null;
         SpotlightSearchService.cancelActivation();
-        const localMode = normalizedMode(requestedMode);
+        if (root.windowPhase === "hidden" || root.windowPhase === "closing")
+            root.query = "";
+        const localMode = normalizedMode(requestedMode || "search");
+        if (localMode === root.mode && (root.windowPhase === "open" || root.windowPhase === "opening")) {
+            root.focusSpotlight();
+            return true;
+        }
         if (localMode !== "")
             setLocalMode(localMode);
         else if (root.windowPhase === "hidden")
-            setLocalMode("apps");
+            setLocalMode("search");
 
         if (root.windowPhase === "open" || root.windowPhase === "opening") {
             root.focusSpotlight();
@@ -218,6 +255,10 @@ PanelWindow {
         if (!root.visible)
             root.visible = true;
         root.windowPhase = "opening";
+        if (root.mode === "clipboard")
+            clipboardProvider.refresh();
+        if (root.mode === "wallpapers")
+            wallpaperProvider.refresh();
         root.animateWindow(1);
         root.focusSpotlight();
         return true;
@@ -268,6 +309,8 @@ PanelWindow {
             return false;
         if (localMode === "apps")
             appProvider.rebuild();
+        if (root.mode === "clipboard" && localMode !== "clipboard")
+            root.resetClipboardAction();
         const enteringWallpapers = root.mode !== "wallpapers" && localMode === "wallpapers";
         const enteringClipboard = root.mode !== "clipboard" && localMode === "clipboard";
         if (root.mode === "web")
@@ -290,7 +333,19 @@ PanelWindow {
         return true;
     }
 
+    function openWebMode() {
+        if (root.showing && root.windowPhase !== "closing" && root.mode === "web") {
+            root.focusSpotlight();
+            return true;
+        }
+        const previous = root.showing && root.windowPhase !== "closing" ? root.mode : "search";
+        root.openSpotlight(root.normalizedMode(previous) || "search");
+        return root.enterWeb();
+    }
+
     function enterWeb() {
+        if (root.mode === "clipboard")
+            root.resetClipboardAction();
         if (root.mode === "web" && root._webAnimationTarget === 1)
             return true;
         if (root.mode !== "web")
@@ -307,7 +362,7 @@ PanelWindow {
     function exitWeb() {
         if (root.mode !== "web")
             return false;
-        root.mode = root.normalizedMode(root.previousLocalMode) !== "" ? root.previousLocalMode : "apps";
+        root.mode = root.normalizedMode(root.previousLocalMode) !== "" ? root.previousLocalMode : "search";
         root.animateWeb(0);
         root.selectedResultId = "";
         root.selectResult(root.activeResults.length > 0 ? 0 : -1);
@@ -319,7 +374,7 @@ PanelWindow {
 
     function moveModeFocus(delta) {
         if (!root.modeRailExpanded) {
-            root.modeFocusIndex = root.mode === "web" ? 0 : root.modeIndex(root.mode);
+            root.modeFocusIndex = Math.max(0, root.modeIndex(root.mode));
             root.setRailExpanded(true);
             return;
         }
@@ -503,6 +558,8 @@ PanelWindow {
     }
 
     function activateSelected(keepClipboardOpen) {
+        if (root.windowPhase === "closing" || root.windowPhase === "hidden" || root.queryUpdating)
+            return false;
         if (root.modeRailExpanded && root.modeFocusIndex >= 0) {
             root.setLocalMode(root.modeForIndex(root.modeFocusIndex));
             root.setRailExpanded(false);
@@ -513,6 +570,8 @@ PanelWindow {
         if (root.selectedResultIndex < 0)
             return false;
 
+        if (root.mode === "search")
+            return searchProvider.activate(root.selectedResultId);
         if (root.mode === "apps") {
             if (appProvider.execute(root.selectedResultIndex)) {
                 root.requestClose();
@@ -600,6 +659,12 @@ PanelWindow {
         const control = (event.modifiers & Qt.ControlModifier) !== 0;
         const shift = (event.modifiers & Qt.ShiftModifier) !== 0;
 
+        if (control && event.key === Qt.Key_0) {
+            root.setLocalMode("search");
+            root.setRailExpanded(false);
+            event.accepted = true;
+            return;
+        }
         if (control && event.key === Qt.Key_1) {
             root.setLocalMode("apps");
             root.setRailExpanded(false);
@@ -668,7 +733,7 @@ PanelWindow {
                     fileProvider.execute(root.selectedResultIndex, true);
             } else if (modifiers === Qt.NoModifier || (root.mode === "clipboard" && modifiers
                                                        === Qt.ShiftModifier)) {
-                if (root.mode !== "files" || !event.isAutoRepeat)
+                if (!event.isAutoRepeat)
                     root.activateSelected(root.mode === "clipboard" && shift);
             }
             event.accepted = true;
@@ -680,7 +745,19 @@ PanelWindow {
         }
     }
 
-    onActiveResultsChanged: root.reconcileSelection()
+    onQueryChanged: {
+        root.queryUpdating = true;
+        root.selectedResultId = "";
+        root.selectedResultIndex = -1;
+        Qt.callLater(() => {
+            root.queryUpdating = false;
+            root.reconcileSelection();
+        });
+    }
+    onActiveResultsChanged: {
+        if (!root.queryUpdating)
+            root.reconcileSelection();
+    }
 
     NumberAnimation {
         id: windowAnimation
@@ -706,9 +783,11 @@ PanelWindow {
                 root.pendingWebUrl = "";
                 SpotlightSearchService.openUrl(url);
             }
+            const activation = root.pendingSearchActivation;
+            root.pendingSearchActivation = null;
             root.query = "";
-            root.mode = "apps";
-            root.previousLocalMode = "apps";
+            root.mode = "search";
+            root.previousLocalMode = "search";
             root.selectedResultIndex = -1;
             root.selectedResultId = "";
             root.clipboardSelectionRecoveryPending = false;
@@ -719,6 +798,14 @@ PanelWindow {
             root.railProgress = 0;
             root.webProgress = 0;
             root.resetClipboardAction();
+            if (activation) {
+                if (activation.provider === "settings")
+                    ControlCenterService.openSearch(activation.sourceId);
+                else if (activation.provider === "actions")
+                    SpotlightCatalog.execute(activation.sourceId);
+                else if (activation.provider === "web")
+                    SpotlightSearchService.openUrl(SpotlightSearchService.searchUrl(activation.query, true));
+            }
         }
     }
 
@@ -814,6 +901,10 @@ PanelWindow {
                 root.controlHeld = (event.modifiers & Qt.ControlModifier) !== 0 && event.key
                         !== Qt.Key_Control;
             }
+            onSearchRequested: {
+                root.setLocalMode("search");
+                root.setRailExpanded(false);
+            }
             onModeClicked: index => {
                 root.modeFocusIndex = index;
                 root.setLocalMode(root.modeForIndex(index));
@@ -845,6 +936,8 @@ PanelWindow {
             anchors.horizontalCenter: parent.horizontalCenter
             style: style
             mode: root.mode
+            expanded: root.mode !== "web" && (root.mode !== "search" || root.query.trim() !== "")
+            searchError: searchProvider.error
             results: root.activeResults
             query: root.query
             wallpaperModel: wallpaperProvider.resultModel
@@ -870,6 +963,10 @@ PanelWindow {
             availableHeight: Math.max(0, root.height - spotlightRoot.baseY - searchBar.height
                                       - style.resultGap - style.windowBottomMargin)
 
+            onSearchActivationRequested: id => {
+                if (root.windowPhase !== "closing" && !root.queryUpdating)
+                    searchProvider.activate(id);
+            }
             onSelectionRequested: index => root.selectResult(index)
             onActivationRequested: (index, keepOpen) => {
                 root.activateResult(index, keepOpen);

@@ -408,6 +408,14 @@ Singleton {
                 > 0;
     }
 
+    function cancelPendingInspections() {
+        // Allow the one in-flight read to finish; no more old demand is drained.
+        // The watcher and restore/delete processes are independent.
+        _inspectQueue = [];
+        _priorityInspectId = "";
+        inspecting = _inspectId !== "";
+    }
+
     function cancelInspect(id) {
         const normalizedId = String(id || "");
         if (normalizedId === "" || normalizedId === root._inspectId)

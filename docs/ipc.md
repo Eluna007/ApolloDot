@@ -37,7 +37,7 @@ spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
 
 | 快捷键 | 功能 | IPC target / method / arguments |
 | --- | --- | --- |
-| Mod+Space | 启动器 | spotlight toggle |
+| Mod+Space | Spotlight 搜索 | spotlight toggle |
 | Mod+Slash | 快捷键配置图 | shortcut-map toggle |
 | Mod+Shift+Space | 网页搜索 | spotlight web |
 | Mod+Alt+V | 剪贴板历史 | spotlight openMode clipboard |
@@ -106,3 +106,40 @@ parent directory without promising selection. Failures keep Spotlight open.
 Settings → keyboard shortcuts includes **Spotlight: Find files** as an unbound
 action. Bind/save it using the existing editor if desired; no default global
 shortcut is added and existing user bindings are preserved.
+
+### Spotlight Search (default)
+
+`spotlight open`, the opening branch of `spotlight toggle`, `spotlight search`,
+and `spotlight openMode search` enter Search. `open` and `search` are idempotent:
+when Search is visible they focus it. A new session starts with an empty input
+and no results panel. To open the application Grid/List directly, use
+`qs -c clavis ipc call spotlight openMode apps`.
+
+Ctrl+0 or the search icon returns to Search and preserves the current query.
+Ctrl+1/2/3/4 still opens Apps/Wallpapers/Clipboard/Files; Tab navigates the same
+four satellite buttons. Ctrl+K enters Web, and Esc from Web restores the previous
+mode, including Search. The existing modal/rail/clear-input/close Esc priority and
+IME composition handling remain. No new global key is installed.
+
+Nonempty input searches the already loaded Apps directory, static Settings and
+Actions catalogs, and `WallpaperService.wallpapers`, in that order. Groups start
+with 5/5/5/3 results and offer keyboard-accessible **Show more**. The last two rows
+are explicit **Search files for…** and **Search the web for…** actions. Files is
+queried only after entering its dedicated mode; Web opens only after activation.
+Clipboard content, live web results and file results are not aggregated.
+
+Search does not refresh or scan wallpaper folders. Files added externally become
+visible after the existing startup, directory-change or dedicated wallpaper-page
+refresh. There is no file index service or “enable indexing” setting.
+
+Settings results release Spotlight before opening/focusing the existing Settings
+window. Stable page/subpage IDs and section anchors support scroll and brief
+highlight after loading and layout. Later requests replace earlier ones; leaving
+the page or closing the window cancels pending navigation. A missing or hidden
+section reports that it is unavailable.
+
+Actions reuse fixed Clavis shortcuts and business functions. Power opens the
+existing confirmation menu. Parameter templates, raw compositor commands,
+queries, duplicate navigation aliases and the reserved no-op `cancelRecord` are
+not exposed as executable Search results. No shell expression is evaluated.
+See [search catalog maintenance](architecture/spotlight-search.md).
