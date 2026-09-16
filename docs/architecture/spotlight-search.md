@@ -2,10 +2,20 @@
 
 `search` is the default input-only mode. Dedicated `apps`, `wallpapers`,
 `clipboard` and `files` retain their own layouts and lifecycle. Search renders a
-single selectable list with nonselectable group headings, bounded initial group
-budgets and incremental **Show more** rows. There is no global score comparison
+single scrolling surface with nonselectable group headings. Apps use compact
+icon/name tiles and Wallpapers use rounded thumbnail/name tiles, each limited
+to one responsive row. Settings and Actions show up to two entries each.
+Categories do not expand; all horizontal cells are available for results.
+There is no global score comparison
 between categories. Namespaced result IDs and the original query are captured
-for activation; an old query cannot activate its old rows.
+for activation; an old query cannot activate its old rows. Up/Down enters result
+navigation and moves between visual rows; Left/Right moves within a tile row.
+Typing, clicking the input or using text-editing shortcuts restores caret
+navigation. The flat identity model is retained independently of visual packing,
+including when a resize or background update changes the rows. An existing
+selection can occupy the last available slot without increasing the category
+budget. Only visible rows instantiate thumbnails; all categories share the
+vertical scrollbar.
 
 `Common/functions/SpotlightLocalSearch.js` shares the existing Apps relevance and
 Wallpaper filename ordering. Apps in both entry points use `SpotlightAppOrder`

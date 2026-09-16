@@ -8,12 +8,15 @@ Item {
     property bool active: false
     property string query: ""
     property var results: []
-    property var expandedGroups: ({})
+    property var capacities: ({
+                                  apps: 6,
+                                  wallpapers: 4
+                              })
+    property string retainedResultId: ""
     property string error: ""
     readonly property string language: Qt.uiLanguage
     signal modeRequested(string mode, string query)
     signal deferredRequested(string provider, string sourceId, string query)
-    signal selectionIdRequested(string id)
     signal closeRequested
 
     function rebuild() {
@@ -60,15 +63,14 @@ Item {
                                                  settings: settings,
                                                  actions: actions,
                                                  wallpapers: wallpapers
-                                             }, expandedGroups, query, {
+                                             }, query, {
                                                  apps: qsTr("Apps"),
                                                  settings: qsTr("Settings"),
                                                  actions: qsTr("Actions"),
                                                  wallpapers: qsTr("Wallpapers"),
-                                                 more: qsTr("Show more"),
                                                  files: qsTr("Search files for “%1”").arg(query),
                                                  web: qsTr("Search the web for “%1”").arg(query)
-                                             });
+                                             }, capacities, retainedResultId);
     }
     function activate(id) {
         if (!active)
@@ -78,17 +80,6 @@ Item {
             return false;
         error = "";
         switch (request.provider) {
-        case "more":
-            const next = Object.assign({}, expandedGroups);
-            next[request.sourceId] = (next[request.sourceId] || LocalSearch.budgets[request.sourceId])
-                    + LocalSearch.budgets[request.sourceId];
-            const prior = new Set(results.map(row => row.id));
-            expandedGroups = next;
-            rebuild();
-            const added = results.find(row => row.provider === request.sourceId && !prior.has(row.id));
-            if (added)
-                selectionIdRequested(added.id);
-            return true;
         case "extension":
             if (request.sourceId === "files")
                 modeRequested("files", request.query);
@@ -129,16 +120,12 @@ Item {
         return false;
     }
     onQueryChanged: {
-        expandedGroups = ({});
         error = "";
         rebuild();
     }
-    onActiveChanged: {
-        if (active)
-            expandedGroups = ({});
-        rebuild();
-    }
+    onActiveChanged: rebuild()
     onLanguageChanged: rebuild()
+    onCapacitiesChanged: rebuild()
     Connections {
         target: ApplicationService
         function onApplicationsChanged() {

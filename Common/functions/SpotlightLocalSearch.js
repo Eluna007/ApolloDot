@@ -105,26 +105,72 @@ function matchCatalog(entries, query) {
         .map(item => item.entry);
 }
 
-var budgets = {apps: 5, settings: 5, actions: 5, wallpapers: 3};
+var budgets = {apps: 6, settings: 2, actions: 2, wallpapers: 4};
 var groups = ["apps", "settings", "actions", "wallpapers"];
-function groupedResults(matches, expanded, query, labels) {
+function horizontalGroup(group) {
+    return group === "apps" || group === "wallpapers";
+}
+function groupCapacity(group, capacities) {
+    return horizontalGroup(group) ? Math.max(2, Math.floor(Number((capacities || {})[group]) || budgets[group]))
+                                  : budgets[group];
+}
+function groupedResults(matches, query, labels, capacities, retainedId) {
     if (!normalized(query)) return [];
     const results = [];
     groups.forEach(group => {
         const entries = matches[group] || [];
-        const count = Math.min(entries.length, expanded[group] || budgets[group]);
-        for (let i = 0; i < count; ++i) {
-            results.push(Object.assign({}, entries[i], {id: group + ":" + entries[i].id,
-                sourceId: entries[i].id, provider: group, query: query,
+        const capacity = groupCapacity(group, capacities);
+        const visible = entries.slice(0, capacity);
+        // Keep an existing selection visible without expanding the compact budget.
+        const retained = entries.findIndex(entry => group + ":" + entry.id === retainedId);
+        if (retained >= capacity) visible[capacity - 1] = entries[retained];
+        for (let i = 0; i < visible.length; ++i) {
+            results.push(Object.assign({}, visible[i], {id: group + ":" + visible[i].id,
+                sourceId: visible[i].id, provider: group, query: query,
                 group: group, groupTitle: i === 0 ? labels[group] : ""}));
         }
-        if (count < entries.length) results.push({id: "more:" + group, provider: "more", sourceId: group,
-            query: query, title: labels.more, subtitle: "", iconKind: "symbol", symbol: "expand_more", groupTitle: ""});
     });
     ["files", "web"].forEach((kind, index) => results.push({id: "extension:" + kind, provider: "extension",
         sourceId: kind, query: query, title: labels[kind], subtitle: "", iconKind: "symbol",
         symbol: kind === "files" ? "draft" : "travel_explore", groupTitle: "", separator: index === 0}));
     return results;
+}
+
+// Pack selectable identities into visual rows; activation still uses flat IDs.
+function visualRows(results, capacities) {
+    const rows = [];
+    results.forEach((result, index) => {
+        const group = result.group || result.provider;
+        const horizontal = horizontalGroup(group);
+        const previous = rows[rows.length - 1];
+        const cell = {result: result, index: index};
+        if (horizontal && previous && previous.kind === group
+                && previous.cells.length < groupCapacity(group, capacities)) {
+            previous.cells.push(cell);
+        } else {
+            rows.push({kind: horizontal ? group : result.provider, groupTitle: result.groupTitle || "",
+                separator: !!result.separator, cells: [cell]});
+        }
+    });
+    return rows;
+}
+
+function visualRowIndex(rows, selectedIndex) {
+    return rows.findIndex(row => row.cells.some(cell => cell.index === selectedIndex));
+}
+
+function navigationIndex(rows, selectedIndex, direction) {
+    if (!rows.length) return -1;
+    const rowIndex = visualRowIndex(rows, selectedIndex);
+    if (rowIndex < 0) return rows[0].cells[0].index;
+    const row = rows[rowIndex];
+    const column = row.cells.findIndex(cell => cell.index === selectedIndex);
+    if (direction === "left" || direction === "right") {
+        const next = Math.max(0, Math.min(row.cells.length - 1, column + (direction === "left" ? -1 : 1)));
+        return row.cells[next].index;
+    }
+    const nextRow = rows[Math.max(0, Math.min(rows.length - 1, rowIndex + (direction === "up" ? -1 : 1)))];
+    return nextRow.cells[Math.min(column, nextRow.cells.length - 1)].index;
 }
 
 // A stale row or a forged ID cannot dispatch a previous query's result.

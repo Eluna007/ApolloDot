@@ -20,6 +20,8 @@ Item {
     required property var clipboardModel
     required property int selectedIndex
     property string searchError: ""
+    readonly property var searchCapacities: searchResults.capacities
+    readonly property bool searchHorizontalSelection: searchResults.horizontalSelection
     signal searchActivationRequested(string id)
     property string query: ""
     property bool previewActive: false
@@ -176,9 +178,15 @@ Item {
     }
 
     function navigationStep(direction) {
+        if (mode === "search")
+            return searchResults.navigationIndex(direction < 0 ? "up" : "down") - selectedIndex;
         return mode === "wallpapers" ? direction * gridColumns() : (root.appGridActive ? direction
                                                                                          * appGrid.columns :
                                                                                          direction);
+    }
+
+    function searchNavigationIndex(direction) {
+        return searchResults.navigationIndex(direction);
     }
 
     function requestMoreWallpapers() {
@@ -261,6 +269,7 @@ Item {
         anchors.fill: parent
         anchors.margins: root.style.resultPadding
         visible: root.mode === "search"
+        layoutWidth: Math.max(0, root.targetWidth - root.style.resultPadding * 2)
         style: root.style
         results: root.mode === "search" ? root.results : []
         selectedIndex: root.selectedIndex

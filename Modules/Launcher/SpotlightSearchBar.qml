@@ -43,6 +43,7 @@ Item {
     signal routedKey(var event)
     signal modeClicked(int index)
     signal searchRequested
+    signal inputInteraction
 
     height: style.searchHeight + style.effectBleed * 2
 
@@ -252,6 +253,7 @@ Item {
             acceptedButtons: Qt.LeftButton
             propagateComposedEvents: true
             onPressed: mouse => {
+                root.inputInteraction();
                 root.focusInput();
                 mouse.accepted = false;
             }

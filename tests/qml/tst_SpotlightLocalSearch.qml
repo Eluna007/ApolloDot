@@ -10,15 +10,14 @@ TestCase {
             settings: "Settings",
             actions: "Actions",
             wallpapers: "Wallpapers",
-            more: "More",
             files: "Files",
             web: "Web"
         };
     }
     function test_empty_and_extensions_preserve_literal_query() {
-        compare(Search.groupedResults({}, {}, " \t", labels()), []);
+        compare(Search.groupedResults({}, " \t", labels()), []);
         const query = "  A/B 中文 & ?\"  ";
-        const results = Search.groupedResults({}, {}, query, labels());
+        const results = Search.groupedResults({}, query, labels());
         compare(results.length, 2);
         compare(Search.activation(results, "extension:files", query), {
                     provider: "extension",
@@ -51,17 +50,12 @@ TestCase {
                 }
             ]
         };
-        let rows = Search.groupedResults(matches, {}, "a", labels());
+        let rows = Search.groupedResults(matches, "a", labels());
         compare(rows[0].id, "apps:app0");
-        compare(rows[5].id, "more:apps");
+        compare(rows[5].id, "apps:app5");
         compare(rows[6].id, "settings:app0");
         compare(rows[7].id, "actions:open");
         compare(rows.filter(row => row.groupTitle).length, 3);
-        rows = Search.groupedResults(matches, {
-                                         apps: 10
-                                     }, "a", labels());
-        verify(!rows.some(row => row.id === "more:apps"));
-        compare(rows[7].id, "apps:app7");
         compare(matches.apps.length, 8);
     }
     function test_catalog_localized_english_alias_and_deterministic_order() {
@@ -90,6 +84,83 @@ TestCase {
         compare(Search.matchCatalog(entries, "locale").map(e => e.id), ["b"]);
         compare(Search.matchCatalog(entries, "").length, 0);
         compare(Search.matchCatalog(entries, "$(shutdown)").length, 0);
+    }
+    function test_compact_budgets_and_retained_selection() {
+        const entries = Array.from({
+                                       length: 9
+                                   }, (_, i) => ({
+                                       id: "item" + i,
+                                       title: "Item " + i
+                                   }));
+        const matches = {
+            apps: entries,
+            settings: entries,
+            actions: entries,
+            wallpapers: entries
+        };
+        const capacities = {
+            apps: 4,
+            wallpapers: 3
+        };
+        let results = Search.groupedResults(matches, "item", labels(), capacities);
+        compare(results.filter(r => r.provider === "apps").length, 4);
+        compare(results.filter(r => r.provider === "wallpapers").length, 3);
+        compare(results.filter(r => r.provider === "settings").length, 2);
+        compare(results.filter(r => r.provider === "actions").length, 2);
+        compare(results.length, 13);
+        compare(Search.visualRows(results, capacities).filter(r => r.kind === "apps").length, 1);
+        compare(Search.visualRows(results, capacities).filter(r => r.kind === "wallpapers").length, 1);
+        for (const group of ["apps", "settings", "actions", "wallpapers"])
+            compare(Search.activation(results, "more:" + group, "item"), null);
+
+        // A resize keeps the selected identity without adding rows or hiding the top match.
+        results = Search.groupedResults(matches, "item", labels(), {
+                                            apps: 2,
+                                            wallpapers: 2
+                                        }, "apps:item6");
+        compare(results.filter(r => r.provider === "apps").map(r => r.id), ["apps:item0", "apps:item6"]);
+        compare(results.filter(r => r.provider === "wallpapers").length, 2);
+        compare(Search.activation(results, "apps:item6", "item").sourceId, "item6");
+        results = Search.groupedResults(matches, "item", labels(), capacities, "settings:item6");
+        compare(results.filter(r => r.provider === "settings").map(r => r.id), ["settings:item0",
+                                                                                "settings:item6"]);
+        // Without a retained selection, only the leading matches are exposed.
+        results = Search.groupedResults(matches, "item", labels(), capacities);
+        compare(Search.activation(results, "apps:item6", "item"), null);
+        compare(entries.length, 9);
+    }
+    function test_mixed_navigation_keeps_all_actions_reachable() {
+        const entries = Array.from({
+                                       length: 7
+                                   }, (_, i) => ({
+                                       id: "item" + i,
+                                       title: "Item " + i
+                                   }));
+        const capacities = {
+            apps: 4,
+            wallpapers: 3
+        };
+        const results = Search.groupedResults({
+                                                  apps: entries,
+                                                  settings: entries,
+                                                  wallpapers: entries
+                                              }, "item", labels(), capacities);
+        const rows = Search.visualRows(results, capacities);
+        const index = id => results.findIndex(r => r.id === id);
+        compare(Search.navigationIndex(rows, index("apps:item0"), "left"), index("apps:item0"));
+        compare(Search.navigationIndex(rows, index("apps:item2"), "right"), index("apps:item3"));
+        compare(Search.navigationIndex(rows, index("apps:item3"), "right"), index("apps:item3"));
+        compare(Search.navigationIndex(rows, index("apps:item2"), "down"), index("settings:item0"));
+        compare(Search.navigationIndex(rows, index("settings:item0"), "up"), index("apps:item0"));
+        compare(Search.navigationIndex(rows, index("settings:item1"), "down"), index("wallpapers:item0"));
+        compare(Search.navigationIndex(rows, index("wallpapers:item1"), "right"), index("wallpapers:item2"));
+        compare(Search.navigationIndex(rows, index("wallpapers:item2"), "down"), index("extension:files"));
+        compare(Search.navigationIndex(rows, index("extension:files"), "down"), index("extension:web"));
+        compare(Search.navigationIndex(rows, index("extension:web"), "down"), index("extension:web"));
+        compare(Search.navigationIndex([], -1, "down"), -1);
+        // Every selectable result occurs exactly once in the packed rows.
+        compare(rows.reduce((ids, row) => ids.concat(row.cells.map(c => c.result.id)), []), results.map(r
+                                                                                                        => r.id));
     }
     function test_apps_keep_relevance_usage_and_stable_id() {
         const apps = [

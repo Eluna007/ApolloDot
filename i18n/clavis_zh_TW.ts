@@ -9757,57 +9757,52 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightSearchProvider</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="36"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="39"/>
         <source>Settings · %1</source>
         <translation>設定 · %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="43"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="46"/>
         <source>Action · %1</source>
         <translation>操作 · %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="43"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="46"/>
         <source>Action · Currently unavailable</source>
         <translation>操作 · 目前無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="64"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="67"/>
         <source>Apps</source>
         <translation>應用程式</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="65"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="68"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="66"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="69"/>
         <source>Actions</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="67"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="70"/>
         <source>Wallpapers</source>
         <translation>桌布</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="68"/>
-        <source>Show more</source>
-        <translation>顯示更多</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="69"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="71"/>
         <source>Search files for “%1”</source>
         <translation>在檔案中搜尋「%1」</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="70"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="72"/>
         <source>Search the web for “%1”</source>
         <translation>在網頁中搜尋「%1」</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="128"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="119"/>
         <source>This result is currently unavailable</source>
         <translation>此結果目前無法使用</translation>
     </message>

@@ -1,11 +1,9 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Window
-import Quickshell
 import qs.Common
-import qs.Components
-import qs.Services
 import qs.Widgets.common
+import "../../Common/functions/SpotlightLocalSearch.js" as LocalSearch
 
 Item {
     id: root
@@ -13,12 +11,36 @@ Item {
     required property var results
     required property int selectedIndex
     property string error: ""
-    readonly property real rowsHeight: results.reduce((height, row) => height + style.resultRowHeight + (
-                                                                           row.groupTitle ? 28 : 0) + (
-                                                                           row.separator ? 12 : 0), 0) + (
-                                           error ? 32 : 0)
+    property real layoutWidth: width
+    readonly property var capacities: ({
+                                           apps: Math.max(2, Math.floor(layoutWidth
+                                                                        / style.searchAppCellWidth)),
+                                           wallpapers: Math.max(2, Math.floor(layoutWidth
+                                                                              / style.searchWallpaperCellWidth))
+                                       })
+    readonly property var rows: LocalSearch.visualRows(results, capacities)
+    readonly property int currentRow: LocalSearch.visualRowIndex(rows, selectedIndex)
+    readonly property bool horizontalSelection: currentRow >= 0 && LocalSearch.horizontalGroup(
+                                                    rows[currentRow].kind)
+    readonly property real rowsHeight: rows.reduce((height, row) => height + rowHeight(row), 0) + (error ? 32 :
+                                                                                                           0)
     signal selectionRequested(int index)
     signal activationRequested(string id)
+
+    function contentHeight(row) {
+        if (row.kind === "apps")
+            return style.searchAppRowHeight;
+        if (row.kind === "wallpapers")
+            return Math.max(1, width / capacities.wallpapers - 20) / style.wallpaperPreviewAspectRatio + 44;
+        return style.searchListRowHeight;
+    }
+    function rowHeight(row) {
+        return contentHeight(row) + (row.groupTitle ? style.searchHeaderHeight : 0) + (row.separator ? 12 :
+                                                                                                       0);
+    }
+    function navigationIndex(direction) {
+        return LocalSearch.navigationIndex(rows, selectedIndex, direction);
+    }
 
     Text {
         id: errorLabel
@@ -39,13 +61,14 @@ Item {
         anchors.bottom: parent.bottom
         width: parent.width
         clip: true
-        model: root.results
-        currentIndex: root.selectedIndex
+        model: root.rows
+        currentIndex: root.currentRow
         boundsBehavior: Flickable.StopAtBounds
         keyNavigationEnabled: false
         highlight: Item {}
         highlightMoveDuration: root.style.resultScrollDuration
         highlightMoveVelocity: -1
+        cacheBuffer: 0
         ScrollBar.vertical: StyledScrollBar {}
         WheelScrollController {
             flickable: list
@@ -53,17 +76,16 @@ Item {
 
         delegate: Item {
             id: row
-            required property int index
             required property var modelData
             width: ListView.view.width
-            height: root.style.resultRowHeight + header.height + separator.height
+            height: root.rowHeight(modelData)
             Text {
                 id: header
                 x: 12
                 width: parent.width - 24
-                height: row.modelData.groupTitle ? 28 : 0
+                height: row.modelData.groupTitle ? root.style.searchHeaderHeight : 0
                 visible: height > 0
-                text: row.modelData.groupTitle || ""
+                text: row.modelData.groupTitle
                 textFormat: Text.PlainText
                 color: Appearance.colors.colOnSurfaceVariant
                 font.family: Fonts.ui
@@ -85,80 +107,24 @@ Item {
                     visible: parent.height > 0
                 }
             }
-            Rectangle {
-                id: surface
+            Row {
                 y: header.height + separator.height
                 width: parent.width
-                height: root.style.resultRowHeight
-                radius: Metrics.cornerM
-                color: row.index === root.selectedIndex ? root.style.selectedColor : mouse.containsMouse
-                                                          ? root.style.hoverColor : "transparent"
-                Item {
-                    id: icon
-                    x: 12
-                    anchors.verticalCenter: parent.verticalCenter
-                    width: root.style.resultIconSize
-                    height: width
-                    Image {
-                        id: artwork
-                        anchors.fill: parent
-                        source: row.modelData.iconKind === "app" ? ApplicationService.iconSource(
-                                                                       row.modelData.appIcon) :
-                                                                   row.modelData.iconKind === "wallpaper"
-                                                                   ? row.modelData.previewUrl : ""
-                        sourceSize: Qt.size(width * Screen.devicePixelRatio, height * Screen.devicePixelRatio)
-                        asynchronous: true
-                        retainWhileLoading: false
-                        currentFrame: 0
-                        fillMode: Image.PreserveAspectFit
-                        visible: status === Image.Ready
+                height: root.contentHeight(row.modelData)
+                Repeater {
+                    model: row.modelData.cells
+                    SpotlightSearchTile {
+                        required property var modelData
+                        width: row.width / (LocalSearch.horizontalGroup(row.modelData.kind)
+                                            ? root.capacities[row.modelData.kind] : 1)
+                        height: root.contentHeight(row.modelData)
+                        style: root.style
+                        result: modelData.result
+                        kind: row.modelData.kind
+                        selected: modelData.index === root.selectedIndex
+                        onSelectionRequested: root.selectionRequested(modelData.index)
+                        onActivationRequested: id => root.activationRequested(id)
                     }
-                    MaterialSymbol {
-                        anchors.centerIn: parent
-                        visible: !artwork.visible
-                        text: row.modelData.symbol || "apps"
-                        iconSize: 28
-                        color: row.index === root.selectedIndex ? root.style.selectedContentColor :
-                                                                  Appearance.colors.colOnSurfaceVariant
-                    }
-                }
-                Column {
-                    x: icon.x + icon.width + 12
-                    width: parent.width - x - 16
-                    anchors.verticalCenter: parent.verticalCenter
-                    spacing: 3
-                    Text {
-                        width: parent.width
-                        text: row.modelData.title
-                        textFormat: Text.PlainText
-                        font.family: Fonts.ui
-                        font.pixelSize: 15
-                        color: row.index === root.selectedIndex ? root.style.selectedContentColor :
-                                                                  Appearance.colors.colOnSurface
-                        elide: Text.ElideRight
-                    }
-                    Text {
-                        width: parent.width
-                        visible: text !== ""
-                        text: row.modelData.subtitle || ""
-                        textFormat: Text.PlainText
-                        font.family: Fonts.ui
-                        font.pixelSize: 12
-                        color: Appearance.colors.colOnSurfaceVariant
-                        elide: Text.ElideMiddle
-                    }
-                }
-                MouseArea {
-                    id: mouse
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    Accessible.role: Accessible.Button
-                    Accessible.name: row.modelData.title
-                    Accessible.description: row.modelData.subtitle || ""
-                    onPressed: root.selectionRequested(row.index)
-                    onClicked: root.activationRequested(row.modelData.id)
-                    Accessible.onPressAction: root.activationRequested(row.modelData.id)
                 }
             }
         }

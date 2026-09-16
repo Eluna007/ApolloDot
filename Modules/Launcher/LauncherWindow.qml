@@ -32,6 +32,7 @@ PanelWindow {
 
     property var pendingSearchActivation: null
     property bool queryUpdating: false
+    property bool searchNavigating: false
     property string pendingWebUrl: ""
     property string windowPhase: "hidden"
     property string mode: "search"
@@ -119,6 +120,8 @@ PanelWindow {
         id: searchProvider
         active: root.showing && root.windowPhase !== "closing" && root.mode === "search"
         query: root.query
+        capacities: resultsPanel.searchCapacities
+        retainedResultId: root.mode === "search" && !root.queryUpdating ? root.selectedResultId : ""
         onModeRequested: (mode, query) => {
             root.query = query;
             if (mode === "web")
@@ -127,7 +130,6 @@ PanelWindow {
                 root.setLocalMode(mode);
             root.setRailExpanded(false);
         }
-        onSelectionIdRequested: id => root.selectResult(root.activeResults.findIndex(row => row.id === id))
         onCloseRequested: root.requestClose()
         onDeferredRequested: (provider, sourceId, query) => {
             root.pendingSearchActivation = {
@@ -304,6 +306,7 @@ PanelWindow {
     }
 
     function setLocalMode(requestedMode) {
+        root.searchNavigating = false;
         const localMode = normalizedMode(requestedMode);
         if (localMode === "")
             return false;
@@ -344,6 +347,7 @@ PanelWindow {
     }
 
     function enterWeb() {
+        root.searchNavigating = false;
         if (root.mode === "clipboard")
             root.resetClipboardAction();
         if (root.mode === "web" && root._webAnimationTarget === 1)
@@ -408,6 +412,11 @@ PanelWindow {
     }
 
     function moveSelection(direction) {
+        if (root.mode === "search" && !root.searchNavigating) {
+            root.searchNavigating = true;
+            root.selectResult(Math.max(0, root.selectedResultIndex));
+            return;
+        }
         root.moveSelectionByOffset(resultsPanel.navigationStep(direction));
     }
 
@@ -704,13 +713,22 @@ PanelWindow {
             event.accepted = true;
             return;
         }
-        if (event.key === Qt.Key_Up) {
+        const plainArrow = event.modifiers === Qt.NoModifier || event.modifiers === Qt.KeypadModifier;
+        if (event.key === Qt.Key_Up && (root.mode !== "search" || plainArrow)) {
             root.moveSelection(-1);
             event.accepted = true;
             return;
         }
-        if (event.key === Qt.Key_Down) {
+        if (event.key === Qt.Key_Down && (root.mode !== "search" || plainArrow)) {
             root.moveSelection(1);
+            event.accepted = true;
+            return;
+        }
+        if (root.mode === "search" && root.searchNavigating && !root.modeRailExpanded && plainArrow
+                && resultsPanel.searchHorizontalSelection && (event.key === Qt.Key_Left || event.key
+                                                              === Qt.Key_Right)) {
+            root.selectResult(resultsPanel.searchNavigationIndex(event.key === Qt.Key_Left ? "left" :
+                                                                                             "right"));
             event.accepted = true;
             return;
         }
@@ -743,9 +761,13 @@ PanelWindow {
             root.deleteClipboardEntry(root.selectedResultIndex);
             event.accepted = true;
         }
+        // Text edits, caret navigation and modified shortcuts remain TextInput's.
+        if (root.mode === "search")
+            root.searchNavigating = false;
     }
 
     onQueryChanged: {
+        root.searchNavigating = false;
         root.queryUpdating = true;
         root.selectedResultId = "";
         root.selectedResultIndex = -1;
@@ -905,6 +927,7 @@ PanelWindow {
                 root.setLocalMode("search");
                 root.setRailExpanded(false);
             }
+            onInputInteraction: root.searchNavigating = false
             onModeClicked: index => {
                 root.modeFocusIndex = index;
                 root.setLocalMode(root.modeForIndex(index));
@@ -967,7 +990,11 @@ PanelWindow {
                 if (root.windowPhase !== "closing" && !root.queryUpdating)
                     searchProvider.activate(id);
             }
-            onSelectionRequested: index => root.selectResult(index)
+            onSelectionRequested: index => {
+                if (root.mode === "search")
+                    root.searchNavigating = true;
+                root.selectResult(index);
+            }
             onActivationRequested: (index, keepOpen) => {
                 root.activateResult(index, keepOpen);
             }
