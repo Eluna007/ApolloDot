@@ -38,12 +38,14 @@ Item {
     readonly property bool inputActiveFocus: searchInput.activeFocus
     readonly property var blurRegionItems: morphSurface.blurRegionItems
 
-    readonly property bool inputComposing: searchInput.inputMethodComposing
+    // Qt also treats cursor/format-only input-method attributes as composing.
+    // Fcitx5's Wayland commit can leave those attributes after preedit is empty;
+    // only pending text should suspend Spotlight's key routing.
+    readonly property bool inputComposing: searchInput.preeditText.length > 0
     signal releasedKey(var event)
     signal routedKey(var event)
     signal modeClicked(int index)
     signal searchRequested
-    signal inputInteraction
 
     height: style.searchHeight + style.effectBleed * 2
 
@@ -253,7 +255,6 @@ Item {
             acceptedButtons: Qt.LeftButton
             propagateComposedEvents: true
             onPressed: mouse => {
-                root.inputInteraction();
                 root.focusInput();
                 mouse.accepted = false;
             }

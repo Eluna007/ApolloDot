@@ -8,10 +8,13 @@ to one responsive row. Settings and Actions show up to two entries each.
 Categories do not expand; all horizontal cells are available for results.
 There is no global score comparison
 between categories. Namespaced result IDs and the original query are captured
-for activation; an old query cannot activate its old rows. Up/Down enters result
-navigation and moves between visual rows; Left/Right moves within a tile row.
-Typing, clicking the input or using text-editing shortcuts restores caret
-navigation. The flat identity model is retained independently of visual packing,
+for activation; an old query cannot activate its old rows. Up/Down moves between
+visual rows; Left/Right moves within a tile row, without a separate input/result
+navigation state. Esc follows the shared modal/rail/clear-input/close behavior.
+Pending preedit text
+defers launcher keys to the IME; cursor/format-only IME state after a commit does
+not keep launcher navigation suspended.
+The flat identity model is retained independently of visual packing,
 including when a resize or background update changes the rows. An existing
 selection can occupy the last available slot without increasing the category
 budget. Only visible rows instantiate thumbnails; all categories share the

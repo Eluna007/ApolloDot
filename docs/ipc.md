@@ -124,9 +124,10 @@ IME composition handling remain. No new global key is installed.
 Nonempty input searches the already loaded Apps directory, static Settings and
 Actions catalogs, and `WallpaperService.wallpapers`, in that order. Groups display
 with one responsive row of app icons/names and wallpaper thumbnails/names, and
-up to two Settings/Actions entries each, with no category expansion. Up/Down enters
-result navigation and moves between rows; Left/Right moves within a tile row.
-Typing or clicking the input returns to text editing. The last two rows
+up to two Settings/Actions entries each, with no category expansion. Up/Down moves between rows; Left/Right moves within
+a tile row. There is no separate input/result navigation state; Esc follows the
+shared modal/rail/clear-input/close behavior.
+The last two rows
 are explicit **Search files for…** and **Search the web for…** actions. Files is
 queried only after entering its dedicated mode; Web opens only after activation.
 Clipboard content, live web results and file results are not aggregated.

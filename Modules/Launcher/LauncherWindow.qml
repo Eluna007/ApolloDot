@@ -32,7 +32,6 @@ PanelWindow {
 
     property var pendingSearchActivation: null
     property bool queryUpdating: false
-    property bool searchNavigating: false
     property string pendingWebUrl: ""
     property string windowPhase: "hidden"
     property string mode: "search"
@@ -306,7 +305,6 @@ PanelWindow {
     }
 
     function setLocalMode(requestedMode) {
-        root.searchNavigating = false;
         const localMode = normalizedMode(requestedMode);
         if (localMode === "")
             return false;
@@ -347,7 +345,6 @@ PanelWindow {
     }
 
     function enterWeb() {
-        root.searchNavigating = false;
         if (root.mode === "clipboard")
             root.resetClipboardAction();
         if (root.mode === "web" && root._webAnimationTarget === 1)
@@ -412,11 +409,6 @@ PanelWindow {
     }
 
     function moveSelection(direction) {
-        if (root.mode === "search" && !root.searchNavigating) {
-            root.searchNavigating = true;
-            root.selectResult(Math.max(0, root.selectedResultIndex));
-            return;
-        }
         root.moveSelectionByOffset(resultsPanel.navigationStep(direction));
     }
 
@@ -663,8 +655,10 @@ PanelWindow {
         if (root.spotlightModalActive)
             return;
         root.controlHeld = event.key === Qt.Key_Control || (event.modifiers & Qt.ControlModifier) !== 0;
-        if (searchBar.inputComposing)
+        if (searchBar.inputComposing) {
+            event.accepted = false;
             return;
+        }
         const control = (event.modifiers & Qt.ControlModifier) !== 0;
         const shift = (event.modifiers & Qt.ShiftModifier) !== 0;
 
@@ -724,7 +718,7 @@ PanelWindow {
             event.accepted = true;
             return;
         }
-        if (root.mode === "search" && root.searchNavigating && !root.modeRailExpanded && plainArrow
+        if (root.mode === "search" && !root.modeRailExpanded && plainArrow
                 && resultsPanel.searchHorizontalSelection && (event.key === Qt.Key_Left || event.key
                                                               === Qt.Key_Right)) {
             root.selectResult(resultsPanel.searchNavigationIndex(event.key === Qt.Key_Left ? "left" :
@@ -761,13 +755,9 @@ PanelWindow {
             root.deleteClipboardEntry(root.selectedResultIndex);
             event.accepted = true;
         }
-        // Text edits, caret navigation and modified shortcuts remain TextInput's.
-        if (root.mode === "search")
-            root.searchNavigating = false;
     }
 
     onQueryChanged: {
-        root.searchNavigating = false;
         root.queryUpdating = true;
         root.selectedResultId = "";
         root.selectedResultIndex = -1;
@@ -927,7 +917,6 @@ PanelWindow {
                 root.setLocalMode("search");
                 root.setRailExpanded(false);
             }
-            onInputInteraction: root.searchNavigating = false
             onModeClicked: index => {
                 root.modeFocusIndex = index;
                 root.setLocalMode(root.modeForIndex(index));
@@ -991,8 +980,6 @@ PanelWindow {
                     searchProvider.activate(id);
             }
             onSelectionRequested: index => {
-                if (root.mode === "search")
-                    root.searchNavigating = true;
                 root.selectResult(index);
             }
             onActivationRequested: (index, keepOpen) => {
