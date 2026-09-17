@@ -85,9 +85,9 @@ spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
 `qs -c clavis ipc call spotlight files` open Files and focus its input. Repeated
 calls keep it open. Existing Apps/Wallpapers/Clipboard and web methods remain.
 
-Ctrl+1/2/3/4 selects Apps/Wallpapers/Clipboard/Files. Tab and Shift+Tab navigate
-the expanded four-mode rail. In Files, Enter opens the selected file or enters
-the folder; Ctrl+Enter requests selection in a file manager. Holding Ctrl shows
+Ctrl+1/2/3/4 selects Apps/Wallpapers/Clipboard/Files. A standalone Ctrl tap (under 250 ms) toggles
+the four-mode rail; Left/Right and Enter navigate it. Tab completes input. In Files, Enter opens the selected file or enters
+the folder; Ctrl+Enter requests selection in a file manager. Holding Ctrl for at least 250 ms shows
 the selected result's containing path; the right-click menu also exposes Open
 and Show in file manager. Clipboard retains Shift+Enter.
 
@@ -115,9 +115,9 @@ when Search is visible they focus it. A new session starts with an empty input
 and no results panel. To open the application Grid/List directly, use
 `qs -c clavis ipc call spotlight openMode apps`.
 
-Ctrl+0 or the search icon returns to Search and preserves the current query.
-Ctrl+1/2/3/4 still opens Apps/Wallpapers/Clipboard/Files; Tab navigates the same
-four satellite buttons. Ctrl+K enters Web, and Esc from Web restores the previous
+Ctrl+0 or the search icon returns to Search and preserves ordinary search text. Tool parameters and command drafts are cleared.
+Ctrl+1/2/3/4 still opens Apps/Wallpapers/Clipboard/Files; a standalone Ctrl tap toggles
+the same four satellite buttons. Ctrl+K enters Web, and Esc from Web restores the previous
 mode, including Search. The existing modal/rail/clear-input/close Esc priority and
 IME composition handling remain. No new global key is installed.
 
@@ -147,3 +147,42 @@ existing confirmation menu. Parameter templates, raw compositor commands,
 queries, duplicate navigation aliases and the reserved no-op `cancelRecord` are
 not exposed as executable Search results. No shell expression is evaluated.
 See [search catalog maintenance](architecture/spotlight-search.md).
+
+### Spotlight commands and temporary tools
+
+`spotlight commands` and `spotlight openMode commands` are idempotent public
+entries. Explicit IPC mode navigation clears temporary tools/overrides through
+the same session controller as local navigation; it does not change user keys.
+
+Type `>` to enter the command palette immediately (`>calc` filters Calculator).
+Slash drafts stay in their base mode. Enter executes an exact command; partial
+names require Tab completion or explicit candidate activation. Unknown commands
+never fall through to content activation. `\/etc` and `\>hello` are literal
+searches. Tool parameters are not reparsed as top-level commands.
+
+| Command | Behavior |
+| --- | --- |
+| `/default`, `/apps`, `/wallpaper` (`/wallpapers`), `/clipboard`, `/files`, `/commands` | Base mode navigation |
+| `/search` (`/web`) | Web tool, not default Search |
+| `/calc`, `/fx` (`/currency`), `/time` (`/tz`) | Calculator, currency, time zone |
+| `/find-settings`, `/actions` | Settings-only / IPC action-only search |
+| `/light`, `/dark`, `/settings`, `/map` | Apply theme, open Settings, open existing location section |
+| `/list`, `/grid`, `/smart`, `/most-used`, `/recent` (`/recently-used`), `/name` | Apps-only temporary presentation |
+| `/compact`, `/detail` (`/details`) | Clipboard-only temporary presentation |
+
+Tool commands accept trailing input, e.g. `/calc (120 + 80) * 0.85` or
+`/fx 100 USD to CNY`. The first Enter only enters the tool. A later Enter copies
+its valid result (Web submits); it does not close calculation tools.
+
+Empty-input Backspace removes the current tool, then the most recent presentation
+override. It requires a fresh press in the search input, no selection/preedit or
+modal/completion popup. Holding Backspace cannot unwind the stack. Theme changes
+and other completed actions are never undone. Closing clears temporary state.
+
+Tab opens/accepts completion; Shift+Tab selects backward; arrows choose; Enter
+accepts an open completion without executing. Escape closes completion first.
+Completion covers command names/aliases, tool tokens and current Apps, Wallpaper,
+Settings and Actions names, not clipboard bodies, file paths or online suggestions.
+Ctrl editing shortcuts and Files Ctrl+Enter keep their existing behavior; chords,
+pointer activity, preedit, lost focus and modality cancel the pending Ctrl tap.
+Only events delivered locally to Spotlight can be observed.

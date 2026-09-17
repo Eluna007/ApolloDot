@@ -17,6 +17,35 @@ Item {
     required property real webProgress
 
     property alias text: searchInput.text
+    property alias cursorPosition: searchInput.cursorPosition
+    readonly property bool hasSelection: searchInput.selectionStart !== searchInput.selectionEnd
+    property var pillEntries: []
+    property var displayedPills: []
+    property string pillError: ""
+    readonly property real pillWidth: Math.min(220, Math.max(64, root.mainWidth - 180), Math.max(root.style.enginePillWidth,
+                                                                                                 pillLabel.implicitWidth
+                                                                                                 + 44))
+    signal pillClosed
+    property string pillSignature: ""
+    signal pillTransitionRequested(real target)
+    function commitPills() {
+        displayedPills = pillEntries;
+    }
+    onPillEntriesChanged: {
+        const signature = pillEntries.map(entry => entry ? entry.id : "").join("|");
+        if (signature === pillSignature)
+            return;
+        pillSignature = signature;
+        if (!displayedPills.length || webProgress === 0) {
+            commitPills();
+            pillTransitionRequested(pillEntries.length ? 1 : 0);
+        } else
+            pillTransitionRequested(0);
+    }
+    onWebProgressChanged: {
+        if (webProgress === 0 && !pillEntries.length)
+            displayedPills = [];
+    }
     property real requestedMainWidth: style.searchWidth
     readonly property real buttonDiameter: Math.min(style.modeButtonDiameter, Math.max(24, (requestedMainWidth
                                                                                             - 160) / style.modeButtonCount
@@ -127,7 +156,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             width: root.style.searchIconSize
             height: width
-            text: "search"
+            text: root.mode === "commands" ? "chevron_right" : "search"
             iconSize: root.style.searchIconSize
             color: Appearance.colors.colOnSurfaceVariant
         }
@@ -154,7 +183,7 @@ Item {
 
             x: searchIcon.x + searchIcon.width + 12
             anchors.verticalCenter: parent.verticalCenter
-            width: root.style.enginePillWidth * root.webEngineProgress
+            width: root.pillWidth * root.webEngineProgress
             height: root.style.enginePillHeight
             radius: Appearance.rounding.full
             color: Appearance.colors.colSecondaryContainer
@@ -163,8 +192,17 @@ Item {
             clip: true
 
             Text {
-                anchors.centerIn: parent
-                text: SpotlightSearchService.searchEngineName
+                id: pillLabel
+                anchors.left: parent.left
+                anchors.leftMargin: 12
+                anchors.right: parent.right
+                anchors.rightMargin: 30
+                anchors.verticalCenter: parent.verticalCenter
+                text: root.displayedPills.map(entry => entry && entry.value === "web"
+                                                       ? SpotlightSearchService.searchEngineName :
+                                                         SpotlightCatalog.commandTitle(entry)).join(" · ")
+                textFormat: Text.PlainText
+                elide: Text.ElideRight
                 color: Appearance.colors.colOnSecondaryContainer
                 font.family: Fonts.ui
                 font.pixelSize: 14
@@ -173,16 +211,47 @@ Item {
             }
         }
 
+        MouseArea {
+            id: pillClose
+            x: enginePill.x + Math.max(0, enginePill.width - 30)
+            y: enginePill.y
+            width: 30
+            height: enginePill.height
+            enabled: root.pillEntries.length > 0
+            visible: root.webEngineProgress > 0.01
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            Accessible.role: Accessible.Button
+            Accessible.name: qsTr("Return to previous context (Backspace)")
+            onClicked: {
+                root.pillClosed();
+                root.focusInput();
+            }
+            MaterialSymbol {
+                anchors.centerIn: parent
+                text: "close"
+                iconSize: 16
+                color: Appearance.colors.colOnSecondaryContainer
+                opacity: root.webEngineProgress
+            }
+            StyledToolTip {
+                extraVisibleCondition: pillClose.containsMouse
+                text: qsTr("Return to previous context (Backspace)")
+            }
+        }
+
         Item {
             id: inputArea
 
-            x: searchIcon.x + searchIcon.width + 14 + (root.style.enginePillWidth + 10) * root.webTextProgress
+            x: searchIcon.x + searchIcon.width + 14 + (root.pillWidth + 10) * root.webTextProgress
             width: Math.max(0, parent.width - x - root.style.searchHorizontalPadding)
             height: parent.height
 
             Text {
                 anchors.fill: parent
                 text: {
+                    if (root.mode === "commands")
+                        return qsTr("Search commands");
                     if (root.mode === "search")
                         return qsTr("Search");
                     if (root.mode === "files")
@@ -203,7 +272,17 @@ Item {
 
             Text {
                 anchors.fill: parent
-                text: qsTr("Search the web")
+                text: root.mode === "calculator" ? qsTr("Enter an expression") : root.mode === "currency"
+                                                   ? "100 USD to CNY" : root.mode === "time"
+                                                     ? "now to Asia/Tokyo" : root.mode === "settings" ? qsTr(
+                                                                                                            "Search settings") :
+                                                                                                        root.mode
+                                                                                                        === "actions"
+                                                                                                        ? qsTr("Search actions") :
+                                                                                                          root.mode
+                                                                                                          === "web"
+                                                                                                          ? qsTr("Search the web") :
+                                                                                                            qsTr("Search")
                 color: Appearance.applyAlpha(Appearance.colors.colOnSurfaceVariant, 0.72)
                 font.family: Fonts.ui
                 font.pixelSize: 20
@@ -229,6 +308,7 @@ Item {
 
                 Accessible.name: root.mode === "web" ? qsTr("Web search") : qsTr("Spotlight search")
                 Accessible.role: Accessible.EditableText
+                Accessible.description: qsTr("Tap Ctrl to show modes; Tab to complete")
 
                 Keys.priority: Keys.BeforeItem
                 Keys.onPressed: event => root.routedKey(event)
@@ -238,6 +318,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
+            z: -1
             acceptedButtons: Qt.LeftButton
             propagateComposedEvents: true
             onPressed: mouse => {

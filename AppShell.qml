@@ -256,6 +256,10 @@ Item {
                     return "WEB";
                 }
 
+                function commands(): string {
+                    return openMode("commands");
+                }
+
                 function files(): string {
                     return openMode("files");
                 }

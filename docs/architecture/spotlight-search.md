@@ -115,3 +115,39 @@ operations are untouched. Files retains its generation/cancellation protocol and
 receives an active query only in Files. Wallpaper's dedicated provider retains
 its original explicit refresh, while Search reads only the already loaded path
 list. Thumbnails are small, first-frame images instantiated by visible list rows.
+
+## Session commands and tools
+
+`SpotlightSessionController` wraps pure `SpotlightSession.js` transitions. Six base
+modes are independent of the foreground tool. A tool keeps one lightweight parent
+snapshot (query, literal identity, stable selection, at most one override of each
+kind). Replacing a tool reuses that parent. Overrides never write UiPreferences;
+Apps provider limits/order, panel geometry and grid navigation consume the same
+effective values. Closing and explicit mode navigation clear the transient state.
+
+`SpotlightCatalog` exposes the shared command whitelist from `SpotlightCommands`.
+Both slash dispatch and palette activation use its IDs; the palette excludes
+presentation overrides. Existing Settings/IPC results retain their generated
+catalog and deferred activation. `/map` opens the existing region/location section;
+only its Save action changes location. Default Search's data sources are unchanged.
+Tool and command contexts deactivate unrelated providers, including their queries.
+
+`SpotlightCompletionController` operates in UTF-16 input coordinates, with bounded
+local candidates and no execution side effects. Content completion preserves the
+selected stable ID and literal query identity. Ctrl tap recognition uses the pure
+`SpotlightControlGesture` state machine and local Qt key/pointer/focus/preedit
+signals. A modifier snapshot validates a pending hold, never starts a tap. Keys
+completely intercepted outside Qt cannot be observed.
+
+The existing Web press/shadow/pill progress is reused for every temporary state.
+Replacement exits the displayed label before presenting the next label. Input and
+blur share the transformed search surface. The four-button shader/motion is unchanged.
+
+`SpotlightToolService` is the only tool process owner. It negotiates `key tool status`,
+caches local catalogs and serializes evaluation with debounce, cancellation and a
+bounded deadline. Request generation plus session instance rejects obsolete output.
+Input edits clear the copyable result before evaluation. Tool errors do not disable
+command navigation. Calculator uses isolated qalc; currency uses fixed ECB reference
+rates with a dated 24-hour on-demand cache; time uses system IANA transition rules.
+The public key-cli protocol documents exact limits and error/result fields; neither
+repository imports implementation code or build artifacts from the other.

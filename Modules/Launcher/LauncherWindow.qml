@@ -8,6 +8,8 @@ import Clavis.Keyboard
 import qs.Common
 import qs.Services
 import qs.Widgets.common
+import "../../Common/functions/SpotlightCommands.js" as Commands
+import "../../Common/functions/SpotlightControlGesture.js" as Gesture
 
 PanelWindow {
     id: root
@@ -32,13 +34,16 @@ PanelWindow {
 
     property var pendingSearchActivation: null
     property bool queryUpdating: false
+    property bool commandSelectionExplicit: false
+    property int toolCandidateIndex: 0
     property string pendingWebUrl: ""
     property string windowPhase: "hidden"
-    property string mode: "search"
-    property string previousLocalMode: "search"
+    readonly property string mode: session.viewMode
+    readonly property string panelMode: session.slashDraft ? "slash" : mode
+    readonly property bool toolMode: ["calculator", "currency", "time"].includes(mode)
     property bool modeRailExpanded: false
     property int modeFocusIndex: -1
-    property string query: ""
+    property alias query: session.query
     property bool controlHeld: false
     property int selectedResultIndex: -1
     property string selectedResultId: ""
@@ -59,21 +64,25 @@ PanelWindow {
 
     onWebProgressChanged: spotlightBlur.publish()
 
-    readonly property var activeResults: mode === "search" ? searchProvider.results : mode === "apps"
-                                                             ? appProvider.results : (mode === "wallpapers"
-                                                                                      ? wallpaperProvider.results :
-                                                                                        (mode === "clipboard"
-                                                                                         ? clipboardProvider.results :
-                                                                                           (mode === "files"
-                                                                                            ? fileProvider.results :
-                                                                                              [])))
-    readonly property bool clipboardDetailsMode: mode === "clipboard"
-                                                 && UiPreferences.spotlightClipboardStyle === "details"
+    readonly property var activeResults: session.slashDraft || mode === "commands" ? commandProvider.results :
+                                                                                     ["search", "settings",
+                                                                                      "actions"].includes(
+                                                                                         mode) ? searchProvider.results :
+                                                                                                 mode === "apps"
+                                                                                                 ? appProvider.results :
+                                                                                                   (mode === "wallpapers"
+                                                                                                    ? wallpaperProvider.results :
+                                                                                                      (mode === "clipboard"
+                                                                                                       ? clipboardProvider.results :
+                                                                                                         (mode === "files"
+                                                                                                          ? fileProvider.results :
+                                                                                                            [])))
+    readonly property bool clipboardDetailsMode: mode === "clipboard" && session.clipboardLayout === "details"
     readonly property bool clipboardMode: mode === "clipboard"
     readonly property bool spotlightModalActive: resultsPanel.modalActive
     readonly property bool clipboardCanRestore: clipboardProvider.canRestore
     readonly property bool wallpaperMode: mode === "wallpapers"
-    readonly property bool appGridMode: mode === "apps" && UiPreferences.spotlightAppStyle === "grid"
+    readonly property bool appGridMode: mode === "apps" && session.appsLayout === "grid"
     readonly property bool showing: windowPhase !== "hidden" && root.visible
     readonly property bool windowActive: searchBar.Window.active
     readonly property bool searchHasFocus: searchBar.inputActiveFocus
@@ -91,34 +100,111 @@ PanelWindow {
     readonly property real wallpaperPreviewWidth: resultsPanel.wallpaperPreviewWidth
     readonly property int blurRegionCount: spotlightBlur.regionObjects.length
 
+    SpotlightSessionController {
+        id: session
+        onBaseNavigationRequested: mode => {
+            if (!root.showing || root.windowPhase === "closing")
+                return;
+            Qt.callLater(() => {
+                if (root.mode !== mode || session.slashDraft)
+                    return;
+                if (mode === "clipboard")
+                    clipboardProvider.refresh();
+                if (mode === "wallpapers")
+                    wallpaperProvider.refresh();
+            });
+        }
+        onContextRestored: {
+            if (root.mode === "clipboard")
+                Qt.callLater(clipboardProvider.refresh);
+        }
+        onSelectionRestored: id => Qt.callLater(() => {
+            root.selectedResultId = id;
+            root.reconcileSelection();
+        })
+        onActionRequested: id => {
+            if (id === "theme.light" || id === "theme.dark")
+                UiPreferences.setDarkMode(id === "theme.dark");
+            else {
+                root.pendingSearchActivation = {
+                    provider: id === "location.open" ? "settings" : "settings-open",
+                    sourceId: "general.language-region.section.region-weather-location",
+                    query: ""
+                };
+                root.requestClose();
+            }
+        }
+    }
+    SpotlightCommandProvider {
+        id: commandProvider
+        active: root.showing && (session.slashDraft || root.mode === "commands")
+        slash: session.slashDraft
+        query: session.slashDraft ? session.route.name : root.query
+        sessionState: ({
+                           mode: session.baseMode,
+                           tool: session.tool
+                       })
+    }
+    Connections {
+        target: SpotlightToolService
+        function onResultChanged() {
+            root.toolCandidateIndex = 0;
+        }
+    }
+    Binding {
+        target: SpotlightToolService
+        property: "active"
+        value: root.showing && root.windowPhase !== "closing" && root.toolMode
+    }
+    Binding {
+        target: SpotlightToolService
+        property: "tool"
+        value: root.toolMode ? root.mode : ""
+    }
+    Binding {
+        target: SpotlightToolService
+        property: "query"
+        value: root.toolMode ? root.query : ""
+    }
+    Binding {
+        target: SpotlightToolService
+        property: "instance"
+        value: session.state.serial
+    }
+
     SpotlightStyle {
         id: style
     }
 
     SpotlightAppProvider {
         id: appProvider
-        active: root.showing && root.windowPhase !== "closing" && root.mode === "apps"
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "apps" && !session.slashDraft
         query: active ? root.query : ""
-        limit: UiPreferences.spotlightAppStyle === "grid" ? 0 : 50
+        order: session.appsOrder
+        limit: session.appsLayout === "grid" ? 0 : 50
     }
 
     SpotlightWallpaperProvider {
         id: wallpaperProvider
-        active: root.showing && root.windowPhase !== "closing" && root.mode === "wallpapers"
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "wallpapers" &&
+                !session.slashDraft
+
         query: active ? root.query : ""
     }
 
     SpotlightFileProvider {
         id: fileProvider
-        active: root.showing && root.windowPhase !== "closing" && root.mode === "files"
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "files" && !session.slashDraft
         query: active ? root.query : ""
         onActivated: root.requestClose()
     }
 
     SpotlightSearchProvider {
         id: searchProvider
-        active: root.showing && root.windowPhase !== "closing" && root.mode === "search"
-        query: root.query
+        active: root.showing && root.windowPhase !== "closing" && ["search", "settings", "actions"].includes(
+                    root.mode) && !session.slashDraft
+        filter: ["settings", "actions"].includes(root.mode) ? root.mode : ""
+        query: active ? root.query : ""
         capacities: resultsPanel.searchCapacities
         retainedResultId: root.mode === "search" && !root.queryUpdating ? root.selectedResultId : ""
         onModeRequested: (mode, query) => {
@@ -146,19 +232,71 @@ PanelWindow {
         enabled: false
     }
 
+    property var controlGesture: Gesture.idle()
+    readonly property bool gestureEligible: root.showing && root.windowPhase !== "closing"
+                                            && root.windowActive && root.searchHasFocus &&
+                                            !root.spotlightModalActive && !searchBar.inputComposing
+    function cancelControlTap() {
+        controlTimer.stop();
+        controlGesture = Gesture.idle();
+        controlHeld = false;
+    }
     function syncControlHeld() {
-        root.controlHeld = root.showing && root.windowActive && root.searchHasFocus &&
-                !root.spotlightModalActive && (modifierSnapshot.currentModifiers() & Qt.ControlModifier)
-                !== 0;
+        if (!gestureEligible || !(modifierSnapshot.currentModifiers() & Qt.ControlModifier))
+            cancelControlTap();
+    }
+    onGestureEligibleChanged: {
+        if (!gestureEligible)
+            cancelControlTap();
     }
     onWindowActiveChanged: Qt.callLater(root.syncControlHeld)
     onSearchHasFocusChanged: Qt.callLater(root.syncControlHeld)
     onSpotlightModalActiveChanged: Qt.callLater(root.syncControlHeld)
     onShowingChanged: Qt.callLater(root.syncControlHeld)
+    Timer {
+        id: controlTimer
+        interval: Gesture.holdThreshold
+        onTriggered: {
+            root.controlGesture = Gesture.hold(root.controlGesture, Date.now(), root.gestureEligible && !!(
+                                                   modifierSnapshot.currentModifiers() & Qt.ControlModifier));
+            root.controlHeld = root.controlGesture.held;
+        }
+    }
+    function releaseControl(event) {
+        const result = Gesture.release(root.controlGesture, {
+                                           controlKey: event.key === Qt.Key_Control,
+                                           repeat: event.isAutoRepeat,
+                                           eligible: root.gestureEligible,
+                                           otherModifiers: !!(event.modifiers & ~(Qt.ControlModifier
+                                                                                  | Qt.KeypadModifier)),
+                                           time: Date.now()
+                                       });
+        root.cancelControlTap();
+        if (result.toggle) {
+            root.setRailExpanded(!root.modeRailExpanded);
+            if (root.modeRailExpanded)
+                root.modeFocusIndex = Math.max(0, root.modeIndex(session.baseMode));
+        }
+    }
+    SpotlightCompletionController {
+        id: completion
+        text: root.query
+        cursor: searchBar.cursorPosition
+        mode: root.mode
+        slash: session.slashDraft
+        results: root.activeResults
+        selectedId: root.selectedResultId
+        onAccepted: value => {
+            session.acceptCompletion(value);
+            searchBar.cursorPosition = value.cursor;
+        }
+    }
 
     SpotlightClipboardProvider {
         id: clipboardProvider
-        active: root.showing && root.windowPhase !== "closing" && root.mode === "clipboard"
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "clipboard" &&
+                !session.slashDraft
+
         query: active ? root.query : ""
         onRestored: id => root.finishClipboardRestore(id)
         onRestoreFailed: (id, code, message) => root.failClipboardRestore(id, code, message)
@@ -185,7 +323,7 @@ PanelWindow {
     function normalizedMode(value) {
         const requested = String(value || "").toLowerCase();
         return requested === "search" || requested === "apps" || requested === "wallpapers" || requested
-                === "clipboard" || requested === "files" ? requested : "";
+                === "clipboard" || requested === "files" || requested === "commands" ? requested : "";
     }
 
     function modeIndex(value) {
@@ -239,10 +377,6 @@ PanelWindow {
         if (root.windowPhase === "hidden" || root.windowPhase === "closing")
             root.query = "";
         const localMode = normalizedMode(requestedMode || "search");
-        if (localMode === root.mode && (root.windowPhase === "open" || root.windowPhase === "opening")) {
-            root.focusSpotlight();
-            return true;
-        }
         if (localMode !== "")
             setLocalMode(localMode);
         else if (root.windowPhase === "hidden")
@@ -277,6 +411,7 @@ PanelWindow {
     function requestClose() {
         if (root.windowPhase === "hidden" || root.windowPhase === "closing")
             return false;
+        root.cancelControlTap();
         root.windowPhase = "closing";
         root.modeRailExpanded = false;
         root.modeFocusIndex = -1;
@@ -306,71 +441,30 @@ PanelWindow {
 
     function setLocalMode(requestedMode) {
         const localMode = normalizedMode(requestedMode);
-        if (localMode === "")
+        if (!localMode)
             return false;
-        if (localMode === "apps")
-            appProvider.rebuild();
-        if (root.mode === "clipboard" && localMode !== "clipboard")
+        if (root.mode === "clipboard")
             root.resetClipboardAction();
-        const enteringWallpapers = root.mode !== "wallpapers" && localMode === "wallpapers";
-        const enteringClipboard = root.mode !== "clipboard" && localMode === "clipboard";
-        if (root.mode === "web")
-            root.animateWeb(0);
-        root.selectedResultId = "";
-        root.mode = localMode;
-        root.previousLocalMode = localMode;
+        session.switchMode(localMode, true);
         root.clipboardSelectionRecoveryPending = false;
-        root.clipboardSelectionRecoveryTargetId = "";
-        root.clipboardSelectionRecoveryId = "";
-        root.selectResult(root.activeResults.length > 0 ? 0 : -1);
-        if (localMode === "clipboard") {
-            if (enteringClipboard)
-                root.resetClipboardAction();
-            clipboardProvider.refresh();
-        }
-        if (enteringWallpapers)
-            wallpaperProvider.refresh();
         root.focusSpotlight();
         return true;
     }
 
     function openWebMode() {
-        if (root.showing && root.windowPhase !== "closing" && root.mode === "web") {
-            root.focusSpotlight();
-            return true;
-        }
-        const previous = root.showing && root.windowPhase !== "closing" ? root.mode : "search";
-        root.openSpotlight(root.normalizedMode(previous) || "search");
+        if (!root.showing || root.windowPhase === "closing")
+            root.openSpotlight("search");
         return root.enterWeb();
     }
-
     function enterWeb() {
-        if (root.mode === "clipboard")
-            root.resetClipboardAction();
-        if (root.mode === "web" && root._webAnimationTarget === 1)
-            return true;
-        if (root.mode !== "web")
-            root.previousLocalMode = root.mode;
-        root.mode = "web";
-        root.selectedResultIndex = -1;
-        root.selectedResultId = "";
+        if (session.tool !== "web")
+            session.enterTool("web", root.query, false);
         root.setRailExpanded(false);
-        root.animateWeb(1);
         root.focusSpotlight();
         return true;
     }
-
     function exitWeb() {
-        if (root.mode !== "web")
-            return false;
-        root.mode = root.normalizedMode(root.previousLocalMode) !== "" ? root.previousLocalMode : "search";
-        root.animateWeb(0);
-        root.selectedResultId = "";
-        root.selectResult(root.activeResults.length > 0 ? 0 : -1);
-        if (root.mode === "clipboard")
-            clipboardProvider.refresh();
-        root.focusSpotlight();
-        return true;
+        return session.tool === "web" && session.pop();
     }
 
     function moveModeFocus(delta) {
@@ -394,10 +488,19 @@ PanelWindow {
         const result = root.activeResults[bounded];
         root.selectedResultIndex = bounded;
         root.selectedResultId = result && result.id !== undefined ? String(result.id) : "";
+        if (!session.applying && !session.slashDraft)
+            session.rememberSelection(root.selectedResultId);
         return true;
     }
 
     function moveSelectionByOffset(offset) {
+        if (root.toolMode && SpotlightToolService.state === "ambiguous" && SpotlightToolService.result) {
+            root.toolCandidateIndex = Math.max(0, Math.min(SpotlightToolService.result.candidates.length - 1,
+                                                           root.toolCandidateIndex + offset));
+            return;
+        }
+        if (session.slashDraft)
+            root.commandSelectionExplicit = true;
         if (root.mode === "web" || root.activeResults.length === 0)
             return;
         const current = root.selectedResultIndex < 0 ? 0 : root.selectedResultIndex;
@@ -510,6 +613,8 @@ PanelWindow {
     function activateResult(index, keepClipboardOpen) {
         if (!root.selectResult(index))
             return false;
+        if (session.slashDraft)
+            return session.activate(root.selectedResultId, session.route.arguments, true);
         return root.activateSelected(keepClipboardOpen === true);
     }
 
@@ -566,12 +671,27 @@ PanelWindow {
             root.setRailExpanded(false);
             return true;
         }
+        if (session.slashDraft)
+            return root.commandSelectionExplicit ? session.activate(root.selectedResultId,
+                                                                    session.route.arguments, true) :
+                                                   session.executeSlash();
+        if (root.mode === "commands")
+            return session.activate(root.selectedResultId, "", false);
+        if (root.toolMode) {
+            if (SpotlightToolService.state === "ambiguous" && SpotlightToolService.result) {
+                const candidate = SpotlightToolService.result.candidates[root.toolCandidateIndex];
+                if (candidate)
+                    SpotlightToolService.confirmFold(candidate.fold);
+                return !!candidate;
+            }
+            return SpotlightToolService.copy();
+        }
         if (root.mode === "web")
             return root.openWebQuery();
         if (root.selectedResultIndex < 0)
             return false;
 
-        if (root.mode === "search")
+        if (["search", "settings", "actions"].includes(root.mode))
             return searchProvider.activate(root.selectedResultId);
         if (root.mode === "apps") {
             if (appProvider.execute(root.selectedResultIndex)) {
@@ -628,10 +748,12 @@ PanelWindow {
     function handleEscape() {
         if (root.spotlightModalActive)
             return;
-        if (root.mode === "web") {
-            root.exitWeb();
+        if (completion.opened) {
+            completion.dismiss();
         } else if (root.modeRailExpanded || root.railProgress > 0.001) {
             root.setRailExpanded(false);
+        } else if (session.tool) {
+            session.pop();
         } else if (root.query !== "") {
             root.query = "";
         } else {
@@ -639,10 +761,26 @@ PanelWindow {
         }
     }
 
-    function handleKey(event) {
+    function handleKey(event, fromSearch) {
         if (root.spotlightModalActive)
             return;
-        root.controlHeld = event.key === Qt.Key_Control || (event.modifiers & Qt.ControlModifier) !== 0;
+        if (fromSearch) {
+            root.controlGesture = Gesture.press(root.controlGesture, {
+                                                    controlKey: event.key === Qt.Key_Control,
+                                                    repeat: event.isAutoRepeat,
+                                                    eligible: root.gestureEligible,
+                                                    otherModifiers: !!(event.modifiers & ~(Qt.ControlModifier
+                                                                                           | Qt.KeypadModifier)),
+                                                    time: Date.now()
+                                                });
+            if (event.key === Qt.Key_Control && root.controlGesture.pending) {
+                if (!event.isAutoRepeat)
+                    controlTimer.restart();
+                event.accepted = true;
+                return;
+            }
+            root.cancelControlTap();
+        }
         if (searchBar.inputComposing) {
             event.accepted = false;
             return;
@@ -650,6 +788,10 @@ PanelWindow {
         const control = (event.modifiers & Qt.ControlModifier) !== 0;
         const shift = (event.modifiers & Qt.ShiftModifier) !== 0;
 
+        if (!fromSearch && event.key === Qt.Key_Backspace) {
+            event.accepted = false;
+            return;
+        }
         if (control && event.key === Qt.Key_0) {
             root.setLocalMode("search");
             root.setRailExpanded(false);
@@ -685,23 +827,61 @@ PanelWindow {
             event.accepted = true;
             return;
         }
-        if (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab) {
-            root.moveModeFocus(event.key === Qt.Key_Backtab || shift ? -1 : 1);
+        if (fromSearch && (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab)) {
+            root.setRailExpanded(false);
+            completion.tab(event.key === Qt.Key_Backtab || shift);
             event.accepted = true;
             return;
         }
+        if (fromSearch && completion.opened) {
+            if (event.key === Qt.Key_Escape)
+                completion.dismiss();
+            else if (event.key === Qt.Key_Up || event.key === Qt.Key_Down)
+                completion.move(event.key === Qt.Key_Up ? -1 : 1);
+            else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                if (!event.isAutoRepeat)
+                    completion.accept();
+            } else {
+                event.accepted = false;
+                return;
+            }
+            event.accepted = true;
+            return;
+        }
+        if (fromSearch && !control && !shift && event.key === Qt.Key_Backspace && session.canBackspace({
+                                                                                                           selection:
+                                                                                                           searchBar.hasSelection,
+                                                                                                           preedit: searchBar.inputComposing,
+                                                                                                           modal: root.spotlightModalActive
+                                                                                                                  || completion.opened,
+                                                                                                           repeat: event.isAutoRepeat,
+                                                                                                           searchFocus:
+                                                                                                           root.searchHasFocus
+                                                                                                       })) {
+            session.pop();
+            event.accepted = true;
+            return;
+        }
+        if (fromSearch && root.modeRailExpanded && (event.key === Qt.Key_Left || event.key
+                                                    === Qt.Key_Right)) {
+            root.moveModeFocus(event.key === Qt.Key_Left ? -1 : 1);
+            event.accepted = true;
+            return;
+        }
+        if (fromSearch && root.modeRailExpanded && event.text && event.text.charCodeAt(0) >= 32 && !control)
+            root.setRailExpanded(false);
         if (event.key === Qt.Key_Escape) {
             root.handleEscape();
             event.accepted = true;
             return;
         }
         const plainArrow = event.modifiers === Qt.NoModifier || event.modifiers === Qt.KeypadModifier;
-        if (event.key === Qt.Key_Up && (root.mode !== "search" || plainArrow)) {
+        if (event.key === Qt.Key_Up && plainArrow) {
             root.moveSelection(-1);
             event.accepted = true;
             return;
         }
-        if (event.key === Qt.Key_Down && (root.mode !== "search" || plainArrow)) {
+        if (event.key === Qt.Key_Down && plainArrow) {
             root.moveSelection(1);
             event.accepted = true;
             return;
@@ -714,8 +894,8 @@ PanelWindow {
             event.accepted = true;
             return;
         }
-        const gridNavigation = root.mode === "wallpapers" || (resultsPanel.appGridActive && !control &&
-                                                              !shift);
+        const gridNavigation = (root.mode === "wallpapers" || resultsPanel.appGridActive) && !control &&
+              !shift;
         if (gridNavigation && event.key === Qt.Key_Left) {
             root.moveSelectionByOffset(-1);
             event.accepted = true;
@@ -746,6 +926,7 @@ PanelWindow {
     }
 
     onQueryChanged: {
+        root.commandSelectionExplicit = false;
         root.queryUpdating = true;
         root.selectedResultId = "";
         root.selectedResultIndex = -1;
@@ -786,8 +967,7 @@ PanelWindow {
             const activation = root.pendingSearchActivation;
             root.pendingSearchActivation = null;
             root.query = "";
-            root.mode = "search";
-            root.previousLocalMode = "search";
+            session.reset("search");
             root.selectedResultIndex = -1;
             root.selectedResultId = "";
             root.clipboardSelectionRecoveryPending = false;
@@ -799,7 +979,9 @@ PanelWindow {
             root.webProgress = 0;
             root.resetClipboardAction();
             if (activation) {
-                if (activation.provider === "settings")
+                if (activation.provider === "settings-open")
+                    ControlCenterService.openOrFocus();
+                else if (activation.provider === "settings")
                     ControlCenterService.openSearch(activation.sourceId);
                 else if (activation.provider === "actions")
                     SpotlightCatalog.execute(activation.sourceId);
@@ -824,6 +1006,12 @@ PanelWindow {
         property: "webProgress"
         easing.type: Easing.BezierSpline
         easing.bezierCurve: style.webCurve
+        onFinished: {
+            if (root._webAnimationTarget === 0 && session.visiblePills.length) {
+                searchBar.commitPills();
+                root.animateWeb(1);
+            }
+        }
     }
 
     CompositorBlurRegion {
@@ -832,12 +1020,15 @@ PanelWindow {
         targetWindow: root
         backgroundItem: searchBar.blurRegionItems[0]
         additionalBackgroundItems: searchBar.blurRegionItems.slice(1).concat([resultsPanel.blurRegionItem,
-                                                                              resultsPanel.modalBlurRegionItem])
+                                                                              resultsPanel.modalBlurRegionItem,
+                                                                              toolPanel, completionPopup])
         blurEnabled: root.showing
     }
 
     MouseArea {
         anchors.fill: parent
+        onPressed: root.cancelControlTap()
+        onWheel: root.cancelControlTap()
         onClicked: root.requestClose()
     }
 
@@ -846,7 +1037,7 @@ PanelWindow {
 
         focus: true
         Keys.priority: Keys.BeforeItem
-        Keys.onPressed: event => root.handleKey(event)
+        Keys.onPressed: event => root.handleKey(event, root.searchHasFocus)
         Keys.onReleased: event => {
             Qt.callLater(root.syncControlHeld);
         }
@@ -866,7 +1057,9 @@ PanelWindow {
                                                                                                          style.windowHorizontalMargin,
                                                                                                          Metrics.popupMargin)
                                                                                                      * 2))
-        height: searchBar.height + style.resultGap + resultsPanel.height
+        height: searchBar.height + style.resultGap + Math.max(resultsPanel.height, toolPanel.height,
+                                                              completionPopup.height) + (session.error ? 24 :
+                                                                                                         0)
         anchors.horizontalCenter: parent.horizontalCenter
         y: baseY + style.initialYOffset * (1 - root.windowProgress)
         opacity: root.windowProgress
@@ -895,11 +1088,18 @@ PanelWindow {
                                                                                                   width - style.compactSideReserve)))
             text: root.query
             onTextChanged: root.query = text
-            onRoutedKey: event => root.handleKey(event)
-            onReleasedKey: event => {
-                root.controlHeld = (event.modifiers & Qt.ControlModifier) !== 0 && event.key
-                        !== Qt.Key_Control;
+            onRoutedKey: event => root.handleKey(event, true)
+            onReleasedKey: event => root.releaseControl(event)
+            onInputComposingChanged: {
+                if (inputComposing) {
+                    root.cancelControlTap();
+                    root.setRailExpanded(false);
+                }
             }
+            pillEntries: session.visiblePills
+            pillError: session.error
+            onPillClosed: session.pop()
+            onPillTransitionRequested: target => root.animateWeb(target)
             onSearchRequested: {
                 root.setLocalMode("search");
                 root.setRailExpanded(false);
@@ -911,10 +1111,59 @@ PanelWindow {
             }
         }
 
+        SpotlightToolPanel {
+            id: toolPanel
+            selectedCandidate: root.toolCandidateIndex
+            onInputFocusRequested: root.focusSpotlight()
+            style: style
+            visible: root.toolMode
+            width: searchBar.requestedMainWidth
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: searchBar.bottom
+            anchors.topMargin: style.resultGap
+            availableHeight: Math.max(0, root.height - spotlightRoot.baseY - searchBar.height
+                                      - style.resultGap - style.windowBottomMargin)
+        }
+        SpotlightCompletionPopup {
+            id: completionPopup
+            z: 20
+            controller: completion
+            style: style
+            width: searchBar.requestedMainWidth
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: searchBar.bottom
+            anchors.topMargin: style.resultGap
+            availableHeight: toolPanel.availableHeight
+        }
+        Text {
+            z: 10
+            anchors.top: searchBar.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: searchBar.requestedMainWidth - 24
+            visible: session.error.length > 0
+            text: session.error
+            textFormat: Text.PlainText
+            color: Appearance.colors.colError
+            font.family: Fonts.ui
+            font.pixelSize: 13
+            elide: Text.ElideRight
+        }
+        TapHandler {
+            acceptedButtons: Qt.AllButtons
+            onPressedChanged: {
+                if (pressed)
+                    root.cancelControlTap();
+            }
+        }
+        WheelHandler {
+            blocking: false
+            onWheel: event => root.cancelControlTap()
+        }
+
         SpotlightResultsPanel {
             id: resultsPanel
 
-            onPreviewKey: event => root.handleKey(event)
+            onPreviewKey: event => root.handleKey(event, false)
             previewActive: root.windowPhase === "open" || root.windowPhase === "opening"
             selectedClipboardId: root.selectedResultId
             targetWidth: root.clipboardDetailsMode ? Math.min(style.clipboardDetailsWidth,
@@ -931,11 +1180,15 @@ PanelWindow {
             animationsEnabled: root.windowPhase === "open"
 
             anchors.top: searchBar.bottom
-            anchors.topMargin: style.resultGap
+            anchors.topMargin: style.resultGap + (session.error ? 24 : 0)
             anchors.horizontalCenter: parent.horizontalCenter
             style: style
-            mode: root.mode
-            expanded: root.mode !== "web" && (root.mode !== "search" || root.query.trim() !== "")
+            mode: root.panelMode
+            appsLayout: session.appsLayout
+            clipboardLayout: session.clipboardLayout
+            expanded: !root.toolMode && root.mode !== "web" && (root.mode !== "search" || root.query.trim()
+                                                                !== "")
+
             searchError: searchProvider.error
             results: root.activeResults
             query: root.query

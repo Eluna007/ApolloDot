@@ -9265,7 +9265,7 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightCatalog</name>
     <message>
-        <location filename="../Services/SpotlightCatalog.qml" line="72"/>
+        <location filename="../Services/SpotlightCatalog.qml" line="89"/>
         <source>Action unavailable</source>
         <translation>操作不可用</translation>
     </message>
@@ -9444,6 +9444,147 @@ Right click: Control Center</source>
         <location filename="../Modules/Launcher/SpotlightClipboardProvider.qml" line="334"/>
         <source>This format cannot be restored reliably</source>
         <translation>该格式无法可靠恢复</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightCommandProvider</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCommandProvider.qml" line="23"/>
+        <source>Available in %1 only</source>
+        <translation>仅在%1中可用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCommandProvider.qml" line="26"/>
+        <source>Apps</source>
+        <translation>应用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCommandProvider.qml" line="27"/>
+        <source>Clipboard</source>
+        <translation>剪贴板</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightCommands</name>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="59"/>
+        <source>Default search</source>
+        <translation>默认搜索</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="60"/>
+        <source>Apps</source>
+        <translation>应用</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="61"/>
+        <source>Wallpapers</source>
+        <translation>壁纸</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="62"/>
+        <source>Clipboard</source>
+        <translation>剪贴板</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="63"/>
+        <source>Files</source>
+        <translation>文件</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="64"/>
+        <source>Commands</source>
+        <translation>指令</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="65"/>
+        <source>Web search</source>
+        <translation>网页搜索</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="66"/>
+        <source>Calculator</source>
+        <translation>计算器</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="67"/>
+        <source>Currency</source>
+        <translation>汇率</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="68"/>
+        <source>Time zone</source>
+        <translation>时区</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="69"/>
+        <source>Light theme</source>
+        <translation>浅色主题</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="70"/>
+        <source>Dark theme</source>
+        <translation>深色主题</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="71"/>
+        <source>Open settings</source>
+        <translation>打开设置</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="72"/>
+        <source>Search settings</source>
+        <translation>搜索设置</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="73"/>
+        <source>Search IPC actions</source>
+        <translation>搜索 IPC 操作</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="74"/>
+        <source>Location picker</source>
+        <translation>位置选择器</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="75"/>
+        <source>List</source>
+        <translation>列表</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="76"/>
+        <source>Grid</source>
+        <translation>网格</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="77"/>
+        <source>Smart</source>
+        <translation>智能</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="78"/>
+        <source>Most used</source>
+        <translation>最常使用</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="79"/>
+        <source>Recently used</source>
+        <translation>最近使用</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="80"/>
+        <source>Name</source>
+        <translation>名称</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="81"/>
+        <source>Compact</source>
+        <translation>紧凑</translation>
+    </message>
+    <message>
+        <location filename="../Common/functions/SpotlightCommands.js" line="82"/>
+        <source>Details</source>
+        <translation>详情</translation>
     </message>
 </context>
 <context>
@@ -9683,73 +9824,105 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightSearchBar</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="205"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="263"/>
         <source>Search apps</source>
         <translation>搜索应用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="200"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="258"/>
         <source>Search files and folders</source>
         <translation>搜索文件和文件夹</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="154"/>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="159"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="172"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="177"/>
         <source>Search (Ctrl+0)</source>
         <translation>搜索（Ctrl+0）</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="198"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="225"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="239"/>
+        <source>Return to previous context (Backspace)</source>
+        <translation>返回上一层（Backspace）</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="254"/>
+        <source>Search commands</source>
+        <translation>搜索指令</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="256"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="285"/>
         <source>Search</source>
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="202"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="260"/>
         <source>Search clipboard history</source>
         <translation>搜索剪贴板历史</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="204"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="262"/>
         <source>Search wallpapers</source>
         <translation>搜索壁纸</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="217"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="275"/>
+        <source>Enter an expression</source>
+        <translation>输入表达式</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="277"/>
+        <source>Search settings</source>
+        <translation>搜索设置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="281"/>
+        <source>Search actions</source>
+        <translation>搜索操作</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="284"/>
         <source>Search the web</source>
         <translation>搜索网页</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="241"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="309"/>
         <source>Web search</source>
         <translation>网页搜索</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="241"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="309"/>
         <source>Spotlight search</source>
         <translation>聚焦搜索</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="265"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="311"/>
+        <source>Tap Ctrl to show modes; Tab to complete</source>
+        <translation>轻点 Ctrl 显示模式；Tab 补全</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="335"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="269"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="339"/>
         <source>Wallpaper</source>
         <translation>壁纸</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="273"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="343"/>
         <source>Clipboard</source>
         <translation>剪贴板</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="277"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="347"/>
         <source>Files</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="344"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="414"/>
         <source>%1 (Ctrl+%2)</source>
         <translation>%1 (Ctrl+%2)</translation>
     </message>
@@ -9757,54 +9930,221 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightSearchProvider</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="39"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="37"/>
+        <source>Currently unavailable</source>
+        <translation>当前不可用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="56"/>
         <source>Settings · %1</source>
         <translation>设置 · %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="46"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="63"/>
         <source>Action · %1</source>
         <translation>操作 · %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="46"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="63"/>
         <source>Action · Currently unavailable</source>
         <translation>操作 · 当前不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="67"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="84"/>
         <source>Apps</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="68"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="85"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="69"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="86"/>
         <source>Actions</source>
         <translation>操作</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="70"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="87"/>
         <source>Wallpapers</source>
         <translation>壁纸</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="71"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="88"/>
         <source>Search files for “%1”</source>
         <translation>在文件中搜索“%1”</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="72"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="89"/>
         <source>Search the web for “%1”</source>
         <translation>在网页中搜索“%1”</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="119"/>
+        <location filename="../Modules/Launcher/SpotlightSearchProvider.qml" line="136"/>
         <source>This result is currently unavailable</source>
         <translation>此结果当前不可用</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightSessionController</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSessionController.qml" line="70"/>
+        <source>Available in %1 only</source>
+        <translation>仅在%1中可用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSessionController.qml" line="71"/>
+        <source>Apps</source>
+        <translation>应用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSessionController.qml" line="71"/>
+        <source>Clipboard</source>
+        <translation>剪贴板</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSessionController.qml" line="72"/>
+        <source>This command does not accept arguments</source>
+        <translation>此指令不接受参数</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightSessionController.qml" line="98"/>
+        <source>Unknown command. Use Tab to complete a command name.</source>
+        <translation>未知指令，请按 Tab 补全指令名称。</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightToolPanel</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="29"/>
+        <source>Calculating…</source>
+        <translation>正在计算…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="30"/>
+        <source>Enter an expression to begin</source>
+        <translation>输入表达式以开始</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="34"/>
+        <source>This time occurs twice. Choose a UTC offset.</source>
+        <translation>此时间出现两次，请选择 UTC 偏移。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="62"/>
+        <source>Approximate · ECB · %1 · %2</source>
+        <translation>参考换算 · ECB · %1 · %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="63"/>
+        <source>Older cached rate</source>
+        <translation>较早的缓存汇率</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="65"/>
+        <source>Reference rate</source>
+        <translation>参考汇率</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="67"/>
+        <source>From %1 · %2 · UTC%3
+Day difference: %4</source>
+        <translation>从 %1 · %2 · UTC%3
+日期差：%4 天</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="88"/>
+        <source>Enter to copy</source>
+        <translation>按 Enter 复制</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightToolService</name>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="37"/>
+        <source>qalc is unavailable</source>
+        <translation>qalc 不可用</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="38"/>
+        <source>Enter a supported expression</source>
+        <translation>请输入支持的表达式</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="39"/>
+        <source>The expression could not be calculated</source>
+        <translation>无法计算此表达式</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="40"/>
+        <source>Calculation timed out</source>
+        <translation>计算超时</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="41"/>
+        <source>Calculation cancelled</source>
+        <translation>计算已取消</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="42"/>
+        <source>Choose an ECB reference currency</source>
+        <translation>请选择 ECB 参考币种</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="43"/>
+        <source>Exchange rate unavailable; try again later</source>
+        <translation>无法获取汇率，请稍后重试</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="44"/>
+        <source>This local time does not exist</source>
+        <translation>此当地时间不存在</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="45"/>
+        <source>Time zone data is unavailable for this zone</source>
+        <translation>此时区的数据不可用</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="46"/>
+        <source>Enter a valid date and an unambiguous IANA time zone</source>
+        <translation>请输入有效日期和明确的 IANA 时区</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="48"/>
+        <source>Tool request failed</source>
+        <translation>工具请求失败</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="81"/>
+        <source>This tool&apos;s dependency is unavailable</source>
+        <translation>此工具的依赖不可用</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="81"/>
+        <source>Update key-cli to enable this tool</source>
+        <translation>请更新 key-cli 以启用此工具</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="134"/>
+        <source>Tool request timed out</source>
+        <translation>工具请求超时</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="134"/>
+        <location filename="../Services/SpotlightToolService.qml" line="149"/>
+        <source>The tool returned invalid data</source>
+        <translation>工具返回了无效数据</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="214"/>
+        <source>Copied</source>
+        <translation>已复制</translation>
+    </message>
+    <message>
+        <location filename="../Services/SpotlightToolService.qml" line="214"/>
+        <source>Could not copy the result</source>
+        <translation>无法复制结果</translation>
     </message>
 </context>
 <context>
