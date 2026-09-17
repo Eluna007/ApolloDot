@@ -33,7 +33,11 @@ through extraction, a tapered four-lobe chain, left-to-right separation and a
 small settle, without holding an intermediate pose. The
 controller advances time linearly so it does not compress these phases with a
 second easing curve; interrupted transitions continue from the current value.
-Icons follow the same timeline and appear during separation.
+Emergence, neck release and rebound use separate staggered key times: the last
+neck remains connected longer, and each button reaches its size/position peak
+and settles in turn. Later buttons are not accelerated to share the first
+button's finish time. The first button stays near its final center while the
+remaining chain extends. Icons fade in along the same left-to-right wave.
 
 The launcher shader blends five rounded distance fields, without separately
 drawn connectors or a vertical clipping band. Derivative-based antialiasing
