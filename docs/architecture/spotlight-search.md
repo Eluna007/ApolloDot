@@ -136,13 +136,19 @@ Tab/Shift+Tab expand and cycle the existing mode rail. Ctrl immediately displays
 file paths while held; there is no tap/hold recognizer or Tab completion. Slash
 commands execute exact names on Enter without a suggestion panel.
 
-`SpotlightTemplateController` owns currency/time presentation and converts it into
-the existing tool expressions. Currency input is an editable `1 USD = … EUR`
-template: editing either amount selects the conversion direction, and the lazy
-candidate list replaces the source or target currency. Result-only updates never
-submit another calculation. Time templates use catalog zones, default to local
-source time, and allow source replacement. Selecting a target leaves a numeric
-time input; fresh Backspace on empty input returns to template selection.
+`SpotlightTemplateController` owns Time Zone presentation and converts it into
+the existing tool expression. Templates use catalog zones, default to local
+source time, and allow source replacement. Fresh Backspace on empty input
+returns to template selection.
+
+Currency has an independent `SpotlightCurrencyController` and four-slot editor.
+The confirmed pair drives a unit-rate request through `SpotlightToolService`;
+slot focus, currency drafts, amounts and driver changes never submit requests.
+`SpotlightCurrency` performs bounded decimal-string multiplication/division and
+local candidate ranking. Reverse conversion rounds half-even to 24 decimal
+places. Derived output reads the current driver and a generation-checked rate
+for the confirmed pair; it never writes into the driving slot. Clipboard writes
+reuse the service or the active TextInput's native selection copy.
 
 The existing Web press/shadow/pill progress is reused for every temporary state.
 Replacement exits the displayed label before presenting the next label. Input and

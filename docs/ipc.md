@@ -180,10 +180,24 @@ and other completed actions are never undone. Closing clears temporary state.
 Tab and Shift+Tab always navigate the mode rail; they never complete input.
 Ctrl editing shortcuts and Files Ctrl+Enter retain their previous behavior.
 
-Currency opens with `1 USD = … EUR`. Edit either amount to convert in that
-direction. Click or use arrows/Enter in the currency list to replace the active
-side's unit; “Switch side” selects the other unit. Backend answers update only
-the opposite amount and retain the existing request generation checks.
+Currency opens with four independent slots: amount, currency, amount, currency,
+separated by ≈. Left/Right select adjacent slots without wrapping. Clicking a
+slot activates it; typing replaces the selected value. The last edited amount
+is the driver; currency changes preserve that side. `/fx 100 USD to CNY` seeds
+the slots, while `/fx` defaults to 1 USD → EUR.
+
+Only active currency slots show locally filtered candidates. Up/Down select and
+Enter confirms without copying. Tab/Shift+Tab retain mode-rail navigation.
+Ctrl+C copies the current slot (an explicit text selection takes priority).
+Ctrl+A highlights the whole four-slot expression; Ctrl+C then copies that expression.
+With candidates closed, Enter copies the derived amount without its currency.
+A fresh Backspace in an empty amount slot leaves Currency.
+
+Only the confirmed pair requests `key tool currency --expression="1 USD to EUR"`.
+Amount edits and direction changes reuse that rate locally, using decimal-string
+arithmetic. Reverse conversion rounds half-even to 24 decimal places. Pending or
+invalid dependent amounts cannot be copied. Existing generation checks reject
+old pair results, and current driver state determines which amount is derived.
 
 Time opens a searchable list of templates from local time to every available
 time zone. “Change source” chooses a different source zone. Select a template

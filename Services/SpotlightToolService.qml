@@ -170,8 +170,13 @@ Singleton {
     function copy() {
         if (!canCopy || copier.running)
             return false;
+        return copyText(result.answer);
+    }
+    function copyText(value) {
+        if (!active || !value || copier.running)
+            return false;
         copyGeneration = generation;
-        copier.command = ["wl-copy", "--", result.answer];
+        copier.command = ["wl-copy", "--", value];
         copier.running = true;
         return true;
     }

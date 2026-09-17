@@ -163,7 +163,9 @@ PanelWindow {
     Binding {
         target: SpotlightToolService
         property: "query"
-        value: templates.active ? templates.expression : root.toolMode ? root.query : ""
+        value: root.mode === "currency" ? currency.expression : templates.active ? templates.expression :
+                                                                                   root.toolMode ? root.query :
+                                                                                                   ""
     }
     Binding {
         target: SpotlightToolService
@@ -175,20 +177,22 @@ PanelWindow {
         id: templates
         mode: root.mode
         text: root.query
-        cursor: searchBar.cursorPosition
         onReplaceText: (value, start, end) => {
             root.query = value;
             searchBar.selectText(start, end);
         }
     }
-    onModeChanged: Qt.callLater(() => templates.reset())
-    Connections {
-        target: SpotlightToolService
-        function onCanCopyChanged() {
-            if (SpotlightToolService.canCopy)
-                templates.updateAnswer();
-        }
+    SpotlightCurrencyController {
+        id: currency
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "currency"
     }
+    onModeChanged: Qt.callLater(() => {
+        templates.reset();
+        if (root.mode === "currency") {
+            currency.reset(root.query);
+            root.query = "";
+        }
+    })
 
     SpotlightStyle {
         id: style
@@ -466,6 +470,8 @@ PanelWindow {
     }
 
     function moveSelectionByOffset(offset) {
+        if (root.mode === "currency" && currency.move(offset))
+            return;
         if (templates.active && templates.move(offset))
             return;
         if (root.toolMode && SpotlightToolService.state === "ambiguous" && SpotlightToolService.result) {
@@ -650,6 +656,11 @@ PanelWindow {
         if (root.mode === "commands")
             return session.activate(root.selectedResultId, "", false);
         if (root.toolMode) {
+            if (root.mode === "currency") {
+                if (currency.choosing)
+                    return currency.choose(currency.selected);
+                return currency.copyAnswer();
+            }
             if (templates.active && templates.selected >= 0)
                 return templates.choose(templates.selected);
             if (templates.choosingTime)
@@ -726,6 +737,8 @@ PanelWindow {
             return;
         if (root.modeRailExpanded || root.railProgress > 0.001) {
             root.setRailExpanded(false);
+        } else if (root.mode === "currency" && currency.dismiss()) {
+            return;
         } else if (session.tool) {
             session.pop();
         } else if (root.query !== "") {
@@ -795,15 +808,14 @@ PanelWindow {
             event.accepted = true;
             return;
         }
-        if (fromSearch && !control && !shift && event.key === Qt.Key_Backspace && session.canBackspace({
-                                                                                                           selection:
-                                                                                                           searchBar.hasSelection,
-                                                                                                           preedit: searchBar.inputComposing,
-                                                                                                           modal: root.spotlightModalActive,
-                                                                                                           repeat: event.isAutoRepeat,
-                                                                                                           searchFocus:
-                                                                                                           root.searchHasFocus
-                                                                                                       })) {
+        if (root.mode !== "currency" && fromSearch && !control && !shift && event.key === Qt.Key_Backspace
+                && session.canBackspace({
+                                            selection: searchBar.hasSelection,
+                                            preedit: searchBar.inputComposing,
+                                            modal: root.spotlightModalActive,
+                                            repeat: event.isAutoRepeat,
+                                            searchFocus: root.searchHasFocus
+                                        })) {
             session.pop();
             event.accepted = true;
             return;
@@ -1022,6 +1034,8 @@ PanelWindow {
             width: parent.width
             anchors.top: parent.top
             style: style
+            currencyController: currency
+            onCurrencyExitRequested: session.pop()
             mode: root.mode
             modeRailExpanded: root.modeRailExpanded
             modeFocusIndex: root.modeFocusIndex
@@ -1060,6 +1074,7 @@ PanelWindow {
             id: toolPanel
             selectedCandidate: root.toolCandidateIndex
             templateController: templates
+            currencyController: currency
             onInputFocusRequested: root.focusSpotlight()
             style: style
             visible: root.toolMode

@@ -9591,6 +9591,37 @@ Right click: Control Center</translation>
     </message>
 </context>
 <context>
+    <name>SpotlightCurrencyController</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCurrencyController.qml" line="30"/>
+        <source>Enter a valid amount</source>
+        <translation>Enter a valid amount</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightCurrencyEditor</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCurrencyEditor.qml" line="123"/>
+        <source>Source amount</source>
+        <translation>Source amount</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCurrencyEditor.qml" line="123"/>
+        <source>Source currency</source>
+        <translation>Source currency</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCurrencyEditor.qml" line="126"/>
+        <source>Target amount</source>
+        <translation>Target amount</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCurrencyEditor.qml" line="128"/>
+        <source>Target currency</source>
+        <translation>Target currency</translation>
+    </message>
+</context>
+<context>
     <name>SpotlightFileProvider</name>
     <message>
         <location filename="../Modules/Launcher/SpotlightFileProvider.qml" line="29"/>
@@ -9827,115 +9858,115 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightSearchBar</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="267"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="287"/>
         <source>Search apps</source>
         <translation>Search apps</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="262"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="282"/>
         <source>Search files and folders</source>
         <translation>Search files and folders</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="176"/>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="181"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="183"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="188"/>
         <source>Search (Ctrl+0)</source>
         <translation>Search (Ctrl+0)</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="229"/>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="243"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="236"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="250"/>
         <source>Return to previous context (Backspace)</source>
         <translation>Return to previous context (Backspace)</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="258"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="278"/>
         <source>Search commands</source>
         <translation>Search commands</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="260"/>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="291"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="280"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="312"/>
         <source>Search</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="264"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="284"/>
         <source>Search clipboard history</source>
         <translation>Search clipboard history</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="266"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="286"/>
         <source>Search wallpapers</source>
         <translation>Search wallpapers</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="279"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="300"/>
         <source>Enter an expression</source>
         <translation>Enter an expression</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="280"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="301"/>
         <source>Amount and currency</source>
         <translation>Amount and currency</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="280"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="301"/>
         <source>Choose a time zone or enter a time</source>
         <translation>Choose a time zone or enter a time</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="284"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="305"/>
         <source>Search settings</source>
         <translation>Search settings</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="287"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="308"/>
         <source>Search actions</source>
         <translation>Search actions</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="290"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="311"/>
         <source>Search the web</source>
         <translation>Search the web</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="315"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="338"/>
         <source>Web search</source>
         <translation>Web search</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="315"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="338"/>
         <source>Spotlight search</source>
         <translation>Spotlight search</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="317"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="340"/>
         <source>Tab to show and cycle modes</source>
         <translation>Tab to show and cycle modes</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="341"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="364"/>
         <source>Apply</source>
         <translation>Apply</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="345"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="368"/>
         <source>Wallpaper</source>
         <translation>Wallpaper</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="349"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="372"/>
         <source>Clipboard</source>
         <translation>Clipboard</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="353"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="376"/>
         <source>Files</source>
         <translation>Files</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="420"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="443"/>
         <source>%1 (Ctrl+%2)</source>
         <translation>%1 (Ctrl+%2)</translation>
     </message>
@@ -10029,27 +10060,17 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightTemplateController</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="28"/>
-        <source>Source currency</source>
-        <translation>Source currency</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="28"/>
-        <source>Target currency</source>
-        <translation>Target currency</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="30"/>
+        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="18"/>
         <source>Source time zone</source>
         <translation>Source time zone</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="30"/>
+        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="18"/>
         <source>Target time zone</source>
         <translation>Target time zone</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="32"/>
+        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="19"/>
         <source>Local time</source>
         <translation>Local time</translation>
     </message>
@@ -10057,64 +10078,64 @@ Right click: Control Center</translation>
 <context>
     <name>SpotlightToolPanel</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="46"/>
-        <source>Switch side</source>
-        <translation>Switch side</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="46"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="71"/>
         <source>Change source</source>
         <translation>Change source</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="61"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="82"/>
         <source>Enter a time, for example 0930. Backspace on empty input changes the template.</source>
         <translation>Enter a time, for example 0930. Backspace on empty input changes the template.</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="94"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="117"/>
         <source>Local time</source>
         <translation>Local time</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="118"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="145"/>
+        <source>No matching currencies</source>
+        <translation>No matching currencies</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="148"/>
         <source>Calculating…</source>
         <translation>Calculating…</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="119"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="150"/>
         <source>Enter an expression to begin</source>
         <translation>Enter an expression to begin</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="123"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="151"/>
         <source>This time occurs twice. Choose a UTC offset.</source>
         <translation>This time occurs twice. Choose a UTC offset.</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="154"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="35"/>
         <source>Approximate · ECB · %1 · %2</source>
         <translation>Approximate · ECB · %1 · %2</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="155"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="35"/>
         <source>Older cached rate</source>
         <translation>Older cached rate</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="157"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="37"/>
         <source>Reference rate</source>
         <translation>Reference rate</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="159"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="183"/>
         <source>From %1 · %2 · UTC%3
 Day difference: %4</source>
         <translation>From %1 · %2 · UTC%3
 Day difference: %4</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="185"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="210"/>
         <source>Enter to copy</source>
         <translation>Enter to copy</translation>
     </message>

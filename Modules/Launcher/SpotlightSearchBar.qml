@@ -10,6 +10,8 @@ Item {
     id: root
 
     required property SpotlightStyle style
+    required property SpotlightCurrencyController currencyController
+    signal currencyExitRequested
     required property string mode
     required property bool modeRailExpanded
     required property int modeFocusIndex
@@ -64,13 +66,15 @@ Item {
     readonly property real pressScaleY: pressScaleYForProgress(webProgress)
     readonly property real pressShadowBlur: shadowBlurForProgress(webProgress)
     readonly property real pressShadowVerticalOffset: shadowVerticalOffsetForProgress(webProgress)
-    readonly property bool inputActiveFocus: searchInput.activeFocus
+    readonly property bool inputActiveFocus: mode === "currency" ? currencyEditor.activeFocus :
+                                                                   searchInput.activeFocus
     readonly property var blurRegionItems: morphSurface.blurRegionItems
 
     // Qt also treats cursor/format-only input-method attributes as composing.
     // Fcitx5's Wayland commit can leave those attributes after preedit is empty;
     // only pending text should suspend Spotlight's key routing.
-    readonly property bool inputComposing: searchInput.preeditText.length > 0
+    readonly property bool inputComposing: mode === "currency" ? currencyEditor.composing :
+                                                                 searchInput.preeditText.length > 0
     signal releasedKey(var event)
     signal routedKey(var event)
     signal modeClicked(int index)
@@ -114,7 +118,10 @@ Item {
     }
 
     function focusInput() {
-        searchInput.forceActiveFocus();
+        if (root.mode === "currency")
+            currencyEditor.focusSlot(false);
+        else
+            searchInput.forceActiveFocus();
     }
 
     function buttonCenterX(index) {
@@ -251,6 +258,19 @@ Item {
             width: Math.max(0, parent.width - x - root.style.searchHorizontalPadding)
             height: parent.height
 
+            SpotlightCurrencyEditor {
+                id: currencyEditor
+                anchors.fill: parent
+                visible: root.mode === "currency"
+                enabled: visible
+                controller: root.currencyController
+                style: root.style
+                railExpanded: root.modeRailExpanded
+                onRoutedKey: event => root.routedKey(event)
+                onReleasedKey: event => root.releasedKey(event)
+                onExitRequested: root.currencyExitRequested()
+            }
+
             Text {
                 anchors.fill: parent
                 text: {
@@ -270,7 +290,8 @@ Item {
                 font.family: Fonts.ui
                 font.pixelSize: 20
                 verticalAlignment: Text.AlignVCenter
-                opacity: searchInput.text.length === 0 ? 1 - root.webTextProgress : 0
+                opacity: root.mode !== "currency" && searchInput.text.length === 0 ? 1 - root.webTextProgress :
+                                                                                     0
                 elide: Text.ElideRight
             }
 
@@ -293,12 +314,14 @@ Item {
                 font.family: Fonts.ui
                 font.pixelSize: 20
                 verticalAlignment: Text.AlignVCenter
-                opacity: searchInput.text.length === 0 ? root.webTextProgress : 0
+                opacity: root.mode !== "currency" && searchInput.text.length === 0 ? root.webTextProgress : 0
                 elide: Text.ElideRight
             }
 
             TextInput {
                 id: searchInput
+                visible: root.mode !== "currency"
+                enabled: visible
 
                 anchors.fill: parent
                 color: Appearance.colors.colOnSurface

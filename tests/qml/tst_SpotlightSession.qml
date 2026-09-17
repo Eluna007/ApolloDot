@@ -1,5 +1,6 @@
 import QtQuick
 import QtTest
+import "../../Common/functions/SpotlightCurrency.js" as Currency
 import "../../Common/functions/SpotlightTemplates.js" as Templates
 import "../../Common/functions/SpotlightSession.js" as Session
 import "../../Common/functions/SpotlightCommands.js" as Commands
@@ -109,15 +110,44 @@ TestCase {
         compare(Session.switchMode(state, "files", true).query, "");
     }
 
-    function test_currencyTemplateDirection() {
-        const original = Templates.currency("1 USD = 0.9 EUR");
-        const edited = Templates.currency("1 USD = 25 EUR");
-        compare(Templates.editedSide(original, edited, "left"), "right");
-        compare(Templates.currencyExpression(edited, "right"), "25 EUR to USD");
-        compare(Templates.currencyExpression(original, "left"), "1 USD to EUR");
-        compare(Templates.currencyExpression(Templates.currency(" USD = 0.9 EUR"), "left"), "");
-        compare(Templates.currency("1 USD = 2"), null);
-        compare(Templates.currencyText(original), "1 USD = 0.9 EUR");
+    function test_currencyDecimalConversion() {
+        compare(Currency.convert("0.1", "0.2", false), "0.02");
+        compare(Currency.convert("9007199254740993", "2", false), "18014398509481986");
+        compare(Currency.convert("100", "7.25", false), "725");
+        compare(Currency.convert("725", "7.25", true), "100");
+        compare(Currency.convert("-1.25", "0.5", true), "-2.5");
+        compare(Currency.convert("1", "3", true), "0.333333333333333333333333");
+        compare(Currency.convert("2", "3", true), "0.666666666666666666666667");
+        compare(Currency.convert("1", "1e-7", false), "0.0000001");
+        compare(Currency.convert("0", "7", true), "0");
+        compare(Currency.convert("", "1", false), "");
+        compare(Currency.convert("1", "0", true), "");
+        compare(Currency.convert("1", "-1", false), "");
+        compare(Currency.convert("1", "oops", true), "");
+        compare(Currency.convert("-", "1", false), "");
+    }
+    function test_currencyCandidateRanking() {
+        const catalog = [
+                  {
+                      text: "USD",
+                      name: "US Dollar"
+                  },
+                  {
+                      text: "AUD",
+                      name: "Australian Dollar"
+                  },
+                  {
+                      text: "USN",
+                      name: "Next day Dollar"
+                  }
+              ];
+        compare(Currency.candidates(catalog, "usd")[0].text, "USD");
+        compare(Currency.candidates(catalog, "us")[0].text, "USD");
+        compare(Currency.candidates(catalog, "dollar").length, 3);
+        compare(Currency.candidates(catalog, "australian")[0].text, "AUD");
+        compare(Currency.candidates(catalog, "missing").length, 0);
+        compare(Currency.seed("100 USD to CNY").amount, "100");
+        compare(Currency.seed("").to, "EUR");
     }
     function test_timeTemplateInput() {
         compare(Templates.timeExpression("0930", "Asia/Shanghai", "Europe/London"),

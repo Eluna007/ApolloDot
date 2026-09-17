@@ -10,18 +10,44 @@ Rectangle {
     id: root
     required property SpotlightStyle style
     required property SpotlightTemplateController templateController
+    required property SpotlightCurrencyController currencyController
+    readonly property bool currencyMode: service.tool === "currency"
+    readonly property var choices: currencyMode ? currencyController.choices : templateController.choices
+    readonly property int candidateRowHeight: currencyMode ? 52 : 40
     property real availableHeight: 360
     property int selectedCandidate: 0
     signal inputFocusRequested
     readonly property var service: SpotlightToolService
-    height: visible ? Math.min(Math.max(120, content.implicitHeight + 48), 320, Math.max(0, availableHeight)) :
-                      0
+    height: visible ? Math.min(Math.max(root.currencyMode ? 40 : 120, content.implicitHeight + 48),
+                               root.currencyMode ? 360 : 320, Math.max(0, availableHeight)) : 0
     radius: style.resultRadius
     color: style.panelColor
     clip: true
+    Text {
+        id: currencyNote
+        x: 20
+        y: 8
+        width: parent.width - 40
+        visible: root.currencyMode
+        text: {
+            const value = root.service.result;
+            if (!root.currencyMode || !root.service.canCopy || !value || !value.approximate)
+                return "";
+            return qsTr("Approximate · ECB · %1 · %2").arg(value.date).arg(value.cache === "stale" ? qsTr(
+                                                                                                         "Older cached rate") :
+                                                                                                     qsTr("Reference rate"));
+        }
+        textFormat: Text.PlainText
+        elide: Text.ElideRight
+        font.family: Fonts.ui
+        font.pixelSize: 12
+        color: Appearance.colors.colOnSurfaceVariant
+    }
     StyledFlickable {
         anchors.fill: parent
         anchors.margins: 24
+        anchors.topMargin: root.currencyMode ? 32 : 24
+        anchors.bottomMargin: root.currencyMode ? 16 : 24
         contentWidth: width
         contentHeight: content.implicitHeight
         ScrollBar.vertical: StyledScrollBar {}
@@ -43,13 +69,9 @@ Rectangle {
                     font.pixelSize: 16
                 }
                 ActionButton {
-                    text: root.templateController.currencyMode ? qsTr("Switch side") : qsTr("Change source")
+                    text: qsTr("Change source")
                     onClicked: {
-                        if (root.templateController.currencyMode)
-                            root.templateController.unitSide = root.templateController.unitSide === "left"
-                                    ? "right" : "left";
-                        else
-                            root.templateController.changeSource();
+                        root.templateController.changeSource();
                         root.inputFocusRequested();
                     }
                 }
@@ -68,11 +90,18 @@ Rectangle {
             ListView {
                 id: templateList
                 Layout.fillWidth: true
-                Layout.preferredHeight: visible ? Math.min(root.templateController.currencyMode ? 120 : 180,
-                                                           Math.max(72, root.availableHeight - 120)) : 0
-                visible: root.templateController.choices.length > 0
-                model: root.templateController.choices
-                currentIndex: root.templateController.selected
+                Layout.preferredHeight: !visible ? 0 : root.currencyMode ? Math.min(Math.min(root.choices.length,
+                                                                                             6) * root.candidateRowHeight,
+                                                                                    Math.max(0,
+                                                                                             root.availableHeight
+                                                                                             - 48)) : Math.min(
+                                                                               180, Math.max(72,
+                                                                                             root.availableHeight
+                                                                                             - 120))
+                visible: root.choices.length > 0
+                model: root.choices
+                currentIndex: root.currencyMode ? root.currencyController.selected :
+                                                  root.templateController.selected
                 clip: true
                 keyNavigationEnabled: false
                 onCurrentIndexChanged: if (currentIndex >= 0)
@@ -83,13 +112,13 @@ Rectangle {
                     required property var modelData
                     required property int index
                     width: templateList.width
-                    height: 40
+                    height: root.candidateRowHeight
                     radius: Appearance.rounding.small
-                    color: index === root.templateController.selected ? root.style.selectedColor :
-                                                                        "transparent"
+                    color: index === templateList.currentIndex ? root.style.selectedColor : "transparent"
                     Text {
                         anchors.fill: parent
-                        anchors.margins: 8
+                        anchors.margins: root.currencyMode ? 14 : 8
+                        verticalAlignment: Text.AlignVCenter
                         text: root.templateController.timeMode && !root.templateController.choosingSource ? (
                                                                                                                 root.templateController.sourceZone
                                                                                                                 || qsTr("Local time"))
@@ -103,12 +132,15 @@ Rectangle {
                         elide: Text.ElideRight
                         color: Appearance.colors.colOnSurface
                         font.family: Fonts.ui
-                        font.pixelSize: 14
+                        font.pixelSize: root.currencyMode ? 16 : 14
                     }
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            root.templateController.choose(choiceRow.index);
+                            if (root.currencyMode)
+                                root.currencyController.choose(choiceRow.index);
+                            else
+                                root.templateController.choose(choiceRow.index);
                             root.inputFocusRequested();
                         }
                     }
@@ -116,13 +148,16 @@ Rectangle {
             }
             Text {
                 Layout.fillWidth: true
-                text: root.service.state === "loading" ? qsTr("Calculating…") : root.service.state === "empty"
-                                                         || root.service.state === "incomplete" ? qsTr(
-                                                                                                      "Enter an expression to begin") :
-                                                                                                  root.service.state
-                                                                                                  === "ambiguous"
-                                                                                                  ? qsTr("This time occurs twice. Choose a UTC offset.") :
-                                                                                                    root.service.error
+                text: root.currencyMode ? (root.currencyController.amountError || root.service.error || (
+                                               root.currencyController.choosing && !root.choices.length ? qsTr(
+                                                                                                              "No matching currencies") :
+                                                                                                          "")) : root.service.state
+                                          === "loading" ? qsTr("Calculating…") : root.service.state
+                                                          === "empty" || root.service.state === "incomplete"
+                                                          ? qsTr("Enter an expression to begin") :
+                                                            root.service.state === "ambiguous" ? qsTr(
+                                                                                                     "This time occurs twice. Choose a UTC offset.") :
+                                                                                                 root.service.error
                 visible: text.length > 0 && (!root.templateController.active || (root.service.state
                                                                                  !== "empty"
                                                                                  && root.service.state
@@ -136,7 +171,7 @@ Rectangle {
             }
             Text {
                 Layout.fillWidth: true
-                visible: root.service.canCopy && !root.templateController.currencyMode
+                visible: root.service.canCopy && !root.currencyMode
                 text: root.service.canCopy ? root.service.result.answer : ""
                 textFormat: Text.PlainText
                 wrapMode: Text.WrapAnywhere
@@ -151,11 +186,6 @@ Rectangle {
                     const value = root.service.result;
                     if (!root.service.canCopy || !value)
                         return "";
-                    if (root.service.tool === "currency" && value.approximate)
-                        return qsTr("Approximate · ECB · %1 · %2").arg(value.date).arg(value.cache
-                                                                                       === "stale" ? qsTr(
-                                                                                                         "Older cached rate") :
-                                                                                                     qsTr("Reference rate"));
                     if (root.service.tool === "time")
                         return qsTr("From %1 · %2 · UTC%3\nDay difference: %4").arg(value.source.datetime).arg(
                                     value.source.zone).arg(value.source.offset).arg(value.dayDelta);
@@ -183,6 +213,7 @@ Rectangle {
             }
             Text {
                 Layout.fillWidth: true
+                visible: !root.currencyMode && text.length > 0
                 text: root.service.feedback || (root.service.canCopy ? qsTr("Enter to copy") : "")
                 textFormat: Text.PlainText
                 color: Appearance.colors.colOnSurfaceVariant
