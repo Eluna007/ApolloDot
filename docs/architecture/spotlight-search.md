@@ -134,13 +134,19 @@ Tool and command contexts deactivate unrelated providers, including their querie
 
 Tab/Shift+Tab expand and cycle the existing mode rail. Ctrl immediately displays
 file paths while held; there is no tap/hold recognizer or Tab completion. Slash
-commands execute exact names on Enter without a suggestion panel.
+commands execute exact names on Enter without a suggestion panel. Entering Commands
+with `>` preserves the previous context: Esc or a fresh Backspace on empty input
+returns to it, including its query and presentation overrides. Tools opened from
+that palette return to Commands first. Explicit mode switches discard this history.
 
 `SpotlightTemplateController` presents two Time Zone templates: current time to
 another zone, or a conversion between two zones. After choosing a template,
 Time Zone and Currency share `SpotlightConversionEditor`: plain text slots,
 text selection, local unit candidates, and whole-expression copying. In the
-explicit time template either time slot can drive the conversion; derived times
+explicit time template is seeded with the current local date and time each time
+it is chosen; the backend resolves its local IANA zone. Either time slot can then
+drive the conversion (a copied tzfile without an IANA name requires choosing an
+explicit source zone before reverse editing); derived times
 retain their date across midnight. The current-time template keeps its source
 read-only. Ctrl+A followed by Backspace/Delete, or a fresh Backspace on an empty
 field, returns to template selection. UTC offsets, day differences and DST

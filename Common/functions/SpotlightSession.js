@@ -30,12 +30,18 @@ function switchMode(state, mode, preserveQuery) {
     return next;
 }
 
+function enterCommands(state, query) {
+    const next = input(switchMode(state, "commands", false), query, false);
+    next.parent = Object.assign({}, state, { completion: null });
+    return next;
+}
+
 function enterTool(state, tool, query, consumeCommand) {
     if (tools.indexOf(tool) < 0) return state;
     // Replacing a tool reuses its one parent, bounding depth independently of input.
-    let parent = state.parent || state;
+    let parent = state.tool ? (state.parent || state) : state;
     parent = Object.assign({}, parent, { completion: null });
-    if (consumeCommand && !state.parent)
+    if (consumeCommand && !state.tool)
         parent = input(parent, "", false, parent.selectionId);
     return Object.assign({}, parent, { tool: tool, query: query || "", literal: false,
         selectionId: "", completion: null, parent: parent, serial: state.serial + 1 });

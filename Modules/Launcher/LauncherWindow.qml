@@ -100,6 +100,7 @@ PanelWindow {
 
     SpotlightSessionController {
         id: session
+        onCommandRejected: searchBar.flashError()
         onBaseNavigationRequested: mode => {
             if (!root.showing || root.windowPhase === "closing")
                 return;
@@ -737,7 +738,7 @@ PanelWindow {
             return;
         } else if (root.mode === "time" && templates.dismiss()) {
             return;
-        } else if (session.tool) {
+        } else if (session.tool || (root.mode === "commands" && session.state.parent)) {
             session.pop();
         } else if (root.query !== "") {
             root.query = "";
@@ -1016,8 +1017,7 @@ PanelWindow {
                                                                                                          style.windowHorizontalMargin,
                                                                                                          Metrics.popupMargin)
                                                                                                      * 2))
-        height: searchBar.height + style.resultGap + Math.max(resultsPanel.height, toolPanel.height) + (
-                    session.error ? 24 : 0)
+        height: searchBar.height + style.resultGap + Math.max(resultsPanel.height, toolPanel.height)
         anchors.horizontalCenter: parent.horizontalCenter
         y: baseY + style.initialYOffset * (1 - root.windowProgress)
         opacity: root.windowProgress
@@ -1087,19 +1087,6 @@ PanelWindow {
             availableHeight: Math.max(0, root.height - spotlightRoot.baseY - searchBar.height
                                       - style.resultGap - style.windowBottomMargin)
         }
-        Text {
-            z: 10
-            anchors.top: searchBar.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: searchBar.requestedMainWidth - 24
-            visible: session.error.length > 0
-            text: session.error
-            textFormat: Text.PlainText
-            color: Appearance.colors.colError
-            font.family: Fonts.ui
-            font.pixelSize: 13
-            elide: Text.ElideRight
-        }
         TapHandler {
             acceptedButtons: Qt.AllButtons
             onPressedChanged: {
@@ -1132,7 +1119,7 @@ PanelWindow {
             animationsEnabled: root.windowPhase === "open"
 
             anchors.top: searchBar.bottom
-            anchors.topMargin: style.resultGap + (session.error ? 24 : 0)
+            anchors.topMargin: style.resultGap
             anchors.horizontalCenter: parent.horizontalCenter
             style: style
             mode: root.mode

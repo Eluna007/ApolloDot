@@ -90,6 +90,31 @@ TestCase {
         compare(Session.pop(Session.enterTool(commands, "calculator", "", false)).query, "calc");
     }
 
+    function test_commandContextReturn() {
+        let source = Session.setOverride(Session.create("apps"), "appsLayout", "grid", "list");
+        source = Session.input(source, "terminal", false, "app:terminal");
+        const commands = Session.enterCommands(source, "");
+        compare(commands.mode, "commands");
+        verify(Session.canBackspace(commands, {
+                                        searchFocus: true
+                                    }));
+        verify(!Session.canBackspace(Session.input(commands, "calc", false), {
+                                         searchFocus: true
+                                     }));
+        const restored = Session.pop(commands);
+        compare(restored.mode, "apps");
+        compare(restored.query, "terminal");
+        compare(restored.selectionId, "app:terminal");
+        compare(Session.effective(restored, "appsLayout", "list"), "grid");
+        const tool = Session.enterTool(commands, "calculator", "1+1", false);
+        compare(Session.pop(tool).mode, "commands");
+        compare(Session.pop(Session.pop(tool)).mode, "apps");
+        verify(!Session.switchMode(commands, "files", false).parent);
+        verify(!Session.canBackspace(Session.create("commands"), {
+                                         searchFocus: true
+                                     }));
+    }
+
     function test_backspaceGuards() {
         const state = Session.enterTool(Session.create("apps"), "calculator", "", false);
         const event = {

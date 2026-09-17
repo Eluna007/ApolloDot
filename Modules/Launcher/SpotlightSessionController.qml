@@ -32,6 +32,7 @@ QtObject {
                                                                                                                      === override.value))
     signal actionRequested(string id)
     signal baseNavigationRequested(string mode)
+    signal commandRejected
     signal contextRestored
     signal selectionRestored(string id)
 
@@ -82,6 +83,7 @@ QtObject {
                                                                                   ? qsTr("Apps") : qsTr(
                                                                                         "Clipboard")) : qsTr(
                                                      "This command does not accept arguments");
+            commandRejected();
             return false;
         }
         if (entry.kind === "mode")
@@ -107,6 +109,7 @@ QtObject {
         const entry = Commands.exact(route.name);
         if (!entry) {
             error = qsTr("Unknown command. Open Commands to browse available commands.");
+            commandRejected();
             return false;
         }
         return activate(entry.id, route.arguments, true);
@@ -118,7 +121,7 @@ QtObject {
         const next = Session.input(state, query, query.length > 0 && state.literal, state.selectionId);
         const inputRoute = Session.route(next, query);
         if (inputRoute.kind === "commands") {
-            apply(Session.input(Session.switchMode(next, "commands", false), inputRoute.query, false));
+            apply(Session.enterCommands(state, inputRoute.query));
         } else if (inputRoute.kind === "literal") {
             apply(Session.input(next, inputRoute.query, true));
         } else

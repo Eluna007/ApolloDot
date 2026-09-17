@@ -6,9 +6,9 @@ QtObject {
     id: root
     property string mode: ""
     property string templateKind: ""
-    property string sourceZone: "UTC"
+    property string sourceZone: ""
     property string targetZone: "Asia/Tokyo"
-    property string driverAmount: "09:00"
+    property string driverAmount: ""
     property int driverSide: 0
     property int activeSlot: 0
     property string draft: ""
@@ -60,9 +60,9 @@ QtObject {
 
     function reset() {
         templateKind = "";
-        sourceZone = "UTC";
+        sourceZone = "";
         targetZone = "Asia/Tokyo";
-        driverAmount = "09:00";
+        driverAmount = "";
         driverSide = 0;
         activeSlot = 0;
         choosing = false;
@@ -76,7 +76,7 @@ QtObject {
     }
     function value(slot) {
         if (slot === 1)
-            return nowTemplate ? qsTr("Local time") : sourceZone;
+            return nowTemplate || !sourceZone ? qsTr("Local time") : sourceZone;
         if (slot === 3)
             return targetZone;
         if (nowTemplate && slot === 0)
@@ -84,7 +84,9 @@ QtObject {
         return !nowTemplate && slot === driverSide ? driverAmount : answer;
     }
     function editable(slot) {
-        return !nowTemplate || slot === 3;
+        // A copied system tzfile may have no IANA name usable as a target.
+        // Keep reverse editing read-only until an explicit source zone is known.
+        return nowTemplate ? slot === 3 : slot !== 2 || !!sourceZone;
     }
     function activate(slot) {
         activeSlot = nowTemplate ? 3 : Math.max(0, Math.min(3, slot));
@@ -116,6 +118,9 @@ QtObject {
         if (!choice)
             return false;
         if (choosingTemplate) {
+            sourceZone = "";
+            driverSide = 0;
+            driverAmount = Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss");
             templateKind = choice.kind;
             activate(nowTemplate ? 3 : 0);
         } else {
@@ -144,6 +149,16 @@ QtObject {
     }
     function copyAnswer() {
         return currentResult && SpotlightToolService.copy();
+    }
+    onCurrentResultChanged: Qt.callLater(resolveLocalZone)
+    function resolveLocalZone() {
+        // An omitted source lets key-cli use the system's full transition rules.
+        // Adopt its resolved IANA name for subsequent reverse conversions.
+        if (currentResult && !nowTemplate && driverSide === 0 && !sourceZone) {
+            const source = SpotlightToolService.result.source;
+            if (source && source.zone && source.zone !== "system")
+                sourceZone = source.zone;
+        }
     }
     onChoicesChanged: selected = 0
 }

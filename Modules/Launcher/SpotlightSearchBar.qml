@@ -27,6 +27,33 @@ Item {
     property var pillEntries: []
     property var displayedPills: []
     property string pillError: ""
+    property real errorStrength: 0
+    function flashError() {
+        errorPulse.restart();
+    }
+    onPillErrorChanged: if (!pillError.length) {
+                            errorPulse.stop();
+                            errorStrength = 0;
+                        }
+    SequentialAnimation {
+        id: errorPulse
+        NumberAnimation {
+            target: root
+            property: "errorStrength"
+            from: 0
+            to: 1
+            duration: 90
+        }
+        PauseAnimation {
+            duration: 500
+        }
+        NumberAnimation {
+            target: root
+            property: "errorStrength"
+            to: 0
+            duration: 240
+        }
+    }
     readonly property real pillWidth: Math.min(220, Math.max(64, root.mainWidth - 180), Math.max(root.style.enginePillWidth,
                                                                                                  pillLabel.implicitWidth
                                                                                                  + 44))
@@ -327,7 +354,8 @@ Item {
                 enabled: visible
 
                 anchors.fill: parent
-                color: Appearance.colors.colOnSurface
+                color: Qt.tint(Appearance.colors.colOnSurface, Appearance.applyAlpha(
+                                   Appearance.colors.colError, root.errorStrength))
                 selectionColor: Appearance.colors.colPrimary
                 selectedTextColor: Appearance.colors.colOnPrimary
                 font.family: Fonts.ui
@@ -340,7 +368,14 @@ Item {
 
                 Accessible.name: root.mode === "web" ? qsTr("Web search") : qsTr("Spotlight search")
                 Accessible.role: Accessible.EditableText
-                Accessible.description: qsTr("Tab to show and cycle modes")
+                Accessible.description: root.pillError || qsTr("Tab to show and cycle modes")
+                HoverHandler {
+                    id: inputHover
+                }
+                StyledToolTip {
+                    extraVisibleCondition: inputHover.hovered && root.pillError.length > 0
+                    text: root.pillError
+                }
 
                 Keys.priority: Keys.BeforeItem
                 Keys.onPressed: event => root.routedKey(event)
