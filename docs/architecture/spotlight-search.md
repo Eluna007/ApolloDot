@@ -25,6 +25,27 @@ Wallpaper filename ordering. Apps in both entry points use `SpotlightAppOrder`
 and `SpotlightAppUsage.launch`, counting an accepted launch once. Usage writes do
 not trigger a visible re-sort during the closing transition.
 
+## Mode rail motion
+
+`SpotlightModeMorphSurface` derives the pill and four deforming buttons from a
+single reversible progress value. Shape-preserving cubic curves retain motion
+through extraction, a tapered four-lobe chain, left-to-right separation and a
+small settle, without holding an intermediate pose. The
+controller advances time linearly so it does not compress these phases with a
+second easing curve; interrupted transitions continue from the current value.
+Icons follow the same timeline and appear during separation.
+
+The launcher shader blends five rounded distance fields, without separately
+drawn connectors or a vertical clipping band. Derivative-based antialiasing
+follows render scale. Compositor blur uses inset shape regions and conservative
+interior neck regions; these approximate the silhouette without extending blur
+across detached gaps. The intermediate texture is opaque; the final effect
+applies `surfaceColor.a` once, preserving the configured background opacity
+through shadow compositing. `spotlight_mode_field.frag.qsb` uses a new resource
+URL for the changed uniform layout, because Qt can retain the old shader in its
+process-wide cache across QML reloads. Rebuild its tracked `.qsb` with
+`scripts/build/compile-launcher-shaders.sh` after editing the fragment shader.
+
 ## Declarative catalogs
 
 `Common/settings-routes.json` declares the static page tree: stable ID, English

@@ -92,18 +92,6 @@ Item {
         return morphSurface.iconProgress(index);
     }
 
-    function buttonBlend(index) {
-        return morphSurface.buttonBlend(index);
-    }
-
-    function buttonBridgeRadius(index) {
-        return morphSurface.buttonBridgeRadius(index);
-    }
-
-    function buttonRadius(index) {
-        return morphSurface.buttonRadius(index);
-    }
-
     SpotlightModeMorphSurface {
         id: morphSurface
 
@@ -117,8 +105,6 @@ Item {
         buttonDiameter: root.buttonDiameter
         buttonGap: root.style.modeButtonGap
         blurEdgeInset: root.style.blurEdgeInset
-        edgeSoftness: root.style.edgeSoftness
-        staggerFraction: root.style.railStagger / root.style.railDuration
         surfaceColor: root.style.surfaceColor
         shadowColor: root.style.shadowColor
         shadowBlur: root.pressShadowBlur

@@ -589,18 +589,6 @@ PanelWindow {
         return false;
     }
 
-    function modeButtonBlend(index) {
-        return searchBar.buttonBlend(index);
-    }
-
-    function modeButtonBridgeRadius(index) {
-        return searchBar.buttonBridgeRadius(index);
-    }
-
-    function modeButtonRadius(index) {
-        return searchBar.buttonRadius(index);
-    }
-
     function modeButtonCenterX(index) {
         return searchBar.buttonCenterX(index);
     }
@@ -826,8 +814,7 @@ PanelWindow {
 
         target: root
         property: "railProgress"
-        easing.type: Easing.BezierSpline
-        easing.bezierCurve: style.railCurve
+        easing.type: Easing.Linear
     }
 
     NumberAnimation {
