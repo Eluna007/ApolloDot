@@ -124,7 +124,7 @@ PanelWindow {
         })
         onActionRequested: id => {
             if (id === "theme.light" || id === "theme.dark")
-                UiPreferences.setDarkMode(id === "theme.dark");
+                ThemeService.setThemeMode(id === "theme.dark" ? "dark" : "light");
             else {
                 root.pendingSearchActivation = {
                     provider: id === "location.open" ? "settings" : "settings-open",

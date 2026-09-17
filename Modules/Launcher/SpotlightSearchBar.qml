@@ -54,9 +54,9 @@ Item {
             duration: 240
         }
     }
-    readonly property real pillWidth: Math.min(220, Math.max(64, root.mainWidth - 180), Math.max(root.style.enginePillWidth,
-                                                                                                 pillLabel.implicitWidth
-                                                                                                 + 44))
+    readonly property real pillWidth: Math.min(220, Math.max(64, root.mainWidth - 180),
+                                               pillLabel.implicitWidth + pillLabel.anchors.leftMargin
+                                               + pillLabel.anchors.rightMargin)
     signal pillClosed
     property string pillSignature: ""
     signal pillTransitionRequested(real target)
