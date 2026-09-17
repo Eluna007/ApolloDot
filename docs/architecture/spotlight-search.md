@@ -136,12 +136,17 @@ Tab/Shift+Tab expand and cycle the existing mode rail. Ctrl immediately displays
 file paths while held; there is no tap/hold recognizer or Tab completion. Slash
 commands execute exact names on Enter without a suggestion panel.
 
-`SpotlightTemplateController` owns Time Zone presentation and converts it into
-the existing tool expression. Templates use catalog zones, default to local
-source time, and allow source replacement. Fresh Backspace on empty input
-returns to template selection.
+`SpotlightTemplateController` presents two Time Zone templates: current time to
+another zone, or a conversion between two zones. After choosing a template,
+Time Zone and Currency share `SpotlightConversionEditor`: plain text slots,
+text selection, local unit candidates, and whole-expression copying. In the
+explicit time template either time slot can drive the conversion; derived times
+retain their date across midnight. The current-time template keeps its source
+read-only. Ctrl+A followed by Backspace/Delete, or a fresh Backspace on an empty
+field, returns to template selection. UTC offsets, day differences and DST
+ambiguity choices remain visible.
 
-Currency has an independent `SpotlightCurrencyController` and four-slot editor.
+Currency has an independent `SpotlightCurrencyController`.
 The confirmed pair drives a unit-rate request through `SpotlightToolService`;
 slot focus, currency drafts, amounts and driver changes never submit requests.
 `SpotlightCurrency` performs bounded decimal-string multiplication/division and

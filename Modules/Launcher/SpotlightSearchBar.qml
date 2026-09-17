@@ -11,6 +11,9 @@ Item {
 
     required property SpotlightStyle style
     required property SpotlightCurrencyController currencyController
+    required property SpotlightTemplateController templateController
+    readonly property bool structuredInput: mode === "currency" || templateController.editing
+    onStructuredInputChanged: Qt.callLater(root.focusInput)
     signal currencyExitRequested
     required property string mode
     required property bool modeRailExpanded
@@ -66,15 +69,15 @@ Item {
     readonly property real pressScaleY: pressScaleYForProgress(webProgress)
     readonly property real pressShadowBlur: shadowBlurForProgress(webProgress)
     readonly property real pressShadowVerticalOffset: shadowVerticalOffsetForProgress(webProgress)
-    readonly property bool inputActiveFocus: mode === "currency" ? currencyEditor.activeFocus :
-                                                                   searchInput.activeFocus
+    readonly property bool inputActiveFocus: structuredInput ? currencyEditor.activeFocus :
+                                                               searchInput.activeFocus
     readonly property var blurRegionItems: morphSurface.blurRegionItems
 
     // Qt also treats cursor/format-only input-method attributes as composing.
     // Fcitx5's Wayland commit can leave those attributes after preedit is empty;
     // only pending text should suspend Spotlight's key routing.
-    readonly property bool inputComposing: mode === "currency" ? currencyEditor.composing :
-                                                                 searchInput.preeditText.length > 0
+    readonly property bool inputComposing: structuredInput ? currencyEditor.composing :
+                                                             searchInput.preeditText.length > 0
     signal releasedKey(var event)
     signal routedKey(var event)
     signal modeClicked(int index)
@@ -118,7 +121,7 @@ Item {
     }
 
     function focusInput() {
-        if (root.mode === "currency")
+        if (root.structuredInput)
             currencyEditor.focusSlot(false);
         else
             searchInput.forceActiveFocus();
@@ -258,12 +261,13 @@ Item {
             width: Math.max(0, parent.width - x - root.style.searchHorizontalPadding)
             height: parent.height
 
-            SpotlightCurrencyEditor {
+            SpotlightConversionEditor {
                 id: currencyEditor
                 anchors.fill: parent
-                visible: root.mode === "currency"
+                visible: root.structuredInput
                 enabled: visible
-                controller: root.currencyController
+                controller: root.mode === "time" ? root.templateController : root.currencyController
+                timeMode: root.mode === "time"
                 style: root.style
                 railExpanded: root.modeRailExpanded
                 onRoutedKey: event => root.routedKey(event)
@@ -290,8 +294,7 @@ Item {
                 font.family: Fonts.ui
                 font.pixelSize: 20
                 verticalAlignment: Text.AlignVCenter
-                opacity: root.mode !== "currency" && searchInput.text.length === 0 ? 1 - root.webTextProgress :
-                                                                                     0
+                opacity: !root.structuredInput && searchInput.text.length === 0 ? 1 - root.webTextProgress : 0
                 elide: Text.ElideRight
             }
 
@@ -299,7 +302,7 @@ Item {
                 anchors.fill: parent
                 text: root.mode === "calculator" ? qsTr("Enter an expression") : root.mode === "currency"
                                                    ? qsTr("Amount and currency") : root.mode === "time" ? qsTr(
-                                                                                                              "Choose a time zone or enter a time") :
+                                                                                                              "Choose a time conversion template") :
                                                                                                           root.mode
                                                                                                           === "settings"
                                                                                                           ? qsTr("Search settings") :
@@ -314,13 +317,13 @@ Item {
                 font.family: Fonts.ui
                 font.pixelSize: 20
                 verticalAlignment: Text.AlignVCenter
-                opacity: root.mode !== "currency" && searchInput.text.length === 0 ? root.webTextProgress : 0
+                opacity: !root.structuredInput && searchInput.text.length === 0 ? root.webTextProgress : 0
                 elide: Text.ElideRight
             }
 
             TextInput {
                 id: searchInput
-                visible: root.mode !== "currency"
+                visible: !root.structuredInput
                 enabled: visible
 
                 anchors.fill: parent

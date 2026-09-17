@@ -9596,24 +9596,44 @@ Right click: Control Center</source>
     </message>
 </context>
 <context>
-    <name>SpotlightCurrencyEditor</name>
+    <name>SpotlightConversionEditor</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightCurrencyEditor.qml" line="123"/>
+        <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
+        <source>Source time</source>
+        <translation>来源时间</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
+        <source>Source time zone</source>
+        <translation>来源时区</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
+        <source>Target time</source>
+        <translation>目标时间</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
+        <source>Target time zone</source>
+        <translation>目标时区</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
         <source>Source amount</source>
         <translation>来源金额</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightCurrencyEditor.qml" line="123"/>
+        <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
         <source>Source currency</source>
         <translation>来源货币</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightCurrencyEditor.qml" line="126"/>
+        <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
         <source>Target amount</source>
         <translation>目标金额</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightCurrencyEditor.qml" line="128"/>
+        <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
         <source>Target currency</source>
         <translation>目标货币</translation>
     </message>
@@ -9855,115 +9875,115 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightSearchBar</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="287"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="291"/>
         <source>Search apps</source>
         <translation>搜索应用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="282"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="286"/>
         <source>Search files and folders</source>
         <translation>搜索文件和文件夹</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="183"/>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="188"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="186"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="191"/>
         <source>Search (Ctrl+0)</source>
         <translation>搜索（Ctrl+0）</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="236"/>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="250"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="239"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="253"/>
         <source>Return to previous context (Backspace)</source>
         <translation>返回上一层（Backspace）</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="278"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="282"/>
         <source>Search commands</source>
         <translation>搜索指令</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="280"/>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="312"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="284"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="316"/>
         <source>Search</source>
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="284"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="288"/>
         <source>Search clipboard history</source>
         <translation>搜索剪贴板历史</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="286"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="290"/>
         <source>Search wallpapers</source>
         <translation>搜索壁纸</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="300"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="304"/>
         <source>Enter an expression</source>
         <translation>输入表达式</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="301"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="305"/>
         <source>Amount and currency</source>
         <translation>金额与货币</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="301"/>
-        <source>Choose a time zone or enter a time</source>
-        <translation>选择时区或输入时间</translation>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="305"/>
+        <source>Choose a time conversion template</source>
+        <translation>选择时区换算模板</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="305"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="309"/>
         <source>Search settings</source>
         <translation>搜索设置</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="308"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="312"/>
         <source>Search actions</source>
         <translation>搜索操作</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="311"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="315"/>
         <source>Search the web</source>
         <translation>搜索网页</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="338"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="342"/>
         <source>Web search</source>
         <translation>网页搜索</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="338"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="342"/>
         <source>Spotlight search</source>
         <translation>聚焦搜索</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="340"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="344"/>
         <source>Tab to show and cycle modes</source>
         <translation>按 Tab 展开并切换模式</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="364"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="368"/>
         <source>Apply</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="368"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="372"/>
         <source>Wallpaper</source>
         <translation>壁纸</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="372"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="376"/>
         <source>Clipboard</source>
         <translation>剪贴板</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="376"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="380"/>
         <source>Files</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="443"/>
+        <location filename="../Modules/Launcher/SpotlightSearchBar.qml" line="447"/>
         <source>%1 (Ctrl+%2)</source>
         <translation>%1 (Ctrl+%2)</translation>
     </message>
@@ -10057,17 +10077,17 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightTemplateController</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="18"/>
-        <source>Source time zone</source>
-        <translation>来源时区</translation>
+        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="33"/>
+        <source>Now to a time zone</source>
+        <translation>当前时间转换到其他时区</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="18"/>
-        <source>Target time zone</source>
-        <translation>目标时区</translation>
+        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="34"/>
+        <source>Convert between two time zones</source>
+        <translation>两个时区之间换算</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="19"/>
+        <location filename="../Modules/Launcher/SpotlightTemplateController.qml" line="62"/>
         <source>Local time</source>
         <translation>本地时间</translation>
     </message>
@@ -10075,64 +10095,52 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightToolPanel</name>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="71"/>
-        <source>Change source</source>
-        <translation>更改来源</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="82"/>
-        <source>Enter a time, for example 0930. Backspace on empty input changes the template.</source>
-        <translation>输入时间，例如 0930。输入为空时按退格键可重新选择模板。</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="117"/>
-        <source>Local time</source>
-        <translation>本地时间</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="145"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="111"/>
         <source>No matching currencies</source>
         <translation>没有匹配的货币</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="148"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="113"/>
+        <source>No matching time zones</source>
+        <translation>没有匹配的时区</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="114"/>
         <source>Calculating…</source>
         <translation>正在计算…</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="150"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="116"/>
         <source>Enter an expression to begin</source>
         <translation>输入表达式以开始</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="151"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="117"/>
         <source>This time occurs twice. Choose a UTC offset.</source>
         <translation>此时间出现两次，请选择 UTC 偏移。</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="35"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="42"/>
         <source>Approximate · ECB · %1 · %2</source>
         <translation>参考换算 · ECB · %1 · %2</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="35"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="39"/>
+        <source>UTC%1 → UTC%2 · Day difference: %3</source>
+        <translation>UTC%1 → UTC%2 · 相差天数：%3</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="42"/>
         <source>Older cached rate</source>
         <translation>较早的缓存汇率</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="37"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="44"/>
         <source>Reference rate</source>
         <translation>参考汇率</translation>
     </message>
     <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="183"/>
-        <source>From %1 · %2 · UTC%3
-Day difference: %4</source>
-        <translation>从 %1 · %2 · UTC%3
-日期差：%4 天</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="210"/>
+        <location filename="../Modules/Launcher/SpotlightToolPanel.qml" line="158"/>
         <source>Enter to copy</source>
         <translation>按 Enter 复制</translation>
     </message>

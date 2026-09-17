@@ -4,7 +4,8 @@ import qs.Common
 
 FocusScope {
     id: root
-    required property SpotlightCurrencyController controller
+    required property var controller
+    property bool timeMode: false
     required property SpotlightStyle style
     property bool railExpanded: false
     property bool allSelected: false
@@ -19,7 +20,7 @@ FocusScope {
             const item = fields.itemAt(i);
             values.push(item && item.input.text.length ? item.input.text : "…");
         }
-        return values[0] + " " + values[1] + " ≈ " + values[2] + " " + values[3];
+        return values[0] + " " + values[1] + (timeMode ? " → " : " ≈ ") + values[2] + " " + values[3];
     }
     signal routedKey(var event)
     signal releasedKey(var event)
@@ -29,6 +30,8 @@ FocusScope {
         return item ? item.input.preeditText.length > 0 : false;
     }
     function focusSlot(selectAll) {
+        if (!visible || !enabled || !controller.active)
+            return;
         const item = fields.itemAt(controller.activeSlot);
         if (!item)
             return;
@@ -75,7 +78,7 @@ FocusScope {
                     id: slot
                     required property int index
                     property alias input: input
-                    readonly property bool currency: index === 1 || index === 3
+                    readonly property bool unit: index === 1 || index === 3
                     readonly property bool selected: root.controller.activeSlot === index
                     readonly property real textWidth: Math.min(Math.max(12, input.implicitWidth), Math.max(100,
                                                                                                            viewport.width
@@ -95,7 +98,7 @@ FocusScope {
                         x: slot.textWidth + 8
                         anchors.verticalCenter: parent.verticalCenter
                         visible: slot.index === 1
-                        text: "≈"
+                        text: root.timeMode ? "→" : "≈"
                         font.pixelSize: 20
                         color: root.allSelected ? Appearance.colors.colOnPrimary :
                                                   Appearance.colors.colOnSurfaceVariant
@@ -104,9 +107,9 @@ FocusScope {
                         id: input
                         width: slot.textWidth
                         height: parent.height
-                        text: slot.selected && slot.currency && root.controller.choosing
-                              && root.controller.editingCurrency ? root.controller.draft :
-                                                                   root.controller.value(slot.index)
+                        text: slot.selected && slot.unit && root.controller.choosing
+                              && root.controller.editingUnit ? root.controller.draft : root.controller.value(
+                                                                   slot.index)
                         color: root.allSelected || slot.selected ? Appearance.colors.colOnPrimary :
                                                                    Appearance.colors.colOnSurface
                         selectionColor: Appearance.colors.colPrimary
@@ -118,14 +121,22 @@ FocusScope {
                         clip: true
                         selectByMouse: true
                         activeFocusOnTab: false
-                        maximumLength: slot.currency ? 128 : 1024
-                        inputMethodHints: slot.currency ? Qt.ImhNoPredictiveText : Qt.ImhFormattedNumbersOnly
-                        Accessible.name: slot.index === 0 ? qsTr("Source amount") : slot.index === 1 ? qsTr(
-                                                                                                           "Source currency") :
-                                                                                                       slot.index
-                                                                                                       === 2 ? qsTr(
-                                                                                                                   "Target amount") :
-                                                                                                               qsTr("Target currency")
+                        maximumLength: slot.unit ? 128 : 1024
+                        readOnly: !root.controller.editable(slot.index)
+                        inputMethodHints: slot.unit || root.timeMode ? Qt.ImhNoPredictiveText :
+                                                                       Qt.ImhFormattedNumbersOnly
+                        Accessible.name: root.timeMode ? (slot.index === 0 ? qsTr("Source time") : slot.index
+                                                                             === 1 ? qsTr("Source time zone") :
+                                                                                     slot.index === 2 ? qsTr(
+                                                                                                            "Target time") :
+                                                                                                        qsTr("Target time zone")) :
+                                                         (slot.index === 0 ? qsTr("Source amount") :
+                                                                             slot.index === 1 ? qsTr(
+                                                                                                    "Source currency") :
+                                                                                                slot.index
+                                                                                                === 2 ? qsTr(
+                                                                                                            "Target amount") :
+                                                                                                        qsTr("Target currency"))
                         onTextEdited: {
                             root.allSelected = false;
                             root.controller.edit(slot.index, text);
@@ -159,6 +170,12 @@ FocusScope {
                                 event.accepted = true;
                                 return;
                             }
+                            if (root.timeMode && root.allSelected && (event.key === Qt.Key_Backspace || event.key
+                                                                      === Qt.Key_Delete)) {
+                                root.controller.clearTemplate();
+                                event.accepted = true;
+                                return;
+                            }
                             if (root.allSelected && event.key !== Qt.Key_Control && event.key
                                     !== Qt.Key_Shift) {
 
@@ -174,7 +191,7 @@ FocusScope {
                             if (control && event.key === Qt.Key_C) {
                                 if (selectionStart !== selectionEnd)
                                     copy();
-                                else if (text.length && (slot.currency || slot.index
+                                else if (text.length && (slot.unit || slot.index
                                                          === root.controller.driverSide
                                                          || root.controller.answer)) {
                                     const position = cursorPosition;
@@ -187,8 +204,11 @@ FocusScope {
                                 return;
                             }
                             if (!control && event.key === Qt.Key_Backspace && !event.isAutoRepeat && !text.length
-                                    && !slot.currency) {
-                                root.exitRequested();
+                                    && (!slot.unit || root.timeMode)) {
+                                if (root.timeMode)
+                                    root.controller.clearTemplate();
+                                else
+                                    root.exitRequested();
                                 event.accepted = true;
                                 return;
                             }
@@ -198,8 +218,7 @@ FocusScope {
                     }
                     Text {
                         anchors.centerIn: parent
-                        visible: !slot.currency && !input.text.length && slot.index
-                                 !== root.controller.driverSide
+                        visible: !slot.unit && !input.text.length && slot.index !== root.controller.driverSide
                         text: "…"
                         color: Appearance.colors.colOnSurfaceVariant
                         font.pixelSize: 20

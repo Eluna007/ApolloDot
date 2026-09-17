@@ -38,7 +38,8 @@ PanelWindow {
     property string pendingWebUrl: ""
     property string windowPhase: "hidden"
     readonly property string mode: session.viewMode
-    readonly property string panelMode: session.slashDraft ? "slash" : mode
+    // Keep the content query while the input is used for a slash command.
+    property string contentQuery: ""
     readonly property bool toolMode: ["calculator", "currency", "time"].includes(mode)
     property bool modeRailExpanded: false
     property int modeFocusIndex: -1
@@ -63,19 +64,17 @@ PanelWindow {
 
     onWebProgressChanged: spotlightBlur.publish()
 
-    readonly property var activeResults: session.slashDraft ? [] : mode === "commands" ? commandProvider.results :
-                                                                                         ["search", "settings",
+    readonly property var activeResults: mode === "commands" ? commandProvider.results : ["search", "settings",
                                                                                           "actions"].includes(
-                                                                                             mode) ? searchProvider.results :
-                                                                                                     mode === "apps"
-                                                                                                     ? appProvider.results :
-                                                                                                       (mode === "wallpapers"
-                                                                                                        ? wallpaperProvider.results :
-                                                                                                          (mode === "clipboard"
-                                                                                                           ? clipboardProvider.results :
-                                                                                                             (mode === "files"
-                                                                                                              ? fileProvider.results :
-                                                                                                                [])))
+                                                                   mode) ? searchProvider.results : mode
+                                                                           === "apps" ? appProvider.results : (
+                                                                                            mode === "wallpapers"
+                                                                                            ? wallpaperProvider.results :
+                                                                                              (mode === "clipboard"
+                                                                                               ? clipboardProvider.results :
+                                                                                                 (mode === "files"
+                                                                                                  ? fileProvider.results :
+                                                                                                    [])))
     readonly property bool clipboardDetailsMode: mode === "clipboard" && session.clipboardLayout === "details"
     readonly property bool clipboardMode: mode === "clipboard"
     readonly property bool spotlightModalActive: resultsPanel.modalActive
@@ -114,6 +113,7 @@ PanelWindow {
             });
         }
         onContextRestored: {
+            root.focusSpotlight();
             if (root.mode === "clipboard")
                 Qt.callLater(clipboardProvider.refresh);
         }
@@ -136,9 +136,8 @@ PanelWindow {
     }
     SpotlightCommandProvider {
         id: commandProvider
-        active: root.showing && !session.slashDraft && root.mode === "commands"
-        slash: session.slashDraft
-        query: session.slashDraft ? session.route.name : root.query
+        active: root.showing && root.mode === "commands"
+        query: root.contentQuery
         sessionState: ({
                            mode: session.baseMode,
                            tool: session.tool
@@ -176,10 +175,9 @@ PanelWindow {
     SpotlightTemplateController {
         id: templates
         mode: root.mode
-        text: root.query
-        onReplaceText: (value, start, end) => {
-            root.query = value;
-            searchBar.selectText(start, end);
+        onTemplateSelectionRequested: {
+            root.query = "";
+            root.focusSpotlight();
         }
     }
     SpotlightCurrencyController {
@@ -200,33 +198,32 @@ PanelWindow {
 
     SpotlightAppProvider {
         id: appProvider
-        active: root.showing && root.windowPhase !== "closing" && root.mode === "apps" && !session.slashDraft
-        query: active ? root.query : ""
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "apps"
+        query: active ? root.contentQuery : ""
         order: session.appsOrder
         limit: session.appsLayout === "grid" ? 0 : 50
     }
 
     SpotlightWallpaperProvider {
         id: wallpaperProvider
-        active: root.showing && root.windowPhase !== "closing" && root.mode === "wallpapers" &&
-                !session.slashDraft
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "wallpapers"
 
-        query: active ? root.query : ""
+        query: active ? root.contentQuery : ""
     }
 
     SpotlightFileProvider {
         id: fileProvider
-        active: root.showing && root.windowPhase !== "closing" && root.mode === "files" && !session.slashDraft
-        query: active ? root.query : ""
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "files"
+        query: active ? root.contentQuery : ""
         onActivated: root.requestClose()
     }
 
     SpotlightSearchProvider {
         id: searchProvider
         active: root.showing && root.windowPhase !== "closing" && ["search", "settings", "actions"].includes(
-                    root.mode) && !session.slashDraft
+                    root.mode)
         filter: ["settings", "actions"].includes(root.mode) ? root.mode : ""
-        query: active ? root.query : ""
+        query: active ? root.contentQuery : ""
         capacities: resultsPanel.searchCapacities
         retainedResultId: root.mode === "search" && !root.queryUpdating ? root.selectedResultId : ""
         onModeRequested: (mode, query) => {
@@ -270,10 +267,9 @@ PanelWindow {
 
     SpotlightClipboardProvider {
         id: clipboardProvider
-        active: root.showing && root.windowPhase !== "closing" && root.mode === "clipboard" &&
-                !session.slashDraft
+        active: root.showing && root.windowPhase !== "closing" && root.mode === "clipboard"
 
-        query: active ? root.query : ""
+        query: active ? root.contentQuery : ""
         onRestored: id => root.finishClipboardRestore(id)
         onRestoreFailed: (id, code, message) => root.failClipboardRestore(id, code, message)
         onDeleteFailed: (id, code, message) => {
@@ -496,6 +492,8 @@ PanelWindow {
     }
 
     function reconcileSelection() {
+        if (session.slashDraft)
+            return;
         if (root.activeResults.length === 0) {
             root.clipboardSelectionRecoveryPending = false;
             root.clipboardSelectionRecoveryTargetId = "";
@@ -661,10 +659,8 @@ PanelWindow {
                     return currency.choose(currency.selected);
                 return currency.copyAnswer();
             }
-            if (templates.active && templates.selected >= 0)
+            if (templates.active && templates.choices.length)
                 return templates.choose(templates.selected);
-            if (templates.choosingTime)
-                return templates.choose(0);
             if (SpotlightToolService.state === "ambiguous" && SpotlightToolService.result) {
                 const candidate = SpotlightToolService.result.candidates[root.toolCandidateIndex];
                 if (candidate)
@@ -739,6 +735,8 @@ PanelWindow {
             root.setRailExpanded(false);
         } else if (root.mode === "currency" && currency.dismiss()) {
             return;
+        } else if (root.mode === "time" && templates.dismiss()) {
+            return;
         } else if (session.tool) {
             session.pop();
         } else if (root.query !== "") {
@@ -803,19 +801,14 @@ PanelWindow {
             event.accepted = true;
             return;
         }
-        if (fromSearch && !control && !shift && event.key === Qt.Key_Backspace && !event.isAutoRepeat &&
-                !searchBar.hasSelection && templates.backspace()) {
-            event.accepted = true;
-            return;
-        }
-        if (root.mode !== "currency" && fromSearch && !control && !shift && event.key === Qt.Key_Backspace
-                && session.canBackspace({
-                                            selection: searchBar.hasSelection,
-                                            preedit: searchBar.inputComposing,
-                                            modal: root.spotlightModalActive,
-                                            repeat: event.isAutoRepeat,
-                                            searchFocus: root.searchHasFocus
-                                        })) {
+        if (root.mode !== "currency" && !templates.editing && fromSearch && !control && !shift && event.key
+                === Qt.Key_Backspace && session.canBackspace({
+                                                                 selection: searchBar.hasSelection,
+                                                                 preedit: searchBar.inputComposing,
+                                                                 modal: root.spotlightModalActive,
+                                                                 repeat: event.isAutoRepeat,
+                                                                 searchFocus: root.searchHasFocus
+                                                             })) {
             session.pop();
             event.accepted = true;
             return;
@@ -831,6 +824,10 @@ PanelWindow {
         if (event.key === Qt.Key_Escape) {
             root.handleEscape();
             event.accepted = true;
+            return;
+        }
+        if (session.slashDraft && event.key !== Qt.Key_Return && event.key !== Qt.Key_Enter) {
+            event.accepted = false;
             return;
         }
         const plainArrow = event.modifiers === Qt.NoModifier || event.modifiers === Qt.KeypadModifier;
@@ -886,9 +883,13 @@ PanelWindow {
     onQueryChanged: {
         root.commandSelectionExplicit = false;
         root.queryUpdating = true;
-        root.selectedResultId = "";
-        root.selectedResultIndex = -1;
+        // Let the session route settle before forwarding input to providers.
         Qt.callLater(() => {
+            if (!session.slashDraft) {
+                root.contentQuery = root.query;
+                root.selectedResultId = "";
+                root.selectedResultIndex = -1;
+            }
             root.queryUpdating = false;
             root.reconcileSelection();
         });
@@ -1035,6 +1036,7 @@ PanelWindow {
             anchors.top: parent.top
             style: style
             currencyController: currency
+            templateController: templates
             onCurrencyExitRequested: session.pop()
             mode: root.mode
             modeRailExpanded: root.modeRailExpanded
@@ -1133,19 +1135,19 @@ PanelWindow {
             anchors.topMargin: style.resultGap + (session.error ? 24 : 0)
             anchors.horizontalCenter: parent.horizontalCenter
             style: style
-            mode: root.panelMode
+            mode: root.mode
+            enabled: !session.slashDraft
             appsLayout: session.appsLayout
             clipboardLayout: session.clipboardLayout
-            expanded: !session.slashDraft && !root.toolMode && root.mode !== "web" && (root.mode !== "search"
-                                                                                       || root.query.trim()
-                                                                                       !== "")
+            expanded: !root.toolMode && root.mode !== "web" && (root.mode !== "search"
+                                                                || root.contentQuery.trim() !== "")
 
             searchError: searchProvider.error
             results: root.activeResults
-            query: root.query
+            query: root.contentQuery
             wallpaperModel: wallpaperProvider.resultModel
             clipboardModel: clipboardProvider.resultModel
-            selectedIndex: root.selectedResultIndex
+            selectedIndex: session.slashDraft ? -1 : root.selectedResultIndex
             controlHeld: root.controlHeld
             fileState: fileProvider.searchState
             fileError: fileProvider.error

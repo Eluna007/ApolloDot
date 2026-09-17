@@ -150,6 +150,9 @@ TestCase {
         compare(Currency.seed("").to, "EUR");
     }
     function test_timeTemplateInput() {
+        compare(Templates.editableTime("2026-09-18T00:30:00+09:00"), "2026-09-18 00:30:00");
+        compare(Templates.editableTime("2026-09-17T09:30:00.123456-04:00"), "2026-09-17 09:30:00");
+        compare(Templates.editableTime(null), "");
         compare(Templates.timeExpression("0930", "Asia/Shanghai", "Europe/London"),
                 "09:30 Asia/Shanghai to Europe/London");
         compare(Templates.timeExpression("9", "", "UTC"), "09:00 to UTC");

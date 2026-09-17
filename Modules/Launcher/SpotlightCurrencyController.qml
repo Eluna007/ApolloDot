@@ -12,7 +12,7 @@ QtObject {
     property string targetCurrency: "EUR"
     property string draft: ""
     property bool choosing: false
-    property bool editingCurrency: false
+    property bool editingUnit: false
     property int selected: 0
     readonly property string expression: active ? "1 " + sourceCurrency + " to " + targetCurrency : ""
     readonly property bool currencySlot: activeSlot === 1 || activeSlot === 3
@@ -39,9 +39,12 @@ QtObject {
         activeSlot = 0;
         choosing = false;
         draft = "";
-        editingCurrency = false;
+        editingUnit = false;
         selected = 0;
         focusRequested(true);
+    }
+    function editable(slot) {
+        return true;
     }
     function value(slot) {
         if (slot === 1)
@@ -54,14 +57,14 @@ QtObject {
         activeSlot = Math.max(0, Math.min(3, slot));
         choosing = currencySlot;
         draft = "";
-        editingCurrency = false;
+        editingUnit = false;
         selected = 0;
         focusRequested(true);
     }
     function edit(slot, text) {
         if (slot === 1 || slot === 3) {
             draft = text;
-            editingCurrency = true;
+            editingUnit = true;
             choosing = true;
             selected = 0;
         } else {
@@ -85,7 +88,7 @@ QtObject {
             targetCurrency = candidate.text;
         choosing = false;
         draft = "";
-        editingCurrency = false;
+        editingUnit = false;
         focusRequested(true);
         return true;
     }
@@ -94,7 +97,7 @@ QtObject {
             return false;
         choosing = false;
         draft = "";
-        editingCurrency = false;
+        editingUnit = false;
         focusRequested(true);
         return true;
     }
