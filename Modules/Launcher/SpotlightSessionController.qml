@@ -106,13 +106,10 @@ QtObject {
             return false;
         const entry = Commands.exact(route.name);
         if (!entry) {
-            error = qsTr("Unknown command. Use Tab to complete a command name.");
+            error = qsTr("Unknown command. Open Commands to browse available commands.");
             return false;
         }
         return activate(entry.id, route.arguments, true);
-    }
-    function acceptCompletion(value) {
-        apply(Session.input(state, value.text, value.literal, value.selectionId));
     }
     onQueryChanged: {
         if (applying)

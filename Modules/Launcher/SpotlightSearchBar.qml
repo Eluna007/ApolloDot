@@ -109,6 +109,10 @@ Item {
         return style.shadowVerticalOffset - 3 * pressDepthForProgress(progress);
     }
 
+    function selectText(start, end) {
+        searchInput.select(start, end);
+    }
+
     function focusInput() {
         searchInput.forceActiveFocus();
     }
@@ -273,16 +277,18 @@ Item {
             Text {
                 anchors.fill: parent
                 text: root.mode === "calculator" ? qsTr("Enter an expression") : root.mode === "currency"
-                                                   ? "100 USD to CNY" : root.mode === "time"
-                                                     ? "now to Asia/Tokyo" : root.mode === "settings" ? qsTr(
-                                                                                                            "Search settings") :
-                                                                                                        root.mode
-                                                                                                        === "actions"
-                                                                                                        ? qsTr("Search actions") :
+                                                   ? qsTr("Amount and currency") : root.mode === "time" ? qsTr(
+                                                                                                              "Choose a time zone or enter a time") :
                                                                                                           root.mode
-                                                                                                          === "web"
-                                                                                                          ? qsTr("Search the web") :
-                                                                                                            qsTr("Search")
+                                                                                                          === "settings"
+                                                                                                          ? qsTr("Search settings") :
+                                                                                                            root.mode
+                                                                                                            === "actions"
+                                                                                                            ? qsTr("Search actions") :
+                                                                                                              root.mode
+                                                                                                              === "web"
+                                                                                                              ? qsTr("Search the web") :
+                                                                                                                qsTr("Search")
                 color: Appearance.applyAlpha(Appearance.colors.colOnSurfaceVariant, 0.72)
                 font.family: Fonts.ui
                 font.pixelSize: 20
@@ -308,7 +314,7 @@ Item {
 
                 Accessible.name: root.mode === "web" ? qsTr("Web search") : qsTr("Spotlight search")
                 Accessible.role: Accessible.EditableText
-                Accessible.description: qsTr("Tap Ctrl to show modes; Tab to complete")
+                Accessible.description: qsTr("Tab to show and cycle modes")
 
                 Keys.priority: Keys.BeforeItem
                 Keys.onPressed: event => root.routedKey(event)

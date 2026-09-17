@@ -85,9 +85,8 @@ spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
 `qs -c clavis ipc call spotlight files` open Files and focus its input. Repeated
 calls keep it open. Existing Apps/Wallpapers/Clipboard and web methods remain.
 
-Ctrl+1/2/3/4 selects Apps/Wallpapers/Clipboard/Files. A standalone Ctrl tap (under 250 ms) toggles
-the four-mode rail; Left/Right and Enter navigate it. Tab completes input. In Files, Enter opens the selected file or enters
-the folder; Ctrl+Enter requests selection in a file manager. Holding Ctrl for at least 250 ms shows
+Ctrl+1/2/3/4 selects Apps/Wallpapers/Clipboard/Files. Tab expands the four-mode rail; subsequent Tab/Shift+Tab cycle it, and Enter selects a mode. In Files, Enter opens the selected file or enters
+the folder; Ctrl+Enter requests selection in a file manager. Holding Ctrl immediately shows
 the selected result's containing path; the right-click menu also exposes Open
 and Show in file manager. Clipboard retains Shift+Enter.
 
@@ -116,7 +115,7 @@ and no results panel. To open the application Grid/List directly, use
 `qs -c clavis ipc call spotlight openMode apps`.
 
 Ctrl+0 or the search icon returns to Search and preserves ordinary search text. Tool parameters and command drafts are cleared.
-Ctrl+1/2/3/4 still opens Apps/Wallpapers/Clipboard/Files; a standalone Ctrl tap toggles
+Ctrl+1/2/3/4 still opens Apps/Wallpapers/Clipboard/Files; Tab expands and cycles
 the same four satellite buttons. Ctrl+K enters Web, and Esc from Web restores the previous
 mode, including Search. The existing modal/rail/clear-input/close Esc priority and
 IME composition handling remain. No new global key is installed.
@@ -155,8 +154,7 @@ entries. Explicit IPC mode navigation clears temporary tools/overrides through
 the same session controller as local navigation; it does not change user keys.
 
 Type `>` to enter the command palette immediately (`>calc` filters Calculator).
-Slash drafts stay in their base mode. Enter executes an exact command; partial
-names require Tab completion or explicit candidate activation. Unknown commands
+Slash drafts stay in their base mode. Enter executes an exact command; slash input has no suggestion list. Unknown commands
 never fall through to content activation. `\/etc` and `\>hello` are literal
 searches. Tool parameters are not reparsed as top-level commands.
 
@@ -176,13 +174,20 @@ its valid result (Web submits); it does not close calculation tools.
 
 Empty-input Backspace removes the current tool, then the most recent presentation
 override. It requires a fresh press in the search input, no selection/preedit or
-modal/completion popup. Holding Backspace cannot unwind the stack. Theme changes
+modal dialog. Holding Backspace cannot unwind the stack. Theme changes
 and other completed actions are never undone. Closing clears temporary state.
 
-Tab opens/accepts completion; Shift+Tab selects backward; arrows choose; Enter
-accepts an open completion without executing. Escape closes completion first.
-Completion covers command names/aliases, tool tokens and current Apps, Wallpaper,
-Settings and Actions names, not clipboard bodies, file paths or online suggestions.
-Ctrl editing shortcuts and Files Ctrl+Enter keep their existing behavior; chords,
-pointer activity, preedit, lost focus and modality cancel the pending Ctrl tap.
-Only events delivered locally to Spotlight can be observed.
+Tab and Shift+Tab always navigate the mode rail; they never complete input.
+Ctrl editing shortcuts and Files Ctrl+Enter retain their previous behavior.
+
+Currency opens with `1 USD = … EUR`. Edit either amount to convert in that
+direction. Click or use arrows/Enter in the currency list to replace the active
+side's unit; “Switch side” selects the other unit. Backend answers update only
+the opposite amount and retain the existing request generation checks.
+
+Time opens a searchable list of templates from local time to every available
+time zone. “Change source” chooses a different source zone. Select a template
+with Enter, then type a time (`0930`, `9`, `09:30`, or a date and time). Clearing
+the input and pressing Backspace again returns to template selection. Another
+fresh Backspace on the empty selector leaves the tool. DST ambiguity and invalid
+times still use the existing explicit result/error flow.

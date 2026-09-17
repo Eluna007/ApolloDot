@@ -132,12 +132,17 @@ catalog and deferred activation. `/map` opens the existing region/location secti
 only its Save action changes location. Default Search's data sources are unchanged.
 Tool and command contexts deactivate unrelated providers, including their queries.
 
-`SpotlightCompletionController` operates in UTF-16 input coordinates, with bounded
-local candidates and no execution side effects. Content completion preserves the
-selected stable ID and literal query identity. Ctrl tap recognition uses the pure
-`SpotlightControlGesture` state machine and local Qt key/pointer/focus/preedit
-signals. A modifier snapshot validates a pending hold, never starts a tap. Keys
-completely intercepted outside Qt cannot be observed.
+Tab/Shift+Tab expand and cycle the existing mode rail. Ctrl immediately displays
+file paths while held; there is no tap/hold recognizer or Tab completion. Slash
+commands execute exact names on Enter without a suggestion panel.
+
+`SpotlightTemplateController` owns currency/time presentation and converts it into
+the existing tool expressions. Currency input is an editable `1 USD = … EUR`
+template: editing either amount selects the conversion direction, and the lazy
+candidate list replaces the source or target currency. Result-only updates never
+submit another calculation. Time templates use catalog zones, default to local
+source time, and allow source replacement. Selecting a target leaves a numeric
+time input; fresh Backspace on empty input returns to template selection.
 
 The existing Web press/shadow/pill progress is reused for every temporary state.
 Replacement exits the displayed label before presenting the next label. Input and

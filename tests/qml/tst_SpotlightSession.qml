@@ -1,9 +1,8 @@
 import QtQuick
 import QtTest
+import "../../Common/functions/SpotlightTemplates.js" as Templates
 import "../../Common/functions/SpotlightSession.js" as Session
 import "../../Common/functions/SpotlightCommands.js" as Commands
-import "../../Common/functions/SpotlightCompletion.js" as Completion
-import "../../Common/functions/SpotlightControlGesture.js" as Gesture
 import "../../Common/functions/SpotlightToolResponse.js" as ToolResponse
 
 TestCase {
@@ -110,66 +109,23 @@ TestCase {
         compare(Session.switchMode(state, "files", true).query, "");
     }
 
-    function test_completionOffsetsAndIdentity() {
-        const text = "😀 USD to CN + tail";
-        const candidates = Completion.candidates(text, 12, [
-                                                     {
-                                                         text: "CNY",
-                                                         id: "cny"
-                                                     }
-                                                 ]);
-        compare(candidates.length, 1);
-        const accepted = Completion.accept(text, candidates[0]);
-        compare(accepted.text, "😀 USD to CNY + tail");
-        compare(accepted.cursor, 13);
-        compare(accepted.selectionId, "cny");
-        const names = Completion.candidates("中文", 2, [
-                                                {
-                                                    text: "中文 😀 App",
-                                                    id: "a",
-                                                    literal: true
-                                                }
-                                            ], {
-                                                start: 0,
-                                                end: 2,
-                                                prefix: "中文"
-                                            });
-        verify(Completion.accept("中文", names[0]).literal);
+    function test_currencyTemplateDirection() {
+        const original = Templates.currency("1 USD = 0.9 EUR");
+        const edited = Templates.currency("1 USD = 25 EUR");
+        compare(Templates.editedSide(original, edited, "left"), "right");
+        compare(Templates.currencyExpression(edited, "right"), "25 EUR to USD");
+        compare(Templates.currencyExpression(original, "left"), "1 USD to EUR");
+        compare(Templates.currencyExpression(Templates.currency(" USD = 0.9 EUR"), "left"), "");
+        compare(Templates.currency("1 USD = 2"), null);
+        compare(Templates.currencyText(original), "1 USD = 0.9 EUR");
     }
-
-    function test_controlGesture() {
-        const press = {
-            eligible: true,
-            controlKey: true,
-            time: 100
-        };
-        const release = {
-            eligible: true,
-            controlKey: true,
-            time: 200
-        };
-        verify(!Gesture.release(Gesture.idle(), release).toggle);
-        const pending = Gesture.press(Gesture.idle(), press);
-        verify(Gesture.release(pending, release).toggle);
-        verify(!Gesture.release(Gesture.hold(pending, 400, true), release).toggle);
-        verify(!Gesture.hold(pending, 400, true).pending);
-        verify(!Gesture.release(pending, Object.assign({}, release, {
-                                                           time: 400
-                                                       })).toggle);
-        verify(!Gesture.release(Gesture.press(pending, {
-                                                  eligible: true,
-                                                  controlKey: false
-                                              }), release).toggle);
-        verify(!Gesture.release(Gesture.press(pending, press), release).toggle);
-        verify(!Gesture.release(pending, Object.assign({}, release, {
-                                                           eligible: false
-                                                       })).toggle);
-        verify(!Gesture.release(pending, Object.assign({}, release, {
-                                                           repeat: true
-                                                       })).toggle);
-        verify(Gesture.press(pending, Object.assign({}, press, {
-                                                        repeat: true
-                                                    })).pending);
-        verify(!Gesture.hold(pending, 200, false).pending);
+    function test_timeTemplateInput() {
+        compare(Templates.timeExpression("0930", "Asia/Shanghai", "Europe/London"),
+                "09:30 Asia/Shanghai to Europe/London");
+        compare(Templates.timeExpression("9", "", "UTC"), "09:00 to UTC");
+        compare(Templates.timeExpression("2026-11-01 01:30", "America/New_York", "UTC"),
+                "2026-11-01 01:30 America/New_York to UTC");
+        compare(Templates.timeExpression("", "", "UTC"), "");
+        compare(Templates.timeExpression("0930", "", ""), "");
     }
 }

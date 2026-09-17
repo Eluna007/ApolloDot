@@ -9,7 +9,6 @@ import qs.Common
 import qs.Services
 import qs.Widgets.common
 import "../../Common/functions/SpotlightCommands.js" as Commands
-import "../../Common/functions/SpotlightControlGesture.js" as Gesture
 
 PanelWindow {
     id: root
@@ -64,19 +63,19 @@ PanelWindow {
 
     onWebProgressChanged: spotlightBlur.publish()
 
-    readonly property var activeResults: session.slashDraft || mode === "commands" ? commandProvider.results :
-                                                                                     ["search", "settings",
-                                                                                      "actions"].includes(
-                                                                                         mode) ? searchProvider.results :
-                                                                                                 mode === "apps"
-                                                                                                 ? appProvider.results :
-                                                                                                   (mode === "wallpapers"
-                                                                                                    ? wallpaperProvider.results :
-                                                                                                      (mode === "clipboard"
-                                                                                                       ? clipboardProvider.results :
-                                                                                                         (mode === "files"
-                                                                                                          ? fileProvider.results :
-                                                                                                            [])))
+    readonly property var activeResults: session.slashDraft ? [] : mode === "commands" ? commandProvider.results :
+                                                                                         ["search", "settings",
+                                                                                          "actions"].includes(
+                                                                                             mode) ? searchProvider.results :
+                                                                                                     mode === "apps"
+                                                                                                     ? appProvider.results :
+                                                                                                       (mode === "wallpapers"
+                                                                                                        ? wallpaperProvider.results :
+                                                                                                          (mode === "clipboard"
+                                                                                                           ? clipboardProvider.results :
+                                                                                                             (mode === "files"
+                                                                                                              ? fileProvider.results :
+                                                                                                                [])))
     readonly property bool clipboardDetailsMode: mode === "clipboard" && session.clipboardLayout === "details"
     readonly property bool clipboardMode: mode === "clipboard"
     readonly property bool spotlightModalActive: resultsPanel.modalActive
@@ -137,7 +136,7 @@ PanelWindow {
     }
     SpotlightCommandProvider {
         id: commandProvider
-        active: root.showing && (session.slashDraft || root.mode === "commands")
+        active: root.showing && !session.slashDraft && root.mode === "commands"
         slash: session.slashDraft
         query: session.slashDraft ? session.route.name : root.query
         sessionState: ({
@@ -164,12 +163,31 @@ PanelWindow {
     Binding {
         target: SpotlightToolService
         property: "query"
-        value: root.toolMode ? root.query : ""
+        value: templates.active ? templates.expression : root.toolMode ? root.query : ""
     }
     Binding {
         target: SpotlightToolService
         property: "instance"
         value: session.state.serial
+    }
+
+    SpotlightTemplateController {
+        id: templates
+        mode: root.mode
+        text: root.query
+        cursor: searchBar.cursorPosition
+        onReplaceText: (value, start, end) => {
+            root.query = value;
+            searchBar.selectText(start, end);
+        }
+    }
+    onModeChanged: Qt.callLater(() => templates.reset())
+    Connections {
+        target: SpotlightToolService
+        function onCanCopyChanged() {
+            if (SpotlightToolService.canCopy)
+                templates.updateAnswer();
+        }
     }
 
     SpotlightStyle {
@@ -232,64 +250,18 @@ PanelWindow {
         enabled: false
     }
 
-    property var controlGesture: Gesture.idle()
-    readonly property bool gestureEligible: root.showing && root.windowPhase !== "closing"
-                                            && root.windowActive && root.searchHasFocus &&
-                                            !root.spotlightModalActive && !searchBar.inputComposing
-    function cancelControlTap() {
-        controlTimer.stop();
-        controlGesture = Gesture.idle();
-        controlHeld = false;
-    }
     function syncControlHeld() {
-        if (!gestureEligible || !(modifierSnapshot.currentModifiers() & Qt.ControlModifier))
-            cancelControlTap();
-    }
-    onGestureEligibleChanged: {
-        if (!gestureEligible)
-            cancelControlTap();
+        root.controlHeld = root.showing && root.windowActive && root.searchHasFocus &&
+                !root.spotlightModalActive && (modifierSnapshot.currentModifiers() & Qt.ControlModifier)
+                !== 0;
     }
     onWindowActiveChanged: Qt.callLater(root.syncControlHeld)
     onSearchHasFocusChanged: Qt.callLater(root.syncControlHeld)
     onSpotlightModalActiveChanged: Qt.callLater(root.syncControlHeld)
     onShowingChanged: Qt.callLater(root.syncControlHeld)
-    Timer {
-        id: controlTimer
-        interval: Gesture.holdThreshold
-        onTriggered: {
-            root.controlGesture = Gesture.hold(root.controlGesture, Date.now(), root.gestureEligible && !!(
-                                                   modifierSnapshot.currentModifiers() & Qt.ControlModifier));
-            root.controlHeld = root.controlGesture.held;
-        }
-    }
+
     function releaseControl(event) {
-        const result = Gesture.release(root.controlGesture, {
-                                           controlKey: event.key === Qt.Key_Control,
-                                           repeat: event.isAutoRepeat,
-                                           eligible: root.gestureEligible,
-                                           otherModifiers: !!(event.modifiers & ~(Qt.ControlModifier
-                                                                                  | Qt.KeypadModifier)),
-                                           time: Date.now()
-                                       });
-        root.cancelControlTap();
-        if (result.toggle) {
-            root.setRailExpanded(!root.modeRailExpanded);
-            if (root.modeRailExpanded)
-                root.modeFocusIndex = Math.max(0, root.modeIndex(session.baseMode));
-        }
-    }
-    SpotlightCompletionController {
-        id: completion
-        text: root.query
-        cursor: searchBar.cursorPosition
-        mode: root.mode
-        slash: session.slashDraft
-        results: root.activeResults
-        selectedId: root.selectedResultId
-        onAccepted: value => {
-            session.acceptCompletion(value);
-            searchBar.cursorPosition = value.cursor;
-        }
+        root.controlHeld = event.key !== Qt.Key_Control && (event.modifiers & Qt.ControlModifier) !== 0;
     }
 
     SpotlightClipboardProvider {
@@ -411,7 +383,7 @@ PanelWindow {
     function requestClose() {
         if (root.windowPhase === "hidden" || root.windowPhase === "closing")
             return false;
-        root.cancelControlTap();
+        root.controlHeld = false;
         root.windowPhase = "closing";
         root.modeRailExpanded = false;
         root.modeFocusIndex = -1;
@@ -494,6 +466,8 @@ PanelWindow {
     }
 
     function moveSelectionByOffset(offset) {
+        if (templates.active && templates.move(offset))
+            return;
         if (root.toolMode && SpotlightToolService.state === "ambiguous" && SpotlightToolService.result) {
             root.toolCandidateIndex = Math.max(0, Math.min(SpotlightToolService.result.candidates.length - 1,
                                                            root.toolCandidateIndex + offset));
@@ -672,12 +646,14 @@ PanelWindow {
             return true;
         }
         if (session.slashDraft)
-            return root.commandSelectionExplicit ? session.activate(root.selectedResultId,
-                                                                    session.route.arguments, true) :
-                                                   session.executeSlash();
+            return session.executeSlash();
         if (root.mode === "commands")
             return session.activate(root.selectedResultId, "", false);
         if (root.toolMode) {
+            if (templates.active && templates.selected >= 0)
+                return templates.choose(templates.selected);
+            if (templates.choosingTime)
+                return templates.choose(0);
             if (SpotlightToolService.state === "ambiguous" && SpotlightToolService.result) {
                 const candidate = SpotlightToolService.result.candidates[root.toolCandidateIndex];
                 if (candidate)
@@ -748,9 +724,7 @@ PanelWindow {
     function handleEscape() {
         if (root.spotlightModalActive)
             return;
-        if (completion.opened) {
-            completion.dismiss();
-        } else if (root.modeRailExpanded || root.railProgress > 0.001) {
+        if (root.modeRailExpanded || root.railProgress > 0.001) {
             root.setRailExpanded(false);
         } else if (session.tool) {
             session.pop();
@@ -764,23 +738,7 @@ PanelWindow {
     function handleKey(event, fromSearch) {
         if (root.spotlightModalActive)
             return;
-        if (fromSearch) {
-            root.controlGesture = Gesture.press(root.controlGesture, {
-                                                    controlKey: event.key === Qt.Key_Control,
-                                                    repeat: event.isAutoRepeat,
-                                                    eligible: root.gestureEligible,
-                                                    otherModifiers: !!(event.modifiers & ~(Qt.ControlModifier
-                                                                                           | Qt.KeypadModifier)),
-                                                    time: Date.now()
-                                                });
-            if (event.key === Qt.Key_Control && root.controlGesture.pending) {
-                if (!event.isAutoRepeat)
-                    controlTimer.restart();
-                event.accepted = true;
-                return;
-            }
-            root.cancelControlTap();
-        }
+        root.controlHeld = event.key === Qt.Key_Control || (event.modifiers & Qt.ControlModifier) !== 0;
         if (searchBar.inputComposing) {
             event.accepted = false;
             return;
@@ -827,24 +785,13 @@ PanelWindow {
             event.accepted = true;
             return;
         }
-        if (fromSearch && (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab)) {
-            root.setRailExpanded(false);
-            completion.tab(event.key === Qt.Key_Backtab || shift);
+        if (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab) {
+            root.moveModeFocus(event.key === Qt.Key_Backtab || shift ? -1 : 1);
             event.accepted = true;
             return;
         }
-        if (fromSearch && completion.opened) {
-            if (event.key === Qt.Key_Escape)
-                completion.dismiss();
-            else if (event.key === Qt.Key_Up || event.key === Qt.Key_Down)
-                completion.move(event.key === Qt.Key_Up ? -1 : 1);
-            else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                if (!event.isAutoRepeat)
-                    completion.accept();
-            } else {
-                event.accepted = false;
-                return;
-            }
+        if (fromSearch && !control && !shift && event.key === Qt.Key_Backspace && !event.isAutoRepeat &&
+                !searchBar.hasSelection && templates.backspace()) {
             event.accepted = true;
             return;
         }
@@ -852,8 +799,7 @@ PanelWindow {
                                                                                                            selection:
                                                                                                            searchBar.hasSelection,
                                                                                                            preedit: searchBar.inputComposing,
-                                                                                                           modal: root.spotlightModalActive
-                                                                                                                  || completion.opened,
+                                                                                                           modal: root.spotlightModalActive,
                                                                                                            repeat: event.isAutoRepeat,
                                                                                                            searchFocus:
                                                                                                            root.searchHasFocus
@@ -1021,14 +967,14 @@ PanelWindow {
         backgroundItem: searchBar.blurRegionItems[0]
         additionalBackgroundItems: searchBar.blurRegionItems.slice(1).concat([resultsPanel.blurRegionItem,
                                                                               resultsPanel.modalBlurRegionItem,
-                                                                              toolPanel, completionPopup])
+                                                                              toolPanel])
         blurEnabled: root.showing
     }
 
     MouseArea {
         anchors.fill: parent
-        onPressed: root.cancelControlTap()
-        onWheel: root.cancelControlTap()
+        onPressed: root.syncControlHeld()
+        onWheel: root.syncControlHeld()
         onClicked: root.requestClose()
     }
 
@@ -1057,9 +1003,8 @@ PanelWindow {
                                                                                                          style.windowHorizontalMargin,
                                                                                                          Metrics.popupMargin)
                                                                                                      * 2))
-        height: searchBar.height + style.resultGap + Math.max(resultsPanel.height, toolPanel.height,
-                                                              completionPopup.height) + (session.error ? 24 :
-                                                                                                         0)
+        height: searchBar.height + style.resultGap + Math.max(resultsPanel.height, toolPanel.height) + (
+                    session.error ? 24 : 0)
         anchors.horizontalCenter: parent.horizontalCenter
         y: baseY + style.initialYOffset * (1 - root.windowProgress)
         opacity: root.windowProgress
@@ -1092,7 +1037,7 @@ PanelWindow {
             onReleasedKey: event => root.releaseControl(event)
             onInputComposingChanged: {
                 if (inputComposing) {
-                    root.cancelControlTap();
+                    root.controlHeld = false;
                     root.setRailExpanded(false);
                 }
             }
@@ -1114,6 +1059,7 @@ PanelWindow {
         SpotlightToolPanel {
             id: toolPanel
             selectedCandidate: root.toolCandidateIndex
+            templateController: templates
             onInputFocusRequested: root.focusSpotlight()
             style: style
             visible: root.toolMode
@@ -1123,17 +1069,6 @@ PanelWindow {
             anchors.topMargin: style.resultGap
             availableHeight: Math.max(0, root.height - spotlightRoot.baseY - searchBar.height
                                       - style.resultGap - style.windowBottomMargin)
-        }
-        SpotlightCompletionPopup {
-            id: completionPopup
-            z: 20
-            controller: completion
-            style: style
-            width: searchBar.requestedMainWidth
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: searchBar.bottom
-            anchors.topMargin: style.resultGap
-            availableHeight: toolPanel.availableHeight
         }
         Text {
             z: 10
@@ -1152,12 +1087,12 @@ PanelWindow {
             acceptedButtons: Qt.AllButtons
             onPressedChanged: {
                 if (pressed)
-                    root.cancelControlTap();
+                    root.controlHeld = false;
             }
         }
         WheelHandler {
             blocking: false
-            onWheel: event => root.cancelControlTap()
+            onWheel: event => root.syncControlHeld()
         }
 
         SpotlightResultsPanel {
@@ -1186,8 +1121,9 @@ PanelWindow {
             mode: root.panelMode
             appsLayout: session.appsLayout
             clipboardLayout: session.clipboardLayout
-            expanded: !root.toolMode && root.mode !== "web" && (root.mode !== "search" || root.query.trim()
-                                                                !== "")
+            expanded: !session.slashDraft && !root.toolMode && root.mode !== "web" && (root.mode !== "search"
+                                                                                       || root.query.trim()
+                                                                                       !== "")
 
             searchError: searchProvider.error
             results: root.activeResults
