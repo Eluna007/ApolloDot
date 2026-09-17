@@ -25,22 +25,19 @@ Item {
         button2BlurRegion, button3BlurRegion, neck0BlurRegion, neck1BlurRegion, neck2BlurRegion,
         neck3BlurRegion]
 
-    // The normalized key poses keep velocity through the connected chain.
-    // Only the initial/final poses and the deliberate rebound have zero speed.
-    readonly property var contractionKeys: [[0, 0], [0.16, 0.28], [0.28, 0.68], [0.40, 0.99], [0.50, 1.045],
-        [0.68, 1.027], [1, 1]]
-    readonly property var pitchTracks: [pitchTrack(0), pitchTrack(1), pitchTrack(2)]
-    readonly property var growthTracks: [growthTrack(0), growthTrack(1), growthTrack(2), growthTrack(3)]
-    // The last neck holds longer than the first two. These offsets apply to
-    // release, not to the whole chain's emergence.
-    readonly property var releaseDelays: [0, 0.045, 0.15]
-    readonly property real mainWidth: interpolate(collapsedMainWidth, expandedMainWidth, sampleMotion(
-                                                      contractionKeys, railProgress))
+    // The pill leads the motion; the trailing buttons follow with progressively
+    // slower responses. Continuous damping avoids stops between authored poses.
+    readonly property real mainWidth: interpolate(collapsedMainWidth, expandedMainWidth, response(0, 6.2, 7.5,
+                                                                                                  0.4))
     readonly property real mainCenterX: mainLeft + mainWidth / 2
     readonly property real mainRight: mainLeft + mainWidth
     readonly property real expandedMainRight: mainLeft + expandedMainWidth
     readonly property vector4d mainShape: Qt.vector4d(mainCenterX, shapeCenterY, mainWidth, shapeHeight)
     readonly property var buttonShapes: [buttonShape(0), buttonShape(1), buttonShape(2), buttonShape(3)]
+    readonly property var travelDelays: [0.06, 0.036, 0.032]
+    readonly property var travelDecays: [7.2, 5.4, 5.4]
+    readonly property var travelFrequencies: [8.9, 6.2, 5.35]
+    readonly property var growthRates: [3.8, 3.1, 2.7]
 
     function smoothstep(value) {
         const progress = Math.max(0, Math.min(1, value));
@@ -55,90 +52,58 @@ Item {
         return from + (to - from) * progress;
     }
 
-    // Shape-preserving cubic Hermite interpolation. Interior slopes stay
-    // nonzero across key poses; adjacent stages cannot introduce a dwell.
-    function motionSlope(keys, index) {
-        if (index === 0 || index === keys.length - 1)
-            return 0;
-        const before = (keys[index][1] - keys[index - 1][1]) / (keys[index][0] - keys[index - 1][0]);
-        const after = (keys[index + 1][1] - keys[index][1]) / (keys[index + 1][0] - keys[index][0]);
-        return before * after <= 0 ? 0 : 2 * before * after / (before + after);
+    // Normalize the damped response at the endpoint so interruption/reversal
+    // remains a pure function of railProgress and the final layout is exact.
+    function response(delay, decay, frequency, phase) {
+        const time = Math.max(0, Math.min(1, root.railProgress) - delay);
+        const end = 1 - delay;
+        const value = 1 - Math.exp(-decay * time) * (Math.cos(frequency * time) + phase * Math.sin(frequency
+                                                                                                   * time));
+        const terminal = 1 - Math.exp(-decay * end) * (Math.cos(frequency * end) + phase * Math.sin(frequency
+                                                                                                    * end));
+        return value / terminal;
     }
 
-    function sampleMotion(keys, progress) {
-        const time = Math.max(0, Math.min(1, progress));
-        for (let index = 0; index < keys.length - 1; ++index) {
-            if (time > keys[index + 1][0])
-                continue;
-            const span = keys[index + 1][0] - keys[index][0];
-            const t = (time - keys[index][0]) / span;
-            const t2 = t * t;
-            const t3 = t2 * t;
-            return (2 * t3 - 3 * t2 + 1) * keys[index][1] + (t3 - 2 * t2 + t) * span * motionSlope(keys,
-                                                                                                   index) + (
-                        -2 * t3 + 3 * t2) * keys[index + 1][1] + (t3 - t2) * span * motionSlope(keys, index
-                                                                                                + 1);
-        }
-        return keys[keys.length - 1][1];
-    }
-
-    function pitchTrack(index) {
-        const pitch = 1 + root.buttonGap / root.buttonDiameter;
-        const tailLag = index === 2 ? 0.03 : 0;
-        const keys = [[0, 0], [0.16 + index * 0.025, 0], [0.28 + index * 0.025, 0.26], [0.42 + index * 0.025,
-                                                                                        0.91], [0.55 + index
-                                                                                                * 0.045 + tailLag
-                                                                                                / 2, 1.04],
-                      [0.66 + index * 0.055 + tailLag, 1.14], [0.76 + index * 0.075 + tailLag / 2, pitch
-                                                               + 0.035], [index === 2 ? 1 : 0.86 + index * 0.07,
-                                                                          pitch]];
-        if (index < 2)
-            keys.push([1, pitch]);
-        return keys;
-    }
-
-    function growthTrack(index) {
-        const start = index * 0.065;
-        const emergenceSpan = 1 - start;
-        // Keep the tapered chain's birth, then give each lobe its own crest
-        // and settle. A normalized delay would compress these later phases.
-        const keys = [[0, 0], [start + 0.10 * emergenceSpan, 0.03], [start + 0.20 * emergenceSpan, 0.23],
-                      [start + 0.30 * emergenceSpan, 0.68], [start + 0.44 * emergenceSpan, 1], [0.58 + index
-                                                                                                * 0.07, 1.04],
-                      [index === 3 ? 1 : 0.76 + index * 0.08, 1]];
-        if (index < 3)
-            keys.push([1, 1]);
-        return keys;
+    function buttonGrowth(index) {
+        if (index === 0)
+            return response(0.055, 10.5, 10.5, 1);
+        const rate = root.growthRates[index - 1];
+        return response(0, rate, rate, 0);
     }
 
     function buttonCenterX(index) {
         const diameter = root.buttonDiameter;
-        const firstCenter = root.expandedMainRight + root.buttonGap + diameter / 2;
-        let center = interpolate(root.mainRight - diameter * 0.42, firstCenter + diameter * 0.035, stage(0.10,
-                                                                                                         0.44));
-        center -= diameter * 0.035 * stage(0.40, 0.76);
-        for (let pair = 1; pair <= index; ++pair)
-            center += diameter * sampleMotion(root.pitchTracks[pair - 1], root.railProgress);
-        return center;
+        const emergence = diameter * 0.3 * (buttonGrowth(0) - 1);
+        const firstCenter = root.expandedMainRight + root.buttonGap + diameter / 2 + emergence;
+        if (index === 0)
+            return firstCenter;
+        const decay = root.travelDecays[index - 1];
+        const frequency = root.travelFrequencies[index - 1];
+        const travel = response(root.travelDelays[index - 1], decay, frequency, decay / frequency);
+        return firstCenter + index * (diameter + root.buttonGap) * travel;
     }
 
     function buttonShape(index) {
-        const growth = sampleMotion(root.growthTracks[index], root.railProgress);
-        const pull = Math.sin(Math.PI * stage(0.16 + index * 0.025, 0.64 + index * 0.08));
-        const width = root.buttonDiameter * growth * (1 + 0.04 * pull);
-        const height = root.buttonDiameter * growth * (1 - 0.025 * pull);
-        return Qt.vector4d(buttonCenterX(index), root.shapeCenterY, width, height);
+        const diameter = root.buttonDiameter * buttonGrowth(index);
+        return Qt.vector4d(buttonCenterX(index), root.shapeCenterY, diameter, diameter);
     }
 
     function buttonBlend(index) {
         const shape = root.buttonShapes[index];
-        const delay = index === 0 ? 0 : root.releaseDelays[index - 1];
-        const release = index === 0 ? stage(0.28, 0.46) : stage(0.50 + delay, 0.72 + delay);
-        return Math.min(shape.z, shape.w, root.buttonDiameter * (index === 0 ? 0.48 : 0.25)) * (1 - release);
+        // Suppress blending while one lobe is still buried in another; this
+        // keeps the pill from inflating as the chain emerges. The same short
+        // fade follows each lobe, so receding buttons cannot reconnect later.
+        const previous = index === 0 ? root.mainShape : root.buttonShapes[index - 1];
+        const previousCenter = index === 0 ? root.mainRight - root.shapeHeight / 2 : previous.x;
+        const radii = (Math.min(previous.z, previous.w) + Math.min(shape.z, shape.w)) / 2;
+        const separation = radii > 0 ? Math.abs(shape.x - previousCenter) / radii : 0;
+        const exposed = smoothstep((separation - 0.5) / 0.5);
+        const release = stage(0.27 + index * 0.063, 0.47 + index * 0.063);
+        return Math.min(shape.z, shape.w, root.buttonDiameter) * 0.78 * exposed * (1 - release);
     }
 
     function iconProgress(index) {
-        return stage(0.54 + index * 0.05, 0.78 + index * 0.055);
+        return stage(0.36 + index * 0.025, 0.55 + index * 0.025);
     }
 
     // A conservative blur-only rectangle inside the natural SDF neck. The

@@ -28,16 +28,18 @@ not trigger a visible re-sort during the closing transition.
 ## Mode rail motion
 
 `SpotlightModeMorphSurface` derives the pill and four deforming buttons from a
-single reversible progress value. Shape-preserving cubic curves retain motion
-through extraction, a tapered four-lobe chain, left-to-right separation and a
-small settle, without holding an intermediate pose. The
-controller advances time linearly so it does not compress these phases with a
-second easing curve; interrupted transitions continue from the current value.
-Emergence, neck release and rebound use separate staggered key times: the last
-neck remains connected longer, and each button reaches its size/position peak
-and settles in turn. Later buttons are not accelerated to share the first
-button's finish time. The first button stays near its final center while the
-remaining chain extends. Icons fade in along the same left-to-right wave.
+single reversible progress value. Continuous damped responses replace staged
+key poses: the pill contracts first, the first button forms near its destination,
+and the tapered chain extends to the right. Later buttons travel and grow more
+slowly, with their settling coming from the same responses rather than separate
+rebound phases. Responses are normalized at the endpoint to preserve the exact
+final layout. Icons fade in along the emerging chain.
+
+Blending is suppressed while lobes overlap deeply, preventing the pill from
+inflating. A short, staggered fade releases the necks and finishes before the
+buttons settle, preventing separated buttons from reconnecting. The controller
+advances time linearly, without a second easing curve; interrupted transitions
+continue from the current value and closing reverses the same geometry.
 
 The launcher shader blends five rounded distance fields, without separately
 drawn connectors or a vertical clipping band. Derivative-based antialiasing
