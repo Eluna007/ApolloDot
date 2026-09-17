@@ -9,6 +9,7 @@ QtObject {
     property string sourceZone: ""
     property string targetZone: "Asia/Tokyo"
     property string driverAmount: ""
+    property bool seededTime: false
     property int driverSide: 0
     property int activeSlot: 0
     property string draft: ""
@@ -63,6 +64,7 @@ QtObject {
         sourceZone = "";
         targetZone = "Asia/Tokyo";
         driverAmount = "";
+        seededTime = false;
         driverSide = 0;
         activeSlot = 0;
         choosing = false;
@@ -79,8 +81,9 @@ QtObject {
             return nowTemplate || !sourceZone ? qsTr("Local time") : sourceZone;
         if (slot === 3)
             return targetZone;
-        if (nowTemplate && slot === 0)
-            return "now";
+        // Now is a display token; the pair keeps its captured local timestamp.
+        if (slot === 0 && (nowTemplate || seededTime))
+            return "Now";
         return !nowTemplate && slot === driverSide ? driverAmount : answer;
     }
     function editable(slot) {
@@ -103,6 +106,7 @@ QtObject {
             choosing = true;
             selected = 0;
         } else if (!nowTemplate) {
+            seededTime = false;
             driverSide = slot;
             driverAmount = value;
         }
@@ -121,6 +125,7 @@ QtObject {
             sourceZone = "";
             driverSide = 0;
             driverAmount = Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss");
+            seededTime = true;
             templateKind = choice.kind;
             activate(nowTemplate ? 3 : 0);
         } else {
