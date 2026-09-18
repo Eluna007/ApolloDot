@@ -164,7 +164,7 @@ searches. Tool parameters are not reparsed as top-level commands.
 | `/search` (`/web`) | Web tool, not default Search |
 | `/calc`, `/fx` (`/currency`), `/time` (`/tz`) | Calculator, currency, time zone |
 | `/find-settings`, `/actions` | Settings-only / IPC action-only search |
-| `/light`, `/dark`, `/settings`, `/map` | Apply theme, open Settings, open existing location section |
+| `/light`, `/dark`, `/settings`, `/map` | Apply theme, open Settings, open standalone location map |
 | `/list`, `/grid`, `/smart`, `/most-used`, `/recent` (`/recently-used`), `/name` | Apps-only temporary presentation |
 | `/compact`, `/detail` (`/details`) | Clipboard-only temporary presentation |
 

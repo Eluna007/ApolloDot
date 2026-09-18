@@ -128,8 +128,10 @@ effective values. Closing and explicit mode navigation clear the transient state
 `SpotlightCatalog` exposes the shared command whitelist from `SpotlightCommands`.
 Both slash dispatch and palette activation use its IDs; the palette excludes
 presentation overrides. Existing Settings/IPC results retain their generated
-catalog and deferred activation. `/map` opens the existing region/location section;
-only its Save action changes location. Default Search's data sources are unchanged.
+catalog and deferred activation. `/map` opens the shared location picker as a standalone map window after Spotlight
+closes. It includes a draggable marker, floating coordinates and controls for save, automatic
+location, return to the saved location and recentering. Draft edits remain local
+until Save; automatic location uses the existing location-reset action. Default Search's data sources are unchanged.
 Tool and command contexts deactivate unrelated providers, including their queries.
 
 Tab/Shift+Tab expand and cycle the existing mode rail. Ctrl immediately displays
