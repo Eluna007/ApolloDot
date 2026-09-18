@@ -8,6 +8,7 @@ import Clavis.Keyboard
 import qs.Common
 import qs.Services
 import qs.Widgets.common
+import qs.Modules.ControlCenter
 import "../../Common/functions/SpotlightCommands.js" as Commands
 
 PanelWindow {
@@ -98,6 +99,16 @@ PanelWindow {
     readonly property real wallpaperPreviewWidth: resultsPanel.wallpaperPreviewWidth
     readonly property int blurRegionCount: spotlightBlur.regionObjects.length
 
+    Loader {
+        id: locationPickerLoader
+        active: false
+        onLoaded: item.openWindow()
+        sourceComponent: LocationPicker {
+            visible: false
+            active: false
+        }
+    }
+
     SpotlightSessionController {
         id: session
         onCommandRejected: searchBar.flashError()
@@ -127,7 +138,7 @@ PanelWindow {
                 ThemeService.setThemeMode(id === "theme.dark" ? "dark" : "light");
             else {
                 root.pendingSearchActivation = {
-                    provider: id === "location.open" ? "settings" : "settings-open",
+                    provider: id === "location.open" ? "map" : "settings-open",
                     sourceId: "general.language-region.section.region-weather-location",
                     query: ""
                 };
@@ -939,7 +950,12 @@ PanelWindow {
             root.webProgress = 0;
             root.resetClipboardAction();
             if (activation) {
-                if (activation.provider === "settings-open")
+                if (activation.provider === "map") {
+                    if (locationPickerLoader.item)
+                        locationPickerLoader.item.openWindow();
+                    else
+                        locationPickerLoader.active = true;
+                } else if (activation.provider === "settings-open")
                     ControlCenterService.openOrFocus();
                 else if (activation.provider === "settings")
                     ControlCenterService.openSearch(activation.sourceId);
