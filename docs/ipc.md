@@ -153,6 +153,15 @@ See [search catalog maintenance](architecture/spotlight-search.md).
 entries. Explicit IPC mode navigation clears temporary tools/overrides through
 the same session controller as local navigation; it does not change user keys.
 
+All 16 command-palette actions are also callable as
+`qs -c clavis ipc call spotlight command NAME`, using the slash name without `/`
+(e.g. `calc`, `fx`, `time`, `light`, `dark`, `find-settings`, `actions`, `map`).
+This returns `OK` or `INVALID_COMMAND`; scoped layout/order overrides are rejected.
+Tools open a fresh session; theme, Settings and map actions also work while
+Spotlight is closed. Existing dedicated IPC entry points remain compatible.
+Every palette action has a permanent row in Settings → Shortcuts, reusing existing
+rows where available. The new rows start unassigned and add no default bindings.
+
 Type `>` to enter the command palette immediately (`>calc` filters Calculator).
 Slash drafts stay in their base mode. Enter executes an exact command; slash input has no suggestion list. Unknown commands
 never fall through to content activation. `\/etc` and `\>hello` are literal

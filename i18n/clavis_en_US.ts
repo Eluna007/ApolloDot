@@ -7654,6 +7654,51 @@ Click to open network settings</translation>
         <source>Power menu: toggle</source>
         <translation>Power menu: toggle</translation>
     </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="4"/>
+        <source>Spotlight: Commands</source>
+        <translation>Spotlight: Commands</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="5"/>
+        <source>Spotlight: Calculator</source>
+        <translation>Spotlight: Calculator</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="6"/>
+        <source>Spotlight: Currency</source>
+        <translation>Spotlight: Currency</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="7"/>
+        <source>Spotlight: Time zone</source>
+        <translation>Spotlight: Time zone</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="8"/>
+        <source>Spotlight: Light theme</source>
+        <translation>Spotlight: Light theme</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="9"/>
+        <source>Spotlight: Dark theme</source>
+        <translation>Spotlight: Dark theme</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="10"/>
+        <source>Spotlight: Search settings</source>
+        <translation>Spotlight: Search settings</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="11"/>
+        <source>Spotlight: Search IPC actions</source>
+        <translation>Spotlight: Search IPC actions</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="12"/>
+        <source>Spotlight: Location picker</source>
+        <translation>Spotlight: Location picker</translation>
+    </message>
 </context>
 <context>
     <name>NiriCommands</name>

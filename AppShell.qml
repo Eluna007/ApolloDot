@@ -256,6 +256,10 @@ Item {
                     return "WEB";
                 }
 
+                function command(name: string): string {
+                    return spotlightLauncher.runCommand(name);
+                }
+
                 function commands(): string {
                     return openMode("commands");
                 }

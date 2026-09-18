@@ -7653,6 +7653,51 @@ Click to open network settings</source>
         <source>Power menu: toggle</source>
         <translation>电源菜单：切换</translation>
     </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="4"/>
+        <source>Spotlight: Commands</source>
+        <translation>Spotlight：命令</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="5"/>
+        <source>Spotlight: Calculator</source>
+        <translation>Spotlight：计算器</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="6"/>
+        <source>Spotlight: Currency</source>
+        <translation>Spotlight：汇率换算</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="7"/>
+        <source>Spotlight: Time zone</source>
+        <translation>Spotlight：时区换算</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="8"/>
+        <source>Spotlight: Light theme</source>
+        <translation>Spotlight：浅色主题</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="9"/>
+        <source>Spotlight: Dark theme</source>
+        <translation>Spotlight：深色主题</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="10"/>
+        <source>Spotlight: Search settings</source>
+        <translation>Spotlight：搜索设置</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="11"/>
+        <source>Spotlight: Search IPC actions</source>
+        <translation>Spotlight：搜索 IPC 操作</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="12"/>
+        <source>Spotlight: Location picker</source>
+        <translation>Spotlight：位置选择器</translation>
+    </message>
 </context>
 <context>
     <name>NiriCommands</name>

@@ -137,12 +137,15 @@ PanelWindow {
             if (id === "theme.light" || id === "theme.dark")
                 ThemeService.setThemeMode(id === "theme.dark" ? "dark" : "light");
             else {
-                root.pendingSearchActivation = {
-                    provider: id === "location.open" ? "map" : "settings-open",
-                    sourceId: "general.language-region.section.region-weather-location",
-                    query: ""
+                const activation = {
+                    provider: id === "location.open" ? "map" : "settings-open"
                 };
-                root.requestClose();
+                if (root.windowPhase === "hidden")
+                    root.executeSearchActivation(activation);
+                else {
+                    root.pendingSearchActivation = activation;
+                    root.requestClose();
+                }
             }
         }
     }
@@ -433,6 +436,42 @@ PanelWindow {
         root.clipboardSelectionRecoveryPending = false;
         root.focusSpotlight();
         return true;
+    }
+
+    function runCommand(name) {
+        const entry = Commands.exact(name);
+        if (!entry || entry.kind === "override")
+            return "INVALID_COMMAND";
+        if (entry.kind === "mode") {
+            root.openSpotlight(entry.value);
+            return "OK";
+        }
+        if (entry.kind === "tool") {
+            root.openSpotlight("search");
+            session.activate(entry.id, "", false);
+            root.setRailExpanded(false);
+            root.focusSpotlight();
+            return "OK";
+        }
+        return session.activate(entry.id, "", false) ? "OK" : "INVALID_COMMAND";
+    }
+
+    function executeSearchActivation(activation) {
+        if (!activation)
+            return;
+        if (activation.provider === "map") {
+            if (locationPickerLoader.item)
+                locationPickerLoader.item.openWindow();
+            else
+                locationPickerLoader.active = true;
+        } else if (activation.provider === "settings-open")
+            ControlCenterService.openOrFocus();
+        else if (activation.provider === "settings")
+            ControlCenterService.openSearch(activation.sourceId);
+        else if (activation.provider === "actions")
+            SpotlightCatalog.execute(activation.sourceId);
+        else if (activation.provider === "web")
+            SpotlightSearchService.openUrl(SpotlightSearchService.searchUrl(activation.query, true));
     }
 
     function openWebMode() {
@@ -949,21 +988,7 @@ PanelWindow {
             root.railProgress = 0;
             root.webProgress = 0;
             root.resetClipboardAction();
-            if (activation) {
-                if (activation.provider === "map") {
-                    if (locationPickerLoader.item)
-                        locationPickerLoader.item.openWindow();
-                    else
-                        locationPickerLoader.active = true;
-                } else if (activation.provider === "settings-open")
-                    ControlCenterService.openOrFocus();
-                else if (activation.provider === "settings")
-                    ControlCenterService.openSearch(activation.sourceId);
-                else if (activation.provider === "actions")
-                    SpotlightCatalog.execute(activation.sourceId);
-                else if (activation.provider === "web")
-                    SpotlightSearchService.openUrl(SpotlightSearchService.searchUrl(activation.query, true));
-            }
+            root.executeSearchActivation(activation);
         }
     }
 
