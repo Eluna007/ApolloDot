@@ -5762,6 +5762,35 @@ Scroll to adjust</source>
     </message>
 </context>
 <context>
+    <name>MediaBar</name>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="14"/>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="14"/>
+        <source>No media</source>
+        <translation>沒有媒體</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="81"/>
+        <source>Previous track</source>
+        <translation>上一首</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="88"/>
+        <source>Pause</source>
+        <translation>暫停</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="88"/>
+        <source>Play</source>
+        <translation>播放</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="96"/>
+        <source>Next track</source>
+        <translation>下一首</translation>
+    </message>
+</context>
+<context>
     <name>MediaCard</name>
     <message>
         <location filename="../Modules/Lock/Cards/MediaCard.qml" line="16"/>
@@ -8194,13 +8223,13 @@ Click to open network settings</source>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="344"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="462"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="467"/>
         <source>Weather</source>
         <translation>天氣</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="348"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="383"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="387"/>
         <source>Quick Settings</source>
         <translation>快速設定</translation>
     </message>
@@ -8211,106 +8240,111 @@ Click to open network settings</source>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="363"/>
+        <source>Media</source>
+        <translation>媒體</translation>
+    </message>
+    <message>
+        <location filename="../Services/PersonalizationConfig.qml" line="367"/>
         <source>Workspaces</source>
         <translation>工作區</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="367"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="371"/>
         <source>Information</source>
         <translation>資訊</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="371"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="375"/>
         <source>Active Window</source>
         <translation>聚焦視窗</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="375"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="379"/>
         <source>Tray</source>
         <translation>系統匣</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="379"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="383"/>
         <source>System Monitor</source>
         <translation>系統監視器</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="391"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="396"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="395"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="400"/>
         <source>Bluetooth</source>
         <translation>藍牙</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="399"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="404"/>
         <source>Brightness</source>
         <translation>亮度</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="403"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="408"/>
         <source>Volume</source>
         <translation>音量</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="407"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="412"/>
         <source>Microphone</source>
         <translation>麥克風</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="411"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="416"/>
         <source>Battery</source>
         <translation>電池</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="416"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="421"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="421"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="426"/>
         <source>Power</source>
         <translation>電源</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="438"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="443"/>
         <source>Do not open</source>
         <translation>不開啟</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="442"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="447"/>
         <source>Media controls</source>
         <translation>媒體控制</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="446"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="451"/>
         <source>Lyrics</source>
         <translation>歌詞</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="450"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="455"/>
         <source>Dashboard</source>
         <translation>儀表板</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="454"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="459"/>
         <source>Media library</source>
         <translation>媒體庫</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="458"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="463"/>
         <source>Upload</source>
         <translation>上傳</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="466"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="471"/>
         <source>Tools</source>
         <translation>工具</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="473"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="478"/>
         <source>Peak</source>
         <translation>Peak</translation>
     </message>
@@ -9663,14 +9697,6 @@ Right click: Control Center</source>
     </message>
 </context>
 <context>
-    <name>SpotlightCurrencyController</name>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightCurrencyController.qml" line="30"/>
-        <source>Enter a valid amount</source>
-        <translation>請輸入有效金額</translation>
-    </message>
-</context>
-<context>
     <name>SpotlightConversionEditor</name>
     <message>
         <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
@@ -9711,6 +9737,14 @@ Right click: Control Center</source>
         <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
         <source>Target currency</source>
         <translation>目標貨幣</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightCurrencyController</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCurrencyController.qml" line="30"/>
+        <source>Enter a valid amount</source>
+        <translation>請輸入有效金額</translation>
     </message>
 </context>
 <context>

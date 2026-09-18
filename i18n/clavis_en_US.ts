@@ -5763,6 +5763,35 @@ Scroll to adjust</translation>
     </message>
 </context>
 <context>
+    <name>MediaBar</name>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="14"/>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="14"/>
+        <source>No media</source>
+        <translation>No media</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="81"/>
+        <source>Previous track</source>
+        <translation>Previous track</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="88"/>
+        <source>Pause</source>
+        <translation>Pause</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="88"/>
+        <source>Play</source>
+        <translation>Play</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Bar/Media/MediaBar.qml" line="96"/>
+        <source>Next track</source>
+        <translation>Next track</translation>
+    </message>
+</context>
+<context>
     <name>MediaCard</name>
     <message>
         <location filename="../Modules/Lock/Cards/MediaCard.qml" line="16"/>
@@ -8195,13 +8224,13 @@ Click to open network settings</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="344"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="462"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="467"/>
         <source>Weather</source>
         <translation>Weather</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="348"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="383"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="387"/>
         <source>Quick Settings</source>
         <translation>Quick Settings</translation>
     </message>
@@ -8212,106 +8241,111 @@ Click to open network settings</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="363"/>
+        <source>Media</source>
+        <translation>Media</translation>
+    </message>
+    <message>
+        <location filename="../Services/PersonalizationConfig.qml" line="367"/>
         <source>Workspaces</source>
         <translation>Workspaces</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="367"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="371"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="371"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="375"/>
         <source>Active Window</source>
         <translation>Active Window</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="375"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="379"/>
         <source>Tray</source>
         <translation>Tray</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="379"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="383"/>
         <source>System Monitor</source>
         <translation>System Monitor</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="391"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="396"/>
         <source>Network</source>
         <translation>Network</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="395"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="400"/>
         <source>Bluetooth</source>
         <translation>Bluetooth</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="399"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="404"/>
         <source>Brightness</source>
         <translation>Brightness</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="403"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="408"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="407"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="412"/>
         <source>Microphone</source>
         <translation>Microphone</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="411"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="416"/>
         <source>Battery</source>
         <translation>Battery</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="416"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="421"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="421"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="426"/>
         <source>Power</source>
         <translation>Power</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="438"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="443"/>
         <source>Do not open</source>
         <translation>Do not open</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="442"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="447"/>
         <source>Media controls</source>
         <translation>Media controls</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="446"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="451"/>
         <source>Lyrics</source>
         <translation>Lyrics</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="450"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="455"/>
         <source>Dashboard</source>
         <translation>Dashboard</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="454"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="459"/>
         <source>Media library</source>
         <translation>Media library</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="458"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="463"/>
         <source>Upload</source>
         <translation>Upload</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="466"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="471"/>
         <source>Tools</source>
         <translation>Tools</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="473"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="478"/>
         <source>Peak</source>
         <translation>Peak</translation>
     </message>
@@ -9666,14 +9700,6 @@ Right click: Control Center</translation>
     </message>
 </context>
 <context>
-    <name>SpotlightCurrencyController</name>
-    <message>
-        <location filename="../Modules/Launcher/SpotlightCurrencyController.qml" line="30"/>
-        <source>Enter a valid amount</source>
-        <translation>Enter a valid amount</translation>
-    </message>
-</context>
-<context>
     <name>SpotlightConversionEditor</name>
     <message>
         <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
@@ -9714,6 +9740,14 @@ Right click: Control Center</translation>
         <location filename="../Modules/Launcher/SpotlightConversionEditor.qml" line="127"/>
         <source>Target currency</source>
         <translation>Target currency</translation>
+    </message>
+</context>
+<context>
+    <name>SpotlightCurrencyController</name>
+    <message>
+        <location filename="../Modules/Launcher/SpotlightCurrencyController.qml" line="30"/>
+        <source>Enter a valid amount</source>
+        <translation>Enter a valid amount</translation>
     </message>
 </context>
 <context>
