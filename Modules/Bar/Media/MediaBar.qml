@@ -5,7 +5,7 @@ import qs.Common
 import qs.Services
 import qs.Widgets.common
 
-Item {
+TopBarPill {
     id: root
 
     property bool vertical: false
@@ -29,10 +29,6 @@ Item {
             AudioSpectrum.acquire(spectrumToken);
         else
             AudioSpectrum.release(spectrumToken);
-    }
-
-    TopBarPillBackground {
-        anchors.fill: parent
     }
 
     GridLayout {
