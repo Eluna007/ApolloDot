@@ -1,6 +1,8 @@
 // Names extracted from the bundled action catalog. IDs are language-independent.
 function translated(name) {
     switch (name) {
+    case "Weather sidebar: toggle": return qsTranslate("NiriActions", "Weather sidebar: toggle");
+    case "Sidebar drawer: toggle": return qsTranslate("NiriActions", "Sidebar drawer: toggle");
     case "Spotlight: Commands": return qsTranslate("NiriActions", "Spotlight: Commands");
     case "Spotlight: Calculator": return qsTranslate("NiriActions", "Spotlight: Calculator");
     case "Spotlight: Currency": return qsTranslate("NiriActions", "Spotlight: Currency");

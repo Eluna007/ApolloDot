@@ -48,7 +48,8 @@ Item {
             }
             return false;
         case "sidebar":
-            return sidebarHost.setSidebarOpen(action.args[0], true) !== "INVALID_SIDE";
+            return (action.method === "toggle" ? sidebarHost.toggleSidebar(action.args[0]) : sidebarHost.setSidebarOpen(
+                                                     action.args[0], true)) !== "INVALID_SIDE";
         case "shortcut-map":
             ShortcutMapService.open();
             return true;

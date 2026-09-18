@@ -1836,6 +1836,56 @@
     }
   },
   {
+    "id": "clavis:sidebar:toggle:weather",
+    "category": "clavis",
+    "name": "Weather sidebar: toggle",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"weather\"",
+    "parameters": false,
+    "target": "sidebar",
+    "method": "toggle",
+    "search": {
+      "policy": "include",
+      "title": "Weather sidebar",
+      "description": "Toggle the weather sidebar",
+      "context": "SpotlightActions",
+      "icon": "partly_cloudy_day",
+      "args": [
+        "weather"
+      ],
+      "aliases": [
+        "weather",
+        "sidebar"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
+  },
+  {
+    "id": "clavis:sidebar:toggle:drawer",
+    "category": "clavis",
+    "name": "Sidebar drawer: toggle",
+    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"drawer\"",
+    "parameters": false,
+    "target": "sidebar",
+    "method": "toggle",
+    "search": {
+      "policy": "include",
+      "title": "Sidebar drawer",
+      "description": "Toggle the sidebar drawer",
+      "context": "SpotlightActions",
+      "icon": "widgets",
+      "args": [
+        "drawer"
+      ],
+      "aliases": [
+        "drawer",
+        "sidebar"
+      ],
+      "availability": "always",
+      "confirmation": "none"
+    }
+  },
+  {
     "id": "clavis:sidebar:close",
     "category": "clavis",
     "name": "Sidebar: close",

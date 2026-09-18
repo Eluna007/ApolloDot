@@ -214,3 +214,12 @@ with Enter, then type a time (`0930`, `9`, `09:30`, or a date and time). Clearin
 the input and pressing Backspace again returns to template selection. Another
 fresh Backspace on the empty selector leaves the tool. DST ambiguity and invalid
 times still use the existing explicit result/error flow.
+
+### Sidebar weather and drawer
+
+`qs -c clavis ipc call sidebar open weather` and `sidebar open drawer` select the
+respective dashboard tab and open its sidebar, following the configured edge.
+Open/close remain explicit IPC operations. Spotlight Actions and permanent
+unassigned shortcut rows instead use `sidebar toggle weather` / `sidebar toggle drawer`.
+Toggling the already open target tab closes it; a closed sidebar or a different
+active tab opens the requested tab. No default key is installed.

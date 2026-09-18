@@ -61,7 +61,8 @@ class ConfigurationContracts(unittest.TestCase):
             catalog = self.run_config('catalog')['catalog']
         ids = ['clavis:spotlight:commands'] + [
             'clavis:spotlight:command:' + name for name in
-            ['calc', 'fx', 'time', 'light', 'dark', 'find-settings', 'actions', 'map']]
+            ['calc', 'fx', 'time', 'light', 'dark', 'find-settings', 'actions', 'map']] + [
+            'clavis:sidebar:toggle:weather', 'clavis:sidebar:toggle:drawer']
         actions = {entry['id']: entry for entry in catalog}
         state = self.run_config('setup')
         for action_id in ids:
@@ -70,7 +71,7 @@ class ConfigurationContracts(unittest.TestCase):
                 self.assertTrue(action['supported'])
                 self.assertFalse(action['parameters'])
                 argv = config.parse(action['expression']).nodes[0].args
-                self.assertEqual(argv[:6], ['qs', '-c', 'clavis', 'ipc', 'call', 'spotlight'])
+                self.assertEqual(argv[:6], ['qs', '-c', 'clavis', 'ipc', 'call', action['target']])
                 self.assertNotIn('<', action['expression'])
                 self.assertFalse(any(row['action'].rstrip(';') == action['expression'] for row in state['bindings']))
                 self.run_config('save', key='Mod+F12', action=action['expression'])

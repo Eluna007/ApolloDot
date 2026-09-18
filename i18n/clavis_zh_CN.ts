@@ -7698,6 +7698,16 @@ Click to open network settings</source>
         <source>Spotlight: Location picker</source>
         <translation>Spotlight：位置选择器</translation>
     </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="4"/>
+        <source>Weather sidebar: toggle</source>
+        <translation>天气侧边栏：切换</translation>
+    </message>
+    <message>
+        <location filename="../Common/NiriActionNames.js" line="5"/>
+        <source>Sidebar drawer: toggle</source>
+        <translation>侧边栏抽屉：切换</translation>
+    </message>
 </context>
 <context>
     <name>NiriCommands</name>
@@ -9305,6 +9315,26 @@ Right click: Control Center</source>
         <location filename="../Common/generated/SearchCatalog.js" line="1886"/>
         <source>Choose a session or power action</source>
         <translation>选择会话或电源操作</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1897"/>
+        <source>Weather sidebar</source>
+        <translation>天气侧边栏</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1898"/>
+        <source>Sidebar drawer</source>
+        <translation>侧边栏抽屉</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1925"/>
+        <source>Toggle the weather sidebar</source>
+        <translation>切换天气侧边栏</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1926"/>
+        <source>Toggle the sidebar drawer</source>
+        <translation>切换侧边栏抽屉</translation>
     </message>
 </context>
 <context>
