@@ -26,7 +26,9 @@ Item {
             return;
         if (filter === "settings" || filter === "actions") {
             const catalog = filter === "settings" ? SpotlightCatalog.settings : SpotlightCatalog.actions;
-            results = LocalSearch.matchCatalog(catalog, query).map(entry => ({
+            const matches = filter === "actions" && !query.trim() ? catalog : LocalSearch.matchCatalog(catalog,
+                                                                                                       query);
+            results = matches.map(entry => ({
                 id: filter + ":" + entry.id,
                 sourceId: entry.id,
                 provider: filter,
