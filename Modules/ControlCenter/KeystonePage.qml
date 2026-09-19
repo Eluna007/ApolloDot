@@ -196,6 +196,26 @@ Item {
 
                 SettingsRow {
                     Layout.fillWidth: true
+                    title: qsTr("Show spectrum")
+                    trailing: StyledSwitch {
+                        checked: PersonalizationConfig.keystoneLongShowSpectrum
+                        Accessible.name: qsTr("Show spectrum")
+                        onToggled: PersonalizationConfig.setKeystoneLongShowSpectrum(checked)
+                    }
+                }
+
+                SettingsRow {
+                    Layout.fillWidth: true
+                    title: qsTr("Show numeric values")
+                    trailing: StyledSwitch {
+                        checked: PersonalizationConfig.keystoneLongShowValues
+                        Accessible.name: qsTr("Show numeric values")
+                        onToggled: PersonalizationConfig.setKeystoneLongShowValues(checked)
+                    }
+                }
+
+                SettingsRow {
+                    Layout.fillWidth: true
                     title: PersonalizationConfig.keystonePosition === "top"
                            || PersonalizationConfig.keystonePosition === "bottom" ? qsTr("Left") : qsTr("Top")
                     trailing: SortableMultiSelectField {

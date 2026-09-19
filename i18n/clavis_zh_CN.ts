@@ -5402,6 +5402,14 @@ Scroll to adjust</source>
         <source>Card</source>
         <translation>卡片</translation>
     </message>
+    <message>
+        <source>Show spectrum</source>
+        <translation>显示频谱</translation>
+    </message>
+    <message>
+        <source>Show numeric values</source>
+        <translation>显示数值</translation>
+    </message>
 </context>
 <context>
     <name>LanguageAndRegionPage</name>

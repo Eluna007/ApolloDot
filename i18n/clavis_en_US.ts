@@ -5403,6 +5403,14 @@ Scroll to adjust</translation>
         <source>Card</source>
         <translation>Card</translation>
     </message>
+    <message>
+        <source>Show spectrum</source>
+        <translation>Show spectrum</translation>
+    </message>
+    <message>
+        <source>Show numeric values</source>
+        <translation>Show numeric values</translation>
+    </message>
 </context>
 <context>
     <name>LanguageAndRegionPage</name>

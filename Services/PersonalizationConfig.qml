@@ -437,6 +437,8 @@ Singleton {
     property bool keystoneCapsLockOsd: true
     property bool keystoneNumLockOsd: true
     property bool keystoneHideDate: false
+    property bool keystoneLongShowSpectrum: true
+    property bool keystoneLongShowValues: true
     property string keystoneHoverAction: "peak"
     property string keystoneLeftClickAction: "media"
     property string keystoneMiddleClickAction: "lyrics"
@@ -1560,6 +1562,14 @@ Singleton {
         setValue("keystoneNumLockOsd", !!value);
     }
 
+    function setKeystoneLongShowSpectrum(value) {
+        setValue("keystoneLongShowSpectrum", !!value);
+    }
+
+    function setKeystoneLongShowValues(value) {
+        setValue("keystoneLongShowValues", !!value);
+    }
+
     function setKeystoneHideDate(value) {
         setValue("keystoneHideDate", !!value);
     }
@@ -1731,6 +1741,8 @@ Singleton {
                 "capsLockOsd": root.keystoneCapsLockOsd,
                 "numLockOsd": root.keystoneNumLockOsd,
                 "hideDate": root.keystoneHideDate,
+                "longShowSpectrum": root.keystoneLongShowSpectrum,
+                "longShowValues": root.keystoneLongShowValues,
                 "hoverAction": root.keystoneHoverAction,
                 "hoverOpenDelay": root.keystoneHoverOpenDelay,
                 "hoverCloseDelay": root.keystoneHoverCloseDelay,
@@ -1852,6 +1864,10 @@ Singleton {
         root.keystonePosition = normalizedEdgePosition(keystone.position);
         root.keystoneCapsLockOsd = typeof keystone.capsLockOsd === "boolean" ? keystone.capsLockOsd : true;
         root.keystoneNumLockOsd = typeof keystone.numLockOsd === "boolean" ? keystone.numLockOsd : true;
+        root.keystoneLongShowSpectrum = typeof keystone.longShowSpectrum === "boolean"
+                ? keystone.longShowSpectrum : true;
+        root.keystoneLongShowValues = typeof keystone.longShowValues === "boolean" ? keystone.longShowValues :
+                                                                                     true;
         root.keystoneHideDate = typeof keystone.hideDate === "boolean" ? keystone.hideDate : false;
         root.keystoneHoverAction = normalizedOption(root.keystoneHoverActionOptions, keystone.hoverAction,
                                                     "peak");

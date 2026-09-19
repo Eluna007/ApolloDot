@@ -108,8 +108,10 @@ Item {
                     Component {
                         id: media
                         MediaBar {
+                            showSpectrum: PersonalizationConfig.keystoneLongShowSpectrum
                             vertical: root.vertical
                             edge: root.edge
+                            maximumTitleWidth: root.vertical ? 120 : 180
                             backgroundVisible: false
                         }
                     }
@@ -127,6 +129,7 @@ Item {
                     Component {
                         id: status
                         LongStatusItem {
+                            maximumNameWidth: root.vertical ? 96 : 160
                             itemId: statusLoader.modelData
                             edge: root.edge
                             ownerId: "keystone-long:" + String(root.screen ? root.screen.name : "default") + (
