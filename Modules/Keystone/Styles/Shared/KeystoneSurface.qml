@@ -562,6 +562,10 @@ Variants {
                 property bool showVolume: false
                 property bool showHub: false
                 property bool showTools: false
+                readonly property bool recordingLaunchPending: styleSurface.elongated && showTools && (
+                                                                   RecordingService.isSelecting
+                                                                   || RecordingService.isStarting
+                                                                   || AudioRecordingService.isStarting)
                 property int hubTabIndex: 0
                 property bool componentReady: false
                 property bool pillStopFusionMinimumActive: false
@@ -608,7 +612,7 @@ Variants {
                                                                                            || isToolsMode
                                                                                            || isCollapsedHovered)
                 readonly property bool keyboardInteractionActive: escapeDismissActive && !hoverOpened &&
-                                                                  !isCollapsedMode
+                                                                  !isCollapsedMode && !recordingLaunchPending
                 onKeyboardInteractionActiveChanged: {
                     if (keyboardInteractionActive)
                         root.requestKeyboardFocus();
@@ -631,14 +635,20 @@ Variants {
                 property color color: BlurService.backgroundColor(Appearance.colors.colLayer0)
                 readonly property QtObject activeLayout: keystoneWindow.horizontalEdge ? horizontalLayout :
                                                                                          verticalLayout
-                readonly property real recordingVisualWidth: styleSurface.splitRecording
-                                                             && pillRecordingPresenter.item
-                                                             ? pillRecordingPresenter.item.implicitWidth :
-                                                               activeLayout.attachedRecordingWidth
-                readonly property real recordingVisualHeight: styleSurface.splitRecording
-                                                              && pillRecordingPresenter.item
-                                                              ? pillRecordingPresenter.item.implicitHeight :
-                                                                activeLayout.attachedRecordingHeight
+                readonly property real recordingVisualWidth: styleSurface.elongated ? (
+                                                                                          keystoneWindow.horizontalEdge
+                                                                                          ? 260 : 56) :
+                                                                                      styleSurface.splitRecording
+                                                                                      && pillRecordingPresenter.item
+                                                                                      ? pillRecordingPresenter.item.implicitWidth :
+                                                                                        activeLayout.attachedRecordingWidth
+                readonly property real recordingVisualHeight: styleSurface.elongated ? (
+                                                                                           keystoneWindow.horizontalEdge
+                                                                                           ? 56 : 260) :
+                                                                                       styleSurface.splitRecording
+                                                                                       && pillRecordingPresenter.item
+                                                                                       ? pillRecordingPresenter.item.implicitHeight :
+                                                                                         activeLayout.attachedRecordingHeight
                 readonly property bool useRecordingBlurRegions: styleSurface.splitRecording
                                                                 && root.recordingPresentationActive
                                                                 && pillRecordingPresenter.item !== null
@@ -796,6 +806,10 @@ Variants {
                                      ? longFrame.item.childOffset : 0
                 onAudioSessionActiveChanged: {
                     if (root.audioSessionActive) {
+                        if (styleSurface.elongated) {
+                            root.hoverOpened = false;
+                            hoverIntent.cancel();
+                        }
                         root.audioPresentationPhase = root.audioPhaseExpanded;
                         root.expanded = false;
                         root.showLyrics = false;
@@ -814,6 +828,17 @@ Variants {
                     if (!root.isRecording)
                         return;
 
+                    if (styleSurface.elongated) {
+                        // Recording already owns the presentation here, so
+                        // clearing Tools cannot collapse the existing island.
+                        root.showTools = false;
+                        root.showHub = false;
+                        root.showLyrics = false;
+                        root.showVolume = false;
+                        root.expanded = false;
+                        root.hoverOpened = false;
+                        hoverIntent.cancel();
+                    }
                     contentResetTimer.stop();
                     recordingPresentationOut.stop();
                     recordingActionOut.stop();
@@ -1588,7 +1613,8 @@ Variants {
                     ToolsContent {
                         id: toolsWidget
 
-                        keyboardActive: root.isToolsMode
+                        keyboardActive: root.isToolsMode && !root.recordingLaunchPending
+                        retainForRecording: styleSurface.elongated
                         anchors.top: parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: implicitWidth
@@ -1599,6 +1625,12 @@ Variants {
                         visible: opacity > 0.01
                         onRequestHideKeystone: {
                             root.showTools = false;
+                        }
+                        onRecordingRequested: {
+                            // Keep the current child alive through selection
+                            // and startup; cancellation leaves Tools usable.
+                            root.hoverOpened = false;
+                            hoverIntent.cancel();
                         }
 
                         Behavior on opacity {
@@ -1705,6 +1737,7 @@ Variants {
             AudioRecordingVisual {
                 id: audioRecordingVisual
 
+                parent: styleSurface.elongated ? root : maskContainer
                 anchors.centerIn: root
                 width: root.width
                 height: root.height
@@ -1717,7 +1750,7 @@ Variants {
                 vertical: !keystoneWindow.horizontalEdge
                 edge: keystoneWindow.edge
                 visible: root.audioPresentationActive || contentProgress > 0.01
-                opacity: styleSurface.elongated ? (longFrame.item ? longFrame.item.contentOpacity : 0) : 1
+                opacity: 1
                 z: root.z + 3
                 onStopRequested: AudioRecordingService.stop()
                 onCollapseRequested: {
@@ -1820,11 +1853,11 @@ Variants {
             BangsRecordingVisual {
                 id: bangsRecordingVisual
 
+                parent: styleSurface.elongated ? root : maskContainer
                 anchors.centerIn: root
                 width: root.width
                 height: root.height
-                opacity: entryProgress * (styleSurface.elongated ? (longFrame.item
-                                                                    ? longFrame.item.contentOpacity : 0) : 1)
+                opacity: entryProgress
                 active: !styleSurface.splitRecording && root.recordingPresentationActive
                 recording: !styleSurface.splitRecording && root.isRecording
                 finalizing: !styleSurface.splitRecording && root.isFinalizing
