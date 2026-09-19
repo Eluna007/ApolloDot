@@ -191,7 +191,12 @@ Singleton {
                                             }), ({
                                                      "value": "pill",
                                                      "label": qsTr("Pill")
-                                                 })]
+                                                 }),
+        {
+            value: "long",
+            label: qsTr("Long")
+        }
+    ]
     readonly property var edgePositions: [({
                                                "value": "top",
                                                "label": qsTr("Top"),
@@ -437,6 +442,109 @@ Singleton {
     property string keystoneHoverAction: "peak"
     property string keystoneLeftClickAction: "media"
     property string keystoneMiddleClickAction: "lyrics"
+    property int keystoneHoverOpenDelay: 150
+    property int keystoneHoverCloseDelay: 250
+    readonly property var keystoneLongItemIds: ["workspaces", "media", "systemMonitor", "network", "bluetooth",
+        "brightness", "volume", "microphone", "battery"]
+    readonly property var defaultKeystoneLongLeading: ["workspaces", "media", "systemMonitor"]
+    readonly property var defaultKeystoneLongTrailing: ["network", "bluetooth", "brightness", "volume",
+        "microphone", "battery"]
+    property var keystoneLongLeading: defaultKeystoneLongLeading.slice()
+    property var keystoneLongTrailing: defaultKeystoneLongTrailing.slice()
+    readonly property var keystoneLongItemOptions: [
+        {
+            value: "workspaces",
+            label: qsTr("Workspaces"),
+            icon: "view_week"
+        },
+        {
+            value: "media",
+            label: qsTr("Media"),
+            icon: "music_note"
+        },
+        {
+            value: "systemMonitor",
+            label: qsTr("System monitor"),
+            icon: "monitor_heart"
+        },
+        {
+            value: "network",
+            label: qsTr("Network"),
+            icon: "wifi"
+        },
+        {
+            value: "bluetooth",
+            label: qsTr("Bluetooth"),
+            icon: "bluetooth"
+        },
+        {
+            value: "brightness",
+            label: qsTr("Brightness"),
+            icon: "brightness_medium"
+        },
+        {
+            value: "volume",
+            label: qsTr("Volume"),
+            icon: "volume_up"
+        },
+        {
+            value: "microphone",
+            label: qsTr("Microphone"),
+            icon: "mic"
+        },
+        {
+            value: "battery",
+            label: qsTr("Battery"),
+            icon: "battery_full"
+        }
+    ]
+
+    function setKeystoneHoverOpenDelay(value) {
+        setValue("keystoneHoverOpenDelay", normalizedBoundedInt(value, 150, 0, 500));
+    }
+
+    function setKeystoneHoverCloseDelay(value) {
+        setValue("keystoneHoverCloseDelay", normalizedBoundedInt(value, 250, 0, 600));
+    }
+
+    function normalizedKeystoneLongItems(raw, excluded) {
+        const result = [];
+        for (const value of Array.isArray(raw) ? raw : []) {
+            if (root.keystoneLongItemIds.indexOf(value) >= 0 && excluded.indexOf(value) < 0 && result.indexOf(value)
+                    < 0)
+                result.push(value);
+        }
+        return result;
+    }
+
+    function moveKeystoneLongItem(id, zone, index) {
+        if (root.keystoneLongItemIds.indexOf(id) < 0 || (zone !== "leading" && zone !== "trailing"))
+            return;
+        const leading = root.keystoneLongLeading.filter(value => value !== id);
+        const trailing = root.keystoneLongTrailing.filter(value => value !== id);
+        const target = zone === "leading" ? leading : trailing;
+        const position = Number(index);
+        target.splice(isFinite(position) ? Math.max(0, Math.min(target.length, Math.round(position))) :
+                                           target.length, 0, id);
+        root.keystoneLongLeading = leading;
+        root.keystoneLongTrailing = trailing;
+        root.save();
+    }
+
+    function removeKeystoneLongItem(id) {
+        root.keystoneLongLeading = root.keystoneLongLeading.filter(value => value !== id);
+        root.keystoneLongTrailing = root.keystoneLongTrailing.filter(value => value !== id);
+        root.save();
+    }
+
+    function toggleKeystoneLongItem(id, zone) {
+        const target = zone === "leading" ? root.keystoneLongLeading : root.keystoneLongTrailing;
+        if (target.indexOf(id) >= 0)
+            root.removeKeystoneLongItem(id);
+        else
+            root.moveKeystoneLongItem(id, zone, target.length);
+    }
+
     readonly property var keystoneActionOptions: [
         {
             value: "none",
@@ -1664,6 +1772,10 @@ Singleton {
                 "numLockOsd": root.keystoneNumLockOsd,
                 "hideDate": root.keystoneHideDate,
                 "hoverAction": root.keystoneHoverAction,
+                "hoverOpenDelay": root.keystoneHoverOpenDelay,
+                "hoverCloseDelay": root.keystoneHoverCloseDelay,
+                "longLeading": root.keystoneLongLeading.slice(),
+                "longTrailing": root.keystoneLongTrailing.slice(),
                 "leftClickAction": root.keystoneLeftClickAction,
                 "middleClickAction": root.keystoneMiddleClickAction,
                 "keyhole": {
@@ -1783,6 +1895,15 @@ Singleton {
         root.keystoneHideDate = typeof keystone.hideDate === "boolean" ? keystone.hideDate : false;
         root.keystoneHoverAction = normalizedOption(root.keystoneHoverActionOptions, keystone.hoverAction,
                                                     "peak");
+        root.keystoneHoverOpenDelay = normalizedBoundedInt(keystone.hoverOpenDelay, 150, 0, 500);
+        root.keystoneHoverCloseDelay = normalizedBoundedInt(keystone.hoverCloseDelay, 250, 0, 600);
+        root.keystoneLongLeading = root.normalizedKeystoneLongItems(Array.isArray(keystone.longLeading)
+                                                                    ? keystone.longLeading :
+                                                                      root.defaultKeystoneLongLeading, []);
+        root.keystoneLongTrailing = root.normalizedKeystoneLongItems(Array.isArray(keystone.longTrailing)
+                                                                     ? keystone.longTrailing :
+                                                                       root.defaultKeystoneLongTrailing,
+                                                                     root.keystoneLongLeading);
         root.keystoneLeftClickAction = normalizedOption(root.keystoneActionOptions, keystone.leftClickAction,
                                                         "media");
         root.keystoneMiddleClickAction = normalizedOption(root.keystoneActionOptions,

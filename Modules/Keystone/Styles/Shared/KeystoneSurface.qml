@@ -18,11 +18,14 @@ import qs.Modules.Keystone.LyricsContent
 import qs.Modules.Keystone.Hub
 import qs.Modules.Keystone.Tools
 import qs.Modules.Keystone.Styles.Recording
+import qs.Modules.Keystone.Styles.Long
 
 Variants {
     id: styleSurface
 
     property bool detached: false
+    property bool elongated: false
+    readonly property bool splitRecording: detached && !elongated
     property int edgeMargin: 0
     property int maxPillRadius: 24
     property bool showAttachedEdgeCurves: !detached
@@ -98,6 +101,7 @@ Variants {
         }
 
         function closeAllOthers(): string {
+            hoverIntent.cancel();
             root.showHub = false;
             root.showLyrics = false;
             root.showTools = false;
@@ -351,7 +355,8 @@ Variants {
             samples: 32
             color: "#80000000"
             cached: true
-            opacity: root.color.a * (styleSurface.detached && root.recordingPresentationActive ? 0 : 1)
+            opacity: styleSurface.elongated ? 0 : root.color.a * (styleSurface.splitRecording
+                                                                  && root.recordingPresentationActive ? 0 : 1)
         }
 
         // ============================================================
@@ -364,8 +369,12 @@ Variants {
             anchors.bottomMargin: keystoneWindow.bottomEdge ? styleSurface.edgeMargin : 0
             anchors.leftMargin: keystoneWindow.leftEdge ? styleSurface.edgeMargin : 0
             anchors.rightMargin: keystoneWindow.rightEdge ? styleSurface.edgeMargin : 0
-            width: root.width + (keystoneWindow.horizontalEdge ? keystoneWindow.edgeCurveAlong * 2 : 0)
-            height: root.height + (!keystoneWindow.horizontalEdge ? keystoneWindow.edgeCurveAlong * 2 : 0)
+            width: styleSurface.elongated && longFrame.item ? longFrame.item.implicitWidth : root.width + (
+                                                                  keystoneWindow.horizontalEdge
+                                                                  ? keystoneWindow.edgeCurveAlong * 2 : 0)
+            height: styleSurface.elongated && longFrame.item ? longFrame.item.implicitHeight : root.height + (
+                                                                   !keystoneWindow.horizontalEdge
+                                                                   ? keystoneWindow.edgeCurveAlong * 2 : 0)
             state: keystoneWindow.edge
             states: [
                 State {
@@ -453,6 +462,47 @@ Variants {
                 }
             }
 
+            Loader {
+                id: longFrame
+                anchors.fill: parent
+                active: styleSurface.elongated
+                sourceComponent: LongIslandFrame {
+                    screen: keystoneWindow.screen
+                    edge: keystoneWindow.edge
+                    expanded: !root.isCollapsedMode
+                    targetWidth: root.targetW
+                    targetHeight: root.targetH
+                    childItem: root
+                    cutoutItem: dashboardKeyholeCutout
+                    cutoutVisible: root.showDashboardKeyhole
+                    surfaceColor: root.color
+                    onClockClicked: button => root.activateMouseAction(button === Qt.MiddleButton
+                                                                       ? PersonalizationConfig.keystoneMiddleClickAction :
+                                                                         PersonalizationConfig.keystoneLeftClickAction,
+                                                                       true)
+                    onMediaRequested: root.activateMouseAction("media", true)
+                }
+            }
+
+            KeystoneHoverController {
+                id: hoverIntent
+                triggerHovered: styleSurface.elongated ? !!longFrame.item && longFrame.item.clockHovered :
+                                                         surfaceHover.hovered
+                surfaceHovered: surfaceHover.hovered || (styleSurface.elongated && !!longFrame.item
+                                                         && longFrame.item.mainHovered)
+                canOpen: root.isCollapsedMode && PersonalizationConfig.keystoneHoverAction !== "none"
+                previewOpen: root.hoverOpened
+                openDelay: PersonalizationConfig.keystoneHoverOpenDelay
+                closeDelay: PersonalizationConfig.keystoneHoverCloseDelay
+                onOpenRequested: {
+                    const action = PersonalizationConfig.keystoneHoverAction;
+                    root.activateMouseAction(styleSurface.elongated && action === "peak" ? "media" : action,
+                                             false, true);
+                    root.hoverOpened = true;
+                }
+                onCloseRequested: keystoneWindow.closeAllOthers()
+            }
+
             Item {
                 id: root
 
@@ -473,6 +523,11 @@ Variants {
                                                              ? root.showLyrics : action === "tools"
                                                                ? root.showTools : isTab && root.showHub
                                                                  && root.hubTabIndex === tabs[action];
+                    if (toggle && alreadyOpen && root.hoverOpened) {
+                        root.hoverOpened = false;
+                        hoverIntent.cancel();
+                        return;
+                    }
                     keystoneWindow.closeAllOthers();
                     if (toggle && alreadyOpen)
                         return;
@@ -490,20 +545,8 @@ Variants {
                 }
 
                 HoverHandler {
-                    onHoveredChanged: {
-                        if (!hovered) {
-                            if (root.hoverOpened)
-                                keystoneWindow.closeAllOthers();
-                            return;
-                        }
-                        if (!root.isCollapsedMode)
-                            return;
-                        const action = PersonalizationConfig.keystoneHoverAction;
-                        if (action === "none")
-                            return;
-                        root.activateMouseAction(action, false, true);
-                        root.hoverOpened = true;
-                    }
+                    id: surfaceHover
+                    enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0.02)
                 }
 
                 TapHandler {
@@ -524,7 +567,7 @@ Variants {
                 property bool pillStopFusionMinimumActive: false
                 readonly property bool backendFinalizing: RecordingService.isFinalizing
                 readonly property bool stopPresentationActive: RecordingService.isStopPending || (
-                                                                   styleSurface.detached
+                                                                   styleSurface.splitRecording
                                                                    && pillStopFusionMinimumActive)
                 readonly property bool isRecording: (RecordingService.isRecording || RecordingService.state
                                                      === "paused") && !stopPresentationActive
@@ -588,15 +631,15 @@ Variants {
                 property color color: BlurService.backgroundColor(Appearance.colors.colLayer0)
                 readonly property QtObject activeLayout: keystoneWindow.horizontalEdge ? horizontalLayout :
                                                                                          verticalLayout
-                readonly property real recordingVisualWidth: styleSurface.detached
+                readonly property real recordingVisualWidth: styleSurface.splitRecording
                                                              && pillRecordingPresenter.item
                                                              ? pillRecordingPresenter.item.implicitWidth :
                                                                activeLayout.attachedRecordingWidth
-                readonly property real recordingVisualHeight: styleSurface.detached
+                readonly property real recordingVisualHeight: styleSurface.splitRecording
                                                               && pillRecordingPresenter.item
                                                               ? pillRecordingPresenter.item.implicitHeight :
                                                                 activeLayout.attachedRecordingHeight
-                readonly property bool useRecordingBlurRegions: styleSurface.detached
+                readonly property bool useRecordingBlurRegions: styleSurface.splitRecording
                                                                 && root.recordingPresentationActive
                                                                 && pillRecordingPresenter.item !== null
                 readonly property var recordingBlurBackgroundItems: useRecordingBlurRegions
@@ -664,6 +707,7 @@ Variants {
                 }
 
                 function closeKeystonePopups() {
+                    hoverIntent.cancel();
                     root.expanded = false;
                     root.showLyrics = false;
                     root.showVolume = false;
@@ -724,8 +768,19 @@ Variants {
                 }
                 clip: true
                 z: 100
-                width: targetW
-                height: targetH
+                width: styleSurface.elongated && longFrame.item ? longFrame.item.childWidth : targetW
+                height: styleSurface.elongated && longFrame.item ? longFrame.item.childHeight : targetH
+                opacity: styleSurface.elongated ? (longFrame.item ? longFrame.item.contentOpacity : 0) : 1
+                visible: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0)
+                enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0.02)
+                anchors.topMargin: styleSurface.elongated && keystoneWindow.topEdge && longFrame.item
+                                   ? longFrame.item.childOffset : 0
+                anchors.bottomMargin: styleSurface.elongated && keystoneWindow.bottomEdge && longFrame.item
+                                      ? longFrame.item.childOffset : 0
+                anchors.leftMargin: styleSurface.elongated && keystoneWindow.leftEdge && longFrame.item
+                                    ? longFrame.item.childOffset : 0
+                anchors.rightMargin: styleSurface.elongated && keystoneWindow.rightEdge && longFrame.item
+                                     ? longFrame.item.childOffset : 0
                 onAudioSessionActiveChanged: {
                     if (root.audioSessionActive) {
                         root.audioPresentationPhase = root.audioPhaseExpanded;
@@ -755,7 +810,7 @@ Variants {
                     bangsProcessingContentIn.stop();
                     root.recordingExitActive = false;
                     recordingContentIn.restart();
-                    if (styleSurface.detached) {
+                    if (styleSurface.splitRecording) {
                         pillGeometryExit.stop();
                         pillGeometryEntry.restart();
                     }
@@ -768,7 +823,7 @@ Variants {
                     processingContentIn.stop();
                     bangsProcessingContentIn.stop();
                     recordingActionOut.restart();
-                    if (styleSurface.detached) {
+                    if (styleSurface.splitRecording) {
                         pillGeometryEntry.stop();
                         root.pillActiveFusionDuration = Math.max(220, Math.round(root.pillFusionDuration
                                                                                  * root.pillMorphProgress));
@@ -780,9 +835,9 @@ Variants {
                     }
                 }
                 onBackendFinalizingChanged: {
-                    if (root.backendFinalizing && (!styleSurface.detached || root.pillMorphProgress <= 0.01)
-                            && root.processingContentProgress < 0.99) {
-                        if (styleSurface.detached)
+                    if (root.backendFinalizing && (!styleSurface.splitRecording || root.pillMorphProgress
+                                                   <= 0.01) && root.processingContentProgress < 0.99) {
+                        if (styleSurface.splitRecording)
                             processingContentIn.restart();
                         else
                             bangsProcessingContentIn.restart();
@@ -815,7 +870,7 @@ Variants {
                     pillGeometryEntry.stop();
                     pillGeometryExit.stop();
                     root.recordingExitActive = false;
-                    root.pillMorphProgress = styleSurface.detached && root.isRecording ? 1 : 0;
+                    root.pillMorphProgress = styleSurface.splitRecording && root.isRecording ? 1 : 0;
                     root.recordingInfoProgress = root.isRecording ? 1 : 0;
                     root.recordingActionProgress = root.isRecording ? 1 : 0;
                     root.processingContentProgress = root.isFinalizing ? 1 : 0;
@@ -1231,7 +1286,8 @@ Variants {
 
                     anchors.fill: parent
                     antialiasing: true
-                    opacity: styleSurface.detached && root.recordingPresentationActive ? 0 : 1
+                    opacity: styleSurface.elongated || (styleSurface.splitRecording
+                                                        && root.recordingPresentationActive) ? 0 : 1
                     onPaint: {
                         const context = getContext("2d");
                         context.reset();
@@ -1278,6 +1334,11 @@ Variants {
 
                 Connections {
                     target: PersonalizationConfig
+                    function onKeystoneHoverActionChanged() {
+                        hoverIntent.cancel();
+                        if (root.hoverOpened)
+                            keystoneWindow.closeAllOthers();
+                    }
                     function onKeystoneCapsLockOsdChanged() {
                         if (!PersonalizationConfig.keystoneCapsLockOsd && root.sliderMode === "capslock")
                             root.showVolume = false;
@@ -1357,6 +1418,7 @@ Variants {
                 Item {
                     id: staticCanvas
 
+                    enabled: !styleSurface.elongated || root.opacity > 0.1
                     anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: 1600
@@ -1583,8 +1645,9 @@ Variants {
                 }
 
                 Behavior on width {
-                    enabled: !(styleSurface.detached && root.recordingPresentationActive
-                               && keystoneWindow.horizontalEdge)
+                    enabled: !styleSurface.elongated && !(styleSurface.splitRecording
+                                                          && root.recordingPresentationActive
+                                                          && keystoneWindow.horizontalEdge)
 
                     NumberAnimation {
                         duration: root.wDuration
@@ -1594,8 +1657,9 @@ Variants {
                 }
 
                 Behavior on height {
-                    enabled: !(styleSurface.detached && root.recordingPresentationActive &&
-                               !keystoneWindow.horizontalEdge)
+                    enabled: !styleSurface.elongated && !(styleSurface.splitRecording
+                                                          && root.recordingPresentationActive &&
+                                                          !keystoneWindow.horizontalEdge)
 
                     NumberAnimation {
                         duration: root.hDuration
@@ -1628,6 +1692,7 @@ Variants {
                 vertical: !keystoneWindow.horizontalEdge
                 edge: keystoneWindow.edge
                 visible: root.audioPresentationActive || contentProgress > 0.01
+                opacity: styleSurface.elongated ? (longFrame.item ? longFrame.item.contentOpacity : 0) : 1
                 z: root.z + 3
                 onStopRequested: AudioRecordingService.stop()
                 onCollapseRequested: {
@@ -1646,7 +1711,7 @@ Variants {
                 anchors.fill: root
                 player: root.currentPlayer
                 edge: keystoneWindow.edge
-                opacity: root.isCollapsedMode ? 1 : 0
+                opacity: !styleSurface.elongated && root.isCollapsedMode ? 1 : 0
                 scale: 0.96 + 0.04 * opacity
                 visible: opacity > 0.01
                 z: root.z + 4
@@ -1672,7 +1737,7 @@ Variants {
                 id: pillRecordingPresenter
 
                 anchors.fill: root
-                visible: styleSurface.detached && root.recordingPresentationActive
+                visible: styleSurface.splitRecording && root.recordingPresentationActive
                 sourceComponent: keystoneWindow.horizontalEdge ? horizontalPillRecordingComponent :
                                                                  verticalPillRecordingComponent
                 z: root.z + 2
@@ -1733,9 +1798,11 @@ Variants {
                 anchors.centerIn: root
                 width: root.width
                 height: root.height
-                active: !styleSurface.detached && root.recordingPresentationActive
-                recording: !styleSurface.detached && root.isRecording
-                finalizing: !styleSurface.detached && root.isFinalizing
+                opacity: entryProgress * (styleSurface.elongated ? (longFrame.item
+                                                                    ? longFrame.item.contentOpacity : 0) : 1)
+                active: !styleSurface.splitRecording && root.recordingPresentationActive
+                recording: !styleSurface.splitRecording && root.isRecording
+                finalizing: !styleSurface.splitRecording && root.isFinalizing
                 recordingType: RecordingService.recordingType
                 elapsedMs: RecordingService.elapsedMs
                 recordingInfoProgress: root.recordingInfoProgress
@@ -1743,7 +1810,7 @@ Variants {
                 processingContentProgress: root.processingContentProgress
                 vertical: !keystoneWindow.horizontalEdge
                 edge: keystoneWindow.edge
-                visible: !styleSurface.detached && (active || opacity > 0.01)
+                visible: !styleSurface.splitRecording && (active || opacity > 0.01)
                 z: root.z + 2
                 onStopRequested: RecordingService.stop()
             }
@@ -1781,8 +1848,9 @@ Variants {
 
             CompositorBlurRegion {
                 targetWindow: keystoneWindow
-                backgroundItem: root.useRecordingBlurRegions ? null : root
-                additionalBackgroundItems: root.recordingBlurBackgroundItems
+                backgroundItem: styleSurface.elongated || root.useRecordingBlurRegions ? null : root
+                additionalBackgroundItems: styleSurface.elongated && longFrame.item
+                                           ? longFrame.item.blurItems : root.recordingBlurBackgroundItems
                 subtractedBackgroundItems: root.showDashboardKeyhole ? [dashboardKeyholeCutout] : []
                 postSubtractionBackgroundItems: root.showDashboardKeyhole ? hub.dashboardKeyholeGlassItems :
                                                                             []
@@ -1793,7 +1861,14 @@ Variants {
 
         mask: Region {
             Region {
-                item: maskContainer
+                item: styleSurface.elongated ? (longFrame.item ? longFrame.item.mainItem : null) :
+                                               maskContainer
+
+                radius: styleSurface.elongated ? 21 : 0
+            }
+            Region {
+                item: styleSurface.elongated && longFrame.item && longFrame.item.progress > 0.02 ? root : null
+                radius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius : 0
             }
         }
     }
