@@ -491,6 +491,17 @@ Variants {
                 }
             }
 
+            // The long main bar stays visible while its child surface is collapsed.
+            DropArea {
+                id: longCloudUploadDropArea
+                parent: styleSurface.elongated && longFrame.item ? longFrame.item.mainItem : maskContainer
+                anchors.fill: parent
+                z: 20000
+                enabled: styleSurface.elongated && !!longFrame.item && root.cloudUploadDropEnabled
+                onEntered: drag => root.enterCloudUploadDrag(drag)
+                onDropped: drop => root.acceptCloudUploadDrop(drop)
+            }
+
             KeystoneHoverController {
                 id: hoverIntent
                 triggerHovered: styleSurface.elongated ? !!longFrame.item && longFrame.item.clockHovered :
@@ -514,6 +525,38 @@ Variants {
                 id: root
 
                 property bool hoverOpened: false
+
+                readonly property bool cloudUploadDropEnabled: !contentPresentationActive && (isCollapsedMode
+                                                                                              || isHubMode)
+
+                function supportsCloudUploadDrop(event) {
+                    return cloudUploadDropEnabled && event.hasUrls && event.formats.indexOf("text/uri-list")
+                            >= 0 && CloudUploadService.hasLocalUrls(event.urls);
+                }
+
+                function enterCloudUploadDrag(drag) {
+                    drag.accepted = supportsCloudUploadDrop(drag);
+                    if (!drag.accepted)
+                        return;
+                    hoverOpened = false;
+                    hoverIntent.cancel();
+                    expanded = false;
+                    showLyrics = false;
+                    showVolume = false;
+                    showTools = false;
+                    hubTabIndex = 2;
+                    showHub = true;
+                }
+
+                function acceptCloudUploadDrop(drop) {
+                    if (!supportsCloudUploadDrop(drop)) {
+                        drop.accepted = false;
+                        return;
+                    }
+                    const addedCount = CloudUploadService.enqueueUrls(drop.urls);
+                    hub.finishCloudUploadDrop(addedCount);
+                    drop.acceptProposedAction();
+                }
 
                 function activateMouseAction(action, toggle, fromHover = false) {
                     if (action === "none" || action === "peak" || root.contentPresentationActive
@@ -1506,7 +1549,7 @@ Variants {
                         height: implicitHeight
                         player: root.currentPlayer
                         screen: keystoneWindow.screen
-                        dragActive: cloudUploadDropArea.containsDrag
+                        dragActive: cloudUploadDropArea.containsDrag || longCloudUploadDropArea.containsDrag
                         onCurrentIndexChanged: {
                             if (root.hubTabIndex !== currentIndex)
                                 root.hubTabIndex = currentIndex;
@@ -1570,32 +1613,9 @@ Variants {
 
                     anchors.fill: parent
                     z: 20000
-                    enabled: !root.contentPresentationActive && (root.isCollapsedMode || root.isHubMode)
-                    onEntered: drag => {
-                        const supportsUrls = drag.hasUrls && drag.formats.indexOf("text/uri-list") >= 0
-                              && CloudUploadService.hasLocalUrls(drag.urls);
-                        drag.accepted = enabled && supportsUrls;
-                        if (!drag.accepted)
-                            return;
-
-                        root.expanded = false;
-                        root.showLyrics = false;
-                        root.showVolume = false;
-                        root.showTools = false;
-                        root.hubTabIndex = 2;
-                        root.showHub = true;
-                    }
-                    onDropped: drop => {
-                        const supportsUrls = drop.hasUrls && drop.formats.indexOf("text/uri-list") >= 0
-                              && CloudUploadService.hasLocalUrls(drop.urls);
-                        if (!enabled || !supportsUrls) {
-                            drop.accepted = false;
-                            return;
-                        }
-                        const addedCount = CloudUploadService.enqueueUrls(drop.urls);
-                        hub.finishCloudUploadDrop(addedCount);
-                        drop.acceptProposedAction();
-                    }
+                    enabled: root.cloudUploadDropEnabled
+                    onEntered: drag => root.enterCloudUploadDrag(drag)
+                    onDropped: drop => root.acceptCloudUploadDrop(drop)
                 }
 
                 Connections {
