@@ -570,6 +570,7 @@ Variants {
                 property bool componentReady: false
                 property bool pillStopFusionMinimumActive: false
                 readonly property bool backendFinalizing: RecordingService.isFinalizing
+                readonly property bool gifRecording: RecordingService.recordingType === "gif"
                 readonly property bool stopPresentationActive: RecordingService.isStopPending || (
                                                                    styleSurface.splitRecording
                                                                    && pillStopFusionMinimumActive)
@@ -625,7 +626,7 @@ Variants {
                 property real recordingInfoProgress: 0
                 property real recordingActionProgress: 0
                 property real processingContentProgress: 0
-                readonly property int pillEntryDuration: 1000
+                readonly property int pillEntryDuration: 900
                 readonly property int pillFusionDuration: 820
                 property int pillActiveFusionDuration: pillFusionDuration
                 property int notifW: 380
@@ -635,20 +636,14 @@ Variants {
                 property color color: BlurService.backgroundColor(Appearance.colors.colLayer0)
                 readonly property QtObject activeLayout: keystoneWindow.horizontalEdge ? horizontalLayout :
                                                                                          verticalLayout
-                readonly property real recordingVisualWidth: styleSurface.elongated ? (
-                                                                                          keystoneWindow.horizontalEdge
-                                                                                          ? 260 : 56) :
-                                                                                      styleSurface.splitRecording
-                                                                                      && pillRecordingPresenter.item
-                                                                                      ? pillRecordingPresenter.item.implicitWidth :
-                                                                                        activeLayout.attachedRecordingWidth
-                readonly property real recordingVisualHeight: styleSurface.elongated ? (
-                                                                                           keystoneWindow.horizontalEdge
-                                                                                           ? 56 : 260) :
-                                                                                       styleSurface.splitRecording
-                                                                                       && pillRecordingPresenter.item
-                                                                                       ? pillRecordingPresenter.item.implicitHeight :
-                                                                                         activeLayout.attachedRecordingHeight
+                readonly property real recordingVisualWidth: styleSurface.splitRecording
+                                                             && pillRecordingPresenter.item
+                                                             ? pillRecordingPresenter.item.implicitWidth :
+                                                               activeLayout.attachedRecordingWidth
+                readonly property real recordingVisualHeight: styleSurface.splitRecording
+                                                              && pillRecordingPresenter.item
+                                                              ? pillRecordingPresenter.item.implicitHeight :
+                                                                activeLayout.attachedRecordingHeight
                 readonly property bool useRecordingBlurRegions: styleSurface.splitRecording
                                                                 && root.recordingPresentationActive
                                                                 && pillRecordingPresenter.item !== null
@@ -781,19 +776,6 @@ Variants {
                 width: styleSurface.elongated && longFrame.item ? longFrame.item.childWidth : targetW
                 height: styleSurface.elongated && longFrame.item ? longFrame.item.childHeight : targetH
                 opacity: styleSurface.elongated ? (longFrame.item ? longFrame.item.contentOpacity : 0) : 1
-                // Capture only the clipped child surface during its motion;
-                // release the effect texture once the content has settled.
-                layer.enabled: styleSurface.elongated && !!longFrame.item && longFrame.item.progress > 0
-                               && longFrame.item.contentBlur > 0.001
-                layer.effect: GaussianBlur {
-                    // Fixed weights/sample count avoid shader rebuilding as
-                    // the animated radius changes the sampling spread.
-                    samples: 37
-                    deviation: 6
-                    radius: 18 * (longFrame.item ? longFrame.item.contentBlur : 0)
-                    transparentBorder: false
-                    cached: false
-                }
                 visible: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0)
                 enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0.02)
                 anchors.topMargin: styleSurface.elongated && keystoneWindow.topEdge && longFrame.item
@@ -845,7 +827,6 @@ Variants {
                     pillRecordingInfoOut.stop();
                     bangsRecordingInfoOut.stop();
                     processingContentIn.stop();
-                    bangsProcessingContentIn.stop();
                     root.recordingExitActive = false;
                     recordingContentIn.restart();
                     if (styleSurface.splitRecording) {
@@ -859,7 +840,6 @@ Variants {
 
                     recordingContentIn.stop();
                     processingContentIn.stop();
-                    bangsProcessingContentIn.stop();
                     recordingActionOut.restart();
                     if (styleSurface.splitRecording) {
                         pillGeometryEntry.stop();
@@ -867,19 +847,16 @@ Variants {
                                                                                  * root.pillMorphProgress));
                         pillRecordingInfoOut.restart();
                         pillGeometryExit.restart();
-                    } else {
+                    } else if (root.gifRecording) {
                         bangsRecordingInfoOut.restart();
-                        bangsProcessingContentIn.restart();
+                        processingContentIn.restart();
                     }
                 }
                 onBackendFinalizingChanged: {
-                    if (root.backendFinalizing && (!styleSurface.splitRecording || root.pillMorphProgress
-                                                   <= 0.01) && root.processingContentProgress < 0.99) {
-                        if (styleSurface.splitRecording)
-                            processingContentIn.restart();
-                        else
-                            bangsProcessingContentIn.restart();
-                    }
+                    if (root.gifRecording && root.backendFinalizing && (!styleSurface.splitRecording
+                                                                        || root.pillMorphProgress <= 0.01)
+                            && root.processingContentProgress < 0.99)
+                        processingContentIn.restart();
                 }
                 onIsRecordingModeChanged: {
                     if (root.isRecordingMode)
@@ -889,7 +866,18 @@ Variants {
                     pillRecordingInfoOut.stop();
                     bangsRecordingInfoOut.stop();
                     processingContentIn.stop();
-                    bangsProcessingContentIn.stop();
+                    if (!styleSurface.splitRecording) {
+                        // Backend completion starts the geometry exit immediately;
+                        // don't add a processing/fade-out presentation beforehand.
+                        recordingContentIn.stop();
+                        recordingActionOut.stop();
+                        recordingPresentationOut.stop();
+                        root.recordingInfoProgress = 0;
+                        root.recordingActionProgress = 0;
+                        root.processingContentProgress = 0;
+                        root.recordingExitActive = false;
+                        return;
+                    }
                     root.recordingExitActive = true;
                     recordingPresentationOut.restart();
                 }
@@ -904,14 +892,15 @@ Variants {
                     pillRecordingInfoOut.stop();
                     bangsRecordingInfoOut.stop();
                     processingContentIn.stop();
-                    bangsProcessingContentIn.stop();
                     pillGeometryEntry.stop();
                     pillGeometryExit.stop();
                     root.recordingExitActive = false;
                     root.pillMorphProgress = styleSurface.splitRecording && root.isRecording ? 1 : 0;
-                    root.recordingInfoProgress = root.isRecording ? 1 : 0;
+                    root.recordingInfoProgress = root.isRecording || (!styleSurface.splitRecording
+                                                                      && root.isFinalizing &&
+                                                                      !root.gifRecording) ? 1 : 0;
                     root.recordingActionProgress = root.isRecording ? 1 : 0;
-                    root.processingContentProgress = root.isFinalizing ? 1 : 0;
+                    root.processingContentProgress = root.gifRecording && root.isFinalizing ? 1 : 0;
                     root.audioPresentationPhase = root.audioSessionActive ? root.audioPhaseExpanded :
                                                                             root.audioPhaseHidden;
                     if (root.audioSessionActive)
@@ -1169,7 +1158,8 @@ Variants {
                     duration: root.pillActiveFusionDuration
                     easing.type: Easing.Linear
                     onFinished: {
-                        const shouldShowProcessing = root.backendFinalizing || RecordingService.isStopPending;
+                        const shouldShowProcessing = root.gifRecording && (root.backendFinalizing
+                                                                           || RecordingService.isStopPending);
                         root.pillStopFusionMinimumActive = false;
                         if (shouldShowProcessing)
                             processingContentIn.restart();
@@ -1181,27 +1171,10 @@ Variants {
 
                     target: root
                     property: "processingContentProgress"
-                    to: 1
+                    to: root.gifRecording ? 1 : 0
                     duration: Appearance.animation.expressiveSlowEffects.duration
                     easing.type: Appearance.animation.expressiveSlowEffects.type
                     easing.bezierCurve: Appearance.animation.expressiveSlowEffects.bezierCurve
-                }
-
-                SequentialAnimation {
-                    id: bangsProcessingContentIn
-
-                    PauseAnimation {
-                        duration: Appearance.animation.emphasizedAccel.duration
-                    }
-
-                    NumberAnimation {
-                        target: root
-                        property: "processingContentProgress"
-                        to: 1
-                        duration: Appearance.animation.expressiveSlowEffects.duration
-                        easing.type: Appearance.animation.expressiveSlowEffects.type
-                        easing.bezierCurve: Appearance.animation.expressiveSlowEffects.bezierCurve
-                    }
                 }
 
                 ParallelAnimation {
@@ -1254,7 +1227,6 @@ Variants {
                         pillRecordingInfoOut.stop();
                         bangsRecordingInfoOut.stop();
                         processingContentIn.stop();
-                        bangsProcessingContentIn.stop();
                         pillGeometryEntry.stop();
                         pillGeometryExit.stop();
                         root.pillMorphProgress = 0;
@@ -1912,7 +1884,6 @@ Variants {
                 subtractedBackgroundItems: root.showDashboardKeyhole ? [dashboardKeyholeCutout] : []
                 postSubtractionBackgroundItems: root.showDashboardKeyhole ? hub.dashboardKeyholeGlassItems :
                                                                             []
-                postSubtractionClipItem: root.showDashboardKeyhole ? dashboardKeyholeCutout : null
                 radius: root.radius
             }
         }

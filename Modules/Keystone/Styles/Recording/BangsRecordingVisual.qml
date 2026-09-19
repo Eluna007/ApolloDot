@@ -50,8 +50,8 @@ Item {
         visible: opacity > 0.01
 
         Item {
-            width: root.vertical ? 42 : 30
-            height: root.vertical ? 30 : 42
+            width: 42
+            height: 42
 
             Rectangle {
                 anchors.centerIn: parent

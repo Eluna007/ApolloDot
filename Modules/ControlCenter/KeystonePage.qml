@@ -270,24 +270,14 @@ Item {
                     declaration:
                         '{"id":"keystone.section.keyhole","route":"keystone","title":"Keyhole","context":"KeystonePage","icon":"settings","aliases":[]}'
                 }
-                iconName: "view_carousel"
+                iconName: "dashboard"
 
-                SortableMultiSelectField {
-                    id: keyholeCardsField
-
-                    Layout.fillWidth: true
-                    Layout.leftMargin: Metrics.spacingS
-                    Layout.rightMargin: Metrics.spacingS
-                    values: PersonalizationConfig.keystoneKeyholeCards
+                SearchSelectSettingRow {
+                    title: qsTr("Card")
+                    closeOnAccept: true
                     options: PersonalizationConfig.keystoneKeyholeCardOptions
-                    zone: "keyhole"
-                    dragCoordinator: keyholeDragCoordinator
-                    onToggled: cardId => {
-                        return PersonalizationConfig.toggleKeystoneKeyholeCard(cardId);
-                    }
-                    onRemoved: cardId => {
-                        return PersonalizationConfig.removeKeystoneKeyholeCard(cardId);
-                    }
+                    value: PersonalizationConfig.keystoneKeyholeCard
+                    onAccepted: value => PersonalizationConfig.setKeystoneKeyholeCard(value)
                 }
             }
 
@@ -407,18 +397,6 @@ Item {
                                                                                                    targetIndex)
     }
 
-    BarLayoutDragCoordinator {
-        id: keyholeDragCoordinator
-
-        anchors.fill: parent
-        z: 1000
-        fields: [keyholeCardsField]
-        onDropped: (cardId, targetZone, targetIndex) => {
-            if (targetZone === "keyhole")
-                PersonalizationConfig.moveKeystoneKeyholeCard(cardId, targetIndex);
-        }
-    }
-
     FilePickerWindow {
         id: directoryPicker
 
@@ -501,6 +479,7 @@ Item {
         property string value: ""
         property string placeholder: ""
         property int fieldWidth: 240
+        property bool closeOnAccept: false
 
         signal accepted(string value)
 
@@ -543,6 +522,7 @@ Item {
                 Layout.preferredHeight: 40
                 Layout.alignment: Qt.AlignVCenter
                 options: selectRow.options
+                closeOnAccept: selectRow.closeOnAccept
                 value: selectRow.value
                 placeholder: selectRow.placeholder
                 textRole: "label"

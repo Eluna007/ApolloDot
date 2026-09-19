@@ -5398,6 +5398,11 @@ Scroll to adjust</translation>
         <source>Middle click</source>
         <translation>Middle click</translation>
     </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="276"/>
+        <source>Card</source>
+        <translation>Card</translation>
+    </message>
 </context>
 <context>
     <name>LanguageAndRegionPage</name>

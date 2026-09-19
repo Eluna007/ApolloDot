@@ -342,22 +342,20 @@ Singleton {
     property int cursorHideAfterInactiveMs: 0
     property string iconTheme: ""
     property string keystoneStyle: "bangs"
-    readonly property var keystoneKeyholeCardIds: ["weather", "quickSettings", "pomodoro"]
-    readonly property var defaultKeystoneKeyholeCards: root.keystoneKeyholeCardIds.slice()
-    readonly property var keystoneKeyholeCardOptions: [({
-                                                            "value": "weather",
-                                                            "label": qsTr("Weather"),
-                                                            "icon": "partly_cloudy_day"
-                                                        }), ({
-                                                                 "value": "quickSettings",
-                                                                 "label": qsTr("Quick Settings"),
-                                                                 "icon": "tune"
-                                                             }), ({
-                                                                      "value": "pomodoro",
-                                                                      "label": qsTr("Pomodoro"),
-                                                                      "icon": "timer"
-                                                                  })]
-    property var keystoneKeyholeCards: root.defaultKeystoneKeyholeCards.slice()
+    readonly property var keystoneKeyholeCardIds: ["weather", "pomodoro"]
+    readonly property var keystoneKeyholeCardOptions: [
+        {
+            "value": "weather",
+            "label": qsTr("Weather"),
+            "icon": "partly_cloudy_day"
+        },
+        {
+            "value": "pomodoro",
+            "label": qsTr("Pomodoro"),
+            "icon": "timer"
+        }
+    ]
+    property string keystoneKeyholeCard: "weather"
     property string barPosition: "top"
     readonly property var barComponentIds: ["workspaces", "information", "activeWindow", "media", "tray",
         "systemMonitor", "quickSettings"]
@@ -1540,56 +1538,18 @@ Singleton {
         setValue("keystonePosition", normalizedEdgePosition(value));
     }
 
-    function normalizedKeystoneKeyholeCards(raw) {
-        const source = Array.isArray(raw) ? raw : root.defaultKeystoneKeyholeCards;
-        const result = [];
-        for (let index = 0; index < source.length; index += 1) {
-            const cardId = String(source[index] || "");
-            if (root.keystoneKeyholeCardIds.indexOf(cardId) === -1 || result.indexOf(cardId) !== -1)
-                continue;
-
-            result.push(cardId);
+    function normalizedKeystoneKeyholeCard(raw) {
+        // Migrate the old ordered selection, skipping the removed quick-settings card.
+        const candidates = Array.isArray(raw) ? raw : [raw];
+        for (const candidate of candidates) {
+            if (root.keystoneKeyholeCardIds.indexOf(candidate) !== -1)
+                return candidate;
         }
-        return result;
+        return "weather";
     }
 
-    function moveKeystoneKeyholeCard(cardId, targetIndex) {
-        const id = String(cardId || "");
-        if (root.keystoneKeyholeCardIds.indexOf(id) === -1)
-            return false;
-
-        const cards = root.normalizedKeystoneKeyholeCards(root.keystoneKeyholeCards).filter(value => {
-            return value !== id;
-        });
-        const numericIndex = Number(targetIndex);
-        const insertionIndex = isFinite(numericIndex) ? Math.max(0, Math.min(cards.length, Math.round(
-                                                                                 numericIndex))) :
-                                                        cards.length;
-        cards.splice(insertionIndex, 0, id);
-        root.keystoneKeyholeCards = cards;
-        root.save();
-        return true;
-    }
-
-    function removeKeystoneKeyholeCard(cardId) {
-        const id = String(cardId || "");
-        const cards = root.keystoneKeyholeCards.filter(value => {
-            return value !== id;
-        });
-        if (cards.length === root.keystoneKeyholeCards.length)
-            return false;
-
-        root.keystoneKeyholeCards = root.normalizedKeystoneKeyholeCards(cards);
-        root.save();
-        return true;
-    }
-
-    function toggleKeystoneKeyholeCard(cardId) {
-        const id = String(cardId || "");
-        if (root.keystoneKeyholeCards.indexOf(id) !== -1)
-            return root.removeKeystoneKeyholeCard(id);
-
-        return root.moveKeystoneKeyholeCard(id, root.keystoneKeyholeCards.length);
+    function setKeystoneKeyholeCard(value) {
+        setValue("keystoneKeyholeCard", root.normalizedKeystoneKeyholeCard(value));
     }
 
     function setKeystoneCapsLockOsd(value) {
@@ -1779,7 +1739,7 @@ Singleton {
                 "leftClickAction": root.keystoneLeftClickAction,
                 "middleClickAction": root.keystoneMiddleClickAction,
                 "keyhole": {
-                    "cards": root.keystoneKeyholeCards.slice()
+                    "card": root.keystoneKeyholeCard
                 },
                 "horizontalClock": {
                     "fontSize": root.horizontalClockFontSize,
@@ -1908,7 +1868,8 @@ Singleton {
                                                         "media");
         root.keystoneMiddleClickAction = normalizedOption(root.keystoneActionOptions,
                                                           keystone.middleClickAction, "lyrics");
-        root.keystoneKeyholeCards = root.normalizedKeystoneKeyholeCards(keyhole.cards);
+        root.keystoneKeyholeCard = root.normalizedKeystoneKeyholeCard(keyhole.card !== undefined
+                                                                      ? keyhole.card : keyhole.cards);
         root.horizontalClockFontSize = root.normalizedBoundedInt(horizontalClock.fontSize, 22, 16, 28);
         root.horizontalClockAxes = root.normalizedHorizontalClockAxes(horizontalClock.axes);
         root.horizontalClockDigits = root.normalizedHorizontalClockDigits(horizontalClock.digits);

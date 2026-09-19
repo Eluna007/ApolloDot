@@ -75,10 +75,6 @@ Item {
                                                          legPose.opacity - smoothStep((legStart - 0.12)
                                                                                       / 0.38))
                                                      * openingCorrection
-    // Soften clipped content only while the island is small. Deriving this
-    // from the visible geometry keeps reversals continuous and clears the
-    // content well before the full-size panel finishes settling.
-    readonly property real contentBlur: 1 - smoothStep((Math.min(alongGrowth, inwardGrowth) - 0.15) / 0.45)
     readonly property real contentOffset: 10 * (1 - Math.min(1, inwardGrowth))
     readonly property real separation: Math.max(0, childOffset - thickness)
     // Expose the neck with the pill, then release it while both motion and
@@ -159,7 +155,7 @@ Item {
         Qt.callLater(updateSize);
         // Set timing before starting: a Behavior on a state-bound progress
         // can start with the previous state's duration during binding updates.
-        progressAnimation.duration = expanded ? 780 : 300;
+        progressAnimation.duration = expanded ? 580 : 210;
         progressAnimation.to = expanded ? 1 : 0;
         progressAnimation.start();
     }
