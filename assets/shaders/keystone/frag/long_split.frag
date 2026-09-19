@@ -50,20 +50,15 @@ void main()
         ubuf.satelliteSize * 0.5,
         ubuf.satelliteRadius
     );
-    // Localize the smooth union around the clock. A uniform blend between
-    // two long, flat edges creates a wide sheet instead of a liquid neck.
-    bool horizontal = ubuf.mainSize.x >= ubuf.mainSize.y;
-    float crossAxis = horizontal ? pixel.x - ubuf.satelliteCenter.x
-                                : pixel.y - ubuf.satelliteCenter.y;
-    float pillSpan = horizontal ? ubuf.satelliteSize.x : ubuf.satelliteSize.y;
-    float neckSpan = clamp(pillSpan * 0.18, 28.0, 48.0);
-    float normalizedCrossAxis = crossAxis / neckSpan;
-    float neckWeight = exp(-normalizedCrossAxis * normalizedCrossAxis);
-    float distanceToSurface = smoothMinimum(
-        mainDistance,
+    // Blend with the circular seed buried underneath the clock, then union
+    // with the unchanged bar. Like the recording/Spotlight lobes, this gives
+    // the neck a natural rounded contour rather than a weighted flat bridge.
+    float seedDistance = length(pixel - ubuf.mainCenter) - ubuf.mainRadius;
+    float distanceToSurface = min(mainDistance, smoothMinimum(
+        seedDistance,
         satelliteDistance,
-        ubuf.blendRadius * neckWeight
-    );
+        ubuf.blendRadius
+    ));
     if (ubuf.cutoutRect.z > 0.0) {
         float cutoutDistance = roundedBoxDistance(
             pixel - ubuf.cutoutRect.xy - ubuf.cutoutRect.zw * 0.5,

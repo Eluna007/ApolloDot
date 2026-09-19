@@ -32,25 +32,26 @@ Item {
     property real progress: expanded ? 1 : 0
     property real heldWidth: pillWidth
     property real heldHeight: pillHeight
-    readonly property real alongGrowth: 0.10 * stage(0.10, 0.44) + 0.90 * stage(0.44, 0.86)
-    readonly property real inwardGrowth: 0.06 * stage(0.18, 0.48) + 0.94 * stage(0.50, 0.88)
-    readonly property real stretch: Math.sin(Math.PI * stage(0.02, 0.58))
-    readonly property real settle: settlingWave()
+    // As in Spotlight, overlapping damped responses keep velocity through
+    // emergence, separation and expansion instead of stopping at each pose.
+    readonly property real travel: response(0, 6.4, 7.2)
+    readonly property real alongGrowth: response(0.025, 6.8, 5.8)
+    readonly property real inwardGrowth: response(0.055, 6.4, 5.4)
     readonly property real childWidth: pillWidth + (heldWidth - pillWidth) * (horizontal ? alongGrowth :
-                                                                                           inwardGrowth) + (
-                                           horizontal ? -6 : 8) * stretch + heldWidth * 0.012 * settle
+                                                                                           inwardGrowth)
     readonly property real childHeight: pillHeight + (heldHeight - pillHeight) * (horizontal ? inwardGrowth :
-                                                                                               alongGrowth) + (
-                                            horizontal ? 8 : -6) * stretch - heldHeight * 0.008 * settle
-    readonly property real childOffset: (thickness + gap) * stage(0, 0.66) + 4 * settle
-    readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, 21 + 3 * stage(0.38, 0.88))
-    readonly property real contentOpacity: stage(0.44, 0.86)
-    readonly property real contentBlur: 0.7 * (1 - stage(0.48, 0.92))
-    readonly property real contentOffset: 12 * (1 - stage(0.44, 0.90))
-    // Stay connected while the pill is visibly separated, then pinch off
-    // before the large panel grows. Reverse progress retraces the same pose.
+                                                                                               alongGrowth)
+    readonly property real childOffset: (thickness + gap) * travel
+    readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, 21 + 3 * Math.min(1,
+                                                                                                    inwardGrowth))
+    readonly property real contentOpacity: stage(0.12, 0.50)
+    readonly property real contentBlur: 0.32 * (1 - contentOpacity)
+    readonly property real contentOffset: 10 * (1 - Math.min(1, inwardGrowth))
     readonly property real separation: Math.max(0, childOffset - thickness)
-    readonly property real blendRadius: (30 + 2.3 * separation) * stage(0.04, 0.22) * (1 - stage(0.46, 0.66))
+    // Expose the neck with the pill, then release it while both motion and
+    // growth continue. The SDF itself determines when contact breaks.
+    readonly property real blendRadius: 56 * smoothStep(childOffset / thickness) * (1 - stage(0.25, 0.65))
+    readonly property real cutoutReveal: stage(0.20, 0.65)
     readonly property alias mainItem: mainBar
     readonly property bool clockHovered: mainBar.clockHovered
     readonly property bool mainHovered: mainBar.hovered
@@ -68,10 +69,18 @@ Item {
         return smoothStep((progress - start) / (end - start));
     }
 
-    function settlingWave() {
-        const time = Math.max(0, Math.min(1, (progress - 0.84) / 0.16));
-        const envelope = Math.sin(Math.PI * time);
-        return Math.sin(2 * Math.PI * time) * envelope * envelope;
+    // Zero initial velocity, a small natural overshoot, and an exact endpoint.
+    // Keeping the response a function of progress also preserves the pose on
+    // interruption; closing retraces the same surface without resetting it.
+    function response(delay, decay, frequency) {
+        const time = Math.max(0, Math.min(1, progress) - delay);
+        const end = 1 - delay;
+        const phase = decay / frequency;
+        const value = 1 - Math.exp(-decay * time) * (Math.cos(frequency * time) + phase * Math.sin(frequency
+                                                                                                   * time));
+        const terminal = 1 - Math.exp(-decay * end) * (Math.cos(frequency * end) + phase * Math.sin(frequency
+                                                                                                    * end));
+        return value / terminal;
     }
 
     function updateSize() {
@@ -97,7 +106,7 @@ Item {
 
     Behavior on progress {
         NumberAnimation {
-            duration: root.expanded ? 900 : 700
+            duration: root.expanded ? 780 : 560
             easing.type: Easing.Linear
         }
     }
@@ -199,11 +208,14 @@ Item {
         property real satelliteRadius: root.childRadius
         property real blendRadius: root.blendRadius
         property real edgeSoftness: 0.8
-        property vector4d cutoutRect: Qt.vector4d(root.childItem.x + root.cutoutItem.x + 24, root.childItem.y
-                                                  + root.cutoutItem.y + 24, root.cutoutVisible
-                                                  && root.progress > 0.78 ? root.cutoutItem.width : 0,
-                                                  root.cutoutItem.height)
-        property real cutoutRadius: 24
+        property vector4d cutoutRect: Qt.vector4d(root.childItem.x + root.cutoutItem.x + 24
+                                                  + root.cutoutItem.width * (1 - root.cutoutReveal) / 2,
+                                                  root.childItem.y + root.cutoutItem.y + 24
+                                                  + root.cutoutItem.height * (1 - root.cutoutReveal) / 2,
+                                                  root.cutoutVisible ? root.cutoutItem.width
+                                                                       * root.cutoutReveal : 0,
+                                                  root.cutoutItem.height * root.cutoutReveal)
+        property real cutoutRadius: Math.min(24, cutoutRect.z / 2, cutoutRect.w / 2)
         fragmentShader: Paths.fileUrl(Paths.assetsDir + "/shaders/keystone/qsb/long_split.frag.qsb")
     }
 }
