@@ -628,7 +628,9 @@ Variants {
                 readonly property bool dashboardTabActive: isHubMode && hubTabIndex === 0
                 readonly property string dashboardUptimeOwner: "keystone-dashboard:" + String(
                                                                    keystoneWindow.modelData.name || "default")
-                readonly property bool showDashboardKeyhole: dashboardTabActive
+                // The hub remains visible while fading out after its mode is dismissed.
+                // Keep its cutout and blur subtraction until the card is hidden too.
+                readonly property bool showDashboardKeyhole: hub.currentIndex === 0 && hub.visible
                 property real pillMorphProgress: 0
                 property real recordingInfoProgress: 0
                 property real recordingActionProgress: 0
