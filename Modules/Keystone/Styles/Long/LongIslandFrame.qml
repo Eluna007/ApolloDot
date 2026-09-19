@@ -30,13 +30,39 @@ Item {
     readonly property real pillWidth: horizontal ? 220 : 42
     readonly property real pillHeight: horizontal ? 42 : 220
     property real progress: expanded ? 1 : 0
+    // Capture the visible pose when changing direction. Closing uses a single
+    // contraction curve instead of playing the opening spring backwards.
+    property bool closing: false
+    property real legStart: 0
+    property var legPose: ({
+                               travel: 0,
+                               along: 0,
+                               inward: 0,
+                               opacity: 0,
+                               cutout: 0,
+                               blend: 0
+                           })
+    readonly property real closingRemaining: smoothStep(progress / Math.max(0.0001, legStart))
+    readonly property real openingCorrection: 1 - stage(legStart, Math.max(legStart + 0.0001, 1))
     property real heldWidth: pillWidth
     property real heldHeight: pillHeight
     // As in Spotlight, overlapping damped responses keep velocity through
     // emergence, separation and expansion instead of stopping at each pose.
-    readonly property real travel: response(0, 6.4, 7.2)
-    readonly property real alongGrowth: response(0.025, 6.8, 5.8)
-    readonly property real inwardGrowth: response(0.055, 6.4, 5.4)
+    readonly property real travel: closing ? legPose.travel * closingRemaining : response(0, 6.4, 7.2) + (
+                                                 legPose.travel - response(0, 6.4, 7.2, legStart))
+                                             * openingCorrection
+    readonly property real alongGrowth: closing ? legPose.along * closingRemaining : response(0.025, 6.8,
+                                                                                              5.8) + (legPose.along
+                                                                                                      - response(
+                                                                                                          0.025, 6.8,
+                                                                                                          5.8, legStart))
+                                                  * openingCorrection
+    readonly property real inwardGrowth: closing ? legPose.inward * closingRemaining : response(0.055, 6.4,
+                                                                                                5.4) + (legPose.inward
+                                                                                                        - response(
+                                                                                                            0.055, 6.4,
+                                                                                                            5.4, legStart))
+                                                   * openingCorrection
     readonly property real childWidth: pillWidth + (heldWidth - pillWidth) * (horizontal ? alongGrowth :
                                                                                            inwardGrowth)
     readonly property real childHeight: pillHeight + (heldHeight - pillHeight) * (horizontal ? inwardGrowth :
@@ -44,14 +70,24 @@ Item {
     readonly property real childOffset: (thickness + gap) * travel
     readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, 21 + 3 * Math.min(1,
                                                                                                     inwardGrowth))
-    readonly property real contentOpacity: stage(0.12, 0.50)
+    readonly property real contentOpacity: closing ? legPose.opacity * closingRemaining : stage(0.12, 0.50) + (
+                                                         legPose.opacity - smoothStep((legStart - 0.12)
+                                                                                      / 0.38))
+                                                     * openingCorrection
     readonly property real contentBlur: 0.32 * (1 - contentOpacity)
     readonly property real contentOffset: 10 * (1 - Math.min(1, inwardGrowth))
     readonly property real separation: Math.max(0, childOffset - thickness)
     // Expose the neck with the pill, then release it while both motion and
     // growth continue. The SDF itself determines when contact breaks.
-    readonly property real blendRadius: 56 * smoothStep(childOffset / thickness) * (1 - stage(0.25, 0.65))
-    readonly property real cutoutReveal: stage(0.20, 0.65)
+    readonly property real blendRadius: closing ? legPose.blend * closingRemaining + 56 * Math.sin(Math.PI
+                                                                                                   * closingRemaining)
+                                                  * smoothStep(childOffset / thickness) : openingBlend(
+                                                      progress, travel) + (legPose.blend - openingBlend(
+                                                                               legStart, legPose.travel))
+                                                  * openingCorrection
+    readonly property real cutoutReveal: closing ? legPose.cutout * closingRemaining : stage(0.20, 0.65) + (
+                                                       legPose.cutout - smoothStep((legStart - 0.20) / 0.45))
+                                                   * openingCorrection
     readonly property alias mainItem: mainBar
     readonly property bool clockHovered: mainBar.clockHovered
     readonly property bool mainHovered: mainBar.hovered
@@ -70,10 +106,9 @@ Item {
     }
 
     // Zero initial velocity, a small natural overshoot, and an exact endpoint.
-    // Keeping the response a function of progress also preserves the pose on
-    // interruption; closing retraces the same surface without resetting it.
-    function response(delay, decay, frequency) {
-        const time = Math.max(0, Math.min(1, progress) - delay);
+    // A decaying correction preserves the current pose when reopening midway.
+    function response(delay, decay, frequency, position = progress) {
+        const time = Math.max(0, Math.min(1, position) - delay);
         const end = 1 - delay;
         const phase = decay / frequency;
         const value = 1 - Math.exp(-decay * time) * (Math.cos(frequency * time) + phase * Math.sin(frequency
@@ -83,6 +118,11 @@ Item {
         return value / terminal;
     }
 
+    function openingBlend(position, travelValue) {
+        return 56 * smoothStep((thickness + gap) * travelValue / thickness) * (1 - smoothStep((position
+                                                                                               - 0.25) / 0.40));
+    }
+
     function updateSize() {
         if (!expanded)
             return;
@@ -90,13 +130,26 @@ Item {
         heldHeight = Math.min(targetHeight, availableChildHeight);
     }
 
-    onAvailableChildWidthChanged: updateSize()
-    onAvailableChildHeightChanged: updateSize()
-    onTargetWidthChanged: updateSize()
-    onTargetHeightChanged: updateSize()
+    // Coalesce layout changes so a collapsed target cannot replace the held
+    // expanded size before the expanded binding has caught up in this turn.
+    onAvailableChildWidthChanged: Qt.callLater(updateSize)
+    onAvailableChildHeightChanged: Qt.callLater(updateSize)
+    onTargetWidthChanged: Qt.callLater(updateSize)
+    onTargetHeightChanged: Qt.callLater(updateSize)
     onExpandedChanged: {
-        if (expanded)
-            Qt.callLater(updateSize);
+        const pose = {
+            travel,
+            along: alongGrowth,
+            inward: inwardGrowth,
+            opacity: contentOpacity,
+            cutout: cutoutReveal,
+            blend: blendRadius
+        };
+        const start = progress;
+        legPose = pose;
+        legStart = start;
+        closing = !expanded;
+        Qt.callLater(updateSize);
     }
     Component.onCompleted: updateSize()
 
@@ -106,7 +159,7 @@ Item {
 
     Behavior on progress {
         NumberAnimation {
-            duration: root.expanded ? 780 : 560
+            duration: root.expanded ? 780 : 420
             easing.type: Easing.Linear
         }
     }
