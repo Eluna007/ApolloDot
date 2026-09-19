@@ -11,6 +11,8 @@ Item {
     property var additionalBackgroundItems: []
     property var subtractedBackgroundItems: []
     property var postSubtractionBackgroundItems: []
+    // Clip restored glass to the currently visible surface, not its final layout.
+    property Item postSubtractionClipItem: null
     property bool blurEnabled: true
     property bool compositorEnabled: BlurService.enabled
     property real radius: 0
@@ -116,9 +118,10 @@ Item {
         const postSubtractionRegions = [];
         const postSubtractionItems = root.allPostSubtractionBackgroundItems();
         for (let index = 0; index < postSubtractionItems.length; ++index) {
-            const region = itemRegionComponent.createObject(combinedRegion, {
-                                                                "sourceItem": postSubtractionItems[index]
-                                                            });
+            const region = clippedItemRegionComponent.createObject(combinedRegion, {
+                                                                       "sourceItem":
+                                                                       postSubtractionItems[index]
+                                                                   });
             if (region)
                 postSubtractionRegions.push(region);
         }
@@ -168,6 +171,7 @@ Item {
     onAdditionalBackgroundItemsChanged: rebuildRegions()
     onSubtractedBackgroundItemsChanged: rebuildRegions()
     onPostSubtractionBackgroundItemsChanged: rebuildRegions()
+    onPostSubtractionClipItemChanged: publish()
     onClipItemChanged: rebuildRegions()
     onSubmittedRegionChanged: publish()
 
@@ -289,6 +293,43 @@ Item {
                                                                                  sourceItem.radius)) :
                                                                     Math.max(0, Math.round(root.radius))
             intersection: Intersection.Subtract
+        }
+    }
+    Component {
+        id: clippedItemRegionComponent
+
+        Region {
+            required property Item sourceItem
+            intersection: Intersection.Combine
+            onChanged: root.publish()
+
+            property TransformWatcher sourceWatcher: TransformWatcher {
+                a: root.targetWindow ? root.targetWindow.contentItem : null
+                b: sourceItem
+                onTransformChanged: root.publish()
+            }
+            property TransformWatcher viewportWatcher: TransformWatcher {
+                a: root.targetWindow ? root.targetWindow.contentItem : null
+                b: root.postSubtractionClipItem
+                onTransformChanged: root.publish()
+            }
+
+            Region {
+                item: sourceItem && sourceItem.visible && sourceItem.opacity > 0 && sourceItem.width > 0
+                      && sourceItem.height > 0 ? sourceItem : null
+                radius: sourceItem && sourceItem.radius !== undefined ? sourceItem.radius : root.radius
+                intersection: Intersection.Combine
+                onChanged: root.publish()
+            }
+            Region {
+                item: root.postSubtractionClipItem && root.postSubtractionClipItem.visible
+                      && root.postSubtractionClipItem.width > 0 && root.postSubtractionClipItem.height > 0
+                      ? root.postSubtractionClipItem : null
+                radius: root.postSubtractionClipItem && root.postSubtractionClipItem.radius !== undefined
+                        ? root.postSubtractionClipItem.radius : root.radius
+                intersection: root.postSubtractionClipItem ? Intersection.Intersect : Intersection.Combine
+                onChanged: root.publish()
+            }
         }
     }
 }

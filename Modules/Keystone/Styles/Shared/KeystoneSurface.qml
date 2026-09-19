@@ -222,7 +222,6 @@ Variants {
             id: shadowSource
 
             anchors.fill: maskContainer
-            visible: false
 
             AttachedEdgeCurve {
                 id: shadowLeftTopCurve
@@ -307,19 +306,18 @@ Variants {
                     }
                 ]
 
-                Rectangle {
-                    id: solidShadowBg
-
-                    anchors.fill: parent
-                    topLeftRadius: styleSurface.detached || (!keystoneWindow.topEdge &&
-                                                             !keystoneWindow.leftEdge) ? root.radius : 0
-                    topRightRadius: styleSurface.detached || (!keystoneWindow.topEdge &&
-                                                              !keystoneWindow.rightEdge) ? root.radius : 0
-                    bottomLeftRadius: styleSurface.detached || (!keystoneWindow.bottomEdge &&
-                                                                !keystoneWindow.leftEdge) ? root.radius : 0
-                    bottomRightRadius: styleSurface.detached || (!keystoneWindow.bottomEdge &&
-                                                                 !keystoneWindow.rightEdge) ? root.radius : 0
-                    color: "black"
+                SurfaceShape {
+                    surfaceColor: "black"
+                    topLeftRadius: rootSurface.topLeftRadius
+                    topRightRadius: rootSurface.topRightRadius
+                    bottomRightRadius: rootSurface.bottomRightRadius
+                    bottomLeftRadius: rootSurface.bottomLeftRadius
+                    cutoutVisible: rootSurface.cutoutVisible
+                    cutoutX: rootSurface.cutoutX
+                    cutoutY: rootSurface.cutoutY
+                    cutoutWidth: rootSurface.cutoutWidth
+                    cutoutHeight: rootSurface.cutoutHeight
+                    cutoutRadius: rootSurface.cutoutRadius
                 }
             }
 
@@ -346,15 +344,24 @@ Variants {
             }
         }
 
+        // Keep the canvas paintable while hiding its black source from the scene.
+        ShaderEffectSource {
+            id: shadowTexture
+            anchors.fill: shadowSource
+            sourceItem: shadowSource
+            hideSource: true
+            visible: false
+        }
+
         DropShadow {
             anchors.fill: shadowSource
-            source: root.showDashboardKeyhole ? rootSurface : shadowSource
+            source: shadowTexture
             horizontalOffset: keystoneWindow.leftEdge ? 6 : keystoneWindow.rightEdge ? -6 : 0
             verticalOffset: keystoneWindow.topEdge ? 6 : keystoneWindow.bottomEdge ? -6 : 0
             radius: 20
             samples: 32
             color: "#80000000"
-            cached: true
+            cached: false
             opacity: styleSurface.elongated ? 0 : root.color.a * (styleSurface.splitRecording
                                                                   && root.recordingPresentationActive ? 0 : 1)
         }
@@ -1250,85 +1257,26 @@ Variants {
                     visible: root.showDashboardKeyhole
                 }
 
-                Canvas {
+                SurfaceShape {
                     id: rootSurface
+                    surfaceColor: root.color
+                    topLeftRadius: styleSurface.detached || (!keystoneWindow.topEdge &&
+                                                             !keystoneWindow.leftEdge) ? root.radius : 0
+                    topRightRadius: styleSurface.detached || (!keystoneWindow.topEdge &&
+                                                              !keystoneWindow.rightEdge) ? root.radius : 0
+                    bottomRightRadius: styleSurface.detached || (!keystoneWindow.bottomEdge &&
+                                                                 !keystoneWindow.rightEdge) ? root.radius : 0
+                    bottomLeftRadius: styleSurface.detached || (!keystoneWindow.bottomEdge &&
+                                                                !keystoneWindow.leftEdge) ? root.radius : 0
+                    cutoutVisible: root.showDashboardKeyhole
+                    cutoutX: dashboardKeyholeCutout.x
+                    cutoutY: dashboardKeyholeCutout.y
+                    cutoutWidth: dashboardKeyholeCutout.width
+                    cutoutHeight: dashboardKeyholeCutout.height
+                    cutoutRadius: dashboardKeyholeCutout.radius
 
-                    readonly property color surfaceColor: root.color
-                    readonly property real outerRadius: root.radius
-                    readonly property real topLeftRadius: styleSurface.detached || (!keystoneWindow.topEdge
-                                                                                    && !keystoneWindow.leftEdge)
-                                                          ? outerRadius : 0
-                    readonly property real topRightRadius: styleSurface.detached || (!keystoneWindow.topEdge
-                                                                                     && !keystoneWindow.rightEdge)
-                                                           ? outerRadius : 0
-                    readonly property real bottomRightRadius: styleSurface.detached || (
-                                                                  !keystoneWindow.bottomEdge &&
-                                                                  !keystoneWindow.rightEdge) ? outerRadius : 0
-                    readonly property real bottomLeftRadius: styleSurface.detached || (
-                                                                 !keystoneWindow.bottomEdge &&
-                                                                 !keystoneWindow.leftEdge) ? outerRadius : 0
-                    readonly property bool cutoutVisible: root.showDashboardKeyhole
-                    readonly property real cutoutX: dashboardKeyholeCutout.x
-                    readonly property real cutoutY: dashboardKeyholeCutout.y
-                    readonly property real cutoutWidth: dashboardKeyholeCutout.width
-                    readonly property real cutoutHeight: dashboardKeyholeCutout.height
-                    readonly property real cutoutRadius: dashboardKeyholeCutout.radius
-
-                    function addRoundedRect(context, x, y, width, height, topLeft, topRight, bottomRight,
-                                            bottomLeft) {
-                        const maxRadius = Math.min(width / 2, height / 2);
-                        const tl = Math.min(topLeft, maxRadius);
-                        const tr = Math.min(topRight, maxRadius);
-                        const br = Math.min(bottomRight, maxRadius);
-                        const bl = Math.min(bottomLeft, maxRadius);
-                        context.beginPath();
-                        context.moveTo(x + tl, y);
-                        context.lineTo(x + width - tr, y);
-                        context.quadraticCurveTo(x + width, y, x + width, y + tr);
-                        context.lineTo(x + width, y + height - br);
-                        context.quadraticCurveTo(x + width, y + height, x + width - br, y + height);
-                        context.lineTo(x + bl, y + height);
-                        context.quadraticCurveTo(x, y + height, x, y + height - bl);
-                        context.lineTo(x, y + tl);
-                        context.quadraticCurveTo(x, y, x + tl, y);
-                        context.closePath();
-                    }
-
-                    anchors.fill: parent
-                    antialiasing: true
                     opacity: styleSurface.elongated || (styleSurface.splitRecording
                                                         && root.recordingPresentationActive) ? 0 : 1
-                    onPaint: {
-                        const context = getContext("2d");
-                        context.reset();
-                        context.clearRect(0, 0, width, height);
-                        addRoundedRect(context, 0, 0, width, height, topLeftRadius, topRightRadius,
-                                       bottomRightRadius, bottomLeftRadius);
-                        context.fillStyle = surfaceColor;
-                        context.fill();
-                        if (cutoutVisible) {
-                            context.globalCompositeOperation = "destination-out";
-                            addRoundedRect(context, cutoutX, cutoutY, cutoutWidth, cutoutHeight, cutoutRadius,
-                                           cutoutRadius, cutoutRadius, cutoutRadius);
-                            context.fillStyle = "white";
-                            context.fill();
-                            context.globalCompositeOperation = "source-over";
-                        }
-                    }
-                    onWidthChanged: requestPaint()
-                    onHeightChanged: requestPaint()
-                    onSurfaceColorChanged: requestPaint()
-                    onOuterRadiusChanged: requestPaint()
-                    onTopLeftRadiusChanged: requestPaint()
-                    onTopRightRadiusChanged: requestPaint()
-                    onBottomRightRadiusChanged: requestPaint()
-                    onBottomLeftRadiusChanged: requestPaint()
-                    onCutoutVisibleChanged: requestPaint()
-                    onCutoutXChanged: requestPaint()
-                    onCutoutYChanged: requestPaint()
-                    onCutoutWidthChanged: requestPaint()
-                    onCutoutHeightChanged: requestPaint()
-                    onCutoutRadiusChanged: requestPaint()
                 }
 
                 Connections {
@@ -1881,9 +1829,15 @@ Variants {
                 backgroundItem: styleSurface.elongated || root.useRecordingBlurRegions ? null : root
                 additionalBackgroundItems: styleSurface.elongated && longFrame.item
                                            ? longFrame.item.blurItems : root.recordingBlurBackgroundItems
-                subtractedBackgroundItems: root.showDashboardKeyhole ? [dashboardKeyholeCutout] : []
-                postSubtractionBackgroundItems: root.showDashboardKeyhole ? hub.dashboardKeyholeGlassItems :
-                                                                            []
+                subtractedBackgroundItems: !root.showDashboardKeyhole ? [] : styleSurface.elongated
+                                                                        && longFrame.item
+                                                                        ? [longFrame.item.cutoutBlurItem] :
+                                                                          [dashboardKeyholeCutout]
+                postSubtractionBackgroundItems: root.showDashboardKeyhole && root.visible && root.opacity
+                                                > 0.01 && hub.opacity > 0.01 ? hub.dashboardKeyholeGlassItems :
+                                                                               []
+                postSubtractionClipItem: styleSurface.elongated && longFrame.item
+                                         ? longFrame.item.childBlurItem : root
                 radius: root.radius
             }
         }
@@ -1900,5 +1854,72 @@ Variants {
                 radius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius : 0
             }
         }
+    }
+
+    component SurfaceShape: Canvas {
+
+        required property color surfaceColor
+        required property real topLeftRadius
+        required property real topRightRadius
+        required property real bottomRightRadius
+        required property real bottomLeftRadius
+        required property bool cutoutVisible
+        required property real cutoutX
+        required property real cutoutY
+        required property real cutoutWidth
+        required property real cutoutHeight
+        required property real cutoutRadius
+
+        function addRoundedRect(context, x, y, width, height, topLeft, topRight, bottomRight, bottomLeft) {
+            const maxRadius = Math.min(width / 2, height / 2);
+            const tl = Math.min(topLeft, maxRadius);
+            const tr = Math.min(topRight, maxRadius);
+            const br = Math.min(bottomRight, maxRadius);
+            const bl = Math.min(bottomLeft, maxRadius);
+            context.beginPath();
+            context.moveTo(x + tl, y);
+            context.lineTo(x + width - tr, y);
+            context.quadraticCurveTo(x + width, y, x + width, y + tr);
+            context.lineTo(x + width, y + height - br);
+            context.quadraticCurveTo(x + width, y + height, x + width - br, y + height);
+            context.lineTo(x + bl, y + height);
+            context.quadraticCurveTo(x, y + height, x, y + height - bl);
+            context.lineTo(x, y + tl);
+            context.quadraticCurveTo(x, y, x + tl, y);
+            context.closePath();
+        }
+
+        anchors.fill: parent
+        antialiasing: true
+        onPaint: {
+            const context = getContext("2d");
+            context.reset();
+            context.clearRect(0, 0, width, height);
+            addRoundedRect(context, 0, 0, width, height, topLeftRadius, topRightRadius, bottomRightRadius,
+                           bottomLeftRadius);
+            context.fillStyle = surfaceColor;
+            context.fill();
+            if (cutoutVisible) {
+                context.globalCompositeOperation = "destination-out";
+                addRoundedRect(context, cutoutX, cutoutY, cutoutWidth, cutoutHeight, cutoutRadius,
+                               cutoutRadius, cutoutRadius, cutoutRadius);
+                context.fillStyle = "white";
+                context.fill();
+                context.globalCompositeOperation = "source-over";
+            }
+        }
+        onWidthChanged: requestPaint()
+        onHeightChanged: requestPaint()
+        onSurfaceColorChanged: requestPaint()
+        onTopLeftRadiusChanged: requestPaint()
+        onTopRightRadiusChanged: requestPaint()
+        onBottomRightRadiusChanged: requestPaint()
+        onBottomLeftRadiusChanged: requestPaint()
+        onCutoutVisibleChanged: requestPaint()
+        onCutoutXChanged: requestPaint()
+        onCutoutYChanged: requestPaint()
+        onCutoutWidthChanged: requestPaint()
+        onCutoutHeightChanged: requestPaint()
+        onCutoutRadiusChanged: requestPaint()
     }
 }

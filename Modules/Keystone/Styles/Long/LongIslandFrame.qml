@@ -40,7 +40,6 @@ Item {
                                along: 0,
                                inward: 0,
                                opacity: 0,
-                               cutout: 0,
                                blend: 0
                            })
     readonly property real closingRemaining: smoothStep(progress / Math.max(0.0001, legStart))
@@ -85,12 +84,11 @@ Item {
                                                       progress, travel) + (legPose.blend - openingBlend(
                                                                                legStart, legPose.travel))
                                                   * openingCorrection
-    readonly property real cutoutReveal: closing ? legPose.cutout * closingRemaining : stage(0.20, 0.65) + (
-                                                       legPose.cutout - smoothStep((legStart - 0.20) / 0.45))
-                                                   * openingCorrection
     readonly property alias mainItem: mainBar
     readonly property bool clockHovered: mainBar.clockHovered
     readonly property bool mainHovered: mainBar.hovered
+    readonly property alias childBlurItem: childBlur
+    readonly property alias cutoutBlurItem: cutoutBlur
     readonly property var blurItems: [mainBar, childBlur, neckBlur]
 
     signal clockClicked(int button)
@@ -145,7 +143,6 @@ Item {
             along: alongGrowth,
             inward: inwardGrowth,
             opacity: contentOpacity,
-            cutout: cutoutReveal,
             blend: blendRadius
         };
         const start = progress;
@@ -215,6 +212,18 @@ Item {
     }
 
     Item {
+        id: cutoutBlur
+        // The fixed card and its hole move together; the growing child surface
+        // reveals both by clipping, without a second, independent hole animation.
+        x: root.childItem.x + root.cutoutItem.x
+        y: root.childItem.y + root.cutoutItem.y
+        width: root.cutoutItem.width
+        height: root.cutoutItem.height
+        property real radius: root.cutoutItem.radius
+        visible: root.cutoutVisible && root.progress > 0 && width > 0 && height > 0
+    }
+
+    Item {
         // Only blur the interior of an actually connected neck. Detached
         // space is neither blurred nor included in the window input mask.
         id: neckBlur
@@ -273,14 +282,9 @@ Item {
         property real satelliteRadius: root.childRadius
         property real blendRadius: root.blendRadius
         property real edgeSoftness: 0.8
-        property vector4d cutoutRect: Qt.vector4d(root.childItem.x + root.cutoutItem.x + 24
-                                                  + root.cutoutItem.width * (1 - root.cutoutReveal) / 2,
-                                                  root.childItem.y + root.cutoutItem.y + 24
-                                                  + root.cutoutItem.height * (1 - root.cutoutReveal) / 2,
-                                                  root.cutoutVisible ? root.cutoutItem.width
-                                                                       * root.cutoutReveal : 0,
-                                                  root.cutoutItem.height * root.cutoutReveal)
-        property real cutoutRadius: Math.min(24, cutoutRect.z / 2, cutoutRect.w / 2)
+        property vector4d cutoutRect: Qt.vector4d(cutoutBlur.x + 24, cutoutBlur.y + 24, cutoutBlur.visible
+                                                  ? cutoutBlur.width : 0, cutoutBlur.height)
+        property real cutoutRadius: cutoutBlur.radius
         fragmentShader: Paths.fileUrl(Paths.assetsDir + "/shaders/keystone/qsb/long_split.frag.qsb")
     }
 }
