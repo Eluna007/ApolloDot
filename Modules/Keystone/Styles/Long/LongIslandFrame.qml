@@ -18,9 +18,7 @@ Item {
     property bool cutoutVisible: false
     property color surfaceColor: Appearance.colors.colLayer0
     readonly property bool horizontal: edge === "top" || edge === "bottom"
-    readonly property real availableLength: horizontal ? screen.width : screen.height
-    readonly property real length: Math.max(220, Math.min(horizontal ? 1120 : 920, availableLength - 32, Math.max(
-                                                              740, availableLength * 0.84)))
+    readonly property real length: mainBar.contentLength
     readonly property real availableChildWidth: Math.max(24, screen.width - (horizontal ? 32 : thickness + gap
                                                                                           + 24))
     readonly property real availableChildHeight: Math.max(24, screen.height - (horizontal ? thickness + gap + 24 :

@@ -4,6 +4,9 @@ import QtQuick
 import QtQuick.Layouts
 import qs.Services
 import qs.Modules.Keystone.ClockContent
+import qs.Modules.Bar.Workspaces
+import qs.Modules.Bar.Media
+import qs.Modules.Bar.SysMonitor
 
 Item {
     id: root
@@ -15,6 +18,10 @@ Item {
     readonly property bool clockHovered: clockHover.hovered
     readonly property bool hovered: mainHover.hovered
     readonly property alias clockItem: clock
+    // Reserve equal space on both sides so changing module sizes never
+    // pushes the clock away from the main island's geometric centre.
+    readonly property real contentLength: 220 + 2 * (Math.max(leadingLane.contentExtent,
+                                                              trailingLane.contentExtent) + 28)
 
     signal clockClicked(int button)
     signal mediaRequested
@@ -43,6 +50,7 @@ Item {
     }
 
     StatusLane {
+        id: leadingLane
         items: PersonalizationConfig.keystoneLongLeading
         x: root.vertical ? 0 : 16
         y: root.vertical ? 16 : 0
@@ -51,6 +59,7 @@ Item {
     }
 
     StatusLane {
+        id: trailingLane
         items: PersonalizationConfig.keystoneLongTrailing
         x: root.vertical ? 0 : clock.x + clock.width + 12
         y: root.vertical ? clock.y + clock.height + 12 : 0
@@ -59,15 +68,12 @@ Item {
         trailing: true
     }
 
-    component StatusLane: Flickable {
+    component StatusLane: Item {
         id: lane
         required property var items
         property bool trailing: false
-        clip: true
-        boundsBehavior: Flickable.StopAtBounds
-        flickableDirection: root.vertical ? Flickable.VerticalFlick : Flickable.HorizontalFlick
-        contentWidth: root.vertical ? width : Math.max(width, itemsLayout.implicitWidth)
-        contentHeight: root.vertical ? Math.max(height, itemsLayout.implicitHeight) : height
+        readonly property real contentExtent: root.vertical ? itemsLayout.implicitHeight :
+                                                              itemsLayout.implicitWidth
 
         GridLayout {
             id: itemsLayout
@@ -84,13 +90,37 @@ Item {
                     id: statusLoader
                     required property string modelData
                     Layout.alignment: Qt.AlignCenter
-                    sourceComponent: modelData === "workspaces" ? workspaces : status
+                    Layout.preferredWidth: root.vertical ? root.width : implicitWidth
+                    sourceComponent: modelData === "workspaces" ? workspaces : modelData === "media" ? media : modelData
+                                                                                                       === "systemMonitor"
+                                                                                                       ? systemMonitor :
+                                                                                                         status
 
                     Component {
                         id: workspaces
-                        LongWorkspaces {
-                            screen: root.screen
+                        Workspaces {
+                            screenName: root.screen ? root.screen.name : ""
                             vertical: root.vertical
+                            backgroundVisible: false
+                        }
+                    }
+
+                    Component {
+                        id: media
+                        MediaBar {
+                            vertical: root.vertical
+                            edge: root.edge
+                            backgroundVisible: false
+                        }
+                    }
+
+                    Component {
+                        id: systemMonitor
+                        SysMonitor {
+                            vertical: root.vertical
+                            ownerId: "keystone-long:" + String(root.screen ? root.screen.name : "default") + (
+                                         lane.trailing ? ":trailing" : ":leading")
+                            backgroundVisible: false
                         }
                     }
 

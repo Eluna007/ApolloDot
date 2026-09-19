@@ -9,6 +9,7 @@ TopBarPill {
     id: root
 
     property bool vertical: false
+    property string edge: PersonalizationConfig.barPosition
     property real maximumTitleWidth: 180
     readonly property var player: MediaManager.active
     readonly property string title: player ? player.trackTitle || player.identity || qsTr("No media") : qsTr(
@@ -109,7 +110,7 @@ TopBarPill {
                 anchors.centerIn: parent
                 width: titleSlot.titleExtent
                 height: 28
-                rotation: root.vertical ? (PersonalizationConfig.barPosition === "left" ? -90 : 90) : 0
+                rotation: root.vertical ? (root.edge === "left" ? -90 : 90) : 0
                 clip: true
                 readonly property bool overflowing: titleText.implicitWidth > width
 
