@@ -771,15 +771,18 @@ Variants {
                 width: styleSurface.elongated && longFrame.item ? longFrame.item.childWidth : targetW
                 height: styleSurface.elongated && longFrame.item ? longFrame.item.childHeight : targetH
                 opacity: styleSurface.elongated ? (longFrame.item ? longFrame.item.contentOpacity : 0) : 1
-                // Capture only the clipped child surface during its entrance;
+                // Capture only the clipped child surface during its motion;
                 // release the effect texture once the content has settled.
                 layer.enabled: styleSurface.elongated && !!longFrame.item && longFrame.item.progress > 0
                                && longFrame.item.contentBlur > 0.001
-                layer.effect: MultiEffect {
-                    blurEnabled: true
-                    blurMax: 16
-                    blur: longFrame.item ? longFrame.item.contentBlur : 0
-                    autoPaddingEnabled: false
+                layer.effect: GaussianBlur {
+                    // Fixed weights/sample count avoid shader rebuilding as
+                    // the animated radius changes the sampling spread.
+                    samples: 37
+                    deviation: 6
+                    radius: 18 * (longFrame.item ? longFrame.item.contentBlur : 0)
+                    transparentBorder: false
+                    cached: false
                 }
                 visible: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0)
                 enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0.02)
