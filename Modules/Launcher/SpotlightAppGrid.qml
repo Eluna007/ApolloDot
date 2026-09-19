@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import qs.Common
+import qs.Components
 import qs.Services
 import qs.Widgets.common
 
@@ -68,7 +69,8 @@ GridView {
                 anchors.topMargin: 12
                 width: root.style.appGridIconSize
                 height: width
-                source: ApplicationService.iconSource(tile.modelData.icon)
+                visible: !tile.modelData.symbol
+                source: visible ? ApplicationService.iconSource(tile.modelData.icon) : ""
                 sourceSize.width: root.style.appGridIconSize * 2
                 sourceSize.height: root.style.appGridIconSize * 2
                 asynchronous: true
@@ -82,6 +84,16 @@ GridView {
                         easing.bezierCurve: root.style.effectsCurve
                     }
                 }
+            }
+
+            MaterialSymbol {
+                anchors.centerIn: appIcon
+                visible: !!tile.modelData.symbol
+                text: tile.modelData.symbol || ""
+                iconSize: root.style.appGridIconSize
+                color: root.searchActive && tile.selected ? root.style.selectedContentColor :
+                                                            Appearance.colors.colPrimary
+                scale: appIcon.scale
             }
 
             Text {

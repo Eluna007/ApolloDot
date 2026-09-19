@@ -343,11 +343,11 @@ Item {
                         }
 
                         Image {
-                            visible: !root.fileMode && !root.commandList
+                            visible: !root.fileMode && !root.commandList && !appDelegate.modelData.symbol
                             Layout.preferredWidth: root.style.resultIconSize
                             Layout.preferredHeight: root.style.resultIconSize
-                            source: root.fileMode || root.commandList ? "" : root.iconSource(
-                                                                            appDelegate.modelData.icon)
+                            source: root.fileMode || root.commandList || appDelegate.modelData.symbol ? "" : root.iconSource(
+                                                                                                            appDelegate.modelData.icon)
                             sourceSize.width: root.style.resultIconSize * 2
                             sourceSize.height: root.style.resultIconSize * 2
                             asynchronous: true
@@ -355,8 +355,8 @@ Item {
                         }
 
                         MaterialSymbol {
-                            visible: root.commandList
-                            text: appDelegate.modelData.icon || "terminal"
+                            visible: root.commandList || (!root.fileMode && !!appDelegate.modelData.symbol)
+                            text: appDelegate.modelData.symbol || appDelegate.modelData.icon || "terminal"
                             iconSize: root.style.resultIconSize
                             Layout.preferredWidth: root.style.resultIconSize
                             Layout.preferredHeight: root.style.resultIconSize

@@ -2,11 +2,24 @@ pragma Singleton
 
 import QtQuick
 import Quickshell
+import qs.Services
 
 Singleton {
     id: root
 
     property var applications: []
+    readonly property var settingsApplication: ({
+                                                    id: "org.clavis.Settings",
+                                                    name: qsTranslate("ControlCenterWindow", "Settings"),
+                                                    genericName: "Clavis",
+                                                    keywords: ["Clavis", "settings", "preferences",
+                                                        "control center"],
+                                                    symbol: "settings",
+                                                    icon: ""
+                                                })
+    // Internal shell entries belong in the launcher, not in default-app or
+    // autostart pickers that require an installed desktop application.
+    readonly property var launcherApplications: applications.concat([settingsApplication])
 
     function launchCommand(command, workingDirectory) {
         const argv = Array.from(command || []);
@@ -27,6 +40,8 @@ Singleton {
     function launchApplication(application) {
         if (!application)
             return false;
+        if (application.id === root.settingsApplication.id)
+            return ControlCenterService.openOrFocus();
         return root.launchCommand(application.command, application.workingDirectory);
     }
 
@@ -72,6 +87,8 @@ Singleton {
 
     function findById(identifier) {
         const value = String(identifier || "");
+        if (value === root.settingsApplication.id)
+            return root.settingsApplication;
         const withoutSuffix = value.endsWith(".desktop") ? value.substring(0, value.length
                                                                            - ".desktop".length) : value;
         for (const application of root.applications) {

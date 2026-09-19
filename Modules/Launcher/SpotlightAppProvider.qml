@@ -15,7 +15,7 @@ Item {
     function rebuild() {
         if (!active)
             return;
-        const ordered = LocalSearch.appResults(ApplicationService.getVisibleApplications(), query, root.order,
+        const ordered = LocalSearch.appResults(ApplicationService.launcherApplications, query, root.order,
                                                SpotlightAppUsage.records, Date.now());
         root.results = root.limit > 0 ? ordered.slice(0, root.limit) : ordered;
     }
@@ -51,7 +51,7 @@ Item {
     Connections {
         target: ApplicationService
 
-        function onApplicationsChanged() {
+        function onLauncherApplicationsChanged() {
             root.rebuild();
         }
     }

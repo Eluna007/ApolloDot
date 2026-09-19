@@ -45,10 +45,12 @@ Item {
             results = [];
             return;
         }
-        const apps = LocalSearch.appResults(ApplicationService.applications, query,
+        const apps = LocalSearch.appResults(ApplicationService.launcherApplications, query,
                                             UiPreferences.spotlightAppOrder, SpotlightAppUsage.records,
                                             Date.now()).map(entry => Object.assign({}, entry, {
-                                                                                       iconKind: "app",
+                                                                                       iconKind: entry.symbol
+                                                                                                 ? "symbol" :
+                                                                                                   "app",
                                                                                        appIcon: entry.icon
                                                                                    }));
         const settings = LocalSearch.matchCatalog(SpotlightCatalog.settings.filter(SpotlightCatalog.available),
@@ -147,7 +149,7 @@ Item {
     onCapacitiesChanged: rebuild()
     Connections {
         target: ApplicationService
-        function onApplicationsChanged() {
+        function onLauncherApplicationsChanged() {
             root.rebuild();
         }
     }
