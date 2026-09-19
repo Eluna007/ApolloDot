@@ -50,10 +50,19 @@ void main()
         ubuf.satelliteSize * 0.5,
         ubuf.satelliteRadius
     );
+    // Localize the smooth union around the clock. A uniform blend between
+    // two long, flat edges creates a wide sheet instead of a liquid neck.
+    bool horizontal = ubuf.mainSize.x >= ubuf.mainSize.y;
+    float crossAxis = horizontal ? pixel.x - ubuf.satelliteCenter.x
+                                : pixel.y - ubuf.satelliteCenter.y;
+    float pillSpan = horizontal ? ubuf.satelliteSize.x : ubuf.satelliteSize.y;
+    float neckSpan = clamp(pillSpan * 0.18, 28.0, 48.0);
+    float normalizedCrossAxis = crossAxis / neckSpan;
+    float neckWeight = exp(-normalizedCrossAxis * normalizedCrossAxis);
     float distanceToSurface = smoothMinimum(
         mainDistance,
         satelliteDistance,
-        ubuf.blendRadius
+        ubuf.blendRadius * neckWeight
     );
     if (ubuf.cutoutRect.z > 0.0) {
         float cutoutDistance = roundedBoxDistance(

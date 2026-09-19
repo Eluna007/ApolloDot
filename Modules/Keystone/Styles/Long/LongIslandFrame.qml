@@ -24,18 +24,33 @@ Item {
     readonly property real availableChildHeight: Math.max(24, screen.height - (horizontal ? thickness + gap + 24 :
                                                                                             32))
     readonly property real thickness: 42
-    readonly property real gap: 18
+    readonly property real gap: 24
+    // Match the collapsed Pill surface. Only the child deforms; the status
+    // bar and its clock remain fixed throughout the split and fusion.
+    readonly property real pillWidth: horizontal ? 220 : 42
+    readonly property real pillHeight: horizontal ? 42 : 220
     property real progress: expanded ? 1 : 0
-    property real heldWidth: 220
-    property real heldHeight: 42
-    readonly property real growth: smoothStep((progress - 0.38) / 0.62)
-    readonly property real childWidth: (horizontal ? 92 : 24) + (heldWidth - (horizontal ? 92 : 24)) * growth
-    readonly property real childHeight: (horizontal ? 24 : 92) + (heldHeight - (horizontal ? 24 : 92))
-                                        * growth
-    readonly property real childOffset: 9 + (thickness + gap - 9) * smoothStep(progress / 0.68)
-    readonly property real childRadius: Math.min(24, childWidth / 2, childHeight / 2)
-    readonly property real contentOpacity: smoothStep((progress - 0.56) / 0.44)
-    readonly property real blendRadius: 40 * Math.sin(Math.PI * smoothStep(Math.min(1, progress / 0.72)))
+    property real heldWidth: pillWidth
+    property real heldHeight: pillHeight
+    readonly property real alongGrowth: 0.10 * stage(0.10, 0.44) + 0.90 * stage(0.44, 0.86)
+    readonly property real inwardGrowth: 0.06 * stage(0.18, 0.48) + 0.94 * stage(0.50, 0.88)
+    readonly property real stretch: Math.sin(Math.PI * stage(0.02, 0.58))
+    readonly property real settle: settlingWave()
+    readonly property real childWidth: pillWidth + (heldWidth - pillWidth) * (horizontal ? alongGrowth :
+                                                                                           inwardGrowth) + (
+                                           horizontal ? -6 : 8) * stretch + heldWidth * 0.012 * settle
+    readonly property real childHeight: pillHeight + (heldHeight - pillHeight) * (horizontal ? inwardGrowth :
+                                                                                               alongGrowth) + (
+                                            horizontal ? 8 : -6) * stretch - heldHeight * 0.008 * settle
+    readonly property real childOffset: (thickness + gap) * stage(0, 0.66) + 4 * settle
+    readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, 21 + 3 * stage(0.38, 0.88))
+    readonly property real contentOpacity: stage(0.44, 0.86)
+    readonly property real contentBlur: 0.7 * (1 - stage(0.48, 0.92))
+    readonly property real contentOffset: 12 * (1 - stage(0.44, 0.90))
+    // Stay connected while the pill is visibly separated, then pinch off
+    // before the large panel grows. Reverse progress retraces the same pose.
+    readonly property real separation: Math.max(0, childOffset - thickness)
+    readonly property real blendRadius: (30 + 2.3 * separation) * stage(0.04, 0.22) * (1 - stage(0.46, 0.66))
     readonly property alias mainItem: mainBar
     readonly property bool clockHovered: mainBar.clockHovered
     readonly property bool mainHovered: mainBar.hovered
@@ -47,6 +62,16 @@ Item {
     function smoothStep(value) {
         const p = Math.max(0, Math.min(1, value));
         return p * p * (3 - 2 * p);
+    }
+
+    function stage(start, end) {
+        return smoothStep((progress - start) / (end - start));
+    }
+
+    function settlingWave() {
+        const time = Math.max(0, Math.min(1, (progress - 0.84) / 0.16));
+        const envelope = Math.sin(Math.PI * time);
+        return Math.sin(2 * Math.PI * time) * envelope * envelope;
     }
 
     function updateSize() {
@@ -72,7 +97,7 @@ Item {
 
     Behavior on progress {
         NumberAnimation {
-            duration: root.expanded ? 760 : 620
+            duration: root.expanded ? 900 : 700
             easing.type: Easing.Linear
         }
     }
@@ -119,14 +144,13 @@ Item {
         // Only blur the interior of an actually connected neck. Detached
         // space is neither blurred nor included in the window input mask.
         id: neckBlur
-        readonly property real separation: root.childOffset - root.thickness
-        visible: separation > 0 && root.blendRadius > separation * 2.5
+        visible: root.separation > 0 && root.blendRadius > root.separation * 2.8
         x: root.horizontal ? root.width / 2 - 6 : root.edge === "left" ? root.thickness : root.width
                                                                          - root.childOffset
         y: !root.horizontal ? root.height / 2 - 6 : root.edge === "top" ? root.thickness : root.height
                                                                           - root.childOffset
-        width: root.horizontal ? 12 : Math.max(0, separation)
-        height: root.horizontal ? Math.max(0, separation) : 12
+        width: root.horizontal ? 12 : root.separation
+        height: root.horizontal ? root.separation : 12
         property real radius: 0
     }
 
@@ -180,6 +204,6 @@ Item {
                                                   && root.progress > 0.78 ? root.cutoutItem.width : 0,
                                                   root.cutoutItem.height)
         property real cutoutRadius: 24
-        fragmentShader: Paths.fileUrl(Paths.assetsDir + "/shaders/keystone/qsb/long_morph.frag.qsb")
+        fragmentShader: Paths.fileUrl(Paths.assetsDir + "/shaders/keystone/qsb/long_split.frag.qsb")
     }
 }

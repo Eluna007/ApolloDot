@@ -771,6 +771,16 @@ Variants {
                 width: styleSurface.elongated && longFrame.item ? longFrame.item.childWidth : targetW
                 height: styleSurface.elongated && longFrame.item ? longFrame.item.childHeight : targetH
                 opacity: styleSurface.elongated ? (longFrame.item ? longFrame.item.contentOpacity : 0) : 1
+                // Capture only the clipped child surface during its entrance;
+                // release the effect texture once the content has settled.
+                layer.enabled: styleSurface.elongated && !!longFrame.item && longFrame.item.progress > 0
+                               && longFrame.item.contentBlur > 0.001
+                layer.effect: MultiEffect {
+                    blurEnabled: true
+                    blurMax: 16
+                    blur: longFrame.item ? longFrame.item.contentBlur : 0
+                    autoPaddingEnabled: false
+                }
                 visible: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0)
                 enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0.02)
                 anchors.topMargin: styleSurface.elongated && keystoneWindow.topEdge && longFrame.item
@@ -1232,9 +1242,9 @@ Variants {
                     width: 340
                     height: 456
                     anchors.left: parent.horizontalCenter
-                    anchors.leftMargin: hub.dashboardKeyholeCenterOffset
+                    anchors.leftMargin: hub.dashboardKeyholeCenterOffset + contentParallax.x
                     anchors.top: parent.top
-                    anchors.topMargin: 132
+                    anchors.topMargin: 132 + contentParallax.y
                     radius: 24
                     color: "transparent"
                     visible: root.showDashboardKeyhole
@@ -1418,6 +1428,18 @@ Variants {
                 Item {
                     id: staticCanvas
 
+                    transform: Translate {
+                        id: contentParallax
+
+                        x: styleSurface.elongated && longFrame.item ? (keystoneWindow.leftEdge ? -1 :
+                                                                                                 keystoneWindow.rightEdge
+                                                                                                 ? 1 : 0)
+                                                                      * longFrame.item.contentOffset : 0
+                        y: styleSurface.elongated && longFrame.item ? (keystoneWindow.topEdge ? -1 :
+                                                                                                keystoneWindow.bottomEdge
+                                                                                                ? 1 : 0)
+                                                                      * longFrame.item.contentOffset : 0
+                    }
                     enabled: !styleSurface.elongated || root.opacity > 0.1
                     anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
