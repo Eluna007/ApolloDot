@@ -40,7 +40,6 @@ Item {
                                along: 0,
                                inward: 0,
                                opacity: 0,
-                               blur: 1,
                                cutout: 0,
                                blend: 0
                            })
@@ -76,14 +75,10 @@ Item {
                                                          legPose.opacity - smoothStep((legStart - 0.12)
                                                                                       / 0.38))
                                                      * openingCorrection
-    // Blur follows the whole motion, independently of the earlier content
-    // fade. Preserve its current value when the user reverses direction.
-    readonly property real contentBlur: Math.max(0, Math.min(1, closing ? 1 - (1 - legPose.blur)
-                                                                          * closingRemaining : 1 - smoothStep(
-                                                                              progress) + (legPose.blur - (1
-                                                                                                           - smoothStep(
-                                                                                                               legStart)))
-                                                                          * openingCorrection))
+    // Soften clipped content only while the island is small. Deriving this
+    // from the visible geometry keeps reversals continuous and clears the
+    // content well before the full-size panel finishes settling.
+    readonly property real contentBlur: 1 - smoothStep((Math.min(alongGrowth, inwardGrowth) - 0.15) / 0.45)
     readonly property real contentOffset: 10 * (1 - Math.min(1, inwardGrowth))
     readonly property real separation: Math.max(0, childOffset - thickness)
     // Expose the neck with the pill, then release it while both motion and
@@ -154,7 +149,6 @@ Item {
             along: alongGrowth,
             inward: inwardGrowth,
             opacity: contentOpacity,
-            blur: contentBlur,
             cutout: cutoutReveal,
             blend: blendRadius
         };
