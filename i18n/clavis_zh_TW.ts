@@ -5591,73 +5591,80 @@ Scroll to adjust</source>
 </context>
 <context>
     <name>LongStatusItem</name>
+    <message numerus="yes">
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="32"/>
+        <source>%n device(s)</source>
+        <translation>
+            <numerusform>%n 台裝置</numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="72"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="98"/>
         <source>No media</source>
         <translation>沒有媒體</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="74"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="100"/>
         <source>Network connected</source>
         <translation>網路已連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="75"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="101"/>
         <source>Network disconnected</source>
         <translation>網路未連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="77"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="105"/>
         <source>Bluetooth unavailable</source>
         <translation>藍牙不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="79"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="106"/>
         <source>Bluetooth on</source>
         <translation>藍牙已開啟</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="79"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="106"/>
         <source>Bluetooth off</source>
         <translation>藍牙已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="82"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="109"/>
         <source>Detecting battery</source>
         <translation>正在偵測電池</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="84"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="111"/>
         <source>No battery detected</source>
         <translation>未偵測到電池</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="85"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="112"/>
         <source>Fully charged</source>
         <translation>已充滿</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="85"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="112"/>
         <source>Charging</source>
         <translation>充電中</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="87"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="114"/>
         <source>Discharging</source>
         <translation>放電中</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="88"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="115"/>
         <source>Plugged in</source>
         <translation>已接通電源</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="89"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="116"/>
         <source>Battery: %1% · %2</source>
         <translation>電量：%1% · %2</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="91"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="118"/>
         <source>Brightness: %1%
 %2
 Scroll to adjust</source>
@@ -5666,45 +5673,45 @@ Scroll to adjust</source>
 捲動調整</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="95"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="122"/>
         <source>No audio output</source>
         <translation>沒有音訊輸出裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="95"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="122"/>
         <source>Volume: muted
 %1</source>
         <translation>音量：已靜音
 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="98"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="125"/>
         <source>Volume: %1%
 %2</source>
         <translation>音量：%1%
 %2</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="104"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="131"/>
         <source>No audio input</source>
         <translation>沒有音訊輸入裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="104"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="131"/>
         <source>Microphone: muted
 %1</source>
         <translation>麥克風：已靜音
 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="107"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="134"/>
         <source>Microphone: %1%
 %2</source>
         <translation>麥克風：%1%
 %2</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="113"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="140"/>
         <source>CPU: %1
 Memory: %2
 Disk: %3

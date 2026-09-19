@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import qs.Common
 import qs.Components
 import qs.Services
@@ -10,10 +11,40 @@ Item {
 
     required property string itemId
     required property var screen
+    property string edge: "top"
+    readonly property bool vertical: edge === "left" || edge === "right"
+    readonly property bool nameLabel: itemId === "network" || itemId === "bluetooth"
+    readonly property bool rotateLabel: vertical && nameLabel
+    property real maximumNameWidth: 160
+    readonly property var connectedDeviceNames: BluetoothService.connectedDevices.map(device => device.name)
     readonly property var player: MediaManager.active
     readonly property var monitor: Brightness.getMonitorForScreen(screen)
     readonly property real brightness: monitor ? monitor.brightness : Brightness.brightnessValue
     required property string ownerId
+    readonly property bool batteryAvailable: PowerService.ready && PowerService.present && Format.isNumber(
+                                                 PowerService.percentage)
+    readonly property string displayText: {
+        switch (itemId) {
+        case "network":
+            return root.tooltipText;
+        case "bluetooth":
+            return connectedDeviceNames.length === 1 ? connectedDeviceNames[0] : connectedDeviceNames.length
+                                                       > 1 ? qsTr("%n device(s)", "",
+                                                                  connectedDeviceNames.length) : "";
+        case "brightness":
+            return Format.percent(brightness * 100, 0);
+        case "volume":
+            return Volume.outputAvailable ? Format.percent(Volume.sinkVolume * 100, 0) : Format.unavailable();
+        case "microphone":
+            return Volume.inputAvailable ? Format.percent(Volume.sourceVolume * 100, 0) : Format.unavailable(
+                                               );
+
+        case "battery":
+            return batteryAvailable ? Format.percent(PowerService.percentage * 100, 0) : Format.unavailable();
+        default:
+            return "";
+        }
+    }
     readonly property string label: {
         const option = PersonalizationConfig.keystoneLongItemOptions.find(option => option.value
                                                                                     === root.itemId);
@@ -38,18 +69,13 @@ Item {
             return BluetoothService.connected ? "bluetooth_connected" : BluetoothService.enabled
                                                 ? "bluetooth" : "bluetooth_disabled";
         case "battery":
-            if (!PowerService.ready || !PowerService.present)
-                return "battery_unknown";
+            if (!batteryAvailable)
+                return "battery_android_question";
             if (PowerService.charging)
-                return "battery_charging_full";
+                return "battery_android_bolt";
             const level = PowerService.percentage;
-            return level >= 0.95 ? "battery_full" : level >= 0.8 ? "battery_6_bar" : level >= 0.65
-                                                                   ? "battery_5_bar" : level >= 0.5
-                                                                     ? "battery_4_bar" : level >= 0.35
-                                                                       ? "battery_3_bar" : level >= 0.2
-                                                                         ? "battery_2_bar" : level >= 0.1
-                                                                           ? "battery_1_bar" :
-                                                                             "battery_alert";
+            return level >= 0.95 ? "battery_android_full" : "battery_android_" + Math.max(0, Math.min(6, Math.floor(
+                                                                                                          level * 7)));
         case "volume":
             return !Volume.outputAvailable || Volume.sinkMuted || Volume.sinkVolume <= 0 ? "volume_off" :
                                                                                            Volume.isHeadphone
@@ -74,9 +100,10 @@ Item {
             return NetworkService.connected ? NetworkService.activeConnection || qsTr("Network connected") :
                                               qsTr("Network disconnected");
         case "bluetooth":
-            return !BluetoothService.available ? qsTr("Bluetooth unavailable") : BluetoothService.connected
-                                                 ? BluetoothService.connectedName : BluetoothService.enabled
-                                                   ? qsTr("Bluetooth on") : qsTr("Bluetooth off");
+            if (connectedDeviceNames.length > 0)
+                return connectedDeviceNames.join("\n");
+            return !BluetoothService.available ? qsTr("Bluetooth unavailable") : BluetoothService.enabled
+                                                 ? qsTr("Bluetooth on") : qsTr("Bluetooth off");
         case "battery":
             if (!PowerService.ready)
                 return qsTr("Detecting battery");
@@ -162,8 +189,8 @@ Item {
         }
     }
 
-    implicitWidth: 32
-    implicitHeight: 32
+    implicitWidth: Math.max(32, contentLayout.implicitWidth + 12)
+    implicitHeight: Math.max(32, contentLayout.implicitHeight + 12)
     Accessible.role: itemId === "battery" || itemId === "brightness" ? Accessible.StaticText :
                                                                        Accessible.Button
 
@@ -179,14 +206,111 @@ Item {
             SystemMonitorService.clearConsumer(ownerId);
     }
 
-    MaterialSymbol {
+    GridLayout {
+        id: contentLayout
         anchors.centerIn: parent
-        text: root.iconName
-        iconSize: 20
-        fill: 1
-        color: root.itemId === "battery" && PowerService.discharging && PowerService.percentage <= 0.15
-               ? Appearance.colors.colError : pointer.containsMouse ? Appearance.colors.colPrimary :
-                                                                      Appearance.colors.colOnSurface
+        columns: root.vertical ? 1 : 2
+        rowSpacing: 4
+        columnSpacing: 6
+
+        MaterialSymbol {
+            id: statusIcon
+            Layout.alignment: Qt.AlignCenter
+            text: root.iconName
+            iconSize: 20
+            fill: 1
+            color: root.itemId === "battery" && root.batteryAvailable && PowerService.discharging
+                   && PowerService.percentage <= 0.15 ? Appearance.colors.colError : pointer.containsMouse
+                                                        ? Appearance.colors.colPrimary :
+                                                          Appearance.colors.colOnSurface
+        }
+
+        Item {
+            id: labelSlot
+            readonly property real labelExtent: root.nameLabel ? Math.min(Math.max(0, root.maximumNameWidth),
+                                                                          statusText.implicitWidth) :
+                                                                 statusText.implicitWidth
+            visible: root.displayText !== ""
+            implicitWidth: root.rotateLabel ? statusText.implicitHeight : labelExtent
+            implicitHeight: root.rotateLabel ? labelExtent : statusText.implicitHeight
+            Layout.alignment: Qt.AlignCenter
+
+            Item {
+                id: labelViewport
+                anchors.centerIn: parent
+                width: labelSlot.labelExtent
+                height: statusText.implicitHeight
+                rotation: root.rotateLabel ? (root.edge === "left" ? -90 : 90) : 0
+                clip: true
+                readonly property bool overflowing: root.nameLabel && statusText.implicitWidth > width
+                                                    && width > 0
+
+                function restartScroll() {
+                    labelScroll.stop();
+                    labelStrip.x = 0;
+                    if (overflowing && root.visible)
+                        labelScroll.start();
+                }
+
+                onWidthChanged: Qt.callLater(restartScroll)
+                onOverflowingChanged: Qt.callLater(restartScroll)
+                Component.onCompleted: restartScroll()
+
+                Item {
+                    id: labelStrip
+                    width: statusText.implicitWidth
+                    height: parent.height
+
+                    Text {
+                        id: statusText
+                        text: root.displayText
+                        textFormat: Text.PlainText
+                        font.family: root.nameLabel ? Fonts.ui : Fonts.numeric
+                        font.pixelSize: 12
+                        color: statusIcon.color
+                        onTextChanged: Qt.callLater(labelViewport.restartScroll)
+                        onImplicitWidthChanged: Qt.callLater(labelViewport.restartScroll)
+                    }
+
+                    Text {
+                        x: statusText.implicitWidth + 32
+                        text: root.displayText
+                        textFormat: Text.PlainText
+                        font: statusText.font
+                        color: statusText.color
+                        visible: labelViewport.overflowing
+                    }
+                }
+
+                Connections {
+                    target: root
+                    function onVisibleChanged() {
+                        labelViewport.restartScroll();
+                    }
+                }
+
+                SequentialAnimation {
+                    id: labelScroll
+                    loops: Animation.Infinite
+                    PropertyAction {
+                        target: labelStrip
+                        property: "x"
+                        value: 0
+                    }
+                    PauseAnimation {
+                        duration: 1200
+                    }
+                    NumberAnimation {
+                        target: labelStrip
+                        property: "x"
+                        from: 0
+                        to: -(statusText.implicitWidth + 32)
+                        duration: (statusText.implicitWidth + 32) * 35
+                        easing.type: Easing.Linear
+                    }
+                }
+            }
+        }
     }
 
     MouseArea {

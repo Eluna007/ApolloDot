@@ -128,6 +128,7 @@ Item {
                         id: status
                         LongStatusItem {
                             itemId: statusLoader.modelData
+                            edge: root.edge
                             ownerId: "keystone-long:" + String(root.screen ? root.screen.name : "default") + (
                                          lane.trailing ? ":trailing" : ":leading")
                             screen: root.screen

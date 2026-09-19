@@ -5592,73 +5592,81 @@ Scroll to adjust</translation>
 </context>
 <context>
     <name>LongStatusItem</name>
+    <message numerus="yes">
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="32"/>
+        <source>%n device(s)</source>
+        <translation>
+            <numerusform>%n device</numerusform>
+            <numerusform>%n devices</numerusform>
+        </translation>
+    </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="72"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="98"/>
         <source>No media</source>
         <translation>No media</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="74"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="100"/>
         <source>Network connected</source>
         <translation>Network connected</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="75"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="101"/>
         <source>Network disconnected</source>
         <translation>Network disconnected</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="77"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="105"/>
         <source>Bluetooth unavailable</source>
         <translation>Bluetooth unavailable</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="79"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="106"/>
         <source>Bluetooth on</source>
         <translation>Bluetooth on</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="79"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="106"/>
         <source>Bluetooth off</source>
         <translation>Bluetooth off</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="82"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="109"/>
         <source>Detecting battery</source>
         <translation>Detecting battery</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="84"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="111"/>
         <source>No battery detected</source>
         <translation>No battery detected</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="85"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="112"/>
         <source>Fully charged</source>
         <translation>Fully charged</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="85"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="112"/>
         <source>Charging</source>
         <translation>Charging</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="87"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="114"/>
         <source>Discharging</source>
         <translation>Discharging</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="88"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="115"/>
         <source>Plugged in</source>
         <translation>Plugged in</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="89"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="116"/>
         <source>Battery: %1% · %2</source>
         <translation>Battery: %1% · %2</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="91"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="118"/>
         <source>Brightness: %1%
 %2
 Scroll to adjust</source>
@@ -5667,45 +5675,45 @@ Scroll to adjust</source>
 Scroll to adjust</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="95"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="122"/>
         <source>No audio output</source>
         <translation>No audio output</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="95"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="122"/>
         <source>Volume: muted
 %1</source>
         <translation>Volume: muted
 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="98"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="125"/>
         <source>Volume: %1%
 %2</source>
         <translation>Volume: %1%
 %2</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="104"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="131"/>
         <source>No audio input</source>
         <translation>No audio input</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="104"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="131"/>
         <source>Microphone: muted
 %1</source>
         <translation>Microphone: muted
 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="107"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="134"/>
         <source>Microphone: %1%
 %2</source>
         <translation>Microphone: %1%
 %2</translation>
     </message>
     <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="113"/>
+        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="140"/>
         <source>CPU: %1
 Memory: %2
 Disk: %3
