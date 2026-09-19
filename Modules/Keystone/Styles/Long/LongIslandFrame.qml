@@ -29,7 +29,8 @@ Item {
     // bar and its clock remain fixed throughout the split and fusion.
     readonly property real pillWidth: horizontal ? 220 : 42
     readonly property real pillHeight: horizontal ? 42 : 220
-    property real progress: expanded ? 1 : 0
+    property real progress: 0
+    property bool componentReady: false
     // Capture the visible pose when changing direction. Closing uses a single
     // contraction curve instead of playing the opening spring backwards.
     property bool closing: false
@@ -137,6 +138,9 @@ Item {
     onTargetWidthChanged: Qt.callLater(updateSize)
     onTargetHeightChanged: Qt.callLater(updateSize)
     onExpandedChanged: {
+        if (!componentReady)
+            return;
+        progressAnimation.stop();
         const pose = {
             travel,
             along: alongGrowth,
@@ -150,18 +154,27 @@ Item {
         legStart = start;
         closing = !expanded;
         Qt.callLater(updateSize);
+        // Set timing before starting: a Behavior on a state-bound progress
+        // can start with the previous state's duration during binding updates.
+        progressAnimation.duration = expanded ? 780 : 300;
+        progressAnimation.to = expanded ? 1 : 0;
+        progressAnimation.start();
     }
-    Component.onCompleted: updateSize()
+    Component.onCompleted: {
+        progress = expanded ? 1 : 0;
+        updateSize();
+        componentReady = true;
+    }
 
     implicitWidth: horizontal ? Math.max(length, childWidth) : Math.max(thickness, childOffset + childWidth)
     implicitHeight: horizontal ? Math.max(thickness, childOffset + childHeight) : Math.max(length,
                                                                                            childHeight)
 
-    Behavior on progress {
-        NumberAnimation {
-            duration: root.expanded ? 780 : 420
-            easing.type: Easing.Linear
-        }
+    NumberAnimation {
+        id: progressAnimation
+        target: root
+        property: "progress"
+        easing.type: Easing.Linear
     }
     Behavior on heldWidth {
         enabled: root.progress > 0.99

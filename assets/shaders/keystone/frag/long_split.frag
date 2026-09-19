@@ -50,15 +50,35 @@ void main()
         ubuf.satelliteSize * 0.5,
         ubuf.satelliteRadius
     );
-    // Blend with the circular seed buried underneath the clock, then union
-    // with the unchanged bar. Like the recording/Spotlight lobes, this gives
-    // the neck a natural rounded contour rather than a weighted flat bridge.
+    // The circular seed supplies the thinning neck after separation.
     float seedDistance = length(pixel - ubuf.mainCenter) - ubuf.mainRadius;
-    float distanceToSurface = min(mainDistance, smoothMinimum(
+    float lobeDistance = smoothMinimum(
         seedDistance,
         satelliteDistance,
         ubuf.blendRadius
-    ));
+    );
+    // While the panel overlaps the bar, blend the entire contact boundary:
+    // a hard union leaves square shoulders at the two concave corners.
+    // As the gap opens, reduce this fillet to the neck's root so the broad
+    // contact area flows into a narrow neck instead of becoming a flat sheet.
+    bool horizontal = ubuf.mainSize.x >= ubuf.mainSize.y;
+    float centerDistance = horizontal
+        ? abs(ubuf.satelliteCenter.y - ubuf.mainCenter.y)
+        : abs(ubuf.satelliteCenter.x - ubuf.mainCenter.x);
+    float halfDepths = horizontal
+        ? (ubuf.mainSize.y + ubuf.satelliteSize.y) * 0.5
+        : (ubuf.mainSize.x + ubuf.satelliteSize.x) * 0.5;
+    float gap = centerDistance - halfDepths;
+    float contact = 1.0 - smoothstep(0.0, 12.0, gap);
+    float inward = horizontal
+        ? (pixel.y - ubuf.mainCenter.y) * sign(ubuf.satelliteCenter.y - ubuf.mainCenter.y)
+        : (pixel.x - ubuf.mainCenter.x) * sign(ubuf.satelliteCenter.x - ubuf.mainCenter.x);
+    // Confine fusion to the inward edge; the buried seed must not swell the
+    // opposite side of the bar above the clock.
+    lobeDistance = max(lobeDistance, -inward);
+    float joinRadius = ubuf.blendRadius * mix(0.30, 1.0, contact)
+        * smoothstep(0.0, ubuf.mainRadius, inward);
+    float distanceToSurface = smoothMinimum(mainDistance, lobeDistance, joinRadius);
     if (ubuf.cutoutRect.z > 0.0) {
         float cutoutDistance = roundedBoxDistance(
             pixel - ubuf.cutoutRect.xy - ubuf.cutoutRect.zw * 0.5,
