@@ -215,12 +215,15 @@ Item {
                 }
 
                 SettingsRow {
+                    id: longLeadingFieldRow
                     Layout.fillWidth: true
                     title: PersonalizationConfig.keystonePosition === "top"
                            || PersonalizationConfig.keystonePosition === "bottom" ? qsTr("Left") : qsTr("Top")
                     trailing: SortableMultiSelectField {
                         id: longLeadingField
-                        Layout.preferredWidth: 380
+                        Layout.minimumWidth: 0
+                        Layout.preferredWidth: Math.max(0, longLeadingFieldRow.width - 96 - 3
+                                                        * Metrics.spacingS)
                         values: PersonalizationConfig.keystoneLongLeading
                         options: PersonalizationConfig.keystoneLongItemOptions
                         zone: "leading"
@@ -231,13 +234,16 @@ Item {
                 }
 
                 SettingsRow {
+                    id: longTrailingFieldRow
                     Layout.fillWidth: true
                     title: PersonalizationConfig.keystonePosition === "top"
                            || PersonalizationConfig.keystonePosition === "bottom" ? qsTr("Right") : qsTr(
                                                                                         "Bottom")
                     trailing: SortableMultiSelectField {
                         id: longTrailingField
-                        Layout.preferredWidth: 380
+                        Layout.minimumWidth: 0
+                        Layout.preferredWidth: Math.max(0, longTrailingFieldRow.width - 96 - 3
+                                                        * Metrics.spacingS)
                         values: PersonalizationConfig.keystoneLongTrailing
                         options: PersonalizationConfig.keystoneLongItemOptions
                         zone: "trailing"
