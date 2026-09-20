@@ -25,6 +25,10 @@ Item {
                                                  PowerService.percentage)
     readonly property string displayText: {
         switch (itemId) {
+        case "weather":
+            return WeatherPlugin.hasValidData ? Math.round(UiPreferences.weatherTemperature(
+                                                               WeatherPlugin.currentTemperatureC)) + "°" :
+                                                "--°";
         case "network":
             return root.tooltipText;
         case "bluetooth":
@@ -52,6 +56,8 @@ Item {
     }
     readonly property string iconName: {
         switch (itemId) {
+        case "weather":
+            return WeatherPlugin.hasValidData ? WeatherPlugin.currentIconName || "cloud" : "cloud_off";
         case "media":
             return player ? (player.isPlaying ? "play_arrow" : "pause") : "music_note";
         case "network":
@@ -93,6 +99,10 @@ Item {
     }
     readonly property string tooltipText: {
         switch (itemId) {
+        case "weather":
+            return [WeatherPlugin.locationName, WeatherPlugin.hasValidData ? WeatherPlugin.currentWeatherText :
+                                                                             WeatherPlugin.errorMessage,
+                    root.displayText].filter(value => !!value).join("\n");
         case "media":
             return player ? [player.trackTitle, player.trackArtist, player.identity].filter(value => !!value).join(
                                 "\n") : qsTr("No media");
@@ -191,8 +201,8 @@ Item {
 
     implicitWidth: Math.max(32, contentLayout.implicitWidth + 12)
     implicitHeight: Math.max(32, contentLayout.implicitHeight + 12)
-    Accessible.role: itemId === "battery" || itemId === "brightness" ? Accessible.StaticText :
-                                                                       Accessible.Button
+    Accessible.role: itemId === "battery" || itemId === "brightness" || itemId === "weather"
+                     ? Accessible.StaticText : Accessible.Button
 
     Accessible.name: label
     Accessible.description: tooltipText
@@ -230,7 +240,7 @@ Item {
             readonly property real labelExtent: root.nameLabel ? Math.min(Math.max(0, root.maximumNameWidth),
                                                                           statusText.implicitWidth) :
                                                                  statusText.implicitWidth
-            visible: root.displayText !== "" && (root.nameLabel
+            visible: root.displayText !== "" && (root.nameLabel || root.itemId === "weather"
                                                  || PersonalizationConfig.keystoneLongShowValues)
             implicitWidth: root.rotateLabel ? statusText.implicitHeight : labelExtent
             implicitHeight: root.rotateLabel ? labelExtent : statusText.implicitHeight
@@ -319,8 +329,8 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
-        cursorShape: root.itemId === "battery" || root.itemId === "brightness" ? Qt.ArrowCursor :
-                                                                                 Qt.PointingHandCursor
+        cursorShape: root.itemId === "battery" || root.itemId === "brightness" || root.itemId === "weather"
+                     ? Qt.ArrowCursor : Qt.PointingHandCursor
         onClicked: mouse => root.activate(mouse.button)
         onWheel: wheel => {
             const delta = wheel.angleDelta.y || wheel.angleDelta.x;

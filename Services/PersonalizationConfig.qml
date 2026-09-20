@@ -445,7 +445,7 @@ Singleton {
     property int keystoneHoverOpenDelay: 150
     property int keystoneHoverCloseDelay: 250
     readonly property var keystoneLongItemIds: ["workspaces", "media", "systemMonitor", "network", "bluetooth",
-        "brightness", "volume", "microphone", "battery"]
+        "brightness", "volume", "microphone", "battery", "weather"]
     readonly property var defaultKeystoneLongLeading: ["workspaces", "media", "systemMonitor"]
     readonly property var defaultKeystoneLongTrailing: ["network", "bluetooth", "brightness", "volume",
         "microphone", "battery"]
@@ -466,6 +466,11 @@ Singleton {
             value: "systemMonitor",
             label: qsTr("System monitor"),
             icon: "monitor_heart"
+        },
+        {
+            value: "weather",
+            label: qsTr("Weather"),
+            icon: "partly_cloudy_day"
         },
         {
             value: "network",
