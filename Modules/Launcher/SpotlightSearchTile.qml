@@ -109,18 +109,26 @@ Item {
             Accessible.name: root.result.title
             Accessible.description: root.result.subtitle || ""
             onPressed: {
+                appDrag.resetGesture();
                 pressedId = root.result.id;
                 root.selectionRequested();
             }
             onClicked: {
-                if (pressedId === root.result.id)
+                if (!appDrag.dragged && pressedId === root.result.id)
                     root.activationRequested(pressedId);
             }
             Accessible.onPressAction: root.activationRequested(root.result.id)
         }
+        SpotlightAppDrag {
+            id: appDrag
+
+            desktopId: root.kind === "apps" && root.result.appObject ? String(root.result.appObject.id) : ""
+            iconItem: artworkFrame
+        }
         StyledToolTip {
             extraVisibleCondition: false
-            alternativeVisibleCondition: mouse.containsMouse && title.truncated
+            alternativeVisibleCondition: mouse.containsMouse && title.truncated &&
+                                         !DockService.externalDragActive
             text: root.result.title
             textFormat: Text.PlainText
         }

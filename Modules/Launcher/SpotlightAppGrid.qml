@@ -25,6 +25,7 @@ GridView {
     clip: true
     boundsBehavior: Flickable.StopAtBounds
     keyNavigationEnabled: false
+    interactive: !DockService.externalDragActive
     // A nonvisual highlight lets the view animate scrolling to the current
     // item, including retargeting while an earlier movement is still running.
     highlight: Item {}
@@ -87,6 +88,8 @@ GridView {
             }
 
             MaterialSymbol {
+                id: appSymbol
+
                 anchors.centerIn: appIcon
                 visible: !!tile.modelData.symbol
                 text: tile.modelData.symbol || ""
@@ -135,13 +138,23 @@ GridView {
                 if (containsMouse)
                     root.selectionRequested(tile.index);
             }
+            onPressed: appDrag.resetGesture()
             onClicked: {
+                if (appDrag.dragged)
+                    return;
                 root.selectionRequested(tile.index);
                 root.activationRequested(tile.index);
             }
         }
 
-        ToolTip.visible: tileMouse.containsMouse && appName.truncated
+        SpotlightAppDrag {
+            id: appDrag
+
+            desktopId: tile.modelData.appObject ? String(tile.modelData.appObject.id) : ""
+            iconItem: tile.modelData.symbol ? appSymbol : appIcon
+        }
+
+        ToolTip.visible: tileMouse.containsMouse && appName.truncated && !DockService.externalDragActive
         ToolTip.delay: 600
         ToolTip.text: tile.modelData.title
     }

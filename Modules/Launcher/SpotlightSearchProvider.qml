@@ -22,7 +22,7 @@ Item {
     signal closeRequested
 
     function rebuild() {
-        if (!active)
+        if (!active || DockService.externalDragActive)
             return;
         if (filter === "settings" || filter === "actions") {
             const catalog = filter === "settings" ? SpotlightCatalog.settings : SpotlightCatalog.actions;
@@ -147,6 +147,13 @@ Item {
     onActiveChanged: rebuild()
     onLanguageChanged: rebuild()
     onCapacitiesChanged: rebuild()
+    Connections {
+        target: DockService
+        function onExternalDragActiveChanged() {
+            if (!DockService.externalDragActive)
+                root.rebuild();
+        }
+    }
     Connections {
         target: ApplicationService
         function onLauncherApplicationsChanged() {

@@ -3808,6 +3808,221 @@ Scroll to adjust</source>
     </message>
 </context>
 <context>
+    <name>DockItem</name>
+    <message>
+        <location filename="../Modules/Dock/DockItem.qml" line="122"/>
+        <source>Separator</source>
+        <translation>分隔符</translation>
+    </message>
+</context>
+<context>
+    <name>DockPage</name>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1924"/>
+        <source>Appearance</source>
+        <translation>外观</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1925"/>
+        <source>Behavior</source>
+        <translation>行为</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1926"/>
+        <source>Separators</source>
+        <translation>分隔符</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="24"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="29"/>
+        <source>Show Dock</source>
+        <translation>显示程序坞</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="59"/>
+        <source>Screen edge</source>
+        <translation>屏幕边缘</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="65"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="67"/>
+        <source>Left</source>
+        <translation>左侧</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="71"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="73"/>
+        <source>Bottom</source>
+        <translation>底部</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="77"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="79"/>
+        <source>Right</source>
+        <translation>右侧</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="93"/>
+        <source>Icon size</source>
+        <translation>图标大小</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="106"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="111"/>
+        <source>Magnify on hover</source>
+        <translation>悬停时放大</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="117"/>
+        <source>Magnification</source>
+        <translation>放大倍率</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="148"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="153"/>
+        <source>Automatically hide</source>
+        <translation>自动隐藏</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="160"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="165"/>
+        <source>Bounce when launching</source>
+        <translation>启动时弹跳</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="172"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="177"/>
+        <source>Show running indicators</source>
+        <translation>显示运行指示标记</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="184"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="189"/>
+        <source>Show recent applications</source>
+        <translation>显示最近启动的应用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="196"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="201"/>
+        <source>Pin applications from the menu</source>
+        <translation>允许从菜单固定应用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="225"/>
+        <source>Separator</source>
+        <translation>分隔符</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="226"/>
+        <source>Drag to the Dock or add at the end.</source>
+        <translation>拖入程序坞，或添加到末尾。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="239"/>
+        <source>Drag to Dock</source>
+        <translation>拖入程序坞</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="240"/>
+        <source>Drag separator to Dock</source>
+        <translation>将分隔符拖入程序坞</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="291"/>
+        <source>Add</source>
+        <translation>添加</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="299"/>
+        <source>Separator spacing</source>
+        <translation>分隔符间距</translation>
+    </message>
+</context>
+<context>
+    <name>DockPreviewPopup</name>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="66"/>
+        <source>Separator</source>
+        <translation>分隔符</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="79"/>
+        <source>Close menu</source>
+        <translation>关闭菜单</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="155"/>
+        <source>Close window</source>
+        <translation>关闭窗口</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="181"/>
+        <source>Application is unavailable</source>
+        <translation>应用不可用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="197"/>
+        <source>Open application</source>
+        <translation>打开应用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="212"/>
+        <source>Remove from Dock</source>
+        <translation>从程序坞移除</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="212"/>
+        <source>Pin to Dock</source>
+        <translation>固定到程序坞</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="230"/>
+        <source>Dock settings</source>
+        <translation>程序坞设置</translation>
+    </message>
+</context>
+<context>
+    <name>DockService</name>
+    <message>
+        <location filename="../Services/DockService.qml" line="127"/>
+        <source>Separator</source>
+        <translation>分隔符</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockService.qml" line="355"/>
+        <source>Dock settings cannot be saved because the configuration directory is unavailable.</source>
+        <translation>配置目录不可用，无法保存程序坞设置。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockService.qml" line="372"/>
+        <source>Dock settings could not be read. The existing file is preserved; changes apply to this session only.</source>
+        <translation>无法读取程序坞设置。已保留原文件，更改仅在本次会话中生效。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockService.qml" line="380"/>
+        <source>Dock settings could not be opened. Changes apply to this session only.</source>
+        <translation>无法打开程序坞设置。更改仅在本次会话中生效。</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockService.qml" line="385"/>
+        <source>Dock settings could not be saved. Changes apply to this session only.</source>
+        <translation>无法保存程序坞设置。更改仅在本次会话中生效。</translation>
+    </message>
+</context>
+<context>
+    <name>DockSurface</name>
+    <message>
+        <location filename="../Modules/Dock/DockSurface.qml" line="487"/>
+        <source>Drop apps here</source>
+        <translation>将应用拖到此处</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockSurface.qml" line="545"/>
+        <source>Remove from Dock</source>
+        <translation>从程序坞移除</translation>
+    </message>
+</context>
+<context>
     <name>DrawerView</name>
     <message>
         <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="388"/>
@@ -4345,6 +4560,11 @@ Scroll to adjust</source>
         <location filename="../Common/generated/SearchCatalog.js" line="1764"/>
         <source>Bar</source>
         <translation>条栏</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1890"/>
+        <source>Dock</source>
+        <translation>程序坞</translation>
     </message>
     <message>
         <location filename="../Common/generated/SearchCatalog.js" line="1765"/>

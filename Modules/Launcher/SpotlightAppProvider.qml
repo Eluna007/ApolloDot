@@ -13,7 +13,7 @@ Item {
     onOrderChanged: rebuild()
 
     function rebuild() {
-        if (!active)
+        if (!active || DockService.externalDragActive)
             return;
         const ordered = LocalSearch.appResults(ApplicationService.launcherApplications, query, root.order,
                                                SpotlightAppUsage.records, Date.now());
@@ -33,6 +33,14 @@ Item {
     onQueryChanged: rebuild()
     onLimitChanged: rebuild()
     Component.onCompleted: rebuild()
+
+    Connections {
+        target: DockService
+        function onExternalDragActiveChanged() {
+            if (!DockService.externalDragActive)
+                root.rebuild();
+        }
+    }
 
     Connections {
         target: UiPreferences

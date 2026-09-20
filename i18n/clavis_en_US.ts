@@ -3809,6 +3809,221 @@ Scroll to adjust</translation>
     </message>
 </context>
 <context>
+    <name>DockItem</name>
+    <message>
+        <location filename="../Modules/Dock/DockItem.qml" line="122"/>
+        <source>Separator</source>
+        <translation>Separator</translation>
+    </message>
+</context>
+<context>
+    <name>DockPage</name>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1924"/>
+        <source>Appearance</source>
+        <translation>Appearance</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1925"/>
+        <source>Behavior</source>
+        <translation>Behavior</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1926"/>
+        <source>Separators</source>
+        <translation>Separators</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="24"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="29"/>
+        <source>Show Dock</source>
+        <translation>Show Dock</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="59"/>
+        <source>Screen edge</source>
+        <translation>Screen edge</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="65"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="67"/>
+        <source>Left</source>
+        <translation>Left</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="71"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="73"/>
+        <source>Bottom</source>
+        <translation>Bottom</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="77"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="79"/>
+        <source>Right</source>
+        <translation>Right</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="93"/>
+        <source>Icon size</source>
+        <translation>Icon size</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="106"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="111"/>
+        <source>Magnify on hover</source>
+        <translation>Magnify on hover</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="117"/>
+        <source>Magnification</source>
+        <translation>Magnification</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="148"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="153"/>
+        <source>Automatically hide</source>
+        <translation>Automatically hide</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="160"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="165"/>
+        <source>Bounce when launching</source>
+        <translation>Bounce when launching</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="172"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="177"/>
+        <source>Show running indicators</source>
+        <translation>Show running indicators</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="184"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="189"/>
+        <source>Show recent applications</source>
+        <translation>Show recent applications</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="196"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="201"/>
+        <source>Pin applications from the menu</source>
+        <translation>Pin applications from the menu</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="225"/>
+        <source>Separator</source>
+        <translation>Separator</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="226"/>
+        <source>Drag to the Dock or add at the end.</source>
+        <translation>Drag to the Dock or add at the end.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="239"/>
+        <source>Drag to Dock</source>
+        <translation>Drag to Dock</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="240"/>
+        <source>Drag separator to Dock</source>
+        <translation>Drag separator to Dock</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="291"/>
+        <source>Add</source>
+        <translation>Add</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="299"/>
+        <source>Separator spacing</source>
+        <translation>Separator spacing</translation>
+    </message>
+</context>
+<context>
+    <name>DockPreviewPopup</name>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="66"/>
+        <source>Separator</source>
+        <translation>Separator</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="79"/>
+        <source>Close menu</source>
+        <translation>Close menu</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="155"/>
+        <source>Close window</source>
+        <translation>Close window</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="181"/>
+        <source>Application is unavailable</source>
+        <translation>Application is unavailable</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="197"/>
+        <source>Open application</source>
+        <translation>Open application</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="212"/>
+        <source>Remove from Dock</source>
+        <translation>Remove from Dock</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="212"/>
+        <source>Pin to Dock</source>
+        <translation>Pin to Dock</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="230"/>
+        <source>Dock settings</source>
+        <translation>Dock settings</translation>
+    </message>
+</context>
+<context>
+    <name>DockService</name>
+    <message>
+        <location filename="../Services/DockService.qml" line="127"/>
+        <source>Separator</source>
+        <translation>Separator</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockService.qml" line="355"/>
+        <source>Dock settings cannot be saved because the configuration directory is unavailable.</source>
+        <translation>Dock settings cannot be saved because the configuration directory is unavailable.</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockService.qml" line="372"/>
+        <source>Dock settings could not be read. The existing file is preserved; changes apply to this session only.</source>
+        <translation>Dock settings could not be read. The existing file is preserved; changes apply to this session only.</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockService.qml" line="380"/>
+        <source>Dock settings could not be opened. Changes apply to this session only.</source>
+        <translation>Dock settings could not be opened. Changes apply to this session only.</translation>
+    </message>
+    <message>
+        <location filename="../Services/DockService.qml" line="385"/>
+        <source>Dock settings could not be saved. Changes apply to this session only.</source>
+        <translation>Dock settings could not be saved. Changes apply to this session only.</translation>
+    </message>
+</context>
+<context>
+    <name>DockSurface</name>
+    <message>
+        <location filename="../Modules/Dock/DockSurface.qml" line="487"/>
+        <source>Drop apps here</source>
+        <translation>Drop apps here</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockSurface.qml" line="545"/>
+        <source>Remove from Dock</source>
+        <translation>Remove from Dock</translation>
+    </message>
+</context>
+<context>
     <name>DrawerView</name>
     <message>
         <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="388"/>
@@ -4346,6 +4561,11 @@ Scroll to adjust</translation>
         <location filename="../Common/generated/SearchCatalog.js" line="1764"/>
         <source>Bar</source>
         <translation>Bar</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1890"/>
+        <source>Dock</source>
+        <translation>Dock</translation>
     </message>
     <message>
         <location filename="../Common/generated/SearchCatalog.js" line="1765"/>

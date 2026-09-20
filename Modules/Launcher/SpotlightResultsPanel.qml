@@ -302,6 +302,7 @@ Item {
                 currentIndex: root.selectedIndex
                 boundsBehavior: Flickable.StopAtBounds
                 keyNavigationEnabled: false
+                interactive: !DockService.externalDragActive
                 highlight: Item {}
                 highlightMoveDuration: root.style.resultScrollDuration
                 highlightMoveVelocity: -1
@@ -343,6 +344,8 @@ Item {
                         }
 
                         Image {
+                            id: appListIcon
+
                             visible: !root.fileMode && !root.commandList && !appDelegate.modelData.symbol
                             Layout.preferredWidth: root.style.resultIconSize
                             Layout.preferredHeight: root.style.resultIconSize
@@ -355,6 +358,8 @@ Item {
                         }
 
                         MaterialSymbol {
+                            id: appListSymbol
+
                             visible: root.commandList || (!root.fileMode && !!appDelegate.modelData.symbol)
                             text: appDelegate.modelData.symbol || appDelegate.modelData.icon || "terminal"
                             iconSize: root.style.resultIconSize
@@ -416,13 +421,24 @@ Item {
                         Accessible.name: appDelegate.modelData.title
                         Accessible.role: Accessible.ListItem
                         acceptedButtons: root.fileMode ? Qt.LeftButton | Qt.RightButton : Qt.LeftButton
+                        onPressed: appDrag.resetGesture()
                         onClicked: mouse => {
+                            if (appDrag.dragged)
+                                return;
                             root.selectionRequested(appDelegate.index);
                             if (root.fileMode && mouse.button === Qt.RightButton)
                                 fileMenu.popup();
                             else
                                 root.activationRequested(appDelegate.index, false);
                         }
+                    }
+                    SpotlightAppDrag {
+                        id: appDrag
+
+                        desktopId: root.mode === "apps" && appDelegate.modelData.appObject ? String(
+                                                                                                 appDelegate.modelData.appObject.id) :
+                                                                                             ""
+                        iconItem: appDelegate.modelData.symbol ? appListSymbol : appListIcon
                     }
                     Menu {
                         id: fileMenu
