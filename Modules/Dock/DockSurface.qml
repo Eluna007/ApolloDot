@@ -470,12 +470,12 @@ PanelWindow {
 
                 Rectangle {
                     visible: root.layout.divider >= 0
-                    width: root.horizontal ? 1 : root.restingThickness - 20
-                    height: root.horizontal ? root.restingThickness - 20 : 1
+                    width: root.horizontal ? 2 : root.restingThickness - 20
+                    height: root.horizontal ? root.restingThickness - 20 : 2
                     x: root.horizontal ? root.layout.divider - width / 2 : glass.x + 10
                     y: root.horizontal ? glass.y + 10 : root.layout.divider - height / 2
-                    radius: 0.5
-                    color: Appearance.colors.colOutlineVariant
+                    radius: 1
+                    color: Appearance.applyAlpha(Appearance.colors.colOnSurface, 0.4)
                     Behavior on x {
                         NumberAnimation {
                             duration: 160
@@ -517,6 +517,7 @@ PanelWindow {
                         width: root.horizontal ? slot.span : icons.width
                         height: root.horizontal ? icons.height : slot.span
                         iconSize: slot.size
+                        restingIconSize: root.baseLayout.size
                         dragged: key === root.dragKey || (dragGhost.entry && dragGhost.entry.key === key) || (
                                      root.externalOver && root.externalSourceKey === key)
                         enabled: !retiring

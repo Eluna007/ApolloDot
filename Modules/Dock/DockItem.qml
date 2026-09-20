@@ -18,6 +18,7 @@ Item {
     required property int windowCount
     required property string edge
     required property real iconSize
+    required property real restingIconSize
     property bool dragged: false
     property real presence: 1
     readonly property bool horizontal: edge === "bottom"
@@ -102,19 +103,20 @@ Item {
     Rectangle {
         visible: root.kind === "separator"
         anchors.centerIn: parent
-        width: root.horizontal ? 1 : Math.min(32, root.width / 2)
-        height: root.horizontal ? Math.min(32, root.height / 2) : 1
+        width: root.horizontal ? 2 : Math.min(32, root.width / 2)
+        height: root.horizontal ? Math.min(32, root.height / 2) : 2
         radius: 1
-        color: Appearance.colors.colOutlineVariant
+        color: Appearance.applyAlpha(Appearance.colors.colOnSurface, 0.4)
     }
     Rectangle {
         visible: root.kind === "app" && root.windowCount > 0 && DockService.showIndicators
-        width: 4
-        height: 4
-        radius: 2
-        x: root.horizontal ? (root.width - width) / 2 : root.edge === "left" ? 4 : root.width - 8
+        // Scale with the resting icons, so hover magnification does not pulse the dot.
+        width: Math.round(Math.max(5, Math.min(8, root.restingIconSize / 8)))
+        height: width
+        radius: width / 2
+        x: root.horizontal ? (root.width - width) / 2 : root.edge === "left" ? 8 - width : root.width - 8
         y: root.horizontal ? root.height - 10 : (root.height - height) / 2
-        color: root.focused ? Appearance.colors.colPrimary : Appearance.colors.colOnSurfaceVariant
+        color: Appearance.applyAlpha(Appearance.colors.colOnSurface, root.focused ? 1 : 0.8)
     }
     MouseArea {
         id: pointer
