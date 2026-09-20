@@ -196,6 +196,26 @@ Item {
 
                 SettingsRow {
                     Layout.fillWidth: true
+                    title: qsTr("Show device names")
+                    trailing: StyledSwitch {
+                        checked: PersonalizationConfig.keystoneLongShowNames
+                        Accessible.name: qsTr("Show device names")
+                        onToggled: PersonalizationConfig.setKeystoneLongShowNames(checked)
+                    }
+                }
+
+                SettingsRow {
+                    Layout.fillWidth: true
+                    title: qsTr("Show system monitor values")
+                    trailing: StyledSwitch {
+                        checked: PersonalizationConfig.keystoneLongShowMonitorValues
+                        Accessible.name: qsTr("Show system monitor values")
+                        onToggled: PersonalizationConfig.setKeystoneLongShowMonitorValues(checked)
+                    }
+                }
+
+                SettingsRow {
+                    Layout.fillWidth: true
                     title: qsTr("Show spectrum")
                     trailing: StyledSwitch {
                         checked: PersonalizationConfig.keystoneLongShowSpectrum

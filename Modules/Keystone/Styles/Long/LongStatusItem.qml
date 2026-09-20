@@ -240,8 +240,9 @@ Item {
             readonly property real labelExtent: root.nameLabel ? Math.min(Math.max(0, root.maximumNameWidth),
                                                                           statusText.implicitWidth) :
                                                                  statusText.implicitWidth
-            visible: root.displayText !== "" && (root.nameLabel || root.itemId === "weather"
-                                                 || PersonalizationConfig.keystoneLongShowValues)
+            visible: root.displayText !== "" && (root.nameLabel ? PersonalizationConfig.keystoneLongShowNames :
+                                                                  root.itemId === "weather"
+                                                                  || PersonalizationConfig.keystoneLongShowValues)
             implicitWidth: root.rotateLabel ? statusText.implicitHeight : labelExtent
             implicitHeight: root.rotateLabel ? labelExtent : statusText.implicitHeight
             Layout.alignment: Qt.AlignCenter

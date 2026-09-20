@@ -119,6 +119,7 @@ Item {
                     Component {
                         id: systemMonitor
                         SysMonitor {
+                            showValues: PersonalizationConfig.keystoneLongShowMonitorValues
                             vertical: root.vertical
                             ownerId: "keystone-long:" + String(root.screen ? root.screen.name : "default") + (
                                          lane.trailing ? ":trailing" : ":leading")

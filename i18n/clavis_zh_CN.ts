@@ -4246,6 +4246,10 @@ Scroll to adjust</source>
         <source>Quick settings widgets</source>
         <translation>快捷设置组件</translation>
     </message>
+    <message>
+        <source>Show system monitor values</source>
+        <translation>显示系统监测数值</translation>
+    </message>
 </context>
 <context>
     <name>GeneralEffectsPage</name>
@@ -5409,6 +5413,14 @@ Scroll to adjust</source>
     <message>
         <source>Show numeric values</source>
         <translation>显示数值</translation>
+    </message>
+    <message>
+        <source>Show device names</source>
+        <translation>显示设备名称</translation>
+    </message>
+    <message>
+        <source>Show system monitor values</source>
+        <translation>显示系统监测数值</translation>
     </message>
 </context>
 <context>

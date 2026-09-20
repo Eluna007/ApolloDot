@@ -438,6 +438,9 @@ Singleton {
     property bool keystoneNumLockOsd: true
     property bool keystoneHideDate: false
     property bool keystoneLongShowSpectrum: true
+    property bool keystoneLongShowNames: true
+    property bool keystoneLongShowMonitorValues: true
+    property bool barShowMonitorValues: true
     property bool keystoneLongShowValues: true
     property string keystoneHoverAction: "peak"
     property string keystoneLeftClickAction: "media"
@@ -1571,6 +1574,18 @@ Singleton {
         setValue("keystoneLongShowSpectrum", !!value);
     }
 
+    function setKeystoneLongShowNames(value) {
+        setValue("keystoneLongShowNames", !!value);
+    }
+
+    function setKeystoneLongShowMonitorValues(value) {
+        setValue("keystoneLongShowMonitorValues", !!value);
+    }
+
+    function setBarShowMonitorValues(value) {
+        setValue("barShowMonitorValues", !!value);
+    }
+
     function setKeystoneLongShowValues(value) {
         setValue("keystoneLongShowValues", !!value);
     }
@@ -1747,6 +1762,8 @@ Singleton {
                 "numLockOsd": root.keystoneNumLockOsd,
                 "hideDate": root.keystoneHideDate,
                 "longShowSpectrum": root.keystoneLongShowSpectrum,
+                "longShowNames": root.keystoneLongShowNames,
+                "longShowMonitorValues": root.keystoneLongShowMonitorValues,
                 "longShowValues": root.keystoneLongShowValues,
                 "hoverAction": root.keystoneHoverAction,
                 "hoverOpenDelay": root.keystoneHoverOpenDelay,
@@ -1766,6 +1783,7 @@ Singleton {
             },
             "bar": {
                 "position": root.barPosition,
+                "showMonitorValues": root.barShowMonitorValues,
                 "barLeadingComponents": root.barLeadingComponents.slice(),
                 "barTrailingComponents": root.barTrailingComponents.slice(),
                 "quickSettingsComponents": root.quickSettingsComponents.slice()
@@ -1873,6 +1891,10 @@ Singleton {
                 ? keystone.longShowSpectrum : true;
         root.keystoneLongShowValues = typeof keystone.longShowValues === "boolean" ? keystone.longShowValues :
                                                                                      true;
+        root.keystoneLongShowNames = typeof keystone.longShowNames === "boolean" ? keystone.longShowNames :
+                                                                                   true;
+        root.keystoneLongShowMonitorValues = typeof keystone.longShowMonitorValues === "boolean"
+                ? keystone.longShowMonitorValues : true;
         root.keystoneHideDate = typeof keystone.hideDate === "boolean" ? keystone.hideDate : false;
         root.keystoneHoverAction = normalizedOption(root.keystoneHoverActionOptions, keystone.hoverAction,
                                                     "peak");
@@ -1894,6 +1916,7 @@ Singleton {
         root.horizontalClockFontSize = root.normalizedBoundedInt(horizontalClock.fontSize, 22, 16, 28);
         root.horizontalClockAxes = root.normalizedHorizontalClockAxes(horizontalClock.axes);
         root.horizontalClockDigits = root.normalizedHorizontalClockDigits(horizontalClock.digits);
+        root.barShowMonitorValues = typeof bar.showMonitorValues === "boolean" ? bar.showMonitorValues : true;
         root.barPosition = normalizedEdgePosition(bar.position);
         const hasBarLayout = Array.isArray(bar.barLeadingComponents) || Array.isArray(
                   bar.barTrailingComponents);

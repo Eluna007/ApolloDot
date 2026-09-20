@@ -60,6 +60,16 @@ StyledFlickable {
                     '{"id":"general.bar.section.components","route":"general.bar","title":"Components","context":"GeneralBarPage","icon":"dock_to_bottom","aliases":[]}'
             }
             iconName: "view_agenda"
+
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("Show system monitor values")
+                trailing: StyledSwitch {
+                    checked: PersonalizationConfig.barShowMonitorValues
+                    Accessible.name: qsTr("Show system monitor values")
+                    onToggled: PersonalizationConfig.setBarShowMonitorValues(checked)
+                }
+            }
             supportingText: qsTr("Drag components to reorder them or move them to the other side.")
 
             SettingsRow {

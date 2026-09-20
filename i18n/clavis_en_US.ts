@@ -4247,6 +4247,10 @@ Scroll to adjust</translation>
         <source>Quick settings widgets</source>
         <translation>Quick settings widgets</translation>
     </message>
+    <message>
+        <source>Show system monitor values</source>
+        <translation>Show system monitor values</translation>
+    </message>
 </context>
 <context>
     <name>GeneralEffectsPage</name>
@@ -5410,6 +5414,14 @@ Scroll to adjust</translation>
     <message>
         <source>Show numeric values</source>
         <translation>Show numeric values</translation>
+    </message>
+    <message>
+        <source>Show device names</source>
+        <translation>Show device names</translation>
+    </message>
+    <message>
+        <source>Show system monitor values</source>
+        <translation>Show system monitor values</translation>
     </message>
 </context>
 <context>
