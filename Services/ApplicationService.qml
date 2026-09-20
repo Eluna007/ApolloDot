@@ -101,6 +101,7 @@ Singleton {
     }
 
     function iconSource(iconName) {
+        const revision = ThemeService.iconThemeRevision;
         const value = String(iconName || "");
         if (value.startsWith("file://") || value.startsWith("image://"))
             return value;

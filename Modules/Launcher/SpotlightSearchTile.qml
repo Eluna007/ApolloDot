@@ -45,15 +45,14 @@ Item {
                 visible: root.wallpaper
                 color: root.style.surfaceColor
             }
-            Image {
+            ThemeIcon {
                 id: artwork
                 anchors.fill: parent
-                source: root.result.iconKind === "app" ? ApplicationService.iconSource(root.result.appIcon) :
-                                                         root.result.iconKind === "wallpaper"
-                                                         ? root.result.previewUrl : ""
+                iconSource: root.result.iconKind === "app" ? ApplicationService.iconSource(
+                                                                 root.result.appIcon) : root.result.iconKind
+                                                             === "wallpaper" ? root.result.previewUrl : ""
                 sourceSize: Qt.size(width * Screen.devicePixelRatio, height * Screen.devicePixelRatio)
                 asynchronous: true
-                cache: true
                 retainWhileLoading: false
                 currentFrame: 0
                 fillMode: root.wallpaper ? Image.PreserveAspectCrop : Image.PreserveAspectFit

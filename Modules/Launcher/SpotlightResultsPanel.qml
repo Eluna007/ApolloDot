@@ -134,25 +134,6 @@ Item {
             contentFade.restart();
     }
 
-    function fallbackIconSource() {
-        const fallback = Quickshell.iconPath(root.fileMode ? "text-x-generic" : "application-x-executable",
-                                             "");
-        return fallback && fallback !== "" ? fallback : root.fileMode ? "image://icon/text-x-generic" :
-                                                                        "image://icon/application-x-executable";
-    }
-
-    function iconSource(icon) {
-        if (!icon)
-            return fallbackIconSource();
-        if (String(icon).startsWith("/"))
-            return "file://" + icon;
-        if (String(icon).startsWith("file://") || String(icon).startsWith("image://"))
-            return icon;
-        const resolved = Quickshell.iconPath(icon, root.fileMode ? "text-x-generic" :
-                                                                   "application-x-executable");
-        return resolved && resolved !== "" ? resolved : fallbackIconSource();
-    }
-
     function clipboardActivationAreaAt(index) {
         const delegate = clipboardList.itemAtIndex(index);
         return delegate ? delegate.activationArea : null;
@@ -343,14 +324,14 @@ Item {
                             directory: active && appDelegate.modelData.file.isDirectory
                         }
 
-                        Image {
+                        ThemeIcon {
                             id: appListIcon
 
                             visible: !root.fileMode && !root.commandList && !appDelegate.modelData.symbol
                             Layout.preferredWidth: root.style.resultIconSize
                             Layout.preferredHeight: root.style.resultIconSize
-                            source: root.fileMode || root.commandList || appDelegate.modelData.symbol ? "" : root.iconSource(
-                                                                                                            appDelegate.modelData.icon)
+                            iconSource: root.fileMode || root.commandList || appDelegate.modelData.symbol
+                                        ? "" : ApplicationService.iconSource(appDelegate.modelData.icon)
                             sourceSize.width: root.style.resultIconSize * 2
                             sourceSize.height: root.style.resultIconSize * 2
                             asynchronous: true

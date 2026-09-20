@@ -86,7 +86,7 @@ Singleton {
             desktopId: id,
             name: String(application ? application.name || application.id : first ? first.appName || first.appId
                                                                                     || first.title : id),
-            icon: ApplicationService.iconSource(application ? application.icon : first ? first.iconPath : ""),
+            icon: application ? application.icon : first ? first.iconPath : "",
             symbol: String(application && application.symbol || ""),
             pinned: pinned,
             windowCount: windows.length,

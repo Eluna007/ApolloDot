@@ -62,7 +62,7 @@ GridView {
                 }
             }
 
-            Image {
+            ThemeIcon {
                 id: appIcon
 
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -71,7 +71,7 @@ GridView {
                 width: root.style.appGridIconSize
                 height: width
                 visible: !tile.modelData.symbol
-                source: visible ? ApplicationService.iconSource(tile.modelData.icon) : ""
+                iconSource: visible ? ApplicationService.iconSource(tile.modelData.icon) : ""
                 sourceSize.width: root.style.appGridIconSize * 2
                 sourceSize.height: root.style.appGridIconSize * 2
                 asynchronous: true

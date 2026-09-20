@@ -104,10 +104,10 @@ Item {
         onFinished: root.clear()
     }
 
-    Image {
+    ThemeIcon {
         anchors.fill: parent
         visible: !!root.entry && root.entry.kind === "app" && !root.entry.symbol
-        source: visible ? ApplicationService.iconSource(root.entry.icon) : ""
+        iconSource: visible ? ApplicationService.iconSource(root.entry.icon) : ""
         sourceSize: Qt.size(160, 160)
         fillMode: Image.PreserveAspectFit
     }
