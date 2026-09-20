@@ -8,14 +8,23 @@ Singleton {
     id: root
 
     property var applications: []
+    readonly property string settingsIconName: {
+        // Re-evaluate availability after Qt has applied the selected theme.
+        const revision = ThemeService.iconThemeRevision;
+        for (const name of ["preferences-system", "preferences-desktop"]) {
+            if (Quickshell.hasThemeIcon(name))
+                return name;
+        }
+        return "";
+    }
     readonly property var settingsApplication: ({
                                                     id: "org.clavis.Settings",
                                                     name: qsTranslate("ControlCenterWindow", "Settings"),
                                                     genericName: "Clavis",
                                                     keywords: ["Clavis", "settings", "preferences",
                                                         "control center"],
-                                                    symbol: "settings",
-                                                    icon: ""
+                                                    symbol: root.settingsIconName ? "" : "settings",
+                                                    icon: root.settingsIconName
                                                 })
     // Internal shell entries belong in the launcher, not in default-app or
     // autostart pickers that require an installed desktop application.
