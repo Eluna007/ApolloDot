@@ -26,24 +26,42 @@ PanelWindow {
     }
     readonly property real magnification: DockService.magnification ? DockService.magnificationScale : 1
     readonly property var baseLayout: DockLayout.layout(kinds, DockService.iconSize, availableLength,
-                                                        magnification, DockService.separatorSize, NaN)
+                                                        magnification, DockService.separatorSize, NaN,
+                                                        DockLayout.sectionBoundary(kinds,
+                                                                                   DockService.pinnedEntries.length))
     readonly property real scrollOffset: horizontal ? icons.contentX - icons.originX : icons.contentY
                                                       - icons.originY
     readonly property real pointerInBase: pointerAxis - (axisLength - Math.min(baseLayout.baseLength,
                                                                                availableLength)) / 2
                                           + scrollOffset
-    readonly property var layout: DockLayout.layout(kinds, DockService.iconSize, availableLength,
-                                                    magnification, DockService.separatorSize,
-                                                    bandHover.hovered && !dragKey && !dropArea.containsDrag
-                                                    ? pointerInBase : NaN)
+    readonly property bool dragInside: dragKey !== "" && insideDropBand(dragPoint)
+    readonly property int previewSource: dragKey ? DockService.rowIndex(dragKey) : externalOver
+                                                   ? DockService.rowIndex(externalSourceKey) : -1
+    readonly property var preview: DockLayout.previewOrder(kinds, previewSource, dragInside || externalOver
+                                                           ? insertion : -1, draggedEntry ? draggedEntry.kind :
+                                                                                            "app")
+    readonly property var layout: DockLayout.layout(preview.kinds, baseLayout.size, availableLength,
+                                                    magnification, DockService.separatorSize, dragInside
+                                                    || externalOver || (!dragKey && bandHover.hovered)
+                                                    ? pointerInBase : NaN, DockLayout.sectionBoundary(
+                                                        preview.kinds, DockService.pinnedEntries.length,
+                                                        preview.order))
+    readonly property var slotsByIndex: {
+        const result = [];
+        for (let i = 0; i < preview.order.length; ++i) {
+            if (preview.order[i] >= 0)
+                result[preview.order[i]] = layout.slots[i];
+        }
+        return result;
+    }
     readonly property real bandLength: Math.min(availableLength, Math.max(96, layout.length))
     readonly property real bandThickness: baseLayout.size * magnification + 36
     readonly property real restingThickness: baseLayout.size + 22
     readonly property bool shown: !DockService.autoHide || revealed || DockService.externalDragActive
-                                  || dragKey !== "" || popupKey !== ""
+                                  || dragKey !== "" || popupKey !== "" || dragGhost.active
     readonly property bool interacting: bandHover.hovered || edgeHover.hovered || popup.hovered
                                         || dropArea.containsDrag || dragKey !== ""
-                                        || DockService.externalDragActive
+                                        || DockService.externalDragActive || dragGhost.active
     property bool revealed: false
     property real pointerAxis: 0
     property string hoverKey: ""
@@ -56,9 +74,11 @@ PanelWindow {
     property point dragPoint: Qt.point(0, 0)
     property point dropPoint: Qt.point(0, 0)
     property int insertion: -1
+    property bool externalOver: false
+    property string externalSourceKey: ""
+    property point dragGrabOffset: Qt.point(0, 0)
     readonly property var draggedEntry: {
-        const revision = DockService.revision;
-        return DockService.entryFor(dragKey);
+        return dragKey && dragGhost.entry ? dragGhost.entry : null;
     }
     readonly property bool removeOnRelease: !!draggedEntry && draggedEntry.pinned
                                             && DockLayout.removalDistance(edge, dragPoint.x, dragPoint.y,
@@ -79,7 +99,7 @@ PanelWindow {
         }
     }
     function hoverEntry(key) {
-        if (dragKey || DockService.externalDragActive || contextMenu)
+        if (dragKey || dragGhost.active || DockService.externalDragActive || contextMenu)
             return;
         hoverKey = key;
         pendingPopupKey = key;
@@ -99,20 +119,86 @@ PanelWindow {
         hoverTimer.stop();
         updateInteraction();
     }
+    // Hit testing stays in the unchanged model's coordinate system. Animated
+    // neighbours and the provisional gap must not move their own thresholds.
     function insertionAt(point) {
-        const local = icons.mapFromItem(content, point.x, point.y);
-        return DockLayout.insertionIndex(layout.slots, (horizontal ? local.x : local.y) + scrollOffset);
+        const origin = (axisLength - Math.min(baseLayout.baseLength, availableLength)) / 2;
+        const coordinate = (horizontal ? point.x : point.y) - origin + scrollOffset;
+        const candidate = Math.min(DockService.pinnedEntries.length, DockLayout.insertionIndex(
+                                       baseLayout.slots, coordinate));
+        if (insertion >= 0 && Math.abs(candidate - insertion) === 1) {
+            const crossed = baseLayout.slots[Math.min(candidate, insertion)];
+            if (crossed && Math.abs(coordinate - crossed.center) < 6)
+                return insertion;
+        }
+        return candidate;
     }
-    function moveDrag(key, point) {
+    function insideDropBand(point) {
+        const major = horizontal ? point.x : point.y;
+        return major >= 0 && major <= axisLength && DockLayout.removalDistance(edge, point.x, point.y, width, height,
+                                                                               edgeOffset) <= bandThickness
+                + 24;
+    }
+    function slotForKey(key) {
+        const revision = DockService.revision;
+        return slotsByIndex[DockService.rowIndex(key)] || null;
+    }
+    function copyEntry(entry) {
+        const value = {};
+        for (const role of ["key", "kind", "name", "icon", "symbol", "pinned", "focused", "launching",
+                            "available", "windowCount"])
+            value[role] = entry[role];
+        return value;
+    }
+    function syncVisualEntries() {
+        const wanted = new Set();
+        for (let i = 0; i < DockService.model.count; ++i) {
+            const entry = DockService.model.get(i);
+            wanted.add(entry.key);
+            let found = -1;
+            for (let j = 0; j < visualEntries.count; ++j) {
+                if (visualEntries.get(j).key === entry.key) {
+                    found = j;
+                    break;
+                }
+            }
+            const row = copyEntry(entry);
+            row.retiring = false;
+            if (found < 0)
+                visualEntries.append(row);
+            else
+                visualEntries.set(found, row);
+        }
+        for (let i = 0; i < visualEntries.count; ++i) {
+            if (!wanted.has(visualEntries.get(i).key))
+                visualEntries.setProperty(i, "retiring", true);
+        }
+    }
+    function removeRetired() {
+        for (let i = visualEntries.count - 1; i >= 0; --i) {
+            const item = iconItems.itemAt(i);
+            if (visualEntries.get(i).retiring && item && item.presence === 0)
+                visualEntries.remove(i);
+        }
+    }
+    function moveDrag(key, point, offset, size) {
         if (dragCancelled)
             return;
         if (dragKey !== key) {
+            const entry = DockService.entryFor(key);
+            if (!entry)
+                return;
+            dragGrabOffset = offset;
+            dragGhost.begin(copyEntry(entry), Qt.point(point.x - offset.x, point.y - offset.y), size);
             dragKey = key;
             dismissPopup();
             content.forceActiveFocus();
         }
         dragPoint = point;
+        pointerAxis = horizontal ? point.x : point.y;
         insertion = insertionAt(point);
+        dragGhost.follow(Qt.point(point.x - dragGrabOffset.x, point.y - dragGrabOffset.y));
+        dragGhost.removalArmed = removeOnRelease;
         revealed = true;
     }
     function finishDrag(key, point) {
@@ -123,22 +209,48 @@ PanelWindow {
         }
         dragPoint = point;
         const entry = DockService.entryFor(key);
+        let removed = false;
         if (removeOnRelease)
-            DockService.unpin(key);
-        else if (entry && DockLayout.removalDistance(edge, point.x, point.y, width, height, edgeOffset)
-                 <= bandThickness + 24) {
+            removed = DockService.unpin(key);
+        else if (entry && insideDropBand(point)) {
             const target = insertionAt(point);
             if (entry.pinned)
                 DockService.movePinned(key, target);
             else if (entry.desktopId)
                 DockService.pin(entry.desktopId, target);
         }
-        cancelDrag();
-        dragCancelled = false;
-    }
-    function cancelDrag() {
         dragKey = "";
         insertion = -1;
+        if (removed)
+            dragGhost.remove();
+        else
+            Qt.callLater(root.landGhost);
+        dragCancelled = false;
+        updateInteraction();
+    }
+    function landGhost() {
+        if (!dragGhost.active || dragKey)
+            return;
+        const slot = slotForKey(dragGhost.entry.key);
+        if (!slot) {
+            dragGhost.remove();
+            return;
+        }
+        const major = (axisLength - bandLength) / 2 + slot.start + slot.span / 2 - scrollOffset;
+        const cross = horizontal ? height - edgeOffset - 12 - slot.size / 2 : edge === "left" ? edgeOffset
+                                                                                                + 10 + slot.size
+                                                                                                / 2 : width
+                                                                                                - edgeOffset
+                                                                                                - 10 - slot.size
+                                                                                                / 2;
+        dragGhost.land(horizontal ? Qt.point(major, cross) : Qt.point(cross, major), slot.size);
+    }
+    function cancelDrag() {
+        if (!dragKey)
+            return;
+        dragKey = "";
+        insertion = -1;
+        Qt.callLater(root.landGhost);
         updateInteraction();
     }
     function scrollBy(amount) {
@@ -151,6 +263,17 @@ PanelWindow {
                                                                                        - icons.height),
                                                               icons.contentY + amount));
     }
+
+    ListModel {
+        id: visualEntries
+    }
+    Connections {
+        target: DockService
+        function onRevisionChanged() {
+            root.syncVisualEntries();
+        }
+    }
+    Component.onCompleted: root.syncVisualEntries()
 
     // The surface supplies animation/drag space; only the visible interaction
     // regions accept input. Its exclusive zone is always the resting dock.
@@ -195,7 +318,7 @@ PanelWindow {
         id: hoverTimer
         interval: 450
         onTriggered: {
-            if (bandHover.hovered && !root.dragKey)
+            if (bandHover.hovered && !root.dragKey && !dragGhost.active)
                 root.showPopup(root.pendingPopupKey, false);
         }
     }
@@ -211,6 +334,7 @@ PanelWindow {
                 root.scrollBy(-12);
             else if (coordinate > root.bandLength - 28)
                 root.scrollBy(12);
+            root.insertion = root.insertionAt(position);
         }
     }
 
@@ -333,109 +457,128 @@ PanelWindow {
                 }
             }
 
-            ListView {
+            Flickable {
                 id: icons
                 anchors.fill: parent
-                orientation: root.horizontal ? ListView.Horizontal : ListView.Vertical
-                model: DockService.model
+                contentWidth: root.horizontal ? root.layout.length : width
+                contentHeight: root.horizontal ? height : root.layout.length
                 clip: true
                 interactive: false
                 boundsBehavior: Flickable.StopAtBounds
-                header: Item {
-                    width: 12
-                    height: 12
-                }
-                footer: Item {
-                    width: 12
-                    height: 12
-                }
-                cacheBuffer: 200
+                onContentWidthChanged: root.scrollBy(0)
+                onContentHeightChanged: root.scrollBy(0)
 
-                delegate: DockItem {
-                    id: dockItem
-                    required property int index
-                    required property string key
-                    // Other roles bind through required properties on DockItem.
-                    entryKey: key
-                    edge: root.edge
-                    property var lastSlot: ({
-                                                span: 0,
-                                                size: root.baseLayout.size
-                                            })
-                    readonly property var slot: root.layout.slots[index] || lastSlot
-                    onSlotChanged: {
-                        if (index >= 0)
-                            lastSlot = slot;
-                    }
-                    width: root.horizontal ? slot.span * presence : icons.width
-                    height: root.horizontal ? icons.height : slot.span * presence
-                    iconSize: slot.size
-                    dragged: root.dragKey === key
-                    onPressStarted: root.dragCancelled = false
-                    onHovered: key => root.hoverEntry(key)
-                    onActivated: key => {
-                        root.dragCancelled = false;
-                        DockService.activate(key);
-                        root.dismissPopup();
-                    }
-                    onContextRequested: key => root.showPopup(key, true)
-                    onDragMoved: (key, position) => root.moveDrag(key, position)
-                    onDragReleased: (key, position) => root.finishDrag(key, position)
-                    onDragCancelled: {
-                        root.cancelDrag();
-                        root.dragCancelled = false;
-                    }
-                    ListView.onAdd: enterAnimation.start()
-                    ListView.onRemove: exitAnimation.start()
-                    NumberAnimation {
-                        id: enterAnimation
-                        target: dockItem
-                        property: "presence"
-                        from: 0
-                        to: 1
-                        duration: 220
-                        easing.type: Easing.OutCubic
-                    }
-                    SequentialAnimation {
-                        id: exitAnimation
-                        PropertyAction {
-                            target: dockItem
-                            property: "ListView.delayRemove"
-                            value: true
-                        }
+                Rectangle {
+                    visible: root.layout.divider >= 0
+                    width: root.horizontal ? 1 : root.restingThickness - 20
+                    height: root.horizontal ? root.restingThickness - 20 : 1
+                    x: root.horizontal ? root.layout.divider - width / 2 : glass.x + 10
+                    y: root.horizontal ? glass.y + 10 : root.layout.divider - height / 2
+                    radius: 0.5
+                    color: Appearance.colors.colOutlineVariant
+                    Behavior on x {
                         NumberAnimation {
-                            target: dockItem
-                            property: "presence"
-                            to: 0
-                            duration: 180
-                            easing.type: Easing.InCubic
-                        }
-                        PropertyAction {
-                            target: dockItem
-                            property: "ListView.delayRemove"
-                            value: false
-                        }
-                    }
-                    Behavior on width {
-                        enabled: root.horizontal && !exitAnimation.running
-                        NumberAnimation {
-                            duration: 120
+                            duration: 160
                             easing.type: Easing.OutCubic
                         }
                     }
-                    Behavior on height {
-                        enabled: !root.horizontal && !exitAnimation.running
+                    Behavior on y {
                         NumberAnimation {
-                            duration: 120
+                            duration: 160
                             easing.type: Easing.OutCubic
                         }
                     }
                 }
-                displaced: Transition {
-                    NumberAnimation {
-                        properties: "x,y"
-                        duration: 180
-                        easing.type: Easing.OutCubic
+
+                Repeater {
+                    id: iconItems
+                    model: visualEntries
+                    delegate: DockItem {
+                        id: dockItem
+                        required property string key
+                        required property bool retiring
+                        property bool appeared: false
+                        // Position is keyed by application, never by the order
+                        // in which presentation objects happened to be created.
+                        property var lastSlot: ({
+                                                    start: 12,
+                                                    span: 0,
+                                                    size: root.baseLayout.size
+                                                })
+                        readonly property var slot: root.slotForKey(key) || lastSlot
+                        onSlotChanged: {
+                            if (!retiring && root.slotForKey(key))
+                                lastSlot = slot;
+                        }
+                        entryKey: key
+                        edge: root.edge
+                        x: root.horizontal ? slot.start : 0
+                        y: root.horizontal ? 0 : slot.start
+                        width: root.horizontal ? slot.span : icons.width
+                        height: root.horizontal ? icons.height : slot.span
+                        iconSize: slot.size
+                        dragged: key === root.dragKey || (dragGhost.entry && dragGhost.entry.key === key) || (
+                                     root.externalOver && root.externalSourceKey === key)
+                        enabled: !retiring
+                        presence: appeared && !retiring ? 1 : 0
+                        Component.onCompleted: appeared = true
+                        onPresenceChanged: {
+                            if (retiring && presence === 0)
+                                Qt.callLater(root.removeRetired);
+                        }
+                        onRetiringChanged: {
+                            if (retiring)
+                                Qt.callLater(root.removeRetired);
+                        }
+                        Behavior on presence {
+                            NumberAnimation {
+                                duration: 160
+                                easing.type: Easing.OutCubic
+                            }
+                        }
+                        Behavior on x {
+                            enabled: dockItem.appeared
+                            NumberAnimation {
+                                duration: 160
+                                easing.type: Easing.OutCubic
+                            }
+                        }
+                        Behavior on y {
+                            enabled: dockItem.appeared
+                            NumberAnimation {
+                                duration: 160
+                                easing.type: Easing.OutCubic
+                            }
+                        }
+                        Behavior on width {
+                            enabled: root.horizontal
+                            NumberAnimation {
+                                duration: 120
+                                easing.type: Easing.OutCubic
+                            }
+                        }
+                        Behavior on height {
+                            enabled: !root.horizontal
+                            NumberAnimation {
+                                duration: 120
+                                easing.type: Easing.OutCubic
+                            }
+                        }
+                        onPressStarted: root.dragCancelled = false
+                        onHovered: key => root.hoverEntry(key)
+                        onActivated: key => {
+                            root.dragCancelled = false;
+                            DockService.activate(key);
+                            root.dismissPopup();
+                        }
+                        onContextRequested: key => root.showPopup(key, true)
+                        onDragMoved: (key, position, offset, size) => root.moveDrag(key, position, offset,
+                                                                                    size)
+                        onDragReleased: (key, position) => root.finishDrag(key, position)
+                        onDragCancelled: {
+                            root.cancelDrag();
+                            root.dragCancelled = false;
+                        }
                     }
                 }
                 ScrollBar.horizontal: StyledScrollBar {
@@ -445,8 +588,11 @@ PanelWindow {
                     visible: !root.horizontal && root.layout.overflow
                 }
                 WheelHandler {
+                    target: null
                     onWheel: event => {
-                        root.scrollBy(-(event.angleDelta.y || event.angleDelta.x));
+                        const delta = event.pixelDelta.y || event.pixelDelta.x || event.angleDelta.y
+                              || event.angleDelta.x;
+                        root.scrollBy(-delta);
                         event.accepted = true;
                     }
                 }
@@ -456,45 +602,65 @@ PanelWindow {
                 id: dropArea
                 anchors.fill: parent
                 onEntered: drag => {
-                    // MIME contents are only guaranteed on drop for foreign
-                    // clients. Validation happens before any pin is persisted.
-                    drag.accepted = drag.formats.indexOf("application/x-clavis-dock") >= 0 || drag.hasUrls;
-                    if (drag.accepted) {
-                        root.dismissPopup();
-                        root.revealed = true;
-                        root.dropPoint = band.mapToItem(content, drag.x, drag.y);
-                        root.insertion = root.insertionAt(root.dropPoint);
-                    }
+                    // Foreign file data is validated on drop. In-process app
+                    // drags can already preview their existing grouped identity.
+                    drag.accepted = drag.formats.indexOf(DockService.dragMimeType) >= 0 || drag.hasUrls;
+                    if (!drag.accepted)
+                        return;
+                    root.externalSourceKey = drag.source && typeof drag.source.desktopId === "string" ? "app:"
+                                                                                                        + drag.source.desktopId.replace(
+                                                                                                            /\.desktop$/,
+                                                                                                            "") : "";
+                    root.dropPoint = band.mapToItem(content, drag.x, drag.y);
+                    root.pointerAxis = root.horizontal ? root.dropPoint.x : root.dropPoint.y;
+                    root.insertion = root.insertionAt(root.dropPoint);
+                    root.externalOver = true;
+                    root.dismissPopup();
+                    root.revealed = true;
                 }
                 onPositionChanged: drag => {
                     root.dropPoint = band.mapToItem(content, drag.x, drag.y);
+                    root.pointerAxis = root.horizontal ? root.dropPoint.x : root.dropPoint.y;
                     root.insertion = root.insertionAt(root.dropPoint);
                 }
-                onExited: root.insertion = -1
-                onDropped: drop => {
-                    const text = drop.getDataAsString("application/x-clavis-dock");
-                    if (DockService.acceptDrop(text, drop.urls, root.insertion))
-                        drop.accept(Qt.CopyAction);
+                onExited: {
+                    root.externalOver = false;
+                    root.externalSourceKey = "";
                     root.insertion = -1;
+                }
+                onDropped: drop => {
+                    const text = drop.getDataAsString(DockService.dragMimeType);
+                    const incoming = DockService.dropEntries(text, drop.urls);
+                    const before = new Set();
+                    for (let i = 0; i < DockService.model.count; ++i)
+                        before.add(DockService.model.get(i).key);
+                    const accepted = DockService.acceptDrop(text, drop.urls, root.insertion);
+                    let landingEntry = null;
+                    if (accepted && incoming.length === 1) {
+                        if (incoming[0].kind === "app")
+                            landingEntry = DockService.entryFor("app:" + incoming[0].desktopId);
+                        else {
+                            for (let i = 0; i < DockService.model.count; ++i) {
+                                const candidate = DockService.model.get(i);
+                                if (!before.has(candidate.key)) {
+                                    landingEntry = candidate;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (landingEntry)
+                        dragGhost.begin(root.copyEntry(landingEntry), root.dropPoint, root.baseLayout.size);
+                    root.externalOver = false;
+                    root.externalSourceKey = "";
+                    root.insertion = -1;
+                    if (accepted) {
+                        drop.accept(Qt.CopyAction);
+                        if (landingEntry)
+                            Qt.callLater(root.landGhost);
+                    }
                     root.updateInteraction();
                 }
-            }
-
-            Rectangle {
-                readonly property real coordinate: root.insertion < root.layout.slots.length && root.insertion
-                                                   >= 0 ? root.layout.slots[root.insertion].start :
-                                                          root.layout.length - 12
-                visible: root.insertion >= 0 && !root.removeOnRelease && (root.dragKey !== ""
-                                                                          || dropArea.containsDrag)
-                x: root.horizontal ? coordinate - root.scrollOffset : root.edge === "left" ? 8 : parent.width
-                                                                                             - root.restingThickness
-                                                                                             + 8
-                y: root.horizontal ? parent.height - root.restingThickness + 8 : coordinate
-                                     - root.scrollOffset
-                width: root.horizontal ? 3 : root.restingThickness - 16
-                height: root.horizontal ? root.restingThickness - 16 : 3
-                radius: 2
-                color: Appearance.colors.colPrimary
             }
 
             Text {
@@ -522,48 +688,9 @@ PanelWindow {
             onDismissed: root.dismissPopup()
         }
 
-        Item {
+        DockDragVisual {
             id: dragGhost
-            visible: root.dragKey !== "" && !!root.draggedEntry
-            width: root.baseLayout.size
-            height: width
-            x: root.dragPoint.x - width / 2
-            y: root.dragPoint.y - height / 2
-            opacity: 0.85
-            Image {
-                anchors.fill: parent
-                visible: !!root.draggedEntry && root.draggedEntry.kind === "app" && !root.draggedEntry.symbol
-                source: visible ? ApplicationService.iconSource(root.draggedEntry.icon) : ""
-                fillMode: Image.PreserveAspectFit
-            }
-            MaterialSymbol {
-                anchors.centerIn: parent
-                visible: !!root.draggedEntry && (!!root.draggedEntry.symbol || root.draggedEntry.kind
-                                                 === "separator")
-                text: root.draggedEntry ? root.draggedEntry.kind === "separator" ? "space_bar" :
-                                                                                   root.draggedEntry.symbol :
-                                                                                   ""
-                iconSize: root.baseLayout.size
-                color: Appearance.colors.colPrimary
-            }
-            Rectangle {
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.bottom
-                anchors.topMargin: 8
-                width: removeLabel.implicitWidth + 16
-                height: 28
-                radius: 14
-                visible: root.removeOnRelease
-                color: Appearance.colors.colErrorContainer
-                Text {
-                    id: removeLabel
-                    anchors.centerIn: parent
-                    text: qsTr("Remove from Dock")
-                    font.family: Fonts.ui
-                    font.pixelSize: 12
-                    color: Appearance.colors.colOnErrorContainer
-                }
-            }
+            onActiveChanged: root.updateInteraction()
         }
     }
 

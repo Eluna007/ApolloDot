@@ -5,6 +5,70 @@ import "../../Common/functions/DockLayout.js" as DockLayout
 TestCase {
     name: "DockLayout"
 
+    function test_sectionGapPreservesInsertionIndices() {
+        const kinds = ["app", "app", "app"];
+        const plain = DockLayout.layout(kinds, 48, 800, 1.5, 16, NaN);
+        const divided = DockLayout.layout(kinds, 48, 800, 1.5, 16, NaN, 2);
+        compare(divided.slots.length, kinds.length);
+        compare(divided.length - plain.length, 24);
+        compare(divided.slots[0].start, plain.slots[0].start);
+        compare(divided.slots[2].start - plain.slots[2].start, 24);
+        compare(DockLayout.insertionIndex(divided.slots, divided.divider), 2);
+        const hovered = DockLayout.layout(kinds, 48, 800, 1.5, 16, divided.slots[1].center, 2);
+        compare(hovered.slots[2].center, divided.slots[2].center);
+        verify(hovered.divider > hovered.slots[1].start + hovered.slots[1].span);
+        verify(hovered.divider < hovered.slots[2].start);
+        verifyOrdered(hovered);
+    }
+
+    function test_sectionBoundaryFollowsDragGroups() {
+        const kinds = ["app", "app", "app"];
+        compare(DockLayout.sectionBoundary(kinds, 2), 2);
+        compare(DockLayout.sectionBoundary(kinds, 0), -1);
+        compare(DockLayout.sectionBoundary(kinds, 3), -1);
+        compare(DockLayout.sectionBoundary(["app", "separator", "app"], 2), -1);
+        compare(DockLayout.sectionBoundary(["separator", "app"], 1), -1);
+        const outside = DockLayout.previewOrder(kinds, 0, -1, "app");
+        compare(DockLayout.sectionBoundary(outside.kinds, 2, outside.order), 1);
+        compare(DockLayout.sectionBoundary(outside.kinds, 1, outside.order), -1);
+        const incoming = DockLayout.previewOrder(kinds, -1, 2, "app");
+        compare(DockLayout.sectionBoundary(incoming.kinds, 2, incoming.order), 3);
+        const firstPin = DockLayout.previewOrder(kinds, -1, 0, "app");
+        compare(DockLayout.sectionBoundary(firstPin.kinds, 0, firstPin.order), 1);
+    }
+
+    function test_dragPreviewPreservesModelUntilDrop() {
+        const kinds = ["app", "separator", "app", "app"];
+        const preview = DockLayout.previewOrder(kinds, 0, 3, "app");
+        compare(preview.order.join(","), "1,2,-1,3");
+        compare(preview.kinds.join(","), "separator,app,app,app");
+        compare(kinds.join(","), "app,separator,app,app");
+        // Returning to either side of the source restores the same gap.
+        compare(DockLayout.previewOrder(kinds, 0, 0, "app").order.join(","), "-1,1,2,3");
+        compare(DockLayout.previewOrder(kinds, 0, 1, "app").order.join(","), "-1,1,2,3");
+    }
+
+    function test_dragOutClosesGapAndCancelRestoresIt() {
+        const kinds = ["app", "separator", "app"];
+        const outside = DockLayout.previewOrder(kinds, 1, -1, "separator");
+        compare(outside.kinds.join(","), "app,app");
+        compare(outside.order.join(","), "0,2");
+        const cancelled = DockLayout.previewOrder(kinds, -1, -1, "app");
+        compare(cancelled.kinds.join(","), kinds.join(","));
+        compare(cancelled.order.join(","), "0,1,2");
+    }
+
+    function test_externalPreviewReservesExactlyOneSlot() {
+        const kinds = ["app", "app"];
+        for (let gap = 0; gap <= kinds.length; ++gap) {
+            const preview = DockLayout.previewOrder(kinds, -1, gap, "app");
+            compare(preview.kinds.length, 3);
+            compare(preview.order[gap], -1);
+            compare(preview.order.filter(index => index >= 0).join(","), "0,1");
+        }
+        compare(DockLayout.previewOrder([], -1, 0, "app").order.join(","), "-1");
+    }
+
     function verifyOrdered(result) {
         let end = 0;
         result.slots.forEach(slot => {

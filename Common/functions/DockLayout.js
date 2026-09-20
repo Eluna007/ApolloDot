@@ -2,21 +2,28 @@
 
 // Work only in the unscaled coordinate system. Animated icon positions must
 // never feed back into magnification, otherwise the dock chases the pointer.
-function layout(kinds, preferredSize, available, magnification, separatorSize, pointer) {
+function layout(kinds, preferredSize, available, magnification, separatorSize, pointer, sectionBoundary) {
     const gap = 8;
     const padding = 12;
     const count = kinds.length;
     const apps = kinds.filter(kind => kind !== "separator").length;
     const separators = count - apps;
     const maximum = Math.max(1, Math.min(2, magnification));
-    const fixed = separators * separatorSize + count * gap + padding * 2;
+    const sectionGap = sectionBoundary > 0 && sectionBoundary < count ? separatorSize + gap : 0;
+    const fixed = separators * separatorSize + count * gap + padding * 2 + sectionGap;
     const reserve = Math.min(apps, 5) * (maximum - 1);
     const size = Math.max(32, Math.min(preferredSize, (available - fixed) / Math.max(1, apps + reserve)));
     const baseLength = fixed + apps * size;
     let baseCursor = padding;
     let cursor = padding;
+    let divider = -1;
     const slots = [];
     for (let index = 0; index < count; ++index) {
+        if (sectionGap && index === sectionBoundary) {
+            divider = cursor + sectionGap / 2;
+            baseCursor += sectionGap;
+            cursor += sectionGap;
+        }
         const separator = kinds[index] === "separator";
         const baseSpan = (separator ? separatorSize : size) + gap;
         const center = baseCursor + baseSpan / 2;
@@ -27,8 +34,22 @@ function layout(kinds, preferredSize, available, magnification, separatorSize, p
         baseCursor += baseSpan;
         cursor += span;
     }
-    return { size: size, baseLength: baseLength, length: cursor + padding, slots: slots,
+    return { size: size, baseLength: baseLength, length: cursor + padding, slots: slots, divider: divider,
              overflow: baseLength + reserve * size > available };
+}
+
+// Keep the automatic group divider out of model indices and persisted pins.
+// A provisional drop slot belongs to the pinned group, including new apps.
+function sectionBoundary(kinds, pinnedCount, order) {
+    let hasPinnedApp = false;
+    for (let index = 0; index < kinds.length; ++index) {
+        const source = order ? order[index] : index;
+        if (source >= pinnedCount)
+            return hasPinnedApp && kinds[index - 1] !== "separator" ? index : -1;
+        if (kinds[index] === "app")
+            hasPinnedApp = true;
+    }
+    return -1;
 }
 
 function insertionIndex(slots, position) {
@@ -37,6 +58,24 @@ function insertionIndex(slots, position) {
             return index;
     }
     return slots.length;
+}
+
+// A drag changes presentation only. Gaps use the persisted list's indices,
+// so committing a drop still uses the same insertion contract as DockService.
+function previewOrder(kinds, sourceIndex, gapIndex, incomingKind) {
+    const order = [];
+    const previewKinds = [];
+    for (let index = 0; index <= kinds.length; ++index) {
+        if (index === gapIndex) {
+            order.push(-1);
+            previewKinds.push(incomingKind);
+        }
+        if (index < kinds.length && index !== sourceIndex) {
+            order.push(index);
+            previewKinds.push(kinds[index]);
+        }
+    }
+    return { order: order, kinds: previewKinds };
 }
 
 function removalDistance(edge, x, y, width, height, edgeOffset) {

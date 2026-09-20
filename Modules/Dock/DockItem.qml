@@ -24,17 +24,17 @@ Item {
     property real bounce: 0
     property bool moved: false
     property point pressPoint
+    property point grabOffset
 
     signal hovered(string key)
     signal pressStarted
     signal activated(string key)
     signal contextRequested(string key)
-    signal dragMoved(string key, point position)
+    signal dragMoved(string key, point position, point offset, real size)
     signal dragReleased(string key, point position)
     signal dragCancelled
 
-    opacity: dragged ? 0.3 : presence
-    scale: 0.6 + 0.4 * presence
+    opacity: dragged ? 0 : presence
 
     Behavior on iconSize {
         NumberAnimation {
@@ -69,7 +69,11 @@ Item {
         x: root.horizontal ? (root.width - width) / 2 : root.edge === "left" ? 10 + root.bounce : root.width
                                                                                - width - 10 - root.bounce
         y: root.horizontal ? root.height - height - 12 - root.bounce : (root.height - height) / 2
-        scale: pointer.pressed && !root.moved ? 0.88 : 1
+        scale: pointer.pressed && !root.moved ? 0.92 : 0.94 + 0.06 * root.presence
+        transform: Translate {
+            x: root.horizontal ? 0 : (root.edge === "left" ? -1 : 1) * (1 - root.presence) * 6
+            y: root.horizontal ? (1 - root.presence) * 6 : 0
+        }
         opacity: root.available || root.windowCount > 0 || root.kind === "separator" ? 1 : 0.45
         Behavior on scale {
             NumberAnimation {
@@ -105,11 +109,11 @@ Item {
     }
     Rectangle {
         visible: root.kind === "app" && root.windowCount > 0 && DockService.showIndicators
-        width: root.horizontal ? (root.focused ? 12 : 4) : 4
-        height: root.horizontal ? 4 : (root.focused ? 12 : 4)
+        width: 4
+        height: 4
         radius: 2
-        x: root.horizontal ? (root.width - width) / 2 : root.edge === "left" ? 2 : root.width - 6
-        y: root.horizontal ? root.height - 5 : (root.height - height) / 2
+        x: root.horizontal ? (root.width - width) / 2 : root.edge === "left" ? 4 : root.width - 8
+        y: root.horizontal ? root.height - 10 : (root.height - height) / 2
         color: root.focused ? Appearance.colors.colPrimary : Appearance.colors.colOnSurfaceVariant
     }
     MouseArea {
@@ -126,6 +130,8 @@ Item {
             root.pressStarted();
             root.moved = false;
             root.pressPoint = root.mapToItem(null, mouse.x, mouse.y);
+            const center = artwork.mapToItem(null, artwork.width / 2, artwork.height / 2);
+            root.grabOffset = Qt.point(root.pressPoint.x - center.x, root.pressPoint.y - center.y);
         }
         onPositionChanged: mouse => {
             if (!(pressedButtons & Qt.LeftButton))
@@ -136,7 +142,7 @@ Item {
 
                 return;
             root.moved = true;
-            root.dragMoved(root.entryKey, position);
+            root.dragMoved(root.entryKey, position, root.grabOffset, root.iconSize);
         }
         onReleased: mouse => {
             if (root.moved)
