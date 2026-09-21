@@ -205,6 +205,42 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: previewsSection
+            Layout.fillWidth: true
+            flat: true
+            visible: DockService.supportsThumbnails
+            title: previewsAnchor.title
+            iconName: "preview"
+
+            SettingsSearchAnchor {
+                id: previewsAnchor
+                target: previewsSection
+                declaration:
+                    '{"id":"general.dock.section.previews","route":"general.dock","title":"Window previews","context":"DockPage","icon":"preview","aliases":["thumbnails","hover"],"availability":"dock-previews"}'
+            }
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("Show window thumbnails")
+                iconName: "preview"
+                trailing: StyledSwitch {
+                    checked: DockService.showThumbnails
+                    Accessible.name: qsTr("Show window thumbnails")
+                    onToggled: DockService.setOption("showThumbnails", checked)
+                }
+            }
+            GeneralSliderSetting {
+                title: qsTr("Preview size")
+                enabled: DockService.showThumbnails
+                from: 96
+                to: 240
+                stepSize: 8
+                suffix: " px"
+                value: DockService.previewSize
+                onMoved: value => DockService.setOption("previewSize", value)
+            }
+        }
+
+        SettingsSection {
             id: separatorsSection
 
             Layout.fillWidth: true

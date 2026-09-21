@@ -62,10 +62,22 @@ TestCase {
         compare(decoded.options.separatorSize, 8);
         compare(decoded.options.position, "right");
         compare(decoded.options.showRecent, true);
+        compare(decoded.options.showThumbnails, true);
+        compare(decoded.options.previewSize, 160);
         compare(DockModel.decodeConfig(JSON.stringify(decoded)), decoded);
         compare(DockModel.option("enabled", "false"), undefined);
         compare(DockModel.option("position", "top"), undefined);
         compare(DockModel.option("iconSize", NaN), undefined);
+        compare(DockModel.option("showThumbnails", "true"), undefined);
+        compare(DockModel.option("previewSize", NaN), undefined);
+        const previews = DockModel.decodeConfig(encodedConfig([], {
+                                                                  showThumbnails: false,
+                                                                  previewSize: 1000
+                                                              }));
+        compare(previews.options.showThumbnails, false);
+        compare(previews.options.previewSize, 240);
+        compare(DockModel.decodeConfig(JSON.stringify(previews)), previews);
+        compare(DockModel.option("previewSize", 0), 96);
     }
 
     function test_invalidConfigMustNotReplaceSavedData() {

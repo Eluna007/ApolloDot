@@ -21,6 +21,27 @@ Rectangle {
         return DockService.windowsFor(root.entryKey);
     }
     readonly property bool hovered: popupHover.hovered
+    readonly property bool thumbnails: DockService.showThumbnails && DockService.supportsThumbnails
+    property string previewConsumer: ""
+    readonly property var captureTargets: {
+        if (!visible || !thumbnails || WindowPreviewService.suspended)
+            return [];
+        const left = windowStrip.contentX;
+        const right = left + windowStrip.width;
+        const ids = [];
+        for (let i = 0; i < windows.length; ++i) {
+            const start = i * (cardWidth + 6);
+            if (start < right && start + cardWidth > left)
+                ids.push(String(windows[i].id));
+        }
+        return ids;
+    }
+    onCaptureTargetsChanged: WindowPreviewService.setTargets(previewConsumer, captureTargets)
+    Component.onCompleted: {
+        previewConsumer = WindowPreviewService.createConsumer();
+        WindowPreviewService.setTargets(previewConsumer, captureTargets);
+    }
+    Component.onDestruction: WindowPreviewService.release(previewConsumer)
     readonly property string entryName: entry ? String(entry.name || "") : ""
     readonly property bool canLaunch: !!entry && entry.kind === "app" && entry.available && String(
                                           entry.desktopId || "").length > 0
@@ -33,7 +54,8 @@ Rectangle {
         const available = Math.max(0, widthLimit - contentMargin * 2);
         const gaps = Math.max(0, windows.length - 1) * 6;
         const fitted = (available - gaps) / Math.max(1, windows.length);
-        return Math.min(available, Math.min(220, Math.max(130, fitted)));
+        const preferred = thumbnails ? DockService.previewSize * 1.6 + 8 : 220;
+        return Math.min(available, Math.min(preferred, Math.max(thumbnails ? 160 : 130, fitted)));
     }
 
     signal dismissed
@@ -80,8 +102,7 @@ Rectangle {
                 onClicked: root.dismissed()
             }
         }
-        // Title cards are the supported preview backend. They stay in one row,
-        // with scrolling once further shrinking would make titles unreadable.
+        // Keep previews in one row, scrolling when further shrinking harms readability.
         Flickable {
             id: windowStrip
             Layout.fillWidth: true
@@ -108,57 +129,23 @@ Rectangle {
                 spacing: 6
                 Repeater {
                     model: root.windows
-                    delegate: Rectangle {
-                        id: windowCard
+                    delegate: DockWindowCard {
                         required property var modelData
-                        readonly property string title: String(modelData && (modelData.title
-                                                                             || modelData.appName
-                                                                             || modelData.appId)
-                                                               || root.entryName)
+                        windowData: modelData
+                        applicationName: root.entryName
+                        applicationIcon: String(root.entry && root.entry.icon || "")
                         width: root.cardWidth
-                        height: 58
-                        radius: Appearance.rounding.small
-                        color: modelData && modelData.isFocused ? Appearance.colors.colSecondaryContainer :
-                                                                  Appearance.colors.colSurfaceContainerHigh
-                        RowLayout {
-                            anchors.fill: parent
-                            anchors.margins: 4
-                            spacing: 0
-                            RippleButton {
-                                Layout.fillWidth: true
-                                Layout.minimumWidth: 0
-                                Layout.fillHeight: true
-                                buttonRadius: Appearance.rounding.small
-                                Accessible.name: windowCard.title
-                                onClicked: {
-                                    if (!windowCard.modelData)
-                                        return;
-                                    DockService.focusWindow(windowCard.modelData.id);
-                                    root.dismissed();
-                                }
-                                contentItem: Text {
-                                    text: windowCard.title
-                                    textFormat: Text.PlainText
-                                    font.family: Fonts.ui
-                                    font.pixelSize: 12
-                                    color: Appearance.colors.colOnSurface
-                                    wrapMode: Text.Wrap
-                                    maximumLineCount: 2
-                                    elide: Text.ElideRight
-                                    verticalAlignment: Text.AlignVCenter
-                                }
-                            }
-                            IconButton {
-                                controlSize: 28
-                                iconSize: 16
-                                iconName: "close"
-                                accessibleName: qsTr("Close window")
-                                onClicked: {
-                                    if (windowCard.modelData)
-                                        DockService.closeWindow(windowCard.modelData.id);
-                                }
-                            }
+                        showThumbnail: root.thumbnails
+                        capture: {
+                            const revision = WindowPreviewService.revision;
+                            return root.visible && root.thumbnails ? WindowPreviewService.captureFor(
+                                                                         modelData.id) : null;
                         }
+                        onActivated: {
+                            DockService.focusWindow(modelData.id);
+                            root.dismissed();
+                        }
+                        onCloseRequested: DockService.closeWindow(modelData.id)
                     }
                 }
             }

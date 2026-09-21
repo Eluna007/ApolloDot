@@ -14,7 +14,9 @@ Singleton {
 
     readonly property string filePath: Paths.configHome + "/dock.json"
     readonly property string dragMimeType: "application/x-clavis-dock"
-    readonly property bool supportsThumbnails: false
+    readonly property bool supportsThumbnails: WindowPreviewService.supported
+    readonly property bool showThumbnails: root._options.showThumbnails
+    readonly property int previewSize: root._options.previewSize
     readonly property bool supportsMinimize: false
     property alias model: entries
     readonly property var pinnedEntries: root._pinned

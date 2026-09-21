@@ -3819,17 +3819,22 @@ Scroll to adjust</translation>
 <context>
     <name>DockPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1924"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1942"/>
         <source>Appearance</source>
         <translation>Appearance</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1925"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1943"/>
         <source>Behavior</source>
         <translation>Behavior</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1926"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1944"/>
+        <source>Window previews</source>
+        <translation>Window previews</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1945"/>
         <source>Separators</source>
         <translation>Separators</translation>
     </message>
@@ -3909,32 +3914,43 @@ Scroll to adjust</translation>
         <translation>Pin applications from the menu</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="225"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="222"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="226"/>
+        <source>Show window thumbnails</source>
+        <translation>Show window thumbnails</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="231"/>
+        <source>Preview size</source>
+        <translation>Preview size</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="260"/>
         <source>Separator</source>
         <translation>Separator</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="226"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="261"/>
         <source>Drag to the Dock or add at the end.</source>
         <translation>Drag to the Dock or add at the end.</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="239"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="274"/>
         <source>Drag to Dock</source>
         <translation>Drag to Dock</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="240"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="275"/>
         <source>Drag separator to Dock</source>
         <translation>Drag separator to Dock</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="291"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="326"/>
         <source>Add</source>
         <translation>Add</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="299"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="334"/>
         <source>Separator spacing</source>
         <translation>Separator spacing</translation>
     </message>
@@ -3942,42 +3958,37 @@ Scroll to adjust</translation>
 <context>
     <name>DockPreviewPopup</name>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="66"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="88"/>
         <source>Separator</source>
         <translation>Separator</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="79"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="101"/>
         <source>Close menu</source>
         <translation>Close menu</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="155"/>
-        <source>Close window</source>
-        <translation>Close window</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="181"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="168"/>
         <source>Application is unavailable</source>
         <translation>Application is unavailable</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="197"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="184"/>
         <source>Open application</source>
         <translation>Open application</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="212"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="199"/>
         <source>Remove from Dock</source>
         <translation>Remove from Dock</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="212"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="199"/>
         <source>Pin to Dock</source>
         <translation>Pin to Dock</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="230"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="217"/>
         <source>Dock settings</source>
         <translation>Dock settings</translation>
     </message>
@@ -13786,6 +13797,47 @@ Windows: </translation>
         <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="540"/>
         <source>Grain: %1%</source>
         <translation>Grain: %1%</translation>
+    </message>
+</context>
+<context>
+    <name>DockWindowCard</name>
+    <message>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="62"/>
+        <source>Close window</source>
+        <translation>Close window</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="96"/>
+        <source>Preview unavailable</source>
+        <translation>Preview unavailable</translation>
+    </message>
+</context>
+<context>
+    <name>Preview</name>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="12"/>
+        <source>Window capture probe</source>
+        <translation>Window capture probe</translation>
+    </message>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="44"/>
+        <source>Start</source>
+        <translation>Start</translation>
+    </message>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="49"/>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="54"/>
+        <source>Identifier: %1</source>
+        <translation>Identifier: %1</translation>
+    </message>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="60"/>
+        <source>Frames: %1 · First frame: %2 ms · Source: %3 × %4</source>
+        <translation>Frames: %1 · First frame: %2 ms · Source: %3 × %4</translation>
     </message>
 </context>
 </TS>

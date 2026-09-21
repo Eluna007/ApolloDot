@@ -99,13 +99,16 @@ PanelWindow {
         }
     }
     function hoverEntry(key) {
-        if (dragKey || dragGhost.active || DockService.externalDragActive || contextMenu)
+        if (WindowPreviewService.suspended || dragKey || dragGhost.active || DockService.externalDragActive
+                || contextMenu)
             return;
         hoverKey = key;
         pendingPopupKey = key;
         hoverTimer.restart();
     }
     function showPopup(key, context) {
+        if (WindowPreviewService.suspended)
+            return;
         hoverTimer.stop();
         popupAxis = pointerAxis;
         popupKey = key;
@@ -271,6 +274,13 @@ PanelWindow {
         target: DockService
         function onRevisionChanged() {
             root.syncVisualEntries();
+        }
+    }
+    Connections {
+        target: WindowPreviewService
+        function onSuspendedChanged() {
+            if (WindowPreviewService.suspended)
+                root.dismissPopup();
         }
     }
     Component.onCompleted: root.syncVisualEntries()

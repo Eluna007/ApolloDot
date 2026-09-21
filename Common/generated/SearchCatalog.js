@@ -1273,6 +1273,24 @@ var catalog = {
     },
     {
       "aliases": [
+        "thumbnails",
+        "hover"
+      ],
+      "anchor": true,
+      "availability": "dock-previews",
+      "context": "DockPage",
+      "icon": "preview",
+      "id": "general.dock.section.previews",
+      "path": [
+        "general",
+        "dock"
+      ],
+      "route": "general.dock",
+      "source": "DockPage.qml",
+      "title": "Window previews"
+    },
+    {
+      "aliases": [
         "spacing",
         "spacer"
       ],
@@ -1923,6 +1941,7 @@ function title(id) {
     case "general.displays.configuration.section.output-settings": return qsTranslate("DisplayConfigurationPage", "Output settings");
     case "general.dock.section.appearance": return qsTranslate("DockPage", "Appearance");
     case "general.dock.section.behavior": return qsTranslate("DockPage", "Behavior");
+    case "general.dock.section.previews": return qsTranslate("DockPage", "Window previews");
     case "general.dock.section.separators": return qsTranslate("DockPage", "Separators");
     case "general.displays.gamma.section.color": return qsTranslate("GammaControlPage", "Color");
     case "general.displays.gamma.section.schedule": return qsTranslate("GammaControlPage", "Schedule");

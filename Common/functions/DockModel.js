@@ -11,6 +11,8 @@ function defaults() {
         launchBounce: true,
         showIndicators: true,
         showRecent: true,
+        showThumbnails: true,
+        previewSize: 160,
         contextPinning: true,
         separatorSize: 16
     };
@@ -32,6 +34,7 @@ function option(name, value) {
     if (typeof standard[name] === "boolean") return typeof value === "boolean" ? value : undefined;
     if (name === "position") return ["bottom", "left", "right"].indexOf(value) >= 0 ? value : undefined;
     if (typeof value !== "number" || !isFinite(value)) return undefined;
+    if (name === "previewSize") return Math.round(Math.max(96, Math.min(240, value)));
     if (name === "iconSize") return Math.round(Math.max(32, Math.min(80, value)));
     if (name === "separatorSize") return Math.round(Math.max(8, Math.min(40, value)));
     if (name === "magnificationScale") return Math.max(1, Math.min(2, value));

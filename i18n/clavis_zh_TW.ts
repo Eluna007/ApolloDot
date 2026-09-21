@@ -3818,17 +3818,22 @@ Scroll to adjust</source>
 <context>
     <name>DockPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1924"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1942"/>
         <source>Appearance</source>
         <translation>外觀</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1925"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1943"/>
         <source>Behavior</source>
         <translation>行為</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1926"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1944"/>
+        <source>Window previews</source>
+        <translation>視窗預覽</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1945"/>
         <source>Separators</source>
         <translation>分隔符</translation>
     </message>
@@ -3908,32 +3913,43 @@ Scroll to adjust</source>
         <translation>允許從選單固定應用程式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="225"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="222"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="226"/>
+        <source>Show window thumbnails</source>
+        <translation>顯示視窗縮圖</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="231"/>
+        <source>Preview size</source>
+        <translation>預覽尺寸</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="260"/>
         <source>Separator</source>
         <translation>分隔符</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="226"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="261"/>
         <source>Drag to the Dock or add at the end.</source>
         <translation>拖入 Dock，或新增至末端。</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="239"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="274"/>
         <source>Drag to Dock</source>
         <translation>拖入 Dock</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="240"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="275"/>
         <source>Drag separator to Dock</source>
         <translation>將分隔符拖入 Dock</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="291"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="326"/>
         <source>Add</source>
         <translation>新增</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="299"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="334"/>
         <source>Separator spacing</source>
         <translation>分隔符間距</translation>
     </message>
@@ -3941,42 +3957,37 @@ Scroll to adjust</source>
 <context>
     <name>DockPreviewPopup</name>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="66"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="88"/>
         <source>Separator</source>
         <translation>分隔符</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="79"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="101"/>
         <source>Close menu</source>
         <translation>關閉選單</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="155"/>
-        <source>Close window</source>
-        <translation>關閉視窗</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="181"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="168"/>
         <source>Application is unavailable</source>
         <translation>應用程式無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="197"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="184"/>
         <source>Open application</source>
         <translation>開啟應用程式</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="212"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="199"/>
         <source>Remove from Dock</source>
         <translation>從 Dock 移除</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="212"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="199"/>
         <source>Pin to Dock</source>
         <translation>釘選至 Dock</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="230"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="217"/>
         <source>Dock settings</source>
         <translation>Dock 設定</translation>
     </message>
@@ -13778,6 +13789,47 @@ Windows: </source>
         <location filename="../Modules/ControlCenter/ZenPaletteEditor.qml" line="540"/>
         <source>Grain: %1%</source>
         <translation>顆粒：%1%</translation>
+    </message>
+</context>
+<context>
+    <name>DockWindowCard</name>
+    <message>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="62"/>
+        <source>Close window</source>
+        <translation>關閉視窗</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="96"/>
+        <source>Preview unavailable</source>
+        <translation>預覽無法使用</translation>
+    </message>
+</context>
+<context>
+    <name>Preview</name>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="12"/>
+        <source>Window capture probe</source>
+        <translation>視窗擷取驗證</translation>
+    </message>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="44"/>
+        <source>Start</source>
+        <translation>開始</translation>
+    </message>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="49"/>
+        <source>Stop</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="54"/>
+        <source>Identifier: %1</source>
+        <translation>識別碼：%1</translation>
+    </message>
+    <message>
+        <location filename="../tools/window-preview/Preview.qml" line="60"/>
+        <source>Frames: %1 · First frame: %2 ms · Source: %3 × %4</source>
+        <translation>影格數：%1 · 首幀：%2 毫秒 · 來源尺寸：%3 × %4</translation>
     </message>
 </context>
 </TS>
