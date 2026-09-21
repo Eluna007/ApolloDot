@@ -5,6 +5,24 @@ import "../../Common/functions/DockLayout.js" as DockLayout
 TestCase {
     name: "DockLayout"
 
+    function test_windowPreviewsAlwaysFitOneRow() {
+        for (const available of [0, 8, 100, 600, 1920]) {
+            let previous = Infinity;
+            for (const count of [1, 2, 8, 40, 200]) {
+                const row = DockLayout.windowPreviewRow(count, 272, available);
+                verify(row.cardWidth >= 0 && row.cardWidth <= previous);
+                verify(row.gap >= 0);
+                verify(row.width <= available + 0.00001);
+                fuzzyCompare(row.width, row.margin * 2 + count * row.cardWidth + (count - 1) * row.gap,
+                             0.00001);
+                previous = row.cardWidth;
+            }
+        }
+        compare(DockLayout.windowPreviewRow(0, 272, 600).width, 0);
+        compare(DockLayout.windowPreviewRow(1, 272, 600).cardWidth, 272);
+        verify(DockLayout.windowPreviewRow(10, 272, 600).cardWidth < 160);
+    }
+
     function test_sectionGapPreservesInsertionIndices() {
         const kinds = ["app", "app", "app"];
         const plain = DockLayout.layout(kinds, 48, 800, 1.5, 16, NaN);

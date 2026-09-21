@@ -3810,7 +3810,7 @@ Scroll to adjust</source>
 <context>
     <name>DockItem</name>
     <message>
-        <location filename="../Modules/Dock/DockItem.qml" line="122"/>
+        <location filename="../Modules/Dock/DockItem.qml" line="160"/>
         <source>Separator</source>
         <translation>分隔符</translation>
     </message>
@@ -3957,37 +3957,32 @@ Scroll to adjust</source>
 <context>
     <name>DockPreviewPopup</name>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="88"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="138"/>
         <source>Separator</source>
         <translation>分隔符</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="101"/>
-        <source>Close menu</source>
-        <translation>關閉選單</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="168"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="187"/>
         <source>Application is unavailable</source>
         <translation>應用程式無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="184"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="202"/>
         <source>Open application</source>
         <translation>開啟應用程式</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="199"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="216"/>
         <source>Remove from Dock</source>
         <translation>從 Dock 移除</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="199"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="216"/>
         <source>Pin to Dock</source>
         <translation>釘選至 Dock</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="217"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="233"/>
         <source>Dock settings</source>
         <translation>Dock 設定</translation>
     </message>
@@ -4023,12 +4018,12 @@ Scroll to adjust</source>
 <context>
     <name>DockSurface</name>
     <message>
-        <location filename="../Modules/Dock/DockSurface.qml" line="487"/>
+        <location filename="../Modules/Dock/DockSurface.qml" line="704"/>
         <source>Drop apps here</source>
         <translation>將應用程式拖到此處</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockSurface.qml" line="545"/>
+        <location filename="../Modules/Dock/DockDragVisual.qml" line="134"/>
         <source>Remove from Dock</source>
         <translation>從 Dock 移除</translation>
     </message>
@@ -13794,12 +13789,12 @@ Windows: </source>
 <context>
     <name>DockWindowCard</name>
     <message>
-        <location filename="../Modules/Dock/DockWindowCard.qml" line="62"/>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="87"/>
         <source>Close window</source>
         <translation>關閉視窗</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockWindowCard.qml" line="96"/>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="108"/>
         <source>Preview unavailable</source>
         <translation>預覽無法使用</translation>
     </message>

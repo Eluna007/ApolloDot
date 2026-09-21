@@ -1,13 +1,13 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import QtQuick.Layouts
+import QtQuick.Controls
 import Clavis.WindowPreview
 import qs.Common
 import qs.Components
 import qs.Services
 import qs.Widgets.common
 
-Rectangle {
+Button {
     id: root
 
     required property var windowData
@@ -19,93 +19,100 @@ Rectangle {
                                                           || windowData.appId) || applicationName)
     readonly property bool hasFrame: !!capture && capture.active && capture.frameCount > 0
     readonly property bool busy: !!capture && !hasFrame && capture.error === ""
+    // Below this width, shrink the entire card, including its controls. There
+    // is deliberately no minimum width that could overflow the preview row.
+    readonly property real detailScale: Math.min(1, width / 160)
+    readonly property real logicalWidth: detailScale > 0 ? width / detailScale : 160
 
     signal activated
     signal closeRequested
 
-    height: showThumbnail ? 42 + (width - 8) / 1.6 : 58
-    radius: Appearance.rounding.small
-    color: windowData && windowData.isFocused ? Appearance.colors.colSecondaryContainer :
-                                                Appearance.colors.colSurfaceContainerHigh
+    height: (showThumbnail ? 40 + (logicalWidth - 16) / 1.6 + 8 : 40) * detailScale
+    padding: 0
+    hoverEnabled: true
+    focusPolicy: Qt.StrongFocus
+    Accessible.name: title
+    onClicked: activated()
 
-    ColumnLayout {
-        anchors.fill: parent
-        anchors.margins: 4
-        spacing: 0
+    background: Rectangle {
+        radius: Math.min(8, root.height / 4)
+        color: Appearance.applyAlpha(Appearance.colors.colOnSurface, root.down ? 0.12 : root.hovered ? 0.07 :
+                                                                                                       0)
 
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.fillHeight: false
-            Layout.preferredHeight: root.showThumbnail ? 34 : 50
-            Layout.maximumHeight: Layout.preferredHeight
-            spacing: 0
-            RippleButton {
-                Layout.fillWidth: true
-                Layout.minimumWidth: 0
-                Layout.fillHeight: true
-                buttonRadius: Appearance.rounding.small
-                Accessible.name: root.title
-                onClicked: root.activated()
-                contentItem: Text {
-                    text: root.title
-                    textFormat: Text.PlainText
-                    font.family: Fonts.ui
-                    font.pixelSize: 12
-                    color: Appearance.colors.colOnSurface
-                    wrapMode: root.showThumbnail ? Text.NoWrap : Text.Wrap
-                    maximumLineCount: root.showThumbnail ? 1 : 2
-                    elide: Text.ElideRight
-                    verticalAlignment: Text.AlignVCenter
-                }
+        border.width: root.visualFocus ? 1 : 0
+        border.color: Appearance.colors.colPrimary
+    }
+
+    contentItem: Item {
+        clip: true
+        Item {
+            width: root.logicalWidth
+            height: root.detailScale > 0 ? root.height / root.detailScale : 0
+            scale: root.detailScale
+            transformOrigin: Item.TopLeft
+
+            ThemeIcon {
+                x: 8
+                y: 12
+                width: 16
+                height: 16
+                iconSource: ApplicationService.iconSource(root.applicationIcon)
+                sourceSize: Qt.size(32, 32)
+                fillMode: Image.PreserveAspectFit
+            }
+            Text {
+                id: headerTitle
+                x: 30
+                y: 0
+                width: Math.max(0, parent.width - x - 36)
+                height: 40
+                text: root.title
+                textFormat: Text.PlainText
+                font.family: Fonts.ui
+                font.pixelSize: 12
+                color: Appearance.colors.colOnSurface
+                elide: Text.ElideRight
+                verticalAlignment: Text.AlignVCenter
             }
             IconButton {
+                id: closeButton
+                x: parent.width - width - 4
+                y: 6
                 controlSize: 28
                 iconSize: 16
                 iconName: "close"
+                buttonRadius: 5
+                buttonRadiusPressed: 5
+                normalHoverStateLayerColor: Appearance.applyAlpha(Appearance.m3colors.m3error, 0.2)
                 accessibleName: qsTr("Close window")
                 onClicked: root.closeRequested()
             }
-        }
-        RippleButton {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.minimumWidth: 0
-            Layout.minimumHeight: 0
-            Layout.preferredHeight: (root.width - 8) / 1.6
-            visible: root.showThumbnail
-            padding: 0
-            buttonRadius: Appearance.rounding.small
-            Accessible.name: root.title
-            onClicked: root.activated()
-            contentItem: Item {
+            Rectangle {
+                x: 8
+                y: 40
+                width: parent.width - 16
+                height: width / 1.6
+                visible: root.showThumbnail
+                color: Appearance.applyAlpha(Appearance.colors.colOnSurface, 0.05)
+                radius: 4
+                clip: true
                 CaptureImage {
                     anchors.fill: parent
                     capture: root.capture
                     visible: root.hasFrame
                 }
-                Column {
-                    anchors.centerIn: parent
-                    width: parent.width
-                    spacing: 8
+                Text {
+                    anchors.fill: parent
+                    anchors.margins: 4
                     visible: !root.hasFrame && !root.busy
-                    ThemeIcon {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width: 32
-                        height: 32
-                        iconSource: ApplicationService.iconSource(root.applicationIcon)
-                        sourceSize: Qt.size(64, 64)
-                        fillMode: Image.PreserveAspectFit
-                    }
-                    Text {
-                        width: parent.width
-                        text: qsTr("Preview unavailable")
-                        textFormat: Text.PlainText
-                        font.family: Fonts.ui
-                        font.pixelSize: 11
-                        color: Appearance.colors.colOnSurfaceVariant
-                        horizontalAlignment: Text.AlignHCenter
-                        elide: Text.ElideRight
-                    }
+                    text: qsTr("Preview unavailable")
+                    textFormat: Text.PlainText
+                    font.family: Fonts.ui
+                    font.pixelSize: 11
+                    color: Appearance.colors.colOnSurfaceVariant
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
                 }
                 InlineBusyIndicator {
                     anchors.centerIn: parent
@@ -113,5 +120,11 @@ Rectangle {
                 }
             }
         }
+    }
+
+    StyledToolTip {
+        text: root.title
+        textFormat: Text.PlainText
+        extraVisibleCondition: root.hovered && headerTitle.truncated && !closeButton.pointerHovered
     }
 }

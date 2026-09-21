@@ -1,7 +1,10 @@
+pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Effects
 import qs.Common
 import qs.Components
 import qs.Services
+import qs.Widgets.common
 
 Item {
     id: root
@@ -20,6 +23,9 @@ Item {
     required property real iconSize
     required property real restingIconSize
     property bool dragged: false
+    property bool contextActive: false
+    property bool showTooltip: false
+    readonly property string popupEdge: edge
     property real presence: 1
     readonly property bool horizontal: edge === "bottom"
     property real bounce: 0
@@ -28,6 +34,7 @@ Item {
     property point grabOffset
 
     signal hovered(string key)
+    signal hoverLeft(string key)
     signal pressStarted
     signal activated(string key)
     signal contextRequested(string key)
@@ -44,21 +51,30 @@ Item {
         }
     }
 
-    SequentialAnimation on bounce {
-        running: root.launching && DockService.launchBounce && root.kind === "app"
-        loops: Animation.Infinite
+    // A launch gets one acknowledgement, independent of how long the app
+    // takes to map its first window. Finish the arc even if it maps early.
+    function animateLaunch() {
+        if (launching && DockService.launchBounce && kind === "app")
+            launchAnimation.start();
+    }
+    onLaunchingChanged: animateLaunch()
+    Component.onCompleted: animateLaunch()
+    SequentialAnimation {
+        id: launchAnimation
         NumberAnimation {
+            target: root
+            property: "bounce"
+            from: 0
             to: 19
-            duration: 260
+            duration: 220
             easing.type: Easing.OutQuad
         }
         NumberAnimation {
+            target: root
+            property: "bounce"
             to: 0
             duration: 340
             easing.type: Easing.OutBounce
-        }
-        PauseAnimation {
-            duration: 200
         }
         onStopped: root.bounce = 0
     }
@@ -70,7 +86,17 @@ Item {
         x: root.horizontal ? (root.width - width) / 2 : root.edge === "left" ? 10 + root.bounce : root.width
                                                                                - width - 10 - root.bounce
         y: root.horizontal ? root.height - height - 12 - root.bounce : (root.height - height) / 2
-        scale: pointer.pressed && !root.moved ? 0.92 : 0.94 + 0.06 * root.presence
+        scale: 0.94 + 0.06 * root.presence
+        property real pressShade: (pointer.pressed && !root.moved) || root.contextActive ? 0.3 : 0
+        Behavior on pressShade {
+            NumberAnimation {
+                duration: 90
+            }
+        }
+        layer.enabled: pressShade > 0
+        layer.effect: MultiEffect {
+            brightness: -artwork.pressShade
+        }
         transform: Translate {
             x: root.horizontal ? 0 : (root.edge === "left" ? -1 : 1) * (1 - root.presence) * 6
             y: root.horizontal ? (1 - root.presence) * 6 : 0
@@ -97,6 +123,12 @@ Item {
             text: root.symbol
             iconSize: root.iconSize * 0.82
             color: Appearance.colors.colPrimary
+        }
+        StyledToolTip {
+            text: root.name
+            textFormat: Text.PlainText
+            extraVisibleCondition: root.showTooltip && pointer.containsMouse && !pointer.pressed &&
+                                   !root.dragged && !root.contextActive
         }
     }
 
@@ -128,6 +160,7 @@ Item {
         Accessible.name: root.kind === "separator" ? qsTr("Separator") : root.name
         Accessible.onPressAction: root.activated(root.entryKey)
         onEntered: root.hovered(root.entryKey)
+        onExited: root.hoverLeft(root.entryKey)
         onPressed: mouse => {
             root.pressStarted();
             root.moved = false;

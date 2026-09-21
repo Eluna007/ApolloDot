@@ -103,14 +103,37 @@ PanelWindow {
                 || contextMenu)
             return;
         hoverKey = key;
+        closeTimer.stop();
+        // Changing the layer-shell input region or animating the icon slots
+        // can deliver leave/enter again without a different app being hovered.
+        // Keep that preview and its capture session alive across re-entry.
+        if (popupKey === key) {
+            pendingPopupKey = "";
+            hoverTimer.stop();
+            return;
+        }
+        if (pendingPopupKey === key && hoverTimer.running)
+            return;
         pendingPopupKey = key;
         hoverTimer.restart();
+    }
+    function leaveEntry(key) {
+        if (hoverKey !== key)
+            return;
+        hoverKey = "";
+        pendingPopupKey = "";
+        hoverTimer.stop();
     }
     function showPopup(key, context) {
         if (WindowPreviewService.suspended)
             return;
+        const entry = DockService.entryFor(key);
+        if (!entry || (!context && entry.kind !== "app"))
+            return;
         hoverTimer.stop();
-        popupAxis = pointerAxis;
+        const slot = slotForKey(key);
+        popupAxis = slot ? (axisLength - bandLength) / 2 + slot.start + slot.span / 2 - scrollOffset :
+                           pointerAxis;
         popupKey = key;
         contextMenu = context;
         if (context)
@@ -119,6 +142,7 @@ PanelWindow {
     function dismissPopup() {
         popupKey = "";
         contextMenu = false;
+        pendingPopupKey = "";
         hoverTimer.stop();
         updateInteraction();
     }
@@ -328,7 +352,8 @@ PanelWindow {
         id: hoverTimer
         interval: 450
         onTriggered: {
-            if (bandHover.hovered && !root.dragKey && !dragGhost.active)
+            if (root.pendingPopupKey && root.pendingPopupKey === root.hoverKey && bandHover.hovered && !root.dragKey &&
+                    !dragGhost.active)
                 root.showPopup(root.pendingPopupKey, false);
         }
     }
@@ -528,6 +553,9 @@ PanelWindow {
                         height: root.horizontal ? icons.height : slot.span
                         iconSize: slot.size
                         restingIconSize: root.baseLayout.size
+                        contextActive: root.contextMenu && root.popupKey === key
+                        showTooltip: !root.contextMenu && root.popupKey === key && windowCount === 0 && kind
+                                     === "app" && !WindowPreviewService.suspended
                         dragged: key === root.dragKey || (dragGhost.entry && dragGhost.entry.key === key) || (
                                      root.externalOver && root.externalSourceKey === key)
                         enabled: !retiring
@@ -575,8 +603,12 @@ PanelWindow {
                                 easing.type: Easing.OutCubic
                             }
                         }
-                        onPressStarted: root.dragCancelled = false
+                        onPressStarted: {
+                            root.dragCancelled = false;
+                            root.dismissPopup();
+                        }
                         onHovered: key => root.hoverEntry(key)
+                        onHoverLeft: key => root.leaveEntry(key)
                         onActivated: key => {
                             root.dragCancelled = false;
                             DockService.activate(key);
@@ -686,16 +718,25 @@ PanelWindow {
 
         DockPreviewPopup {
             id: popup
-            visible: root.popupKey !== "" && !!entry
+            visible: root.popupKey !== "" && !!entry && (root.contextMenu || windows.length > 0)
             entryKey: root.popupKey
             maximumWidth: root.horizontal ? Math.max(0, root.width - 32) : Math.max(0, root.width
                                                                                     - root.bandThickness - 32)
             contextMenu: root.contextMenu
-            x: root.horizontal ? Math.max(16, Math.min(root.width - width - 16, root.popupAxis - width / 2)) :
-                                 root.edge === "left" ? root.bandThickness + 16 : root.width
-                                                        - root.bandThickness - width - 16
-            y: root.horizontal ? band.y - height - 8 : Math.max(16, Math.min(root.height - height - 16,
-                                                                             root.popupAxis - height / 2))
+            edge: root.edge
+            anchorOffset: root.popupAxis - (root.horizontal ? x : y)
+            maximumHeight: root.horizontal ? Math.max(0, band.y - 24) : Math.max(0, root.height - 32)
+            x: root.horizontal ? Math.max(16, Math.min(root.width - width - 16, root.popupAxis - (
+                                                           root.contextMenu ? 26 : width / 2))) : root.edge
+                                 === "left" ? root.bandThickness + 16 : root.width - root.bandThickness
+                                              - width - 16
+            y: root.horizontal ? band.y - height - (root.contextMenu ? 2 : 12) : Math.max(16, Math.min(
+                                                                                              root.height
+                                                                                              - height - 16,
+                                                                                              root.popupAxis
+                                                                                              - (root.contextMenu
+                                                                                                 ? 26 : height
+                                                                                                   / 2)))
             onDismissed: root.dismissPopup()
         }
 

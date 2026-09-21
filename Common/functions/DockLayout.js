@@ -1,5 +1,18 @@
 .pragma library
 
+// All windows remain in one row. Scale the gaps too when the row is crowded,
+// so no window count or narrow output can force scrolling or negative sizes.
+function windowPreviewRow(count, preferredWidth, availableWidth) {
+    const available = Math.max(0, availableWidth);
+    const margin = Math.min(8, available / 4);
+    const inner = available - margin * 2;
+    const gap = count > 1 ? Math.min(6, inner / (count * 8)) : 0;
+    const cardWidth = count > 0 ? Math.min(Math.max(0, preferredWidth),
+                                         (inner - gap * (count - 1)) / count) : 0;
+    return { margin: margin, gap: gap, cardWidth: cardWidth,
+             width: count > 0 ? margin * 2 + count * cardWidth + (count - 1) * gap : 0 };
+}
+
 // Work only in the unscaled coordinate system. Animated icon positions must
 // never feed back into magnification, otherwise the dock chases the pointer.
 function layout(kinds, preferredSize, available, magnification, separatorSize, pointer, sectionBoundary) {
