@@ -5,6 +5,7 @@ import qs.Common
 import qs.Components
 import qs.Services
 import qs.Widgets.common
+import "../../Common/functions/DockMotion.js" as DockMotion
 
 Item {
     id: root
@@ -87,7 +88,8 @@ Item {
         x: root.horizontal ? (root.width - width) / 2 : root.edge === "left" ? 10 + root.bounce : root.width
                                                                                - width - 10 - root.bounce
         y: root.horizontal ? root.height - height - 12 - root.bounce : (root.height - height) / 2
-        scale: 0.94 + 0.06 * root.presence
+        transformOrigin: Item.Center
+        scale: DockMotion.iconScale(root.presence)
         property real pressShade: (pointer.pressed && !root.moved) || root.contextActive ? 0.3 : 0
         Behavior on pressShade {
             NumberAnimation {
@@ -98,17 +100,7 @@ Item {
         layer.effect: MultiEffect {
             brightness: -artwork.pressShade
         }
-        transform: Translate {
-            x: root.horizontal ? 0 : (root.edge === "left" ? -1 : 1) * (1 - root.presence) * 6
-            y: root.horizontal ? (1 - root.presence) * 6 : 0
-        }
         opacity: root.available || root.windowCount > 0 || root.kind === "spacer" ? 1 : 0.45
-        Behavior on scale {
-            NumberAnimation {
-                duration: 120
-                easing.type: Easing.OutCubic
-            }
-        }
 
         ThemeIcon {
             anchors.fill: parent

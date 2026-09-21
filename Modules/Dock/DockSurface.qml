@@ -8,6 +8,7 @@ import qs.Components
 import qs.Services
 import qs.Widgets.common
 import "../../Common/functions/DockLayout.js" as DockLayout
+import "../../Common/functions/DockMotion.js" as DockMotion
 
 PanelWindow {
     id: root
@@ -219,8 +220,12 @@ PanelWindow {
                 visualEntries.set(found, row);
         }
         for (let i = 0; i < visualEntries.count; ++i) {
-            if (!wanted.has(visualEntries.get(i).key))
+            if (!wanted.has(visualEntries.get(i).key) && !visualEntries.get(i).retiring) {
+                const item = iconItems.itemAt(i);
+                if (item)
+                    item.freezeRetirement();
                 visualEntries.setProperty(i, "retiring", true);
+            }
         }
     }
     function removeRetired() {
@@ -319,7 +324,9 @@ PanelWindow {
     Connections {
         target: DockService
         function onRevisionChanged() {
-            root.syncVisualEntries();
+            // Drop commits also clear the provisional gap in this event turn.
+            // Create delegates only after that final slot layout has settled.
+            Qt.callLater(root.syncVisualEntries);
         }
     }
     Connections {
@@ -460,14 +467,14 @@ PanelWindow {
             Behavior on width {
                 enabled: root.horizontal
                 NumberAnimation {
-                    duration: 120
+                    duration: DockMotion.reflowDuration
                     easing.type: Easing.OutCubic
                 }
             }
             Behavior on height {
                 enabled: !root.horizontal
                 NumberAnimation {
-                    duration: 120
+                    duration: DockMotion.reflowDuration
                     easing.type: Easing.OutCubic
                 }
             }
@@ -539,7 +546,9 @@ PanelWindow {
                 anchors.fill: parent
                 contentWidth: root.horizontal ? root.layout.length : width
                 contentHeight: root.horizontal ? height : root.layout.length
-                clip: true
+                // Let the last retiring icon finish outside the shrinking
+                // tray. Overflow still needs a clipped scrolling viewport.
+                clip: root.baseLayout.overflow || root.layout.overflow
                 interactive: false
                 boundsBehavior: Flickable.StopAtBounds
                 onContentWidthChanged: root.scrollBy(0)
@@ -555,13 +564,13 @@ PanelWindow {
                     color: Appearance.applyAlpha(Appearance.colors.colOnSurface, 0.4)
                     Behavior on x {
                         NumberAnimation {
-                            duration: 160
+                            duration: DockMotion.reflowDuration
                             easing.type: Easing.OutCubic
                         }
                     }
                     Behavior on y {
                         NumberAnimation {
-                            duration: 160
+                            duration: DockMotion.reflowDuration
                             easing.type: Easing.OutCubic
                         }
                     }
@@ -575,6 +584,16 @@ PanelWindow {
                         required property string key
                         required property bool retiring
                         property bool appeared: false
+                        property real retirementAxis: 0
+                        property real retirementSpan: 0
+                        property real retirementSize: 0
+                        function freezeRetirement() {
+                            // Keep the exit centered where it was seen, even
+                            // while the centered tray and neighbours close up.
+                            retirementAxis = (root.horizontal ? x + band.x : y + band.y) - root.scrollOffset;
+                            retirementSpan = root.horizontal ? width : height;
+                            retirementSize = iconSize;
+                        }
                         // Position is keyed by application, never by the order
                         // in which presentation objects happened to be created.
                         property var lastSlot: ({
@@ -589,11 +608,13 @@ PanelWindow {
                         }
                         entryKey: key
                         edge: root.edge
-                        x: root.horizontal ? slot.start : 0
-                        y: root.horizontal ? 0 : slot.start
-                        width: root.horizontal ? slot.span : icons.width
-                        height: root.horizontal ? icons.height : slot.span
-                        iconSize: slot.size
+                        x: root.horizontal ? retiring ? retirementAxis - band.x + root.scrollOffset :
+                                                        slot.start : 0
+                        y: root.horizontal ? 0 : retiring ? retirementAxis - band.y + root.scrollOffset :
+                                                            slot.start
+                        width: root.horizontal ? retiring ? retirementSpan : slot.span : icons.width
+                        height: root.horizontal ? icons.height : retiring ? retirementSpan : slot.span
+                        iconSize: retiring ? retirementSize : slot.size
                         restingIconSize: root.baseLayout.size
                         contextActive: root.contextMenu && root.popupKey === key
                         showTooltip: !root.contextMenu && root.popupKey === key && (windowCount === 0 ||
@@ -602,47 +623,59 @@ PanelWindow {
                         dragged: key === root.dragKey || (dragGhost.entry && dragGhost.entry.key === key) || (
                                      root.externalOver && root.externalSourceKey === key)
                         enabled: !retiring
-                        presence: appeared && !retiring ? 1 : 0
-                        Component.onCompleted: appeared = true
+                        presence: 0
+                        function animatePresence() {
+                            presenceAnimation.stop();
+                            presenceAnimation.to = retiring ? 0 : 1;
+                            presenceAnimation.duration = retiring ? DockMotion.exitDuration :
+                                                                    DockMotion.enterDuration;
+                            presenceAnimation.start();
+                        }
+                        Component.onCompleted: {
+                            appeared = true;
+                            animatePresence();
+                        }
                         onPresenceChanged: {
                             if (retiring && presence === 0)
                                 Qt.callLater(root.removeRetired);
                         }
                         onRetiringChanged: {
+                            if (appeared)
+                                animatePresence();
                             if (retiring)
                                 Qt.callLater(root.removeRetired);
                         }
-                        Behavior on presence {
-                            NumberAnimation {
-                                duration: 160
-                                easing.type: Easing.OutCubic
-                            }
+                        NumberAnimation {
+                            id: presenceAnimation
+                            target: dockItem
+                            property: "presence"
+                            easing.type: Easing.OutCubic
                         }
                         Behavior on x {
-                            enabled: dockItem.appeared
+                            enabled: dockItem.appeared && !dockItem.retiring
                             NumberAnimation {
-                                duration: 160
+                                duration: DockMotion.reflowDuration
                                 easing.type: Easing.OutCubic
                             }
                         }
                         Behavior on y {
-                            enabled: dockItem.appeared
+                            enabled: dockItem.appeared && !dockItem.retiring
                             NumberAnimation {
-                                duration: 160
+                                duration: DockMotion.reflowDuration
                                 easing.type: Easing.OutCubic
                             }
                         }
                         Behavior on width {
-                            enabled: root.horizontal
+                            enabled: dockItem.appeared && !dockItem.retiring && root.horizontal
                             NumberAnimation {
-                                duration: 120
+                                duration: DockMotion.reflowDuration
                                 easing.type: Easing.OutCubic
                             }
                         }
                         Behavior on height {
-                            enabled: !root.horizontal
+                            enabled: dockItem.appeared && !dockItem.retiring && !root.horizontal
                             NumberAnimation {
-                                duration: 120
+                                duration: DockMotion.reflowDuration
                                 easing.type: Easing.OutCubic
                             }
                         }
@@ -736,14 +769,18 @@ PanelWindow {
                             }
                         }
                     }
-                    if (landingEntry)
+                    // New entries use the same centered appearance as a new
+                    // running app. Only an existing icon travels back to its
+                    // slot; a second drag ghost would hide the entrance.
+                    const returningEntry = landingEntry && before.has(landingEntry.key);
+                    if (returningEntry)
                         dragGhost.begin(root.copyEntry(landingEntry), root.dropPoint, root.baseLayout.size);
                     root.externalOver = false;
                     root.externalSourceKey = "";
                     root.insertion = -1;
                     if (accepted) {
                         drop.accept(Qt.CopyAction);
-                        if (landingEntry)
+                        if (returningEntry)
                             Qt.callLater(root.landGhost);
                     }
                     root.updateInteraction();
