@@ -3807,35 +3807,23 @@ Scroll to adjust</source>
         <translation>Gamma 控制</translation>
     </message>
 </context>
-<context>
-    <name>DockItem</name>
-    <message>
-        <location filename="../Modules/Dock/DockItem.qml" line="160"/>
-        <source>Separator</source>
-        <translation>分隔符</translation>
-    </message>
-</context>
+
 <context>
     <name>DockPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1942"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1925"/>
         <source>Appearance</source>
         <translation>外觀</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1943"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1926"/>
         <source>Behavior</source>
         <translation>行為</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1944"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1927"/>
         <source>Window previews</source>
         <translation>視窗預覽</translation>
-    </message>
-    <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1945"/>
-        <source>Separators</source>
-        <translation>分隔符</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/DockPage.qml" line="24"/>
@@ -3913,76 +3901,41 @@ Scroll to adjust</source>
         <translation>允許從選單固定應用程式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="222"/>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="226"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="223"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="227"/>
         <source>Show window thumbnails</source>
         <translation>顯示視窗縮圖</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="231"/>
+        <location filename="../Modules/ControlCenter/DockPage.qml" line="232"/>
         <source>Preview size</source>
         <translation>預覽尺寸</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="260"/>
-        <source>Separator</source>
-        <translation>分隔符</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="261"/>
-        <source>Drag to the Dock or add at the end.</source>
-        <translation>拖入 Dock，或新增至末端。</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="274"/>
-        <source>Drag to Dock</source>
-        <translation>拖入 Dock</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="275"/>
-        <source>Drag separator to Dock</source>
-        <translation>將分隔符拖入 Dock</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="326"/>
-        <source>Add</source>
-        <translation>新增</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/DockPage.qml" line="334"/>
-        <source>Separator spacing</source>
-        <translation>分隔符間距</translation>
     </message>
 </context>
 <context>
     <name>DockPreviewPopup</name>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="138"/>
-        <source>Separator</source>
-        <translation>分隔符</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="187"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="223"/>
         <source>Application is unavailable</source>
         <translation>應用程式無法使用</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="202"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="238"/>
         <source>Open application</source>
         <translation>開啟應用程式</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="216"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="252"/>
         <source>Remove from Dock</source>
         <translation>從 Dock 移除</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="216"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="252"/>
         <source>Pin to Dock</source>
         <translation>釘選至 Dock</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="233"/>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="269"/>
         <source>Dock settings</source>
         <translation>Dock 設定</translation>
     </message>
@@ -3990,27 +3943,22 @@ Scroll to adjust</source>
 <context>
     <name>DockService</name>
     <message>
-        <location filename="../Services/DockService.qml" line="127"/>
-        <source>Separator</source>
-        <translation>分隔符</translation>
-    </message>
-    <message>
-        <location filename="../Services/DockService.qml" line="355"/>
+        <location filename="../Services/DockService.qml" line="347"/>
         <source>Dock settings cannot be saved because the configuration directory is unavailable.</source>
         <translation>設定目錄無法使用，因此無法儲存 Dock 設定。</translation>
     </message>
     <message>
-        <location filename="../Services/DockService.qml" line="372"/>
+        <location filename="../Services/DockService.qml" line="364"/>
         <source>Dock settings could not be read. The existing file is preserved; changes apply to this session only.</source>
         <translation>無法讀取 Dock 設定。已保留原始檔案，變更僅套用於本次工作階段。</translation>
     </message>
     <message>
-        <location filename="../Services/DockService.qml" line="380"/>
+        <location filename="../Services/DockService.qml" line="372"/>
         <source>Dock settings could not be opened. Changes apply to this session only.</source>
         <translation>無法開啟 Dock 設定。變更僅套用於本次工作階段。</translation>
     </message>
     <message>
-        <location filename="../Services/DockService.qml" line="385"/>
+        <location filename="../Services/DockService.qml" line="377"/>
         <source>Dock settings could not be saved. Changes apply to this session only.</source>
         <translation>無法儲存 Dock 設定。變更僅套用於本次工作階段。</translation>
     </message>
@@ -13789,14 +13737,34 @@ Windows: </source>
 <context>
     <name>DockWindowCard</name>
     <message>
-        <location filename="../Modules/Dock/DockWindowCard.qml" line="87"/>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="88"/>
         <source>Close window</source>
         <translation>關閉視窗</translation>
     </message>
     <message>
-        <location filename="../Modules/Dock/DockWindowCard.qml" line="108"/>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="109"/>
         <source>Preview unavailable</source>
         <translation>預覽無法使用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="146"/>
+        <source>Previous track</source>
+        <translation>上一首</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="154"/>
+        <source>Pause</source>
+        <translation>暫停</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="154"/>
+        <source>Play</source>
+        <translation>播放</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockWindowCard.qml" line="162"/>
+        <source>Next track</source>
+        <translation>下一首</translation>
     </message>
 </context>
 <context>
@@ -13825,6 +13793,21 @@ Windows: </source>
         <location filename="../tools/window-preview/Preview.qml" line="60"/>
         <source>Frames: %1 · First frame: %2 ms · Source: %3 × %4</source>
         <translation>影格數：%1 · 首幀：%2 毫秒 · 來源尺寸：%3 × %4</translation>
+    </message>
+</context>
+<context>
+    <name>ApplicationService</name>
+    <message>
+        <location filename="../Modules/Dock/DockItem.qml" line="164"/>
+        <location filename="../Services/ApplicationService.qml" line="31"/>
+        <location filename="../Services/DockService.qml" line="128"/>
+        <source>Space</source>
+        <translation>空白佔位</translation>
+    </message>
+    <message>
+        <location filename="../Services/ApplicationService.qml" line="32"/>
+        <source>Drag to Dock to add a blank space</source>
+        <translation>拖入 Dock 新增空白佔位</translation>
     </message>
 </context>
 </TS>
