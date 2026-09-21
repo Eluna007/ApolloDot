@@ -464,8 +464,8 @@ Singleton {
             label: qsTr("Rounded cover")
         },
         {
-            value: "spectrum",
-            label: qsTr("Spectrum ring")
+            value: "caelestia",
+            label: qsTr("Caelestia")
         },
         {
             value: "background",
@@ -1939,7 +1939,8 @@ Singleton {
         root.shellBlurXray = typeof effects.shellBlurXray === "boolean" ? effects.shellBlurXray : true;
         root.keystoneMediaProgressStyle = normalizedOption(root.keystoneMediaProgressOptions,
                                                            media.progressStyle, "wave");
-        root.keystoneMediaCoverStyle = normalizedOption(root.keystoneMediaCoverOptions, media.coverStyle,
+        root.keystoneMediaCoverStyle = normalizedOption(root.keystoneMediaCoverOptions, media.coverStyle
+                                                        === "spectrum" ? "caelestia" : media.coverStyle,
                                                         "rounded");
         root.keystoneMediaColorStyle = normalizedOption(root.keystoneMediaColorOptions, media.colorStyle,
                                                         "theme");

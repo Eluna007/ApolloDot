@@ -30,6 +30,9 @@ Item {
                                                                                                               root.currentPos
                                                                                                               / MediaManager.active.length)) :
                                                                                          0
+    readonly property bool caelestiaCover: PersonalizationConfig.keystoneMediaCoverStyle === "caelestia"
+    readonly property real panelWidth: caelestiaCover || backgroundCover ? 640 : 540
+    readonly property real panelHeight: caelestiaCover || backgroundCover ? 240 : 210
     readonly property bool backgroundCover: PersonalizationConfig.keystoneMediaCoverStyle === "background"
     readonly property bool coverColors: PersonalizationConfig.keystoneMediaColorStyle === "cover"
                                         && root.artUrl !== ""
@@ -39,9 +42,9 @@ Item {
     readonly property color onAccentColor: coverColors ? MediaPalette.onPrimary :
                                                          Appearance.colors.colOnPrimary
     readonly property color trackColor: coverColors ? MediaPalette.track : Appearance.colors.colLayer2Hover
-    readonly property color surfaceColor: coverColors ? Qt.tint(Appearance.colors.colLayer1,
+    readonly property color surfaceColor: coverColors ? Qt.tint(Appearance.colors.colLayer0,
                                                                 Appearance.applyAlpha(accentColor, 0.12)) :
-                                                        Appearance.colors.colLayer1
+                                                        Appearance.colors.colLayer0
 
     function updatePalette() {
         if (root.paletteArtUrl)
@@ -75,59 +78,6 @@ Item {
             return 0;
         });
         return sorted;
-    }
-
-    Rectangle {
-        anchors.fill: parent
-        radius: Appearance.rounding.large
-        color: root.surfaceColor
-        visible: root.backgroundCover || root.coverColors
-    }
-
-    Loader {
-        anchors.fill: parent
-        active: root.backgroundCover && root.visible
-        sourceComponent: Item {
-            Image {
-                id: backgroundArt
-                anchors.fill: parent
-                source: root.artUrl
-                asynchronous: true
-                sourceSize: Qt.size(Math.ceil(width * 2), Math.ceil(height * 2))
-                fillMode: Image.PreserveAspectCrop
-                visible: false
-            }
-
-            Rectangle {
-                id: backgroundMask
-                anchors.fill: parent
-                radius: Appearance.rounding.large
-                visible: false
-                layer.enabled: true
-                gradient: Gradient {
-                    orientation: Gradient.Horizontal
-                    GradientStop {
-                        position: 0
-                        color: Qt.rgba(0, 0, 0, 0.28)
-                    }
-                    GradientStop {
-                        position: 0.45
-                        color: Qt.rgba(0, 0, 0, 0.14)
-                    }
-                    GradientStop {
-                        position: 1
-                        color: "transparent"
-                    }
-                }
-            }
-
-            OpacityMask {
-                anchors.fill: parent
-                source: backgroundArt
-                maskSource: backgroundMask
-                visible: backgroundArt.status === Image.Ready
-            }
-        }
     }
 
     Component {
@@ -169,18 +119,21 @@ Item {
         anchors.bottomMargin: 12
         spacing: 24
 
-        Loader {
-            Layout.preferredWidth: 120
-            Layout.preferredHeight: 120
-            Layout.alignment: Qt.AlignTop
-            visible: !root.backgroundCover
-            active: visible && root.visible
-            sourceComponent: MediaCover {
-                artUrl: root.artUrl
-                playing: root.isPlaying
-                active: root.isActive
-                spectrum: PersonalizationConfig.keystoneMediaCoverStyle === "spectrum"
-                accentColor: root.accentColor
+        Item {
+            Layout.preferredWidth: root.caelestiaCover || root.backgroundCover ? 180 : 120
+            Layout.preferredHeight: root.caelestiaCover || root.backgroundCover ? 180 : 120
+            Layout.alignment: root.caelestiaCover || root.backgroundCover ? Qt.AlignVCenter : Qt.AlignTop
+
+            Loader {
+                anchors.fill: parent
+                active: !root.backgroundCover && root.visible
+                sourceComponent: MediaCover {
+                    artUrl: root.artUrl
+                    playing: root.isPlaying
+                    active: root.isActive
+                    caelestia: root.caelestiaCover
+                    accentColor: root.accentColor
+                }
             }
         }
 
@@ -219,7 +172,9 @@ Item {
 
                 // 为药丸预留空间
                 Item {
-                    Layout.preferredWidth: 80
+                    Layout.preferredWidth: root.caelestiaCover || root.backgroundCover ? Math.max(80,
+                                                                                                  pillRect.width
+                                                                                                  + 8) : 80
                     Layout.fillHeight: true
                 }
             }

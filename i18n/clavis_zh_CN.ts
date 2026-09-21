@@ -8605,6 +8605,11 @@ Click to open network settings</source>
         <translation>快捷设置</translation>
     </message>
     <message>
+        <location filename="../Services/PersonalizationConfig.qml" line="468"/>
+        <source>Caelestia</source>
+        <translation>Caelestia</translation>
+    </message>
+    <message>
         <location filename="../Services/PersonalizationConfig.qml" line="354"/>
         <source>Pomodoro</source>
         <translation>番茄钟</translation>
@@ -8701,11 +8706,6 @@ Click to open network settings</source>
         <location filename="../Services/PersonalizationConfig.qml" line="464"/>
         <source>Rounded cover</source>
         <translation>圆角封面</translation>
-    </message>
-    <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="468"/>
-        <source>Spectrum ring</source>
-        <translation>环状频谱</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="472"/>

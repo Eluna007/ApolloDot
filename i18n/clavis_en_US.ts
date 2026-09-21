@@ -8607,6 +8607,11 @@ Click to open network settings</translation>
         <translation>Quick Settings</translation>
     </message>
     <message>
+        <location filename="../Services/PersonalizationConfig.qml" line="468"/>
+        <source>Caelestia</source>
+        <translation>Caelestia</translation>
+    </message>
+    <message>
         <location filename="../Services/PersonalizationConfig.qml" line="354"/>
         <source>Pomodoro</source>
         <translation>Pomodoro</translation>
@@ -8703,11 +8708,6 @@ Click to open network settings</translation>
         <location filename="../Services/PersonalizationConfig.qml" line="464"/>
         <source>Rounded cover</source>
         <translation>Rounded cover</translation>
-    </message>
-    <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="468"/>
-        <source>Spectrum ring</source>
-        <translation>Spectrum ring</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="472"/>
