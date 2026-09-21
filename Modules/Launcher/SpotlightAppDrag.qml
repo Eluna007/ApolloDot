@@ -36,7 +36,7 @@ Item {
     }
 
     function releaseDrag() {
-        // Hand the retained grab to the Dock only after QDrag has returned.
+        // Reveal the Dock entry only after QDrag has returned.
         // Its model refresh may destroy this source as soon as we release it.
         if (dockHandoffTarget) {
             dockHandoffTarget.finishExternalHandoff(dockHandoffSerial);

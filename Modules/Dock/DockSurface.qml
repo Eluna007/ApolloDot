@@ -84,7 +84,6 @@ PanelWindow {
     property string externalSourceKey: ""
     property string handoffKey: ""
     property int handoffSerial: 0
-    property var handoffSnapshot: null
     property point dragGrabOffset: Qt.point(0, 0)
     readonly property var draggedEntry: {
         return dragKey && dragGhost.entry ? dragGhost.entry : null;
@@ -244,12 +243,6 @@ PanelWindow {
     function prepareExternalHandoff(entry, source) {
         root.cancelExternalHandoff(root.handoffSerial);
         const serial = ++root.handoffSerial;
-        root.handoffSnapshot = {
-            entry: copyEntry(entry),
-            center: root.dropPoint,
-            size: source && source.iconItem ? source.iconItem.width : root.baseLayout.size,
-            image: source && source.capturedImage ? source.capturedImage : null
-        };
         root.handoffKey = entry.key;
         if (source && typeof source.registerDockHandoff === "function" && source.nativeDragActive)
             source.registerDockHandoff(root, serial);
@@ -257,22 +250,15 @@ PanelWindow {
             Qt.callLater(() => root.finishExternalHandoff(serial));
     }
     function finishExternalHandoff(serial) {
-        if (serial !== root.handoffSerial || !root.handoffSnapshot)
+        if (serial !== root.handoffSerial || !root.handoffKey)
             return;
-        if (!DockService.entryFor(root.handoffKey)) {
-            root.cancelExternalHandoff(serial);
-            return;
-        }
-        const snapshot = root.handoffSnapshot;
-        dragGhost.begin(snapshot.entry, snapshot.center, snapshot.size);
-        dragGhost.dragImage = snapshot.image;
-        dragGhost.fold();
+        // The platform has already removed its drag image. Recreating it here
+        // would flash a second icon before the real Dock entry appears.
+        root.handoffKey = "";
     }
     function cancelExternalHandoff(serial) {
         if (serial !== root.handoffSerial || !root.handoffKey)
             return;
-        dragGhost.clear();
-        root.handoffSnapshot = null;
         root.handoffKey = "";
         ++root.handoffSerial;
     }
@@ -822,8 +808,8 @@ PanelWindow {
                             }
                         }
                     }
-                    // Both new and reused entries stay hidden while the native
-                    // drag image is handed over and folded away at the pointer.
+                    // Keep new and reused entries hidden until the native drag
+                    // ends, then let the actual delegate animate in once.
                     if (landingEntry)
                         root.prepareExternalHandoff(landingEntry, drop.source);
                     root.externalOver = false;
@@ -877,10 +863,6 @@ PanelWindow {
         DockDragVisual {
             id: dragGhost
             onActiveChanged: root.updateInteraction()
-            onFolded: {
-                root.handoffSnapshot = null;
-                root.handoffKey = "";
-            }
         }
     }
 
