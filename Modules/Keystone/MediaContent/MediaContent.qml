@@ -12,8 +12,10 @@ Item {
     // Content is inset 20px from the surrounding Keystone surface.
     property real surfaceTopRightRadius: 24
     readonly property real sourceBadgeInset: 10
-    readonly property var sourceExpandCurve: [0.16, 0.7, 0.3, 1.06, 0.65, 1.025, 0.8, 1.025, 0.92, 1, 1, 1]
-    readonly property var sourceCollapseCurve: [0.2, 0, 0, 1, 1, 1]
+    // Names describe curve geometry, not the perceived direction of rebound.
+    // Preserve the state-dependent selection and timings below with these values.
+    readonly property var sourceOvershootCurve: [0.16, 0.7, 0.3, 1.06, 0.65, 1.025, 0.8, 1.025, 0.92, 1, 1, 1]
+    readonly property var sourceEaseOutCurve: [0.2, 0, 0, 1, 1, 1]
 
     readonly property bool isActive: root.visible && MediaManager.active
     property bool isPlaying: isActive && MediaManager.active && MediaManager.active.isPlaying
@@ -265,14 +267,16 @@ Item {
             NumberAnimation {
                 duration: pillRect.menuExpanded ? 420 : 220
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: pillRect.menuExpanded ? root.sourceExpandCurve : root.sourceCollapseCurve
+                easing.bezierCurve: pillRect.menuExpanded ? root.sourceOvershootCurve :
+                                                            root.sourceEaseOutCurve
             }
         }
         Behavior on height {
             NumberAnimation {
                 duration: pillRect.menuExpanded ? 420 : 220
                 easing.type: Easing.BezierSpline
-                easing.bezierCurve: pillRect.menuExpanded ? root.sourceExpandCurve : root.sourceCollapseCurve
+                easing.bezierCurve: pillRect.menuExpanded ? root.sourceOvershootCurve :
+                                                            root.sourceEaseOutCurve
             }
         }
         Behavior on color {
