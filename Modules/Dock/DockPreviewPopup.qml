@@ -5,6 +5,7 @@ import qs.Common
 import qs.Services
 import qs.Widgets.common
 import "../../Common/functions/DockLayout.js" as DockLayout
+import "../../Common/functions/DockBubble.js" as DockBubble
 
 Item {
     id: root
@@ -66,20 +67,45 @@ Item {
         id: popupHover
     }
 
-    // Draw the body and offset, rounded tail as one path: no rectangle border
-    // running through the pointer, and no separately composited triangle seam.
+    readonly property var bubbleOutline: DockBubble.outline(width, bodyHeight, edge, tailSize, anchorOffset)
+    readonly property var blurRectangles: visible ? DockBubble.regionRects(bubbleOutline, height) : []
+    property var blurBackgroundItems: []
+
+    function updateBlurItems() {
+        const items = [];
+        for (let i = 0; i < blurStrips.count; ++i) {
+            const item = blurStrips.itemAt(i);
+            if (item)
+                items.push(item);
+        }
+        blurBackgroundItems = items;
+    }
+
+    // Empty geometry items supply exact scanline regions to the existing blur
+    // publisher. Adjacent identical rows are merged, including the flat body.
+    Repeater {
+        id: blurStrips
+        model: root.blurRectangles
+        onItemAdded: Qt.callLater(root.updateBlurItems)
+        onItemRemoved: Qt.callLater(root.updateBlurItems)
+        delegate: Item {
+            required property var modelData
+            readonly property real radius: 0
+            x: modelData.x
+            y: modelData.y
+            width: modelData.width
+            height: modelData.height
+        }
+    }
+
     Canvas {
         id: bubble
         anchors.fill: parent
         antialiasing: true
-        readonly property real pointerPosition: root.anchorOffset
-        readonly property real tail: root.tailSize
-        readonly property string edge: root.edge
+        readonly property var outline: root.bubbleOutline
         readonly property color fillColor: root.surfaceColor
         readonly property color lineColor: root.outlineColor
-        onPointerPositionChanged: requestPaint()
-        onTailChanged: requestPaint()
-        onEdgeChanged: requestPaint()
+        onOutlineChanged: requestPaint()
         onFillColorChanged: requestPaint()
         onLineColorChanged: requestPaint()
         onWidthChanged: requestPaint()
@@ -87,40 +113,7 @@ Item {
         onPaint: {
             const ctx = getContext("2d");
             ctx.clearRect(0, 0, width, height);
-            const x = root.bodyX + 0.5;
-            const y = 0.5;
-            const right = root.bodyX + root.bodyWidth - 0.5;
-            const bottom = root.bodyHeight - 0.5;
-            const radius = Math.max(0, Math.min(12, (right - x) / 2, (bottom - y) / 2));
-            const horizontal = edge === "bottom";
-            const extent = horizontal ? root.bodyWidth : root.bodyHeight;
-            const tip = Math.max(26, Math.min(extent - 26, pointerPosition));
-            ctx.beginPath();
-            ctx.moveTo(x + radius, y);
-            ctx.lineTo(right - radius, y);
-            ctx.quadraticCurveTo(right, y, right, y + radius);
-            if (tail > 0 && edge === "right") {
-                ctx.lineTo(right, tip - 14);
-                ctx.bezierCurveTo(right, tip - 7, right + tail, tip - 5, right + tail, tip);
-                ctx.bezierCurveTo(right + tail, tip + 5, right, tip + 7, right, tip + 14);
-            }
-            ctx.lineTo(right, bottom - radius);
-            ctx.quadraticCurveTo(right, bottom, right - radius, bottom);
-            if (tail > 0 && horizontal) {
-                ctx.lineTo(tip + 14, bottom);
-                ctx.bezierCurveTo(tip + 7, bottom, tip + 5, bottom + tail, tip, bottom + tail);
-                ctx.bezierCurveTo(tip - 5, bottom + tail, tip - 7, bottom, tip - 14, bottom);
-            }
-            ctx.lineTo(x + radius, bottom);
-            ctx.quadraticCurveTo(x, bottom, x, bottom - radius);
-            if (tail > 0 && edge === "left") {
-                ctx.lineTo(x, tip + 14);
-                ctx.bezierCurveTo(x, tip + 7, x - tail, tip + 5, x - tail, tip);
-                ctx.bezierCurveTo(x - tail, tip - 5, x, tip - 7, x, tip - 14);
-            }
-            ctx.lineTo(x, y + radius);
-            ctx.quadraticCurveTo(x, y, x + radius, y);
-            ctx.closePath();
+            DockBubble.paint(ctx, outline);
             ctx.fillStyle = fillColor;
             ctx.fill();
             ctx.strokeStyle = lineColor;

@@ -42,7 +42,7 @@ PanelWindow {
                                                                                             "app")
     readonly property var layout: DockLayout.layout(preview.kinds, baseLayout.size, availableLength,
                                                     magnification, DockService.separatorSize, dragInside
-                                                    || externalOver || (!dragKey && bandHover.hovered)
+                                                    || externalOver || (!dragKey && magnificationActive)
                                                     ? pointerInBase : NaN, DockLayout.sectionBoundary(
                                                         preview.kinds, DockService.pinnedEntries.length,
                                                         preview.order))
@@ -64,6 +64,7 @@ PanelWindow {
                                         || DockService.externalDragActive || dragGhost.active
     property bool revealed: false
     property real pointerAxis: 0
+    property bool magnificationActive: false
     property string hoverKey: ""
     property string pendingPopupKey: ""
     property string popupKey: ""
@@ -330,6 +331,16 @@ PanelWindow {
             dismissPopup();
     }
 
+    // Region changes can briefly reset HoverHandler during popup creation.
+    // Preserve the last scene position and absorb that transient leave.
+    Timer {
+        id: magnificationExit
+        interval: 80
+        onTriggered: {
+            if (!bandHover.hovered)
+                root.magnificationActive = false;
+        }
+    }
     Timer {
         id: hideTimer
         interval: 650
@@ -465,8 +476,18 @@ PanelWindow {
 
             HoverHandler {
                 id: bandHover
-                onPointChanged: root.pointerAxis = root.horizontal ? band.x + point.position.x : band.y
-                                                                     + point.position.y
+                onHoveredChanged: {
+                    if (hovered) {
+                        magnificationExit.stop();
+                        root.magnificationActive = true;
+                    } else {
+                        magnificationExit.restart();
+                    }
+                }
+                onPointChanged: {
+                    if (hovered)
+                        root.pointerAxis = root.horizontal ? point.scenePosition.x : point.scenePosition.y;
+                }
             }
 
             Rectangle {
@@ -476,7 +497,7 @@ PanelWindow {
                 width: root.horizontal ? parent.width : root.restingThickness
                 height: root.horizontal ? root.restingThickness : parent.height
                 radius: 20
-                color: Appearance.applyAlpha(Appearance.colors.colSurfaceContainer, 0.9)
+                color: BlurService.backgroundColor(Appearance.colors.colSurfaceContainer)
                 border.color: Appearance.applyAlpha(Appearance.colors.colOutlineVariant, 0.65)
                 border.width: 1
                 MouseArea {
@@ -760,7 +781,7 @@ PanelWindow {
     CompositorBlurRegion {
         targetWindow: root
         backgroundItem: glass
-        additionalBackgroundItems: popup.visible ? [popup] : []
+        additionalBackgroundItems: popup.visible ? popup.blurBackgroundItems : []
         blurEnabled: root.shown
         radius: 20
     }
