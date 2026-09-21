@@ -74,7 +74,7 @@ Item {
             readonly property real cos: Math.cos(angle)
             readonly property real sin: Math.sin(angle)
             capStyle: ShapePath.RoundCap
-            strokeWidth: 3.5
+            strokeWidth: 4
             strokeColor: root.accentColor
             fillColor: "transparent"
             startX: root.width / 2 + edge * cos

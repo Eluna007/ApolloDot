@@ -559,7 +559,7 @@ Item {
         property string value: ""
         property string placeholder: ""
         property int fieldWidth: 240
-        property bool closeOnAccept: false
+        property bool closeOnAccept: true
 
         signal accepted(string value)
 
