@@ -12,6 +12,13 @@ Item {
     property bool nativeDragActive: false
     property bool holdsDrag: false
     property var capturedImage: null
+    property QtObject dockHandoffTarget: null
+    property int dockHandoffSerial: 0
+
+    function registerDockHandoff(target, serial) {
+        dockHandoffTarget = target;
+        dockHandoffSerial = serial;
+    }
 
     anchors.fill: parent
     enabled: desktopId !== "" && DockService.enabled
@@ -29,6 +36,12 @@ Item {
     }
 
     function releaseDrag() {
+        // Hand the retained grab to the Dock only after QDrag has returned.
+        // Its model refresh may destroy this source as soon as we release it.
+        if (dockHandoffTarget) {
+            dockHandoffTarget.finishExternalHandoff(dockHandoffSerial);
+            dockHandoffTarget = null;
+        }
         capturedImage = null;
         holdsDrag = false;
         DockService.externalDragActive = false;
@@ -80,6 +93,8 @@ Item {
     }
 
     Component.onDestruction: {
+        if (root.dockHandoffTarget)
+            root.dockHandoffTarget.cancelExternalHandoff(root.dockHandoffSerial);
         if (root.holdsDrag)
             DockService.externalDragActive = false;
     }

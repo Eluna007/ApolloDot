@@ -16,8 +16,11 @@ Item {
     property real removalProgress: removalArmed ? 1 : 0
     property point destination
     property real destinationSize: 48
+    // Keep the grab result alive after the Spotlight delegate is released.
+    property var dragImage: null
     readonly property bool active: entry !== null
     readonly property bool settling: landing.running
+    signal folded
 
     visible: active
     height: width
@@ -28,6 +31,8 @@ Item {
     function begin(value, center, size) {
         landing.stop();
         removal.stop();
+        folding.stop();
+        root.dragImage = null;
         root.entry = value;
         root.width = size;
         root.fade = 1;
@@ -50,8 +55,17 @@ Item {
         root.following = false;
         removal.restart();
     }
+    function fold() {
+        root.following = false;
+        root.removalArmed = false;
+        folding.restart();
+    }
     function clear() {
+        landing.stop();
+        removal.stop();
+        folding.stop();
         root.entry = null;
+        root.dragImage = null;
         root.following = false;
         root.removalArmed = false;
     }
@@ -99,23 +113,43 @@ Item {
         onFinished: root.clear()
     }
 
+    NumberAnimation {
+        id: folding
+        target: root
+        property: "fade"
+        to: 0
+        duration: DockMotion.handoffDuration
+        easing.type: Easing.InOutCubic
+        onFinished: {
+            root.clear();
+            root.folded();
+        }
+    }
+
+    Image {
+        anchors.fill: parent
+        visible: !!root.dragImage
+        source: root.dragImage ? root.dragImage.url : ""
+        fillMode: Image.PreserveAspectFit
+    }
+
     ThemeIcon {
         anchors.fill: parent
-        visible: !!root.entry && root.entry.kind === "app" && !root.entry.symbol
+        visible: !root.dragImage && !!root.entry && root.entry.kind === "app" && !root.entry.symbol
         iconSource: visible ? ApplicationService.iconSource(root.entry.icon) : ""
         sourceSize: Qt.size(160, 160)
         fillMode: Image.PreserveAspectFit
     }
     MaterialSymbol {
         anchors.centerIn: parent
-        visible: !!root.entry && root.entry.kind === "app" && !!root.entry.symbol
+        visible: !root.dragImage && !!root.entry && root.entry.kind === "app" && !!root.entry.symbol
         text: root.entry ? root.entry.symbol : ""
         iconSize: root.width * 0.82
         color: Appearance.colors.colPrimary
     }
     Rectangle {
         anchors.fill: parent
-        visible: !!root.entry && root.entry.kind === "spacer"
+        visible: !root.dragImage && !!root.entry && root.entry.kind === "spacer"
         radius: width * 0.2
         color: "transparent"
         border.width: 1

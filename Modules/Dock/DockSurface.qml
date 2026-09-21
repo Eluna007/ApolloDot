@@ -41,11 +41,11 @@ PanelWindow {
                                                            ? insertion : -1, draggedEntry ? draggedEntry.kind :
                                                                                             externalKind)
     readonly property var layout: DockLayout.layout(preview.kinds, baseLayout.size, availableLength,
-                                                    magnification, 16, dragInside || externalOver || (
-                                                        !dragKey && magnificationActive) ? pointerInBase : NaN,
-                                                    DockLayout.sectionBoundary(preview.kinds,
-                                                                               DockService.pinnedEntries.length,
-                                                                               preview.order))
+                                                    magnification, 16, dragInside || externalOver
+                                                    || handoffKey !== "" || (!dragKey && magnificationActive)
+                                                    ? pointerInBase : NaN, DockLayout.sectionBoundary(
+                                                        preview.kinds, DockService.pinnedEntries.length,
+                                                        preview.order))
     readonly property var slotsByIndex: {
         const result = [];
         for (let i = 0; i < preview.order.length; ++i) {
@@ -58,10 +58,13 @@ PanelWindow {
     readonly property real bandThickness: baseLayout.size * magnification + 36
     readonly property real restingThickness: baseLayout.size + 22
     readonly property bool shown: !DockService.autoHide || revealed || DockService.externalDragActive
-                                  || dragKey !== "" || popupKey !== "" || dragGhost.active
+                                  || dragKey !== "" || popupKey !== "" || dragGhost.active || handoffKey
+                                  !== ""
+
     readonly property bool interacting: bandHover.hovered || edgeHover.hovered || popup.hovered
                                         || dropArea.containsDrag || dragKey !== ""
-                                        || DockService.externalDragActive || dragGhost.active
+                                        || DockService.externalDragActive || dragGhost.active || handoffKey
+                                        !== ""
     property bool revealed: false
     property real pointerAxis: 0
     property bool magnificationActive: false
@@ -79,6 +82,9 @@ PanelWindow {
     property bool externalOver: false
     property string externalKind: "app"
     property string externalSourceKey: ""
+    property string handoffKey: ""
+    property int handoffSerial: 0
+    property var handoffSnapshot: null
     property point dragGrabOffset: Qt.point(0, 0)
     readonly property var draggedEntry: {
         return dragKey && dragGhost.entry ? dragGhost.entry : null;
@@ -102,8 +108,8 @@ PanelWindow {
         }
     }
     function hoverEntry(key) {
-        if (WindowPreviewService.suspended || dragKey || dragGhost.active || DockService.externalDragActive
-                || contextMenu)
+        if (WindowPreviewService.suspended || dragKey || dragGhost.active || handoffKey
+                || DockService.externalDragActive || contextMenu)
             return;
         hoverKey = key;
         closeTimer.stop();
@@ -235,10 +241,46 @@ PanelWindow {
                 visualEntries.remove(i);
         }
     }
+    function prepareExternalHandoff(entry, source) {
+        root.cancelExternalHandoff(root.handoffSerial);
+        const serial = ++root.handoffSerial;
+        root.handoffSnapshot = {
+            entry: copyEntry(entry),
+            center: root.dropPoint,
+            size: source && source.iconItem ? source.iconItem.width : root.baseLayout.size,
+            image: source && source.capturedImage ? source.capturedImage : null
+        };
+        root.handoffKey = entry.key;
+        if (source && typeof source.registerDockHandoff === "function" && source.nativeDragActive)
+            source.registerDockHandoff(root, serial);
+        else
+            Qt.callLater(() => root.finishExternalHandoff(serial));
+    }
+    function finishExternalHandoff(serial) {
+        if (serial !== root.handoffSerial || !root.handoffSnapshot)
+            return;
+        if (!DockService.entryFor(root.handoffKey)) {
+            root.cancelExternalHandoff(serial);
+            return;
+        }
+        const snapshot = root.handoffSnapshot;
+        dragGhost.begin(snapshot.entry, snapshot.center, snapshot.size);
+        dragGhost.dragImage = snapshot.image;
+        dragGhost.fold();
+    }
+    function cancelExternalHandoff(serial) {
+        if (serial !== root.handoffSerial || !root.handoffKey)
+            return;
+        dragGhost.clear();
+        root.handoffSnapshot = null;
+        root.handoffKey = "";
+        ++root.handoffSerial;
+    }
     function moveDrag(key, point, offset, size) {
         if (dragCancelled)
             return;
         if (dragKey !== key) {
+            root.cancelExternalHandoff(root.handoffSerial);
             const entry = DockService.entryFor(key);
             if (!entry)
                 return;
@@ -584,6 +626,7 @@ PanelWindow {
                         required property string key
                         required property bool retiring
                         property bool appeared: false
+                        readonly property bool awaitingHandoff: root.handoffKey === key
                         property real retirementAxis: 0
                         property real retirementSpan: 0
                         property real retirementSize: 0
@@ -622,14 +665,22 @@ PanelWindow {
                                      && kind === "app" && !WindowPreviewService.suspended
                         dragged: key === root.dragKey || (dragGhost.entry && dragGhost.entry.key === key) || (
                                      root.externalOver && root.externalSourceKey === key)
-                        enabled: !retiring
+                        enabled: !retiring && !awaitingHandoff
                         presence: 0
                         function animatePresence() {
                             presenceAnimation.stop();
+                            if (awaitingHandoff) {
+                                presence = 0;
+                                return;
+                            }
                             presenceAnimation.to = retiring ? 0 : 1;
                             presenceAnimation.duration = retiring ? DockMotion.exitDuration :
                                                                     DockMotion.enterDuration;
                             presenceAnimation.start();
+                        }
+                        onAwaitingHandoffChanged: {
+                            if (appeared)
+                                animatePresence();
                         }
                         Component.onCompleted: {
                             appeared = true;
@@ -726,6 +777,7 @@ PanelWindow {
                     drag.accepted = drag.formats.indexOf(DockService.dragMimeType) >= 0 || drag.hasUrls;
                     if (!drag.accepted)
                         return;
+                    root.cancelExternalHandoff(root.handoffSerial);
                     root.externalKind = drag.source && drag.source.spaceTemplate ? "spacer" : "app";
                     root.externalSourceKey = root.externalKind === "app" && drag.source
                             && typeof drag.source.desktopId === "string" ? "app:"
@@ -749,6 +801,7 @@ PanelWindow {
                     root.insertion = -1;
                 }
                 onDropped: drop => {
+                    root.dropPoint = band.mapToItem(content, drop.x, drop.y);
                     const text = drop.getDataAsString(DockService.dragMimeType);
                     const incoming = DockService.dropEntries(text, drop.urls);
                     const before = new Set();
@@ -769,19 +822,15 @@ PanelWindow {
                             }
                         }
                     }
-                    // New entries use the same centered appearance as a new
-                    // running app. Only an existing icon travels back to its
-                    // slot; a second drag ghost would hide the entrance.
-                    const returningEntry = landingEntry && before.has(landingEntry.key);
-                    if (returningEntry)
-                        dragGhost.begin(root.copyEntry(landingEntry), root.dropPoint, root.baseLayout.size);
+                    // Both new and reused entries stay hidden while the native
+                    // drag image is handed over and folded away at the pointer.
+                    if (landingEntry)
+                        root.prepareExternalHandoff(landingEntry, drop.source);
                     root.externalOver = false;
                     root.externalSourceKey = "";
                     root.insertion = -1;
                     if (accepted) {
                         drop.accept(Qt.CopyAction);
-                        if (returningEntry)
-                            Qt.callLater(root.landGhost);
                     }
                     root.updateInteraction();
                 }
@@ -828,6 +877,10 @@ PanelWindow {
         DockDragVisual {
             id: dragGhost
             onActiveChanged: root.updateInteraction()
+            onFolded: {
+                root.handoffSnapshot = null;
+                root.handoffKey = "";
+            }
         }
     }
 

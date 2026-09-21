@@ -4,6 +4,7 @@
 var enterDuration = 240;
 var exitDuration = 180;
 var reflowDuration = 220;
+var handoffDuration = 120;
 
 function iconScale(presence) {
     return 0.35 + 0.65 * presence;
