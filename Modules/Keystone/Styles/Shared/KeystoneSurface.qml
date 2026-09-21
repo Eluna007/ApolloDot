@@ -1336,6 +1336,9 @@ Variants {
                     opacity: mediaWidget.opacity
                     sourceComponent: MediaBackdrop {
                         artUrl: mediaWidget.artUrl
+                        sourceSize: Qt.size(Math.ceil(Math.min(mediaWidget.panelWidth,
+                                                               mediaWidget.panelHeight * 1.5) * 2), Math.ceil(
+                                                mediaWidget.panelHeight * 2))
                         topLeftRadius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius :
                                                                                   rootSurface.topLeftRadius
                         topRightRadius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius :

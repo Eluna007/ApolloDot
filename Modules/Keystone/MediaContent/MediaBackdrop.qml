@@ -5,6 +5,8 @@ Item {
     id: root
 
     required property string artUrl
+    // Decode for the expanded panel, independently of its animated geometry.
+    required property size sourceSize
     required property real topLeftRadius
     required property real topRightRadius
     required property real bottomLeftRadius
@@ -30,7 +32,8 @@ Item {
         width: Math.min(root.width, root.height * 1.5)
         source: root.artUrl
         asynchronous: true
-        sourceSize: Qt.size(Math.ceil(width * 2), Math.ceil(height * 2))
+        retainWhileLoading: true
+        sourceSize: root.sourceSize
         fillMode: Image.PreserveAspectCrop
         visible: false
     }
@@ -66,6 +69,5 @@ Item {
         anchors.fill: coverArt
         source: coverArt
         maskSource: fadeMask
-        visible: coverArt.status === Image.Ready
     }
 }
