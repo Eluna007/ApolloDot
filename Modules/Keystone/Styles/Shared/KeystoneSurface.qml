@@ -544,7 +544,7 @@ Variants {
                     showLyrics = false;
                     showVolume = false;
                     showTools = false;
-                    hubTabIndex = 2;
+                    hubTabIndex = 1;
                     showHub = true;
                 }
 
@@ -564,9 +564,8 @@ Variants {
                         return;
                     const tabs = {
                         dashboard: 0,
-                        library: 1,
-                        upload: 2,
-                        weather: 3
+                        upload: 1,
+                        weather: 2
                     };
                     const isTab = Object.prototype.hasOwnProperty.call(tabs, action);
                     const alreadyOpen = action === "media" ? root.expanded : action === "lyrics"
@@ -1547,7 +1546,6 @@ Variants {
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: implicitWidth
                         height: implicitHeight
-                        player: root.currentPlayer
                         screen: keystoneWindow.screen
                         dragActive: cloudUploadDropArea.containsDrag || longCloudUploadDropArea.containsDrag
                         onCurrentIndexChanged: {

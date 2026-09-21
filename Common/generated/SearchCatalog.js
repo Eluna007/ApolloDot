@@ -1514,6 +1514,19 @@ var catalog = {
     {
       "aliases": [],
       "anchor": true,
+      "context": "KeystonePage",
+      "icon": "music_note",
+      "id": "keystone.section.media-controls",
+      "path": [
+        "keystone"
+      ],
+      "route": "keystone",
+      "source": "KeystonePage.qml",
+      "title": "Media controls"
+    },
+    {
+      "aliases": [],
+      "anchor": true,
       "availability": "keyboard-lock",
       "context": "KeystonePage",
       "icon": "settings",
@@ -1941,6 +1954,7 @@ function title(id) {
     case "keystone.horizontal-clock.section.horizontal-clock-style": return qsTranslate("HorizontalClockPage", "Horizontal clock style");
     case "keystone.section.keystone-style": return qsTranslate("KeystonePage", "Keystone style");
     case "keystone.section.mouse-actions": return qsTranslate("KeystonePage", "Mouse actions");
+    case "keystone.section.media-controls": return qsTranslate("KeystonePage", "Media controls");
     case "keystone.section.keyboard-indicators": return qsTranslate("KeystonePage", "Keyboard indicators");
     case "keystone.section.keyhole": return qsTranslate("KeystonePage", "Keyhole");
     case "keystone.section.horizontal-clock": return qsTranslate("KeystonePage", "Horizontal clock");
