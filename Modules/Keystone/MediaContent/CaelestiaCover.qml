@@ -19,21 +19,22 @@ Item {
     required property color accentColor
     readonly property bool spectrumActive: active && playing
     readonly property string spectrumToken: "keystone-caelestia-cover-" + root
-    readonly property int barCount: 24
+    readonly property int barCount: 60
     readonly property real coverSize: Math.min(width, height) * 0.8
     readonly property real maxMagnitude: 20
     readonly property var values: {
         const source = root.spectrumActive && AudioSpectrum.available ? AudioSpectrum.values : [];
         const result = [];
-        // Preserve peaks when reducing the shared spectrum to fewer display bars.
-        // The response curve belongs to this cover, not the shared audio gain.
+        // Interpolate the shared bins to Caelestia's denser display ring.
+        // Keep the response curve local to this cover, not the shared audio gain.
         for (let i = 0; i < root.barCount; ++i) {
-            const start = Math.floor(i * source.length / root.barCount);
-            const end = Math.floor((i + 1) * source.length / root.barCount);
-            let peak = 0;
-            for (let j = start; j < end; ++j)
-                peak = Math.max(peak, Math.max(0, Math.min(1, Number(source[j]) || 0)));
-            result.push(Math.sqrt(peak));
+            const position = i * Math.max(0, source.length - 1) / (root.barCount - 1);
+            const lower = Math.floor(position);
+            const upper = Math.min(lower + 1, source.length - 1);
+            const fraction = position - lower;
+            const low = Math.max(0, Math.min(1, Number(source[lower]) || 0));
+            const high = Math.max(0, Math.min(1, Number(source[upper]) || 0));
+            result.push(Math.sqrt(low + (high - low) * fraction));
         }
         return result;
     }
@@ -74,7 +75,7 @@ Item {
             readonly property real cos: Math.cos(angle)
             readonly property real sin: Math.sin(angle)
             capStyle: ShapePath.RoundCap
-            strokeWidth: 5
+            strokeWidth: 3.5
             strokeColor: root.accentColor
             fillColor: "transparent"
             startX: root.width / 2 + edge * cos

@@ -66,8 +66,8 @@ commit `20e625d6bf1a9d0bb7625a4bb814797d187b075d`.
 `modules/dashboard/media/CoverVisualiser.qml` and
 `components/widgets/CoverArt.qml`: the rotating nine-sided Cookie mask and
 spectrum bars that follow its outline. Clavis uses its own audio service and
-color tokens, pools peaks from the full spectrum into 24 bars with a square-root
-response, and uses 5-pixel strokes with a 2–20 pixel amplitude range. It releases
+color tokens, interpolates the full spectrum into 60 bars with a square-root
+response, and uses 3.5-pixel strokes with a 2–20 pixel amplitude range. It releases
 audio acquisition while hidden or paused. The cover
 scales with the media layout and uses Clavis's missing-art placeholder.
 
