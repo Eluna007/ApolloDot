@@ -21,18 +21,19 @@ Item {
     readonly property string spectrumToken: "keystone-caelestia-cover-" + root
     readonly property int barCount: 24
     readonly property real coverSize: Math.min(width, height) * 0.8
-    readonly property real maxMagnitude: 8
+    readonly property real maxMagnitude: 20
     readonly property var values: {
-        const source = root.spectrumActive ? AudioSpectrum.values : [];
+        const source = root.spectrumActive && AudioSpectrum.available ? AudioSpectrum.values : [];
         const result = [];
-        // Average across the entire input spectrum instead of truncating it.
+        // Preserve peaks when reducing the shared spectrum to fewer display bars.
+        // The response curve belongs to this cover, not the shared audio gain.
         for (let i = 0; i < root.barCount; ++i) {
             const start = Math.floor(i * source.length / root.barCount);
             const end = Math.floor((i + 1) * source.length / root.barCount);
-            let sum = 0;
+            let peak = 0;
             for (let j = start; j < end; ++j)
-                sum += Math.max(0, Math.min(1, Number(source[j]) || 0));
-            result.push(end > start ? sum / (end - start) : 0);
+                peak = Math.max(peak, Math.max(0, Math.min(1, Number(source[j]) || 0)));
+            result.push(Math.sqrt(peak));
         }
         return result;
     }
@@ -67,13 +68,13 @@ Item {
             readonly property real angle: modelData * 2 * Math.PI / root.barCount
             readonly property real edge: {
                 cookie.rotation;
-                return cookie.distanceAtAngle(modelData * 360 / root.barCount + 90) + 5;
+                return cookie.distanceAtAngle(modelData * 360 / root.barCount + 90) + 6;
             }
-            readonly property real magnitude: Math.max(0.01, root.values[modelData]) * root.maxMagnitude
+            readonly property real magnitude: 2 + root.values[modelData] * (root.maxMagnitude - 2)
             readonly property real cos: Math.cos(angle)
             readonly property real sin: Math.sin(angle)
             capStyle: ShapePath.RoundCap
-            strokeWidth: 3
+            strokeWidth: 5
             strokeColor: root.accentColor
             fillColor: "transparent"
             startX: root.width / 2 + edge * cos
