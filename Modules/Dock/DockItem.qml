@@ -26,6 +26,7 @@ Item {
     property bool contextActive: false
     property bool showTooltip: false
     readonly property string popupEdge: edge
+    readonly property alias artworkItem: artwork
     property real presence: 1
     readonly property bool horizontal: edge === "bottom"
     property real bounce: 0

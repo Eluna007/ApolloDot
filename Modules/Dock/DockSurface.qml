@@ -70,6 +70,7 @@ PanelWindow {
     property string popupKey: ""
     property bool contextMenu: false
     property real popupAxis: axisLength / 2
+    property real popupCross: 0
     property string dragKey: ""
     property bool dragCancelled: false
     property point dragPoint: Qt.point(0, 0)
@@ -135,6 +136,26 @@ PanelWindow {
         const slot = slotForKey(key);
         popupAxis = slot ? (axisLength - bandLength) / 2 + slot.start + slot.span / 2 - scrollOffset :
                            pointerAxis;
+        // Anchor to visible artwork / tray, not the oversized interaction band.
+        // Snapshot the edge so the popup stays put when the pointer moves into
+        // it and the dock's hover magnification subsequently settles down.
+        const trayStart = glass.mapToItem(content, 0, 0);
+        const trayEnd = glass.mapToItem(content, glass.width, glass.height);
+        popupCross = horizontal ? trayStart.y : edge === "left" ? trayEnd.x : trayStart.x;
+        for (let i = 0; i < iconItems.count; ++i) {
+            const item = iconItems.itemAt(i);
+            if (!item || item.entryKey !== key)
+                continue;
+            const artwork = item.artworkItem;
+            const start = artwork.mapToItem(content, 0, 0);
+            const end = artwork.mapToItem(content, artwork.width, artwork.height);
+            popupAxis = horizontal ? (start.x + end.x) / 2 : (start.y + end.y) / 2;
+            popupCross = horizontal ? Math.min(popupCross, start.y) : edge === "left" ? Math.max(popupCross,
+                                                                                                 end.x) : Math.min(
+                                                                                            popupCross,
+                                                                                            start.x);
+            break;
+        }
         popupKey = key;
         contextMenu = context;
         if (context)
@@ -575,8 +596,9 @@ PanelWindow {
                         iconSize: slot.size
                         restingIconSize: root.baseLayout.size
                         contextActive: root.contextMenu && root.popupKey === key
-                        showTooltip: !root.contextMenu && root.popupKey === key && windowCount === 0 && kind
-                                     === "app" && !WindowPreviewService.suspended
+                        showTooltip: !root.contextMenu && root.popupKey === key && (windowCount === 0 ||
+                                                                                    !DockService.showThumbnails)
+                                     && kind === "app" && !WindowPreviewService.suspended
                         dragged: key === root.dragKey || (dragGhost.entry && dragGhost.entry.key === key) || (
                                      root.externalOver && root.externalSourceKey === key)
                         enabled: !retiring
@@ -739,25 +761,29 @@ PanelWindow {
 
         DockPreviewPopup {
             id: popup
-            visible: root.popupKey !== "" && !!entry && (root.contextMenu || windows.length > 0)
+            visible: root.popupKey !== "" && !!entry && (root.contextMenu || (DockService.showThumbnails
+                                                                              && windows.length > 0))
             entryKey: root.popupKey
-            maximumWidth: root.horizontal ? Math.max(0, root.width - 32) : Math.max(0, root.width
-                                                                                    - root.bandThickness - 32)
+            maximumWidth: root.horizontal ? Math.max(0, root.width - 32) : Math.max(0, (root.edge === "left"
+                                                                                        ? root.width
+                                                                                          - root.popupCross :
+                                                                                          root.popupCross)
+                                                                                    - 24)
             contextMenu: root.contextMenu
             edge: root.edge
             anchorOffset: root.popupAxis - (root.horizontal ? x : y)
-            maximumHeight: root.horizontal ? Math.max(0, band.y - 24) : Math.max(0, root.height - 32)
+            readonly property real dockGap: root.contextMenu ? 4 : 8
+            maximumHeight: root.horizontal ? Math.max(0, root.popupCross - dockGap - 16) : Math.max(0, root.height
+                                                                                                    - 32)
             x: root.horizontal ? Math.max(16, Math.min(root.width - width - 16, root.popupAxis - (
                                                            root.contextMenu ? 26 : width / 2))) : root.edge
-                                 === "left" ? root.bandThickness + 16 : root.width - root.bandThickness
-                                              - width - 16
-            y: root.horizontal ? band.y - height - (root.contextMenu ? 2 : 12) : Math.max(16, Math.min(
-                                                                                              root.height
-                                                                                              - height - 16,
-                                                                                              root.popupAxis
-                                                                                              - (root.contextMenu
-                                                                                                 ? 26 : height
-                                                                                                   / 2)))
+                                 === "left" ? root.popupCross + dockGap : root.popupCross - width - dockGap
+            y: root.horizontal ? root.popupCross - height - dockGap : Math.max(16, Math.min(root.height
+                                                                                            - height - 16,
+                                                                                            root.popupAxis - (
+                                                                                                root.contextMenu
+                                                                                                ? 26 : height
+                                                                                                  / 2)))
             onDismissed: root.dismissPopup()
         }
 
