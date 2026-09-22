@@ -18,7 +18,7 @@ Variants {
         visible: PersonalizationConfig.overviewEnabled
 
         WlrLayershell.layer: WlrLayer.Background
-        WlrLayershell.namespace: "clavis-overview-wallpaper"
+        WlrLayershell.namespace: "apollo-overview-wallpaper"
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
 
         anchors.top: true

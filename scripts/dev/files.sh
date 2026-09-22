@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Shared file selection. Callers set repo_root and cd there before using paths.
-clavis_files() {
+apollo_files() {
     local scope=$1
     if [[ ${scope} == all ]]; then
         git ls-files --cached --others --exclude-standard -z
@@ -10,17 +10,17 @@ clavis_files() {
     fi | sort -zu
 }
 
-clavis_qml_files() {
+apollo_qml_files() {
     local scope=$1 file
     while IFS= read -r -d '' file; do
         case ${file} in
             build/*|generated/*|third-party/*|vendor/*) continue ;;
             *.qml) [[ ! -f ${file} ]] || printf '%s\0' "${file}" ;;
         esac
-    done < <(clavis_files "${scope}")
+    done < <(apollo_files "${scope}")
 }
 
-clavis_qt_tool() {
+apollo_qt_tool() {
     local name=$1 override=$2 candidate version
     local candidates=("/usr/lib/qt6/bin/${name}" "${name}6" "${name}-qt6" "${name}")
     [[ -z ${override} ]] || candidates=("${override}")

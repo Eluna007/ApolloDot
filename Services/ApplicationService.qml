@@ -18,16 +18,16 @@ Singleton {
         return "";
     }
     readonly property var settingsApplication: ({
-                                                    id: "org.clavis.Settings",
+                                                    id: "org.apollo.Settings",
                                                     name: qsTranslate("ControlCenterWindow", "Settings"),
-                                                    genericName: "Clavis",
-                                                    keywords: ["Clavis", "settings", "preferences",
+                                                    genericName: "Apollo",
+                                                    keywords: ["Apollo", "settings", "preferences",
                                                         "control center"],
                                                     symbol: root.settingsIconName ? "" : "settings",
                                                     icon: root.settingsIconName
                                                 })
     readonly property var spaceApplication: ({
-                                                 id: "org.clavis.Space",
+                                                 id: "org.apollo.Space",
                                                  name: qsTr("Space"),
                                                  genericName: qsTr("Drag to Dock to add a blank space"),
                                                  keywords: ["space", "spacer", "blank", "dock"],
@@ -45,7 +45,7 @@ Singleton {
             return false;
 
         // Enter the scope before executing the app, so even its earliest
-        // children cannot inherit clavis-shell.service's control group.
+        // children cannot inherit apollo-shell.service's control group.
         // Scope mode preserves the caller's environment and working directory.
         const scopedCommand = ["systemd-run", "--user", "--scope", "--collect", "--quiet", "--slice=app.slice",
                                "--expand-environment=no"];

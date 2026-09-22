@@ -18,7 +18,7 @@ PanelWindow {
     color: "transparent"
     exclusiveZone: exclusiveThickness
     WlrLayershell.layer: WlrLayer.Top
-    WlrLayershell.namespace: "clavis-shell-bar-horizontal"
+    WlrLayershell.namespace: "apollo-shell-bar-horizontal"
     WlrLayershell.exclusionMode: ExclusionMode.Normal
 
     BarAxis {

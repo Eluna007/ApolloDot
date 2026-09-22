@@ -96,7 +96,7 @@ Item {
     WallpaperBackground {}
 
     // Desktop cards are an independent bottom-layer subsystem.  It remains
-    // loaded when the awww backend hides Clavis' wallpaper renderer.
+    // loaded when the awww backend hides Apollo' wallpaper renderer.
     DesktopCardHost {}
 
     LazyLoader {

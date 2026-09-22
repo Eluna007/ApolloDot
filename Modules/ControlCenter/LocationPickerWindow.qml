@@ -43,7 +43,7 @@ FloatingWindow {
     visible: false
     parentWindow: root.parentModal
     // Stable compositor rule identity; visible headings remain localized.
-    title: "clavis-control-center-location-picker"
+    title: "apollo-control-center-location-picker"
     implicitWidth: 920
     implicitHeight: 680
     minimumSize: Qt.size(600, 440)

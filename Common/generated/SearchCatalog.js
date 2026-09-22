@@ -14,7 +14,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Lock the current session",
       "icon": "lock",
-      "id": "clavis:lock:open",
+      "id": "apollo:lock:open",
       "method": "open",
       "policy": "include",
       "target": "lock",
@@ -30,7 +30,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Open Spotlight Search",
       "icon": "search",
-      "id": "clavis:spotlight:search",
+      "id": "apollo:spotlight:search",
       "method": "search",
       "policy": "include",
       "target": "spotlight",
@@ -47,7 +47,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Enter Spotlight Web search",
       "icon": "language",
-      "id": "clavis:spotlight:web",
+      "id": "apollo:spotlight:web",
       "method": "web",
       "policy": "include",
       "target": "spotlight",
@@ -63,7 +63,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Open Spotlight Files",
       "icon": "draft",
-      "id": "clavis:spotlight:files",
+      "id": "apollo:spotlight:files",
       "method": "files",
       "policy": "include",
       "target": "spotlight",
@@ -82,7 +82,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Open the application launcher",
       "icon": "grid_view",
-      "id": "clavis:spotlight:openMode:apps",
+      "id": "apollo:spotlight:openMode:apps",
       "method": "openMode",
       "policy": "include",
       "target": "spotlight",
@@ -100,7 +100,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Open clipboard history",
       "icon": "content_paste",
-      "id": "clavis:spotlight:openMode:clipboard",
+      "id": "apollo:spotlight:openMode:clipboard",
       "method": "openMode",
       "policy": "include",
       "target": "spotlight",
@@ -118,7 +118,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Browse and apply wallpapers",
       "icon": "image",
-      "id": "clavis:spotlight:openMode:wallpapers",
+      "id": "apollo:spotlight:openMode:wallpapers",
       "method": "openMode",
       "policy": "include",
       "target": "spotlight",
@@ -134,7 +134,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Clear the global wallpaper selection",
       "icon": "hide_image",
-      "id": "clavis:wallpaper:clear",
+      "id": "apollo:wallpaper:clear",
       "method": "clear",
       "policy": "include",
       "target": "wallpaper",
@@ -150,7 +150,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Apply the previous wallpaper",
       "icon": "skip_previous",
-      "id": "clavis:wallpaper:previous",
+      "id": "apollo:wallpaper:previous",
       "method": "previous",
       "policy": "include",
       "target": "wallpaper",
@@ -166,7 +166,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Apply the next wallpaper",
       "icon": "skip_next",
-      "id": "clavis:wallpaper:next",
+      "id": "apollo:wallpaper:next",
       "method": "next",
       "policy": "include",
       "target": "wallpaper",
@@ -182,7 +182,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Apply a random wallpaper",
       "icon": "shuffle",
-      "id": "clavis:wallpaper:random",
+      "id": "apollo:wallpaper:random",
       "method": "random",
       "policy": "include",
       "target": "wallpaper",
@@ -198,7 +198,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Dismiss open Keystone panels",
       "icon": "close",
-      "id": "clavis:keystone:closeAllOthers",
+      "id": "apollo:keystone:closeAllOthers",
       "method": "closeAllOthers",
       "policy": "include",
       "target": "keystone",
@@ -214,7 +214,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Toggle the Keystone dashboard",
       "icon": "dashboard",
-      "id": "clavis:keystone:dashboard",
+      "id": "apollo:keystone:dashboard",
       "method": "dashboard",
       "policy": "include",
       "target": "keystone",
@@ -230,7 +230,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Toggle the Keystone hub",
       "icon": "hub",
-      "id": "clavis:keystone:hub",
+      "id": "apollo:keystone:hub",
       "method": "hub",
       "policy": "include",
       "target": "keystone",
@@ -246,7 +246,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Toggle Keystone lyrics",
       "icon": "lyrics",
-      "id": "clavis:keystone:lyrics",
+      "id": "apollo:keystone:lyrics",
       "method": "lyrics",
       "policy": "include",
       "target": "keystone",
@@ -263,7 +263,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Toggle the Keystone tools panel",
       "icon": "handyman",
-      "id": "clavis:keystone:tools",
+      "id": "apollo:keystone:tools",
       "method": "tools",
       "policy": "include",
       "target": "keystone",
@@ -281,7 +281,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Open the notifications sidebar",
       "icon": "notifications",
-      "id": "clavis:sidebar:open:dashboard",
+      "id": "apollo:sidebar:open:dashboard",
       "method": "open",
       "policy": "include",
       "target": "sidebar",
@@ -299,7 +299,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Open the Quick settings sidebar",
       "icon": "tune",
-      "id": "clavis:sidebar:open:quicksettings",
+      "id": "apollo:sidebar:open:quicksettings",
       "method": "open",
       "policy": "include",
       "target": "sidebar",
@@ -318,7 +318,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Toggle the weather sidebar",
       "icon": "partly_cloudy_day",
-      "id": "clavis:sidebar:toggle:weather",
+      "id": "apollo:sidebar:toggle:weather",
       "method": "toggle",
       "policy": "include",
       "target": "sidebar",
@@ -337,7 +337,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Toggle the sidebar drawer",
       "icon": "widgets",
-      "id": "clavis:sidebar:toggle:drawer",
+      "id": "apollo:sidebar:toggle:drawer",
       "method": "toggle",
       "policy": "include",
       "target": "sidebar",
@@ -353,7 +353,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Show keyboard shortcuts",
       "icon": "keyboard",
-      "id": "clavis:shortcut-map:open",
+      "id": "apollo:shortcut-map:open",
       "method": "open",
       "policy": "include",
       "target": "shortcut-map",
@@ -372,7 +372,7 @@ var catalog = {
       "context": "SpotlightActions",
       "description": "Choose a session or power action",
       "icon": "power_settings_new",
-      "id": "clavis:power-menu:open",
+      "id": "apollo:power-menu:open",
       "method": "open",
       "policy": "include",
       "target": "power-menu",
@@ -1982,56 +1982,56 @@ function title(id) {
     case "wallpaper.section.transition": return qsTranslate("WallpaperPage", "Transition");
     case "wallpaper.section.parallax-effects": return qsTranslate("WallpaperPage", "Parallax effects");
     case "wallpaper.section.overview-background": return qsTranslate("WallpaperPage", "Overview background");
-    case "clavis:lock:open": return qsTranslate("SpotlightActions", "Lock screen");
-    case "clavis:spotlight:search": return qsTranslate("SpotlightActions", "Search");
-    case "clavis:spotlight:web": return qsTranslate("SpotlightActions", "Web search");
-    case "clavis:spotlight:files": return qsTranslate("SpotlightActions", "Find files");
-    case "clavis:spotlight:openMode:apps": return qsTranslate("SpotlightActions", "Applications");
-    case "clavis:spotlight:openMode:clipboard": return qsTranslate("SpotlightActions", "Clipboard history");
-    case "clavis:spotlight:openMode:wallpapers": return qsTranslate("SpotlightActions", "Wallpaper picker");
-    case "clavis:wallpaper:clear": return qsTranslate("SpotlightActions", "Reset wallpaper");
-    case "clavis:wallpaper:previous": return qsTranslate("SpotlightActions", "Previous wallpaper");
-    case "clavis:wallpaper:next": return qsTranslate("SpotlightActions", "Next wallpaper");
-    case "clavis:wallpaper:random": return qsTranslate("SpotlightActions", "Random wallpaper");
-    case "clavis:keystone:closeAllOthers": return qsTranslate("SpotlightActions", "Close Keystone panels");
-    case "clavis:keystone:dashboard": return qsTranslate("SpotlightActions", "Keystone dashboard");
-    case "clavis:keystone:hub": return qsTranslate("SpotlightActions", "Keystone hub");
-    case "clavis:keystone:lyrics": return qsTranslate("SpotlightActions", "Lyrics");
-    case "clavis:keystone:tools": return qsTranslate("SpotlightActions", "Keystone tools");
-    case "clavis:sidebar:open:dashboard": return qsTranslate("SpotlightActions", "Notifications");
-    case "clavis:sidebar:open:quicksettings": return qsTranslate("SpotlightActions", "Quick settings");
-    case "clavis:sidebar:toggle:weather": return qsTranslate("SpotlightActions", "Weather sidebar");
-    case "clavis:sidebar:toggle:drawer": return qsTranslate("SpotlightActions", "Sidebar drawer");
-    case "clavis:shortcut-map:open": return qsTranslate("SpotlightActions", "Shortcut map");
-    case "clavis:power-menu:open": return qsTranslate("SpotlightActions", "Power menu");
+    case "apollo:lock:open": return qsTranslate("SpotlightActions", "Lock screen");
+    case "apollo:spotlight:search": return qsTranslate("SpotlightActions", "Search");
+    case "apollo:spotlight:web": return qsTranslate("SpotlightActions", "Web search");
+    case "apollo:spotlight:files": return qsTranslate("SpotlightActions", "Find files");
+    case "apollo:spotlight:openMode:apps": return qsTranslate("SpotlightActions", "Applications");
+    case "apollo:spotlight:openMode:clipboard": return qsTranslate("SpotlightActions", "Clipboard history");
+    case "apollo:spotlight:openMode:wallpapers": return qsTranslate("SpotlightActions", "Wallpaper picker");
+    case "apollo:wallpaper:clear": return qsTranslate("SpotlightActions", "Reset wallpaper");
+    case "apollo:wallpaper:previous": return qsTranslate("SpotlightActions", "Previous wallpaper");
+    case "apollo:wallpaper:next": return qsTranslate("SpotlightActions", "Next wallpaper");
+    case "apollo:wallpaper:random": return qsTranslate("SpotlightActions", "Random wallpaper");
+    case "apollo:keystone:closeAllOthers": return qsTranslate("SpotlightActions", "Close Keystone panels");
+    case "apollo:keystone:dashboard": return qsTranslate("SpotlightActions", "Keystone dashboard");
+    case "apollo:keystone:hub": return qsTranslate("SpotlightActions", "Keystone hub");
+    case "apollo:keystone:lyrics": return qsTranslate("SpotlightActions", "Lyrics");
+    case "apollo:keystone:tools": return qsTranslate("SpotlightActions", "Keystone tools");
+    case "apollo:sidebar:open:dashboard": return qsTranslate("SpotlightActions", "Notifications");
+    case "apollo:sidebar:open:quicksettings": return qsTranslate("SpotlightActions", "Quick settings");
+    case "apollo:sidebar:toggle:weather": return qsTranslate("SpotlightActions", "Weather sidebar");
+    case "apollo:sidebar:toggle:drawer": return qsTranslate("SpotlightActions", "Sidebar drawer");
+    case "apollo:shortcut-map:open": return qsTranslate("SpotlightActions", "Shortcut map");
+    case "apollo:power-menu:open": return qsTranslate("SpotlightActions", "Power menu");
     default: return "";
     }
 }
 
 function description(id) {
     switch (id) {
-    case "clavis:lock:open": return qsTranslate("SpotlightActions", "Lock the current session");
-    case "clavis:spotlight:search": return qsTranslate("SpotlightActions", "Open Spotlight Search");
-    case "clavis:spotlight:web": return qsTranslate("SpotlightActions", "Enter Spotlight Web search");
-    case "clavis:spotlight:files": return qsTranslate("SpotlightActions", "Open Spotlight Files");
-    case "clavis:spotlight:openMode:apps": return qsTranslate("SpotlightActions", "Open the application launcher");
-    case "clavis:spotlight:openMode:clipboard": return qsTranslate("SpotlightActions", "Open clipboard history");
-    case "clavis:spotlight:openMode:wallpapers": return qsTranslate("SpotlightActions", "Browse and apply wallpapers");
-    case "clavis:wallpaper:clear": return qsTranslate("SpotlightActions", "Clear the global wallpaper selection");
-    case "clavis:wallpaper:previous": return qsTranslate("SpotlightActions", "Apply the previous wallpaper");
-    case "clavis:wallpaper:next": return qsTranslate("SpotlightActions", "Apply the next wallpaper");
-    case "clavis:wallpaper:random": return qsTranslate("SpotlightActions", "Apply a random wallpaper");
-    case "clavis:keystone:closeAllOthers": return qsTranslate("SpotlightActions", "Dismiss open Keystone panels");
-    case "clavis:keystone:dashboard": return qsTranslate("SpotlightActions", "Toggle the Keystone dashboard");
-    case "clavis:keystone:hub": return qsTranslate("SpotlightActions", "Toggle the Keystone hub");
-    case "clavis:keystone:lyrics": return qsTranslate("SpotlightActions", "Toggle Keystone lyrics");
-    case "clavis:keystone:tools": return qsTranslate("SpotlightActions", "Toggle the Keystone tools panel");
-    case "clavis:sidebar:open:dashboard": return qsTranslate("SpotlightActions", "Open the notifications sidebar");
-    case "clavis:sidebar:open:quicksettings": return qsTranslate("SpotlightActions", "Open the Quick settings sidebar");
-    case "clavis:sidebar:toggle:weather": return qsTranslate("SpotlightActions", "Toggle the weather sidebar");
-    case "clavis:sidebar:toggle:drawer": return qsTranslate("SpotlightActions", "Toggle the sidebar drawer");
-    case "clavis:shortcut-map:open": return qsTranslate("SpotlightActions", "Show keyboard shortcuts");
-    case "clavis:power-menu:open": return qsTranslate("SpotlightActions", "Choose a session or power action");
+    case "apollo:lock:open": return qsTranslate("SpotlightActions", "Lock the current session");
+    case "apollo:spotlight:search": return qsTranslate("SpotlightActions", "Open Spotlight Search");
+    case "apollo:spotlight:web": return qsTranslate("SpotlightActions", "Enter Spotlight Web search");
+    case "apollo:spotlight:files": return qsTranslate("SpotlightActions", "Open Spotlight Files");
+    case "apollo:spotlight:openMode:apps": return qsTranslate("SpotlightActions", "Open the application launcher");
+    case "apollo:spotlight:openMode:clipboard": return qsTranslate("SpotlightActions", "Open clipboard history");
+    case "apollo:spotlight:openMode:wallpapers": return qsTranslate("SpotlightActions", "Browse and apply wallpapers");
+    case "apollo:wallpaper:clear": return qsTranslate("SpotlightActions", "Clear the global wallpaper selection");
+    case "apollo:wallpaper:previous": return qsTranslate("SpotlightActions", "Apply the previous wallpaper");
+    case "apollo:wallpaper:next": return qsTranslate("SpotlightActions", "Apply the next wallpaper");
+    case "apollo:wallpaper:random": return qsTranslate("SpotlightActions", "Apply a random wallpaper");
+    case "apollo:keystone:closeAllOthers": return qsTranslate("SpotlightActions", "Dismiss open Keystone panels");
+    case "apollo:keystone:dashboard": return qsTranslate("SpotlightActions", "Toggle the Keystone dashboard");
+    case "apollo:keystone:hub": return qsTranslate("SpotlightActions", "Toggle the Keystone hub");
+    case "apollo:keystone:lyrics": return qsTranslate("SpotlightActions", "Toggle Keystone lyrics");
+    case "apollo:keystone:tools": return qsTranslate("SpotlightActions", "Toggle the Keystone tools panel");
+    case "apollo:sidebar:open:dashboard": return qsTranslate("SpotlightActions", "Open the notifications sidebar");
+    case "apollo:sidebar:open:quicksettings": return qsTranslate("SpotlightActions", "Open the Quick settings sidebar");
+    case "apollo:sidebar:toggle:weather": return qsTranslate("SpotlightActions", "Toggle the weather sidebar");
+    case "apollo:sidebar:toggle:drawer": return qsTranslate("SpotlightActions", "Toggle the sidebar drawer");
+    case "apollo:shortcut-map:open": return qsTranslate("SpotlightActions", "Show keyboard shortcuts");
+    case "apollo:power-menu:open": return qsTranslate("SpotlightActions", "Choose a session or power action");
     default: return "";
     }
 }

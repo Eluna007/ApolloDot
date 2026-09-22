@@ -6,7 +6,7 @@ import Quickshell.Io
 import Quickshell.Services.Mpris
 import Quickshell.Services.Pipewire
 import Quickshell.Wayland
-import Clavis.Niri
+import Apollo.Niri
 import qs.Services
 import qs.Common
 import qs.Widgets.common
@@ -155,7 +155,7 @@ Variants {
         screen: modelData
         color: "transparent"
         exclusiveZone: -1
-        WlrLayershell.namespace: "clavis-shell-keystone"
+        WlrLayershell.namespace: "apollo-shell-keystone"
         WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         // On-demand focus lets desktop clicks leave the island and clicks on
@@ -173,7 +173,7 @@ Variants {
             implicitHeight: 1
             color: "transparent"
             exclusiveZone: -1
-            WlrLayershell.namespace: "clavis-shell-keystone-keyboard"
+            WlrLayershell.namespace: "apollo-shell-keystone-keyboard"
             WlrLayershell.layer: WlrLayer.Top
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand

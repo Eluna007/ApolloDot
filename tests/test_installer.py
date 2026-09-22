@@ -72,7 +72,7 @@ class InstallerContracts(unittest.TestCase):
         commands.assert_not_called()
 
     def test_previous_denials_are_retained_without_prompts(self):
-        state = self.root / "state/clavis/installer/choices.json"
+        state = self.root / "state/apollo/installer/choices.json"
         state.parent.mkdir(parents=True)
         state.write_text(
             json.dumps({"schemaVersion": 1, "choices": dict.fromkeys(installer.CHOICES, False)})
@@ -211,7 +211,7 @@ class InstallerContracts(unittest.TestCase):
                         hashlib.sha256(changed).hexdigest().encode(),
                     )
                 elif failure == "prerelease":
-                    api = "https://api.github.com/repos/StatIndet/key-cli/releases/latest"
+                    api = "https://api.github.com/repos/Eluna007/key-cli/releases/latest"
                     responses[api] = json.dumps(
                         {"tag_name": "v2026.9.12", "prerelease": True}
                     ).encode()
@@ -251,17 +251,17 @@ class InstallerContracts(unittest.TestCase):
                 operation.resolve("key-cli>=2026.9.13")
             command.assert_called_once_with(["vercmp", "2026.9.12-1", "2026.9.13"], capture=True)
 
-    def test_clavis_release_is_pinned_and_third_party_still_uses_aur(self):
+    def test_apollo_release_is_pinned_and_third_party_still_uses_aur(self):
         operation = installer.Installer(args(), {**DATA, "installerRelease": "v2026.9.12"})
         operation.work = self.root
-        responses, _ = self.release_fixture("clavis-shell")
-        del responses["https://api.github.com/repos/StatIndet/quickshell/releases/latest"]
+        responses, _ = self.release_fixture("apollo-shell")
+        del responses["https://api.github.com/repos/Eluna007/ApolloDot/releases/latest"]
         with patch.object(
             installer.urllib.request,
             "urlopen",
             side_effect=lambda url, **kw: io.BytesIO(responses[url]),
         ):
-            operation.checkout("clavis-shell")
+            operation.checkout("apollo-shell")
         aur_path = self.root / "libcava"
         aur_path.mkdir()
         (aur_path / ".SRCINFO").write_text("pkgbase = libcava\n")
@@ -293,7 +293,7 @@ class InstallerContracts(unittest.TestCase):
             text=True,
             check=True,
         )
-        self.assertIn("Clavis v" + (ROOT / "VERSION").read_text().strip(), result.stdout)
+        self.assertIn("Apollo v" + (ROOT / "VERSION").read_text().strip(), result.stdout)
 
     def test_services_never_restart_and_require_niri(self):
         operation = installer.Installer(args(), DATA)
@@ -311,7 +311,7 @@ class InstallerContracts(unittest.TestCase):
         with patch.object(installer, "run", side_effect=command):
             operation.services(True)
         self.assertFalse(any("restart" in call or "start" in call for call in calls))
-        self.assertIn(["systemctl", "--user", "enable", "clavis-shell.service"], calls)
+        self.assertIn(["systemctl", "--user", "enable", "apollo-shell.service"], calls)
         calls.clear()
         with patch.object(installer, "run", side_effect=command):
             operation.services(False)
@@ -330,7 +330,7 @@ class InstallerContracts(unittest.TestCase):
         with patch.object(installer, "run", side_effect=command):
             operation.services(True)
         self.assertFalse(any("enable" in call for call in calls))
-        for unit in ("clavis-shell.service", "clavis-clipboard.service"):
+        for unit in ("apollo-shell.service", "apollo-clipboard.service"):
             self.assertIn(["systemctl", "--user", "start", unit], calls)
         calls.clear()
         with patch.object(
@@ -340,7 +340,7 @@ class InstallerContracts(unittest.TestCase):
         self.assertFalse(any("start" in call.args[0] for call in commands.call_args_list))
 
     def test_diagnostics_preserve_overrides_and_report_invalid_protocols(self):
-        existing = self.root / "config/quickshell/clavis/shell.qml"
+        existing = self.root / "config/quickshell/apollo/shell.qml"
         existing.parent.mkdir(parents=True)
         existing.write_text("user configuration")
         operation = installer.Installer(args(), DATA)

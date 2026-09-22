@@ -192,7 +192,7 @@ struct WindowCaptureProbe::Private {
             fail("unsupported-shm-constraints");
             return false;
         }
-        const int fd = memfd_create("clavis-window-preview", MFD_CLOEXEC);
+        const int fd = memfd_create("apollo-window-preview", MFD_CLOEXEC);
         if (fd < 0) {
             fail("shm-allocation-failed");
             return false;

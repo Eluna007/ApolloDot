@@ -3,8 +3,8 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import Clavis.Niri
-import Clavis.Runtime as Runtime
+import Apollo.Niri
+import Apollo.Runtime as Runtime
 import qs.Common
 import qs.Services
 import "../Common/functions/DockModel.js" as DockModel
@@ -13,7 +13,7 @@ Singleton {
     id: root
 
     readonly property string filePath: Paths.configHome + "/dock.json"
-    readonly property string dragMimeType: "application/x-clavis-dock"
+    readonly property string dragMimeType: "application/x-apollo-dock"
     readonly property bool supportsThumbnails: WindowPreviewService.supported
     readonly property bool showThumbnails: root._options.showThumbnails
     readonly property int previewSize: root._options.previewSize
@@ -40,7 +40,7 @@ Singleton {
     property var _pinned: [
         {
             kind: "app",
-            desktopId: "org.clavis.Settings"
+            desktopId: "org.apollo.Settings"
         }
     ]
     property var _windowsByKey: ({})
@@ -272,7 +272,7 @@ Singleton {
         const result = [];
         const seen = new Set();
         for (const url of Array.from(urls || [])) {
-            const info = Runtime.ClavisFileSystem.localUrlInfo(url);
+            const info = Runtime.ApolloFileSystem.localUrlInfo(url);
             if (!info.valid || info.isDirectory)
                 return [];
             const id = DockModel.desktopIdForPath(info.path, root._dataRoots);

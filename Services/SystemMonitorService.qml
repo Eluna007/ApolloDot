@@ -14,10 +14,10 @@ Singleton {
     readonly property int maximumDiagnosticLines: 20
     readonly property int maximumDiagnosticCharacters: 2048
 
-    // keytop is an independent CLI.  CLAVIS_KEYTOP is useful for local
+    // keytop is an independent CLI.  APOLLO_KEYTOP is useful for local
     // fixtures; production resolves the executable through PATH.
     property string commandName: {
-        const configured = String(Quickshell.env("CLAVIS_KEYTOP") || "").trim();
+        const configured = String(Quickshell.env("APOLLO_KEYTOP") || "").trim();
         return configured !== "" ? configured : "keytop";
     }
     property int configuredIntervalMs: UiPreferences.systemMonitorIntervalMs

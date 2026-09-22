@@ -84,7 +84,7 @@ PanelWindow {
     }
 
     WlrLayershell.layer: WlrLayer.Top
-    WlrLayershell.namespace: "clavis-shell-sidebars"
+    WlrLayershell.namespace: "apollo-shell-sidebars"
     WlrLayershell.exclusionMode: ExclusionMode.Normal
     WlrLayershell.keyboardFocus: root.anySidebarOpen ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 

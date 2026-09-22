@@ -6,7 +6,7 @@ import Quickshell.Io
 Singleton {
     id: root
 
-    readonly property string commandName: Quickshell.env("CLAVIS_RCLONE") || "rclone"
+    readonly property string commandName: Quickshell.env("APOLLO_RCLONE") || "rclone"
     property bool available: false
     property bool remotesLoading: false
     property var remotes: []

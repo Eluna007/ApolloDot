@@ -40,7 +40,7 @@ Singleton {
     function reportSearchError(message) {
         searchError = message;
         if (!visible)
-            Quickshell.execDetached(["notify-send", "-a", "Clavis Shell", qsTranslate("ControlCenterWindow",
+            Quickshell.execDetached(["notify-send", "-a", "Apollo Shell", qsTranslate("ControlCenterWindow",
                                                                                       "Settings"), message]);
     }
     function openSearch(id) {

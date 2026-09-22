@@ -30,18 +30,18 @@ Singleton {
     readonly property string homeDir: root.absoluteEnvironment("HOME")
     readonly property string xdgConfigHome: root.absoluteEnvironment("XDG_CONFIG_HOME") || homeDir + "/.config"
     readonly property string xdgDataHome: root.absoluteEnvironment("XDG_DATA_HOME") || homeDir + "/.local/share"
-    readonly property string binHome: root.absoluteEnvironment("CLAVIS_BIN_HOME") || homeDir + "/.local/bin"
-    readonly property string stableKey: root.absoluteEnvironment("CLAVIS_KEY") || "key"
-    readonly property string configHome: root.absoluteEnvironment("CLAVIS_CONFIG_HOME") || xdgConfigHome + "/clavis"
-    readonly property string dataHome: root.absoluteEnvironment("CLAVIS_DATA_HOME") || xdgDataHome + "/clavis"
-    readonly property string stateHome: root.absoluteEnvironment("CLAVIS_STATE_HOME") || (root.absoluteEnvironment("XDG_STATE_HOME") || homeDir + "/.local/state") + "/clavis"
-    readonly property string cacheHome: root.absoluteEnvironment("CLAVIS_CACHE_HOME") || (root.absoluteEnvironment("XDG_CACHE_HOME") || homeDir + "/.cache") + "/clavis"
-    readonly property string runtimeHome: root.absoluteEnvironment("CLAVIS_RUNTIME_HOME") || (root.absoluteEnvironment("XDG_RUNTIME_DIR") || cacheHome + "/runtime") + "/clavis"
-    readonly property string requestedProfileName: Quickshell.env("CLAVIS_PROFILE") || "default"
+    readonly property string binHome: root.absoluteEnvironment("APOLLO_BIN_HOME") || homeDir + "/.local/bin"
+    readonly property string stableKey: root.absoluteEnvironment("APOLLO_KEY") || "key"
+    readonly property string configHome: root.absoluteEnvironment("APOLLO_CONFIG_HOME") || xdgConfigHome + "/apollo"
+    readonly property string dataHome: root.absoluteEnvironment("APOLLO_DATA_HOME") || xdgDataHome + "/apollo"
+    readonly property string stateHome: root.absoluteEnvironment("APOLLO_STATE_HOME") || (root.absoluteEnvironment("XDG_STATE_HOME") || homeDir + "/.local/state") + "/apollo"
+    readonly property string cacheHome: root.absoluteEnvironment("APOLLO_CACHE_HOME") || (root.absoluteEnvironment("XDG_CACHE_HOME") || homeDir + "/.cache") + "/apollo"
+    readonly property string runtimeHome: root.absoluteEnvironment("APOLLO_RUNTIME_HOME") || (root.absoluteEnvironment("XDG_RUNTIME_DIR") || cacheHome + "/runtime") + "/apollo"
+    readonly property string requestedProfileName: Quickshell.env("APOLLO_PROFILE") || "default"
     readonly property string profileName: root.validProfileName(requestedProfileName) ? requestedProfileName.trim() : "default"
-    readonly property string profileConfigHome: root.absoluteEnvironment("CLAVIS_PROFILE_CONFIG_HOME") || configHome + "/profiles/" + profileName
-    readonly property string profileHome: root.absoluteEnvironment("CLAVIS_PROFILE_HOME") || dataHome + "/profiles/" + profileName
-    readonly property string generatedHome: root.absoluteEnvironment("CLAVIS_GENERATED_HOME") || profileHome + "/generated"
+    readonly property string profileConfigHome: root.absoluteEnvironment("APOLLO_PROFILE_CONFIG_HOME") || configHome + "/profiles/" + profileName
+    readonly property string profileHome: root.absoluteEnvironment("APOLLO_PROFILE_HOME") || dataHome + "/profiles/" + profileName
+    readonly property string generatedHome: root.absoluteEnvironment("APOLLO_GENERATED_HOME") || profileHome + "/generated"
     readonly property string currentWallpaper: stateHome + "/wallpaper/current"
     readonly property string profileAvatar: homeDir + "/.face"
     readonly property string defaultAvatar: imagesDir + "/dino.png"

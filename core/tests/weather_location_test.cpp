@@ -43,7 +43,7 @@ class WeatherLocationTest : public QObject {
     }
     void init()
     {
-        QSettings("Clavis", "Weather").clear();
+        QSettings("Apollo", "Weather").clear();
         QFile::remove(WeatherCache::defaultPath());
     }
     void automaticNameSurvivesForecastFailure()
@@ -146,7 +146,7 @@ class WeatherLocationTest : public QObject {
     {
         QTcpServer server;
         QVERIFY(server.listen(QHostAddress::LocalHost));
-        qputenv("CLAVIS_GEOCODING_URL",
+        qputenv("APOLLO_GEOCODING_URL",
                 QString("http://127.0.0.1:%1/reverse").arg(server.serverPort()).toUtf8());
         int requests = 0;
         QByteArray response = R"({"address":{"city":"Cached city"}})";
@@ -180,7 +180,7 @@ class WeatherLocationTest : public QObject {
             }
         }
         QCOMPARE(requests, 2);
-        qunsetenv("CLAVIS_GEOCODING_URL");
+        qunsetenv("APOLLO_GEOCODING_URL");
     }
 };
 

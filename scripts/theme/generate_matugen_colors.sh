@@ -80,8 +80,8 @@ if ! jq -e '. != null and .valid' <<< "$core" >/dev/null; then
     printf 'Missing or invalid internal quickshell template\n' >&2
     exit 1
 fi
-mkdir -p -- "$CLAVIS_RUNTIME_HOME/temporary"
-runtime_dir=$(mktemp -d "$CLAVIS_RUNTIME_HOME/temporary/matugen.XXXXXX")
+mkdir -p -- "$APOLLO_RUNTIME_HOME/temporary"
+runtime_dir=$(mktemp -d "$APOLLO_RUNTIME_HOME/temporary/matugen.XXXXXX")
 cleanup() { rm -rf -- "$runtime_dir"; }
 trap cleanup EXIT
 trap 'exit 130' INT

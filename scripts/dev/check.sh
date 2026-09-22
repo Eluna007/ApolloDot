@@ -2,7 +2,7 @@
 set -euo pipefail
 script_dir=$(CDPATH='' cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 repo_root=$(CDPATH='' cd -- "${script_dir}/../.." && pwd)
-build_root=${CLAVIS_BUILD_DIR:-${repo_root}/build}
+build_root=${APOLLO_BUILD_DIR:-${repo_root}/build}
 cd "${repo_root}"
 # shellcheck source=scripts/dev/files.sh
 source "${script_dir}/files.sh"
@@ -28,7 +28,7 @@ require() {
 }
 
 # Keep successful output short, retain full failed diagnostics on disk.
-log_dir=$(mktemp -d "${TMPDIR:-/tmp}/clavis-check.XXXXXX")
+log_dir=$(mktemp -d "${TMPDIR:-/tmp}/apollo-check.XXXXXX")
 keep_logs=false
 trap 'status=$?; if (( status == 0 )) && ! ${keep_logs}; then rm -rf -- "${log_dir}"; else printf "check: logs: %s\n" "${log_dir}" >&2; fi' EXIT
 step() {
@@ -56,7 +56,7 @@ step() {
 }
 
 step whitespace git diff --check HEAD
-mapfile -d '' -t files < <(clavis_files "${scope}")
+mapfile -d '' -t files < <(apollo_files "${scope}")
 cpp_files=() shell_files=() python_files=()
 qml=false
 catalog=false
@@ -105,7 +105,7 @@ for test_name in niri_cursor_config manage_niri_effects matugen_registry; do
             niri_cursor_config:scripts/theme/write_niri_cursor_config.sh|niri_cursor_config:tests/test_niri_cursor_config.sh|\
             manage_niri_effects:scripts/system/manage-niri-effects.sh|manage_niri_effects:tests/test_manage_niri_effects.sh|\
             matugen_registry:scripts/theme/*|matugen_registry:scripts/lib/matugen-registry.sh|matugen_registry:tests/test_matugen_registry.sh|\
-            *:scripts/lib/clavis-paths.sh|*:scripts/system/manage-niri-fragment.sh|*:tests/fixtures/*) run_test=true ;;
+            *:scripts/lib/apollo-paths.sh|*:scripts/system/manage-niri-fragment.sh|*:tests/fixtures/*) run_test=true ;;
         esac
     done
     if ${run_test} && ! ${native}; then
@@ -124,7 +124,7 @@ if ${native}; then
     require cmake cmake
     require ninja ninja
     step configure cmake -S "${repo_root}" -B "${build_root}" -G Ninja \
-        -DCMAKE_BUILD_TYPE="${CLAVIS_BUILD_TYPE:-Debug}" -DBUILD_TESTING=ON
+        -DCMAKE_BUILD_TYPE="${APOLLO_BUILD_TYPE:-Debug}" -DBUILD_TESTING=ON
     step build cmake --build "${build_root}"
     step tests ctest --test-dir "${build_root}" --output-on-failure --no-tests=error
 fi

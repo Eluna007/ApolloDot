@@ -451,7 +451,7 @@ void WeatherBackend::scheduleTimers()
 
 void WeatherBackend::loadSettings()
 {
-    QSettings settings("Clavis", "Weather");
+    QSettings settings("Apollo", "Weather");
     m_hasManualLocation = settings.value("manual/enabled", false).toBool();
     m_manualLocation.latitude = settings.value("manual/latitude", 0.0).toDouble();
     m_manualLocation.longitude = settings.value("manual/longitude", 0.0).toDouble();
@@ -460,7 +460,7 @@ void WeatherBackend::loadSettings()
 
 void WeatherBackend::saveSettings()
 {
-    QSettings settings("Clavis", "Weather");
+    QSettings settings("Apollo", "Weather");
     settings.setValue("manual/enabled", m_hasManualLocation);
     settings.setValue("manual/latitude", m_manualLocation.latitude);
     settings.setValue("manual/longitude", m_manualLocation.longitude);

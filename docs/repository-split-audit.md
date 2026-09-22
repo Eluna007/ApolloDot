@@ -1,14 +1,14 @@
 # 项目职责审计
 
-## Clavis Shell
+## Apollo Shell
 
 `core/src/` 和 `core/plugin/` 提供：
 
-- `Clavis.Niri`：Niri IPC、窗口、工作区、输出和窗口图标；
-- `Clavis.Weather` / `Clavis.WeatherMap`：Open-Meteo、地图凭据和 RainViewer metadata；地图渲染与网络瓦片缓存由 MapLibre Native Qt 负责；
-- `Clavis.Cava`：PipeWire 实时采集、RMS/Peak、频谱和 libcava；
-- `Clavis.Lyrics`：异步 Local/LRCLIB/NetEase provider、缓存、LRC 和 seek 映射；
-- `Clavis.Media`、`Clavis.Keyboard`、`Clavis.I18n`、`Clavis.Runtime`。
+- `Apollo.Niri`：Niri IPC、窗口、工作区、输出和窗口图标；
+- `Apollo.Weather` / `Apollo.WeatherMap`：Open-Meteo、地图凭据和 RainViewer metadata；地图渲染与网络瓦片缓存由 MapLibre Native Qt 负责；
+- `Apollo.Cava`：PipeWire 实时采集、RMS/Peak、频谱和 libcava；
+- `Apollo.Lyrics`：异步 Local/LRCLIB/NetEase provider、缓存、LRC 和 seek 映射；
+- `Apollo.Media`、`Apollo.Keyboard`、`Apollo.I18n`、`Apollo.Runtime`。
 
 `M3Shapes` 由系统包提供（Arch：`qt6-m3shapes-git`），是外部 QML 运行时依赖。
 
@@ -21,10 +21,10 @@ QML 状态或天气/歌词模型。
 
 ## keytop
 
-`keytop` 独立拥有系统采样、TUI、JSON snapshot 和 JSONL stream。Clavis 直接启动
+`keytop` 独立拥有系统采样、TUI、JSON snapshot 和 JSONL stream。Apollo 直接启动
 `keytop value stream`，不经过 `key-cli`。
 
-Clavis 对系统信息采用四种独立生命周期：静态 identity 在 Quickshell 进程启动时通过
+Apollo 对系统信息采用四种独立生命周期：静态 identity 在 Quickshell 进程启动时通过
 `keytop value system` 读取一次；uptime 在可见 consumer 存在时从 `/proc/uptime` 校准
 一次并用本地单调时钟更新；电池直接使用 `Quickshell.Services.UPower`；CPU、GPU、
 Memory、Disk、Network 则按可见 owner 的 module union 维持单个 keytop JSONL stream，
@@ -32,5 +32,5 @@ Memory、Disk、Network 则按可见 owner 的 module union 维持单个 keytop 
 
 ## 明确删除
 
-Clavis 不再包含旧 C++ CLI、系统监测 plugin、录屏/录音 backend、天气 CLI bridge、
+Apollo 不再包含旧 C++ CLI、系统监测 plugin、录屏/录音 backend、天气 CLI bridge、
 投屏 cast、应用内版本/安装/回滚管理，也不创建额外的源码运行模式编排脚本。

@@ -205,7 +205,7 @@ FloatingWindow {
     visible: false
     parentWindow: root.parentModal
     // Stable compositor rule identity; visible headings remain localized.
-    title: "clavis-control-center-cloud-add"
+    title: "apollo-control-center-cloud-add"
     implicitWidth: 720
     implicitHeight: 680
     minimumSize: Qt.size(560, 520)
@@ -400,7 +400,7 @@ FloatingWindow {
                     Layout.fillWidth: true
                     labelText: qsTr("Name")
                     text: root.remoteName
-                    supportingText: qsTr("Used to identify this cloud storage in Clavis and rclone.")
+                    supportingText: qsTr("Used to identify this cloud storage in Apollo and rclone.")
                     onTextChanged: {
                         root.remoteName = text;
                         errorText = "";
@@ -618,7 +618,7 @@ FloatingWindow {
                         Layout.fillWidth: true
                         visible: root.oauthLikely && root.wizardState !== "cancelling"
                         text: qsTr(
-                                  "If a browser opened, complete sign-in and authorization there. Clavis will continue automatically afterward.")
+                                  "If a browser opened, complete sign-in and authorization there. Apollo will continue automatically afterward.")
                         color: Appearance.colors.colOnSurfaceVariant
                         font.family: Typography.bodyMedium.family
                         font.pixelSize: Typography.bodyMedium.pixelSize

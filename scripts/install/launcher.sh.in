@@ -14,7 +14,7 @@ bootstrap_python() {
             --enable-clipboard=yes|--enable-clipboard=no) clipboard=true ;;
             --start-now=yes|--start-now=no) start=true ;;
             -h|--help)
-                printf '%s\n' 'Clavis Arch installer: --dry-run, --non-interactive,' \
+                printf '%s\n' 'Apollo Arch installer: --dry-run, --non-interactive,' \
                     '--keyboard-access=yes|no --power-access=yes|no --enable-shell=yes|no' \
                     '--enable-clipboard=yes|no --start-now=yes|no'
                 return 2 ;;
@@ -55,6 +55,6 @@ bootstrap_status=0
 bootstrap_python "$@" || bootstrap_status=$?
 if (( bootstrap_status == 2 )); then exit 0; fi
 if (( bootstrap_status != 0 )); then exit "$bootstrap_status"; fi
-exec python3 - "$@" <<'CLAVIS_INSTALLER_PYTHON'
+exec python3 - "$@" <<'APOLLO_INSTALLER_PYTHON'
 @INSTALLER_PYTHON@
-CLAVIS_INSTALLER_PYTHON
+APOLLO_INSTALLER_PYTHON

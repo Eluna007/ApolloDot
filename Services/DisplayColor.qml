@@ -3,7 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import Clavis.Gamma
+import Apollo.Gamma
 import qs.Common
 import "../Common/functions/DisplaySchedule.js" as Schedule
 

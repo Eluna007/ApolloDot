@@ -84,7 +84,7 @@ Singleton {
         else
             message = qsTr("🔴 Focus: %1 minutes").arg(Math.floor(root.focusTime / 60));
 
-        Quickshell.execDetached(["notify-send", qsTr("Pomodoro"), message, "-a", "Clavis"]);
+        Quickshell.execDetached(["notify-send", qsTr("Pomodoro"), message, "-a", "Apollo"]);
     }
 
     function refreshPomodoro() {

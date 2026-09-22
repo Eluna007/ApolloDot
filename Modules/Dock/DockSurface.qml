@@ -376,7 +376,7 @@ PanelWindow {
     anchors.top: !horizontal
     anchors.bottom: true
     exclusiveZone: DockService.autoHide ? 0 : restingThickness + edgeOffset
-    WlrLayershell.namespace: "clavis-shell-dock"
+    WlrLayershell.namespace: "apollo-shell-dock"
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.exclusionMode: ExclusionMode.Normal
     WlrLayershell.keyboardFocus: dragKey || contextMenu ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
@@ -469,7 +469,7 @@ PanelWindow {
             DropArea {
                 anchors.fill: parent
                 onEntered: drag => {
-                    if (drag.formats.indexOf("application/x-clavis-dock") >= 0 || drag.hasUrls) {
+                    if (drag.formats.indexOf("application/x-apollo-dock") >= 0 || drag.hasUrls) {
                         root.revealed = true;
                         drag.accepted = true;
                     } else {

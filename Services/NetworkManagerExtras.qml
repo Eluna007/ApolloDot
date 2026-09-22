@@ -74,7 +74,7 @@ Singleton {
         }
         root.lastError = "";
         root._ssid = String(ssid || "").trim();
-        root._connectionName = "Clavis Wi-Fi " + Date.now();
+        root._connectionName = "Apollo Wi-Fi " + Date.now();
         root._secure = !!secure;
         root._password = root._secure ? String(password || "") : "";
         root._addCallback = callback;

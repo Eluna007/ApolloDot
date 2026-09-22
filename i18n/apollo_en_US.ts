@@ -949,8 +949,8 @@
     </message>
     <message>
         <location filename="../Services/AwwwWallpaperService.qml" line="422"/>
-        <source>The clavis-desktop awww namespace did not become ready before timeout</source>
-        <translation>The clavis-desktop awww namespace did not become ready before timeout</translation>
+        <source>The apollo-desktop awww namespace did not become ready before timeout</source>
+        <translation>The apollo-desktop awww namespace did not become ready before timeout</translation>
     </message>
     <message>
         <location filename="../Services/AwwwWallpaperService.qml" line="455"/>
@@ -959,8 +959,8 @@
     </message>
     <message>
         <location filename="../Services/AwwwWallpaperService.qml" line="474"/>
-        <source>Failed to stop the clavis-desktop awww namespace; exit code %1</source>
-        <translation>Failed to stop the clavis-desktop awww namespace; exit code %1</translation>
+        <source>Failed to stop the apollo-desktop awww namespace; exit code %1</source>
+        <translation>Failed to stop the apollo-desktop awww namespace; exit code %1</translation>
     </message>
 </context>
 <context>
@@ -2179,8 +2179,8 @@ Scroll to adjust</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/CloudRemoteWizard.qml" line="403"/>
-        <source>Used to identify this cloud storage in Clavis and rclone.</source>
-        <translation>Used to identify this cloud storage in Clavis and rclone.</translation>
+        <source>Used to identify this cloud storage in Apollo and rclone.</source>
+        <translation>Used to identify this cloud storage in Apollo and rclone.</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/CloudRemoteWizard.qml" line="413"/>
@@ -2265,8 +2265,8 @@ Scroll to adjust</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/CloudRemoteWizard.qml" line="620"/>
-        <source>If a browser opened, complete sign-in and authorization there. Clavis will continue automatically afterward.</source>
-        <translation>If a browser opened, complete sign-in and authorization there. Clavis will continue automatically afterward.</translation>
+        <source>If a browser opened, complete sign-in and authorization there. Apollo will continue automatically afterward.</source>
+        <translation>If a browser opened, complete sign-in and authorization there. Apollo will continue automatically afterward.</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/CloudRemoteWizard.qml" line="655"/>
@@ -4429,8 +4429,8 @@ Scroll to adjust</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="26"/>
-        <source>Create or connect the Clavis X-Ray rules.</source>
-        <translation>Create or connect the Clavis X-Ray rules.</translation>
+        <source>Create or connect the Apollo X-Ray rules.</source>
+        <translation>Create or connect the Apollo X-Ray rules.</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/GeneralEffectsPage.qml" line="37"/>
@@ -11840,8 +11840,8 @@ detected</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/ThemePage.qml" line="458"/>
-        <source>Create or connect the Clavis cursor configuration.</source>
-        <translation>Create or connect the Clavis cursor configuration.</translation>
+        <source>Create or connect the Apollo cursor configuration.</source>
+        <translation>Create or connect the Apollo cursor configuration.</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/ThemePage.qml" line="512"/>
@@ -12591,8 +12591,8 @@ Scroll to adjust; click to open sound</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/WallpaperPage.qml" line="284"/>
-        <source>Overview is already configured outside Clavis</source>
-        <translation>Overview is already configured outside Clavis</translation>
+        <source>Overview is already configured outside Apollo</source>
+        <translation>Overview is already configured outside Apollo</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/WallpaperPage.qml" line="969"/>

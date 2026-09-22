@@ -70,7 +70,7 @@ Singleton {
             return true;
         case "awww":
             return PersonalizationConfig.desktopWallpaperBackend === "awww";
-        case "clavis-wallpaper":
+        case "apollo-wallpaper":
             return PersonalizationConfig.desktopWallpaperBackend !== "awww";
         case "wallpaper-idle":
             return !WallpaperService.busy;
@@ -90,7 +90,7 @@ Singleton {
             return false;
         const accepted = available(entry) && actionExecutor && actionExecutor(entry) === true;
         if (!accepted)
-            Quickshell.execDetached(["notify-send", "-a", "Clavis Shell", qsTr("Action unavailable"),
+            Quickshell.execDetached(["notify-send", "-a", "Apollo Shell", qsTr("Action unavailable"),
                                      Catalog.title(id)]);
         return accepted;
     }

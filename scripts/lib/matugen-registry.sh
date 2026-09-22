@@ -4,11 +4,11 @@
 matugen_registry_init() {
     local library_dir
     library_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-    # shellcheck source=scripts/lib/clavis-paths.sh
-    source "$library_dir/clavis-paths.sh"
-    clavis_paths_init
+    # shellcheck source=scripts/lib/apollo-paths.sh
+    source "$library_dir/apollo-paths.sh"
+    apollo_paths_init
     matugen_builtin_dir=$(cd -- "$library_dir/../.." && pwd)/matugen
-    matugen_user_dir="$CLAVIS_CONFIG_HOME/matugen"
+    matugen_user_dir="$APOLLO_CONFIG_HOME/matugen"
     matugen_parser="$library_dir/../theme/matugen_registry.jq"
 }
 
@@ -51,7 +51,7 @@ matugen_registry_list() {
     jq -n --argjson builtin "$builtin" --argjson user "$user" '
         ($builtin.sections | map(.id)) as $ids |
         ($user.sections | map(if .id == "quickshell" or (.id as $id | $ids | index($id)) != null
-            then .valid = false | .errors += ["Template ID is reserved by Clavis"] | .error = (.errors | unique | join("; ")) else . end)) as $users |
+            then .valid = false | .errors += ["Template ID is reserved by Apollo"] | .error = (.errors | unique | join("; ")) else . end)) as $users |
         {schemaVersion: 1, templates: ($builtin.sections + $users),
          errors: ($builtin.errors + $user.errors + [$users[] | select(.id == "quickshell") | .error])}'
 }

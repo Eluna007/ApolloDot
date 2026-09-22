@@ -57,7 +57,7 @@ Singleton {
 
         root._lastErrorKey = key;
         root.commandError(code, message);
-        Quickshell.execDetached(["notify-send", "-a", "Clavis Shell", "-u", "critical", qsTr(
+        Quickshell.execDetached(["notify-send", "-a", "Apollo Shell", "-u", "critical", qsTr(
                                      "Recording failed"), message]);
     }
 

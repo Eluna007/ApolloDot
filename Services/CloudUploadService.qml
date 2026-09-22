@@ -1,5 +1,5 @@
 pragma Singleton
-import Clavis.Runtime as Runtime
+import Apollo.Runtime as Runtime
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -63,7 +63,7 @@ Singleton {
         const result = [];
         const seen = {};
         for (const url of urls || []) {
-            const info = Runtime.ClavisFileSystem.localUrlInfo(url);
+            const info = Runtime.ApolloFileSystem.localUrlInfo(url);
             if (!info.valid || seen[info.path])
                 continue;
 

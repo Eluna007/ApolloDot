@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import Clavis.Niri
+import Apollo.Niri
 import qs.Common
 import qs.Widgets.common
 

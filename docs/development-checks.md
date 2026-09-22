@@ -93,7 +93,7 @@ pkg-config --modversion libcava # 或 cava
 
 ## 失败处理
 
-`check.sh` 将输出写入临时 `clavis-check.*` 目录，失败只显示末尾 60 行和日志路径。
+`check.sh` 将输出写入临时 `apollo-check.*` 目录，失败只显示末尾 60 行和日志路径。
 正常成功清理日志；QML warning 保留日志。优先读失败阶段，不反复运行整个入口。
 CTest 摘要保留测试跳过信息；跳过不等于通过。单独选择 Matugen 集成测试时缺少
 matugen/jq 会直接报告依赖缺失；CTest 的既有 skip 策略不变。

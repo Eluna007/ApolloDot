@@ -8,7 +8,7 @@ Singleton {
     id: root
 
     readonly property string commandName:
-        Quickshell.env("CLAVIS_PARU") || "paru"
+        Quickshell.env("APOLLO_PARU") || "paru"
     property int totalPackages: -1
     property int pendingUpdates: -1
     property bool totalLoading: false

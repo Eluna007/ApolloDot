@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Io
 import qs.Common
 import qs.Services
-import Clavis.Runtime
+import Apollo.Runtime
 
 Singleton {
     id: root
@@ -208,7 +208,7 @@ Singleton {
                 root.actionCatalog = JSON.parse(text()).map(entry => Object.assign({}, entry, {
                                                                                        supported:
                                                                                        entry.category
-                                                                                       === "clavis" || !!(
+                                                                                       === "apollo" || !!(
                                                                                            previous[entry.id]
                                                                                            && previous[entry.id].supported)
                                                                                    }));

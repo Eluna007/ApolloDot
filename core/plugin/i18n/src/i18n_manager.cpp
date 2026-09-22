@@ -73,7 +73,7 @@ bool I18nManager::setLanguage(const QString &language)
         m_installed = false;
     }
 
-    const QString resourcePath = QStringLiteral(":/i18n/clavis_%1.qm").arg(normalized);
+    const QString resourcePath = QStringLiteral(":/i18n/apollo_%1.qm").arg(normalized);
     if (!m_translator.load(resourcePath)) {
         setLastError(QStringLiteral("Unable to load translation catalog: %1").arg(resourcePath));
         return false;

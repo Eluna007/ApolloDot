@@ -3,7 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import Clavis.Runtime
+import Apollo.Runtime
 import qs.Common
 import qs.Services
 

@@ -52,7 +52,7 @@ FloatingWindow {
     visible: false
     parentWindow: root.parentModal
     // Stable compositor rule identity; visible headings remain localized.
-    title: "clavis-control-center-cloud-manager"
+    title: "apollo-control-center-cloud-manager"
     implicitWidth: 620
     implicitHeight: 580
     minimumSize: Qt.size(500, 440)

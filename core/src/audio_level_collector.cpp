@@ -152,7 +152,7 @@ void AudioLevelCollector::run()
 
     auto *props = pw_properties_new(PW_KEY_MEDIA_TYPE, "Audio", PW_KEY_MEDIA_CATEGORY, "Capture",
                                     PW_KEY_MEDIA_ROLE, "Production", PW_KEY_TARGET_OBJECT, targetNode.c_str(),
-                                    PW_KEY_NODE_NAME, "clavis-shell-audio-level", nullptr);
+                                    PW_KEY_NODE_NAME, "apollo-shell-audio-level", nullptr);
     pw_properties_set(props, PW_KEY_NODE_PASSIVE, "true");
     pw_properties_set(props, PW_KEY_NODE_VIRTUAL, "true");
     pw_properties_set(props, PW_KEY_STREAM_DONT_REMIX, "false");
@@ -174,7 +174,7 @@ void AudioLevelCollector::run()
     events.version = PW_VERSION_STREAM_EVENTS;
     events.state_changed = handleLevelStateChanged;
     events.process = handleLevelProcess;
-    state.stream = pw_stream_new_simple(pw_main_loop_get_loop(state.loop), "clavis-shell-audio-level", props,
+    state.stream = pw_stream_new_simple(pw_main_loop_get_loop(state.loop), "apollo-shell-audio-level", props,
                                         &events, &state);
     if (!state.stream) {
         setAvailable(false, "Unable to create the PipeWire audio level stream");

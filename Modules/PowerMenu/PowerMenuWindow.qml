@@ -27,7 +27,7 @@ PanelWindow {
              === PowerMenuService.targetScreenName
     color: "transparent"
     exclusiveZone: 0
-    WlrLayershell.namespace: "clavis-shell-power-menu"
+    WlrLayershell.namespace: "apollo-shell-power-menu"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.exclusionMode: ExclusionMode.Ignore
     WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None

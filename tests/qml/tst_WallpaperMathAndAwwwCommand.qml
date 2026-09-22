@@ -21,7 +21,7 @@ TestCase {
         const extra = overrides || {};
         for (let key in extra)
             settings[key] = extra[key];
-        return AwwwCommand.apply("mock-awww", "clavis-desktop", "eDP-1", "/tmp/a.png", "Fill", settings);
+        return AwwwCommand.apply("mock-awww", "apollo-desktop", "eDP-1", "/tmp/a.png", "Fill", settings);
     }
 
     function verifyContains(command, argument) {
@@ -404,19 +404,19 @@ TestCase {
     }
 
     function test_awwwNamespaceLifecycleCommands() {
-        compare(JSON.stringify(AwwwCommand.daemon("mock-daemon", "clavis-desktop")), JSON.stringify(
-                    ["mock-daemon", "--layer", "background", "--namespace", "clavis-desktop", "--no-cache"]));
-        compare(JSON.stringify(AwwwCommand.query("mock-awww", "clavis-desktop")), JSON.stringify(["mock-awww",
+        compare(JSON.stringify(AwwwCommand.daemon("mock-daemon", "apollo-desktop")), JSON.stringify(
+                    ["mock-daemon", "--layer", "background", "--namespace", "apollo-desktop", "--no-cache"]));
+        compare(JSON.stringify(AwwwCommand.query("mock-awww", "apollo-desktop")), JSON.stringify(["mock-awww",
                                                                                                   "query", "-n",
-                                                                                                  "clavis-desktop"]));
-        compare(JSON.stringify(AwwwCommand.stop("mock-awww", "clavis-desktop")), JSON.stringify(["mock-awww",
+                                                                                                  "apollo-desktop"]));
+        compare(JSON.stringify(AwwwCommand.stop("mock-awww", "apollo-desktop")), JSON.stringify(["mock-awww",
                                                                                                  "kill", "-n",
-                                                                                                 "clavis-desktop"]));
+                                                                                                 "apollo-desktop"]));
     }
 
     function test_awwwImageArgumentsAreArraySafe() {
         const path = "/tmp/wallpaper with spaces;$(touch nope).png";
-        const command = AwwwCommand.apply("mock-awww", "clavis-desktop", "DP-1", path, "Fill", {
+        const command = AwwwCommand.apply("mock-awww", "apollo-desktop", "DP-1", path, "Fill", {
                                               type: "wipe",
                                               fps: 60,
                                               step: 90,
@@ -431,7 +431,7 @@ TestCase {
         compare(command[0], "mock-awww");
         compare(command[1], "img");
         compare(command[command.length - 1], path);
-        compare(command[command.indexOf("-n") + 1], "clavis-desktop");
+        compare(command[command.indexOf("-n") + 1], "apollo-desktop");
         compare(command[command.indexOf("-o") + 1], "DP-1");
         compare(command[command.indexOf("--transition-angle") + 1], "90");
         compare(command[command.indexOf("--transition-duration") + 1], "1.250");
@@ -506,13 +506,13 @@ TestCase {
     }
 
     function test_awwwRejectsNonImages() {
-        for (const source of ["#aabbcc", "#80aabbcc", "", "clavis-palette:v1:broken",
+        for (const source of ["#aabbcc", "#80aabbcc", "", "apollo-palette:v1:broken",
                               "https://example.com/a.png"])
-            compare(AwwwCommand.apply("mock-awww", "clavis-desktop", "DP-1", source, "Fill", {}).length, 0);
+            compare(AwwwCommand.apply("mock-awww", "apollo-desktop", "DP-1", source, "Fill", {}).length, 0);
     }
 
     function test_awwwBezierUsesFourControls() {
-        const command = AwwwCommand.apply("mock-awww", "clavis-desktop", "DP-1", "/tmp/a.png", "Fill", {
+        const command = AwwwCommand.apply("mock-awww", "apollo-desktop", "DP-1", "/tmp/a.png", "Fill", {
                                               type: "fade",
                                               fps: 60,
                                               durationMs: 1000,
@@ -521,7 +521,7 @@ TestCase {
                                           });
         compare(command[command.indexOf("--transition-bezier") + 1], "0.43,1.19,1,0.4");
 
-        const clamped = AwwwCommand.apply("mock-awww", "clavis-desktop", "DP-1", "/tmp/a.png", "Fill", {
+        const clamped = AwwwCommand.apply("mock-awww", "apollo-desktop", "DP-1", "/tmp/a.png", "Fill", {
                                               type: "fade",
                                               easingMode: "customBezier",
                                               bezierCurve: [-1, 99, 2, -99, 1, 1]
@@ -680,7 +680,7 @@ TestCase {
     }
 
     function test_awwwRejectsDmsOnlyTransitionNames() {
-        const command = AwwwCommand.apply("mock-awww", "clavis-desktop", "DP-1", "/tmp/a.png", "Fill", {
+        const command = AwwwCommand.apply("mock-awww", "apollo-desktop", "DP-1", "/tmp/a.png", "Fill", {
                                               type: "portal",
                                               fps: 60,
                                               durationMs: 1000

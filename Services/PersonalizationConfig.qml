@@ -10,7 +10,7 @@ import qs.Services
 Singleton {
     id: root
 
-    readonly property string configOverride: Quickshell.env("CLAVIS_PERSONALIZATION_CONFIG") || ""
+    readonly property string configOverride: Quickshell.env("APOLLO_PERSONALIZATION_CONFIG") || ""
     readonly property string filePath: root.configOverride !== "" ? root.configOverride : Paths.configHome
                                                                     + "/config.json"
 

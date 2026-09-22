@@ -1,5 +1,5 @@
 import QtQuick
-import Clavis.WeatherMap
+import Apollo.WeatherMap
 
 WeatherServiceApiKeyCard {
     id: root

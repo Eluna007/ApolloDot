@@ -40,7 +40,7 @@ FloatingWindow {
     visible: false
     parentWindow: root.parentModal
     // Stable compositor rule identity; visible headings remain localized.
-    title: "clavis-control-center-bezier-editor"
+    title: "apollo-control-center-bezier-editor"
     implicitWidth: 980
     implicitHeight: 720
     minimumSize: Qt.size(560, 460)

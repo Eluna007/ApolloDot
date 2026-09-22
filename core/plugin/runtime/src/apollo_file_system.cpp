@@ -1,11 +1,11 @@
-#include "clavis_file_system.h"
+#include "apollo_file_system.h"
 
 #include <QDir>
 #include <QFileInfo>
 
-ClavisFileSystem::ClavisFileSystem(QObject *parent) : QObject(parent) {}
+ApolloFileSystem::ApolloFileSystem(QObject *parent) : QObject(parent) {}
 
-QVariantMap ClavisFileSystem::localUrlInfo(const QUrl &url) const
+QVariantMap ApolloFileSystem::localUrlInfo(const QUrl &url) const
 {
     QVariantMap result{{QStringLiteral("valid"), false}};
     if (url.scheme() != QStringLiteral("file") || !url.isLocalFile() ||

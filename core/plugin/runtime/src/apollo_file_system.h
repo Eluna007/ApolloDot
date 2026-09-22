@@ -5,13 +5,13 @@
 #include <QUrl>
 #include <QVariantMap>
 
-class ClavisFileSystem : public QObject {
+class ApolloFileSystem : public QObject {
     Q_OBJECT
-    QML_NAMED_ELEMENT(ClavisFileSystem)
+    QML_NAMED_ELEMENT(ApolloFileSystem)
     QML_SINGLETON
 
   public:
-    explicit ClavisFileSystem(QObject *parent = nullptr);
+    explicit ApolloFileSystem(QObject *parent = nullptr);
 
     Q_INVOKABLE QVariantMap localUrlInfo(const QUrl &url) const;
 };

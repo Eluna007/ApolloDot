@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install the Clavis Arch packages as the desktop user, with explicit optional access."""
+"""Install the Apollo Arch packages as the desktop user, with explicit optional access."""
 
 from __future__ import annotations
 
@@ -25,9 +25,9 @@ CHOICES = ("keyboard_access", "power_access", "enable_shell", "enable_clipboard"
 MESSAGES = {
     "keyboard_access": "Allow active local users to read whole keyboard event devices, including raw keystrokes?",
     "power_access": "Grant keytop CAP_PERFMON and CAP_DAC_READ_SEARCH (performance access and broad file-read bypass, beyond RAPL)? Ordinary CPU usage needs neither.",
-    "enable_shell": "Enable Clavis Shell with the Niri user service?",
+    "enable_shell": "Enable Apollo Shell with the Niri user service?",
     "enable_clipboard": "Enable clipboard history capture with the Niri user service?",
-    "start_now": "Start Clavis Shell and clipboard history capture in the current Niri session now? Active services will not be restarted.",
+    "start_now": "Start Apollo Shell and clipboard history capture in the current Niri session now? Active services will not be restarted.",
 }
 
 
@@ -117,7 +117,7 @@ class Installer:
         self.stage = "preflight"
         self.state_path = (
             Path(os.environ.get("XDG_STATE_HOME", str(Path.home() / ".local/state")))
-            / "clavis/installer/choices.json"
+            / "apollo/installer/choices.json"
         )
         self.previous = {}
         if self.state_path.exists():
@@ -181,9 +181,9 @@ class Installer:
                     # Preserve manually changed service state on subsequent installations.
                     if name in ("enable_shell", "enable_clipboard"):
                         unit = (
-                            "clavis-shell.service"
+                            "apollo-shell.service"
                             if name == "enable_shell"
-                            else "clavis-clipboard.service"
+                            else "apollo-clipboard.service"
                         )
                         self.choices[name] = (
                             run(
@@ -206,14 +206,14 @@ class Installer:
                 terminal.close()
 
     def requests(self):
-        entries = self.data["packages"]["clavis-shell"]
+        entries = self.data["packages"]["apollo-shell"]
         selected = entries["runtime"] + [e for e in entries["optional"] if e["defaultInstall"]]
         result = []
         for entry in selected:
             if any(self.satisfied(candidate) for candidate in entry.get("satisfiedBy", [])):
                 continue
             result.append(entry["package"])
-        result.append("clavis-shell")
+        result.append("apollo-shell")
         if self.choices["keyboard_access"]:
             result.append("key-cli-keyboard-access")
         if self.choices["power_access"]:
@@ -225,7 +225,7 @@ class Installer:
         if base in self.checkouts:
             return base, self.checkouts[base]
         repository = source["repository"]
-        tag = self.data.get("installerRelease") if base == "clavis-shell" else None
+        tag = self.data.get("installerRelease") if base == "apollo-shell" else None
         endpoint = "tags/" + tag if tag else "latest"
         self.stage = f"GitHub release download {repository} ({tag or 'latest'})"
         with urllib.request.urlopen(
@@ -413,7 +413,7 @@ class Installer:
         for directory in ("/etc", "/run", "/usr/local/lib", "/usr/lib"):
             if directory == "/usr/lib" and self.installed("key-cli-keyboard-access"):
                 continue
-            path = Path(directory) / "udev/rules.d/71-clavis-keyboard-leds.rules"
+            path = Path(directory) / "udev/rules.d/71-apollo-keyboard-leds.rules"
             if path.exists() or path.is_symlink():
                 self.conflicts.append(
                     f"Existing keyboard authorization rule preserved: {path}. Review it before installing the access package."
@@ -424,20 +424,20 @@ class Installer:
     def diagnostics(self):
         config = Path(os.environ.get("XDG_CONFIG_HOME", str(Path.home() / ".config")))
         paths = [
-            config / "quickshell/clavis",
+            config / "quickshell/apollo",
             Path("/usr/local/bin/key"),
-            Path("/usr/local/lib/systemd/user/clavis-clipboard.service"),
+            Path("/usr/local/lib/systemd/user/apollo-clipboard.service"),
         ]
-        for unit in ("clavis-shell.service", "clavis-clipboard.service"):
+        for unit in ("apollo-shell.service", "apollo-clipboard.service"):
             paths.extend([config / "systemd/user" / unit, config / "systemd/user" / (unit + ".d")])
         shadows = [str(p) for p in paths if p.exists() or p.is_symlink()]
         key = shutil.which("key")
         if key and Path(key).resolve() != Path("/usr/bin/key").resolve():
             shadows.append("PATH selects " + key)
-        for name in ("CLAVIS_KEY", "QML_IMPORT_PATH"):
+        for name in ("APOLLO_KEY", "QML_IMPORT_PATH"):
             if os.environ.get(name):
                 shadows.append(f"{name}={os.environ[name]}")
-        for unit in ("clavis-shell.service", "clavis-clipboard.service"):
+        for unit in ("apollo-shell.service", "apollo-clipboard.service"):
             info = run(
                 [
                     "systemctl",
@@ -551,10 +551,10 @@ class Installer:
         if not safe:
             return
         run(["systemctl", "--user", "daemon-reload"])
-        units = ["clavis-shell.service", "clavis-clipboard.service"]
+        units = ["apollo-shell.service", "apollo-clipboard.service"]
         for choice, unit in (
-            ("enable_shell", "clavis-shell.service"),
-            ("enable_clipboard", "clavis-clipboard.service"),
+            ("enable_shell", "apollo-shell.service"),
+            ("enable_clipboard", "apollo-clipboard.service"),
         ):
             if self.choices[choice]:
                 run(["systemctl", "--user", "enable", unit])
@@ -593,7 +593,7 @@ class Installer:
                 f"{choice}: {self.choices[choice] if self.choices[choice] is not None else 'ask [Y/n]'}"
             )
         print(
-            "First-party sources: GitHub Releases; Clavis "
+            "First-party sources: GitHub Releases; Apollo "
             + self.data.get("installerRelease", "latest")
             + "; backends latest formal release (minimum version required)."
         )
@@ -624,7 +624,7 @@ class Installer:
         ]
         if official:
             run(["sudo", "pacman", "-S", "--needed", *self.pacman_options, *official])
-        with tempfile.TemporaryDirectory(prefix="clavis-build-") as directory:
+        with tempfile.TemporaryDirectory(prefix="apollo-build-") as directory:
             self.work = Path(directory)
             for requirement in requested:
                 name = package_name(requirement)
@@ -634,7 +634,7 @@ class Installer:
                     requirement,
                     refresh=name
                     in (
-                        "clavis-shell",
+                        "apollo-shell",
                         "key-cli",
                         "keytop",
                         "key-cli-keyboard-access",

@@ -6,7 +6,7 @@ import Quickshell
 Singleton {
     id: root
 
-    // The coordinator only describes Clavis-owned recording sessions.
+    // The coordinator only describes Apollo-owned recording sessions.
     readonly property bool ownScreenSessionPresent: RecordingService.isActive
     readonly property bool ownAudioSessionPresent: AudioRecordingService.isActive
     readonly property bool ownSessionPresent: ownScreenSessionPresent || ownAudioSessionPresent
@@ -14,8 +14,8 @@ Singleton {
                                                || AudioRecordingService.isRecording
     readonly property bool capturePresent: ownSessionPresent
     readonly property bool captureActive: ownRecordingActive
-    readonly property string source: ownScreenSessionPresent ? "clavis-screen" : (ownAudioSessionPresent
-                                                                                  ? "clavis-audio" : "none")
+    readonly property string source: ownScreenSessionPresent ? "apollo-screen" : (ownAudioSessionPresent
+                                                                                  ? "apollo-audio" : "none")
     readonly property string state: ownScreenSessionPresent ? RecordingService.state : (
                                                                   ownAudioSessionPresent
                                                                   ? AudioRecordingService.state : "idle")

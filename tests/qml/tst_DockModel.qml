@@ -17,7 +17,7 @@ TestCase {
             startupClass: "Browser"
         },
         {
-            id: "org.clavis.Settings",
+            id: "org.apollo.Settings",
             name: "Settings"
         }
     ]
@@ -183,8 +183,8 @@ TestCase {
                                                }, applications), null);
         compare(DockModel.applicationForWindow({
                                                    appId: "whatever",
-                                                   title: "clavis-control-center"
-                                               }, applications).id, "org.clavis.Settings");
+                                                   title: "apollo-control-center"
+                                               }, applications).id, "org.apollo.Settings");
         const ambiguous = applications.concat([
                                                   {
                                                       id: "other",
@@ -274,7 +274,7 @@ TestCase {
             "org.example.Browser.desktop": {
                 lastLaunchedAt: 50
             },
-            "org.clavis.Settings": {
+            "org.apollo.Settings": {
                 lastLaunchedAt: 30
             },
             extra: {
@@ -291,10 +291,10 @@ TestCase {
             }
         };
         compare(DockModel.recentIds(history, available, new Set(["app:org.example.Editor"]), 3).join(","),
-                "org.example.Browser,org.clavis.Settings,extra");
+                "org.example.Browser,org.apollo.Settings,extra");
         compare(DockModel.recentIds(history, available, new Set(["app:org.example.Editor",
                                                                  "app:org.example.Browser"]), 3).join(","),
-                "org.clavis.Settings,extra,fourth");
+                "org.apollo.Settings,extra,fourth");
     }
 
     function test_dropProtocolAndInstalledPathBoundaries() {
