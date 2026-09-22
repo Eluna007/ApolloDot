@@ -18,18 +18,19 @@ void I18nManagerTest::resolvesLanguagePreferences_data()
     QTest::addColumn<QStringList>("preferences");
     QTest::addColumn<QString>("expected");
     QTest::newRow("english-variant") << QStringList{"en-GB"} << "en_US";
-    QTest::newRow("simplified") << QStringList{"zh_CN.UTF-8"} << "zh_CN";
-    QTest::newRow("chinese-default") << QStringList{"zh"} << "zh_CN";
-    QTest::newRow("singapore") << QStringList{"zh-SG"} << "zh_CN";
-    QTest::newRow("taiwan") << QStringList{"zh-TW"} << "zh_TW";
-    QTest::newRow("hong-kong") << QStringList{"zh_HK.UTF-8"} << "zh_TW";
-    QTest::newRow("macao") << QStringList{"zh-MO"} << "zh_TW";
-    QTest::newRow("hant") << QStringList{"zh-Hant-US"} << "zh_TW";
-    QTest::newRow("hans-before-region") << QStringList{"zh-Hans-HK"} << "zh_CN";
-    QTest::newRow("case-and-whitespace") << QStringList{" ZH-hant "} << "zh_TW";
+    // English is the only shipped catalog, so every other locale resolves to it.
+    QTest::newRow("simplified") << QStringList{"zh_CN.UTF-8"} << "en_US";
+    QTest::newRow("chinese-default") << QStringList{"zh"} << "en_US";
+    QTest::newRow("singapore") << QStringList{"zh-SG"} << "en_US";
+    QTest::newRow("taiwan") << QStringList{"zh-TW"} << "en_US";
+    QTest::newRow("hong-kong") << QStringList{"zh_HK.UTF-8"} << "en_US";
+    QTest::newRow("macao") << QStringList{"zh-MO"} << "en_US";
+    QTest::newRow("hant") << QStringList{"zh-Hant-US"} << "en_US";
+    QTest::newRow("hans-before-region") << QStringList{"zh-Hans-HK"} << "en_US";
+    QTest::newRow("case-and-whitespace") << QStringList{" ZH-hant "} << "en_US";
     QTest::newRow("unsupported") << QStringList{"ja-JP", "fr-FR"} << "en_US";
-    QTest::newRow("supported-secondary") << QStringList{"fr-FR", "zh-Hant", "en-US"} << "zh_TW";
-    QTest::newRow("first-supported") << QStringList{"zh-CN", "en-US"} << "zh_CN";
+    QTest::newRow("supported-secondary") << QStringList{"fr-FR", "ja-JP", "en-US"} << "en_US";
+    QTest::newRow("first-supported") << QStringList{"zh-CN", "en-US"} << "en_US";
     QTest::newRow("empty") << QStringList{} << "en_US";
     QTest::newRow("posix") << QStringList{"C.UTF-8"} << "en_US";
     QTest::newRow("invalid") << QStringList{"unknown-hant"} << "en_US";
@@ -60,20 +61,6 @@ void I18nManagerTest::switchesCatalogsWithoutChangingRegionalSettings()
     const auto translate = [](const char *context, const char *source, int n = -1) {
         return QCoreApplication::translate(context, source, nullptr, n);
     };
-    QVERIFY(manager.setLanguage(QStringLiteral("zh_CN")));
-    QCOMPARE(translate("AccountPage", "Unknown"), QStringLiteral("未知"));
-    QCOMPARE(translate("TimeUtils", "%n minute(s) ago", 2), QStringLiteral("2 分钟以前"));
-    QCOMPARE(translate("DashboardPomodoroCard", "Round %1 / %2").arg(1).arg(4),
-             QStringLiteral("第 1 / 4 轮"));
-    QCOMPARE(QLocale().name(), regionalLocale.name());
-
-    QVERIFY(manager.setLanguage(QStringLiteral("zh-Hant")));
-    QCOMPARE(manager.language(), QStringLiteral("zh_TW"));
-    QCOMPARE(translate("AccountPage", "Unknown"), QStringLiteral("未知"));
-    QCOMPARE(translate("TimeUtils", "%n minute(s) ago", 2), QStringLiteral("2 分鐘以前"));
-    QCOMPARE(translate("DashboardPomodoroCard", "Round %1 / %2").arg(1).arg(4),
-             QStringLiteral("第 1 / 4 輪"));
-
     QVERIFY(manager.setLanguage(QStringLiteral("en-GB")));
     QCOMPARE(manager.language(), QStringLiteral("en_US"));
     QCOMPARE(translate("AccountPage", "Unknown"), QStringLiteral("Unknown"));
@@ -86,9 +73,16 @@ void I18nManagerTest::switchesCatalogsWithoutChangingRegionalSettings()
     QCOMPARE(QLocale().name(), regionalLocale.name());
     QCOMPARE(QLocale().toString(1234.5, 'f', 1), regionalLocale.toString(1234.5, 'f', 1));
 
+    // A locale with no shipped catalog keeps the English one installed and
+    // reports success rather than failing to load a catalog that is not built.
+    QVERIFY(manager.setLanguage(QStringLiteral("zh-Hant")));
+    QCOMPARE(manager.language(), QStringLiteral("en_US"));
+    QCOMPARE(translate("AccountPage", "Unknown"), QStringLiteral("Unknown"));
+
     QVERIFY(manager.setLanguage(QStringLiteral("fr-FR")));
     QCOMPARE(manager.language(), QStringLiteral("en_US"));
     QVERIFY(manager.lastError().isEmpty());
+    QCOMPARE(QLocale().name(), regionalLocale.name());
 }
 
 QTEST_GUILESS_MAIN(I18nManagerTest)

@@ -26,14 +26,9 @@ QString supportedLanguage(const QString &language)
                                   .split(QLatin1Char('_'));
     if (parts.first() == QStringLiteral("en"))
         return QStringLiteral("en_US");
-    if (parts.first() != QStringLiteral("zh"))
-        return {};
-    if (parts.contains(QStringLiteral("hans")))
-        return QStringLiteral("zh_CN");
-    if (parts.contains(QStringLiteral("hant")) || parts.contains(QStringLiteral("tw")) ||
-        parts.contains(QStringLiteral("hk")) || parts.contains(QStringLiteral("mo")))
-        return QStringLiteral("zh_TW");
-    return QStringLiteral("zh_CN");
+    // English is the only shipped catalog; every other locale falls back to it
+    // in preferredLanguage() rather than resolving to a catalog that cannot load.
+    return {};
 }
 } // namespace
 
