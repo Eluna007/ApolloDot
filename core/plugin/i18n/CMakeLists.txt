@@ -27,6 +27,8 @@ file(GLOB_RECURSE APOLLO_TRANSLATION_SOURCES CONFIGURE_DEPENDS
 )
 list(APPEND APOLLO_TRANSLATION_SOURCES
     "${APOLLO_SOURCE_ROOT}/core/plugin/keyboard/src/shortcut_recorder.cpp"
+    "${APOLLO_SOURCE_ROOT}/core/plugin/lyrics/src/lyrics.cpp"
+    "${APOLLO_SOURCE_ROOT}/core/src/weather_map_provider.cpp"
     "${APOLLO_SOURCE_ROOT}/AppShell.qml"
     "${APOLLO_SOURCE_ROOT}/shell.qml"
     "${APOLLO_SOURCE_ROOT}/tools/window-preview/Preview.qml"

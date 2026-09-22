@@ -404,7 +404,7 @@ void Lyrics::selectCandidate(int index)
     const QString plain = candidate.value(QStringLiteral("plainLyrics")).toString();
     if (!synced.isEmpty() || !plain.isEmpty()) {
         if (!acceptRawLyrics(provider, synced, plain, candidate, generation, true))
-            finishError(QStringLiteral("Lyrics content is unavailable"));
+            finishError(tr("Lyrics content is unavailable"));
         return;
     }
 
@@ -415,7 +415,7 @@ void Lyrics::selectCandidate(int index)
         resetNetEaseSession();
         startNetEaseLyrics(candidate, generation);
     } else {
-        finishError(QStringLiteral("Unsupported lyrics provider"));
+        finishError(tr("Unsupported lyrics provider"));
     }
 }
 
@@ -885,7 +885,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
             else if (notFound)
                 finishEmpty();
             else
-                finishError(QStringLiteral("LRCLIB request failed"));
+                finishError(tr("LRCLIB request failed"));
             return;
         case ReplyKind::LrclibSearch:
             m_lrclibOutcome = notFound ? ProviderOutcome::NotFound : ProviderOutcome::TransportError;
@@ -899,7 +899,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
             } else if (notFound) {
                 finishEmpty();
             } else {
-                finishError(QStringLiteral("NetEase search request failed"));
+                finishError(tr("NetEase search request failed"));
             }
             return;
         case ReplyKind::NetEaseLyrics:
@@ -912,7 +912,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
             else if (notFound)
                 finishEmpty();
             else
-                finishError(QStringLiteral("NetEase lyrics request failed"));
+                finishError(tr("NetEase lyrics request failed"));
             return;
         }
     }
@@ -927,7 +927,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
             if (m_autoFallback)
                 startNetEaseSearch(generation);
             else
-                finishError(QStringLiteral("LRCLIB returned an invalid response"));
+                finishError(tr("LRCLIB returned an invalid response"));
             return;
         case ReplyKind::LrclibSearch:
             m_lrclibOutcome = ProviderOutcome::InvalidResponse;
@@ -939,7 +939,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
                 m_netEaseCandidateIndex = 0;
                 tryNextNetEaseCandidate(generation);
             } else {
-                finishError(QStringLiteral("NetEase search returned an invalid response"));
+                finishError(tr("NetEase search returned an invalid response"));
             }
             return;
         case ReplyKind::NetEaseLyrics:
@@ -947,7 +947,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
             if (m_autoFallback)
                 tryNextNetEaseCandidate(generation);
             else
-                finishError(QStringLiteral("NetEase lyrics returned an invalid response"));
+                finishError(tr("NetEase lyrics returned an invalid response"));
             return;
         }
     }
@@ -959,7 +959,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
             if (m_autoFallback)
                 startNetEaseSearch(generation);
             else
-                finishError(QStringLiteral("LRCLIB returned an invalid response"));
+                finishError(tr("LRCLIB returned an invalid response"));
             return;
         }
         if (handleLrclibTrack(document.object(), generation)) {
@@ -970,7 +970,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
         } else if (m_lrclibOutcome == ProviderOutcome::NotFound) {
             finishEmpty();
         } else {
-            finishError(QStringLiteral("LRCLIB lyrics content is unavailable"));
+            finishError(tr("LRCLIB lyrics content is unavailable"));
         }
         return;
 
@@ -994,7 +994,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
         } else {
             if (m_netEaseSearchOutcome == ProviderOutcome::TransportError ||
                 m_netEaseSearchOutcome == ProviderOutcome::InvalidResponse) {
-                finishError(QStringLiteral("NetEase search is unavailable"));
+                finishError(tr("NetEase search is unavailable"));
             } else if (m_candidates.isEmpty()) {
                 finishEmpty();
             } else {
@@ -1015,7 +1015,7 @@ void Lyrics::handleReply(QNetworkReply *reply, ReplyKind kind, quint64 generatio
         else if (m_netEaseCandidateOutcome == ProviderOutcome::NoLyrics)
             finishEmpty();
         else
-            finishError(QStringLiteral("NetEase lyrics content is unavailable"));
+            finishError(tr("NetEase lyrics content is unavailable"));
         return;
     }
 }
@@ -1127,15 +1127,15 @@ void Lyrics::tryNextNetEaseCandidate(quint64 generation)
 
     if (m_netEaseSearchOutcome == ProviderOutcome::TransportError ||
         m_netEaseSearchOutcome == ProviderOutcome::InvalidResponse) {
-        finishError(QStringLiteral("NetEase search is unavailable"));
+        finishError(tr("NetEase search is unavailable"));
     } else if (m_lrclibOutcome == ProviderOutcome::TransportError ||
                m_lrclibOutcome == ProviderOutcome::InvalidResponse ||
                m_lrclibOutcome == ProviderOutcome::ParseFailure) {
-        finishError(QStringLiteral("The lyrics service returned invalid content"));
+        finishError(tr("The lyrics service returned invalid content"));
     } else if (!m_netEaseCandidates.isEmpty() && !m_netEaseSawNoLyrics && !m_netEaseSawValidLyricResponse &&
                (m_netEaseCandidateOutcome == ProviderOutcome::TransportError ||
                 m_netEaseCandidateOutcome == ProviderOutcome::InvalidResponse || m_netEaseSawParseFailure)) {
-        finishError(QStringLiteral("NetEase lyrics request failed"));
+        finishError(tr("NetEase lyrics request failed"));
     } else {
         // A valid search with no lyrics is a normal not-found result, even if
         // LRCLIB previously returned HTTP 404 or a candidate was rejected.
