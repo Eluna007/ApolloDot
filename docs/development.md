@@ -1,11 +1,14 @@
-# 开发流程
+# Development workflow
 
-先安装外部 QML 运行时依赖 M3Shapes（Arch：`qt6-m3shapes-git`）。
-Apollo 不编译或安装它；`build/qml` 继续只为 Apollo 原生模块提供开发导入路径。
-从旧 checkout 迁移时，清理旧构建目录中的 `build/qml/M3Shapes`，避免遮蔽系统模块；
-不要向该目录复制系统模块或创建同名软链接。
+Install the external QML runtime dependency M3Shapes first (Arch: `qt6-m3shapes-git`).
+Apollo neither compiles nor installs it; `build/qml` continues to provide a development
+import path for Apollo's native modules only.
+When migrating from an older checkout, delete `build/qml/M3Shapes` from the old build
+directory so it cannot shadow the system module. Do not copy the system module into that
+directory or create a symlink of the same name.
 
-源码开发使用 Quickshell 的 XDG 配置优先级和 CMake 生成的 import tree：
+Source development relies on Quickshell's XDG configuration precedence and the import tree
+CMake generates:
 
 ```bash
 mkdir -p ~/.config/quickshell
@@ -18,46 +21,65 @@ MALLOC_CONF="${MALLOC_CONF-thp:never,narenas:4,dirty_decay_ms:3000}" \
 QML_IMPORT_PATH="$PWD/build/qml${QML_IMPORT_PATH:+:$QML_IMPORT_PATH}" key shell
 ```
 
-源码目录优先于 `/etc/xdg/quickshell/apollo`。QML 保存后可热重载；C++ plugin 需要
-重新构建并重新加载 Shell。Shell/CLI 日志由各自工具负责，不在文档或脚本中使用
-`nohup`、`disown` 或丢弃到 `/dev/null`。
+The source directory takes precedence over `/etc/xdg/quickshell/apollo`. QML hot-reloads
+on save; C++ plugins require a rebuild and a shell reload. Shell and CLI logging is each
+tool's own responsibility — do not use `nohup` or `disown`, or discard output to
+`/dev/null`, in documentation or scripts.
 
-`apollo-shell.service` 在启动前设置 jemalloc 的内存策略：禁用分配器的透明大页、
-限制自动 arena 数量为 4，并将空闲脏页回收时间设为 3 秒。直接运行 `key shell` 或
-`qs -c apollo` 时也应像上面一样传入 `MALLOC_CONF`；此写法保留已显式设置的值
-（包括空值）。不使用 jemalloc 的 Quickshell 构建会忽略它，不需要预加载分配器。
-该变量不能放进 `shell.qml` 的 Env pragma，解析 QML 时分配器已经初始化；更改策略
-需要重新启动进程，热重载不生效。服务的自定义策略可通过用户 drop-in 的
-`Environment="MALLOC_CONF=..."` 覆盖。
+`apollo-shell.service` sets jemalloc's memory policy before start: transparent huge pages
+disabled, automatic arenas capped at 4, and dirty-page decay set to 3 seconds. Pass
+`MALLOC_CONF` the same way when running `key shell` or `qs -c apollo` directly; the form
+above preserves an explicitly set value, including an empty one. Quickshell builds that do
+not use jemalloc ignore it, and no allocator preload is needed.
+The variable cannot go in `shell.qml`'s Env pragma — the allocator is already initialized
+by the time QML is parsed. Changing the policy requires restarting the process; hot reload
+does not apply. A custom policy for the service can be set with
+`Environment="MALLOC_CONF=..."` in a user drop-in.
 
-正式安装由发行版打包流程负责；本仓库默认只构建和测试源码，不创建运行时版本快照。
+Formal installation is the distribution packaging process's responsibility. By default this
+repository only builds and tests the source, and does not create runtime version snapshots.
 
-键盘锁状态由独立的 key-cli 提供：`key keyboard status --format json` 用于诊断，
-`key keyboard watch --format jsonl` 由 `KeyboardLockService` 的单个 Process 管理。
-启动、设备恢复和重同步快照不弹 OSD，真实切换才触发提示；无定期查询或静默超时。
-权限不足时保持不可用，由用户选择 key-cli 的独立可选键盘授权配置；已有授权包也可保留。
-`Apollo.Keyboard` 仅保留依赖 Qt 输入事件的快捷键录制。libudev 仍由背光 backend 使用。
-剪贴板 watcher 继续由独立的 systemd 用户服务管理，不随键盘进程退出而停止。
+Keyboard lock state comes from the separate key-cli: `key keyboard status --format json`
+for diagnostics, and `key keyboard watch --format jsonl` managed by a single Process in
+`KeyboardLockService`.
+Startup, device recovery and resynchronization snapshots do not raise an OSD; only a real
+toggle does. There is no periodic polling and no silent timeout.
+It stays unavailable when permissions are insufficient, leaving the user to opt into
+key-cli's separate optional keyboard authorization; an already-installed authorization
+package can be kept.
+`Apollo.Keyboard` retains only the shortcut recording that depends on Qt input events.
+libudev is still used by the backlight backend.
+The clipboard watcher remains managed by its own systemd user service and does not stop
+when the keyboard process exits.
 
-亮度服务直接使用 `Niri.currentOutput`，不再启动 focused-output 查询进程。内置背光由
-`BacklightState` 订阅 backlight udev 事件并读取 `actual_brightness` / `max_brightness`，
-设备按名称排序选择，`brightnessctl` 写入显式使用同一设备。启动、设备事件及自身写入结束
-时读回，无周期轮询；驱动若不为外部硬件亮度变化发送事件，该变化不会自动同步，需人工
-在对应硬件上验证。DDC 检测、读取及写入节流保持原有流程。
+The brightness service uses `Niri.currentOutput` directly and no longer starts a
+focused-output query process. For internal backlights, `BacklightState` subscribes to
+backlight udev events and reads `actual_brightness` / `max_brightness`, selecting the
+device by sorted name, and `brightnessctl` writes explicitly to that same device. It reads
+back at startup, on device events, and when its own write completes — there is no periodic
+polling. If a driver does not emit events for external hardware brightness changes, those
+changes will not sync automatically and must be verified manually on the hardware
+concerned. DDC detection, reads and write throttling keep their existing behavior.
 
-键盘状态服务区分 `connecting`（尚未收到可信快照）、`ready`（状态可信）、
-`reconnecting`（进程退出后有限重连）和 `unavailable`（明确不可用或重连耗尽）。
-`available` 仅在 `ready` 时为 true；未知的 `capsLock` / `numLock` 为 null。
-`supported` 在可信快照后为 true，仅跨进程重连保留；明确不可用响应、协议错误或
-重连耗尽将其清除。不通过授权包是否安装推断可信状态，也不将其持久化。
-设置中心 Keyboard indicators 分区、两个锁屏的键盘状态 UI 和键盘 OSD 都使用
-`available` 控制呈现；暂时重连也隐藏。隐藏不会重置 OSD 偏好，恢复快照仅更新基线。
-源码安装通过 key-cli 的 `scripts/install.sh --keyboard enable --acknowledge-keyboard-access`
-独立选择授权；现有 `key-cli-keyboard-access` 包可继续保留，Apollo 不安装授权规则。
+The keyboard state service distinguishes `connecting` (no trusted snapshot yet), `ready`
+(state is trustworthy), `reconnecting` (bounded reconnection after the process exits) and
+`unavailable` (explicitly unavailable, or reconnection exhausted).
+`available` is true only in `ready`; an unknown `capsLock` / `numLock` is null.
+`supported` becomes true after a trusted snapshot and is retained only across process
+reconnection; an explicit unavailable response, a protocol error, or exhausted reconnection
+clears it. Trusted state is never inferred from whether the authorization package is
+installed, and is not persisted.
+The Settings Center keyboard indicators section, the keyboard state UI on both lock
+screens, and the keyboard OSD all use `available` to control presentation, hiding during
+temporary reconnection too. Hiding does not reset OSD preferences, and a recovered snapshot
+only updates the baseline.
+For source installs, authorization is opted into separately through key-cli's
+`scripts/install.sh --keyboard enable --acknowledge-keyboard-access`. An existing
+`key-cli-keyboard-access` package can be kept; Apollo does not install authorization rules.
 
-## 与 key-cli 源码联调
+## Integration work against key-cli source
 
-在 key-cli checkout 中执行一次：
+Run once in the key-cli checkout:
 
 ```bash
 python3 -m venv .venv
@@ -65,18 +87,25 @@ python3 -m venv .venv
 ./scripts/install.sh --dev-services enable --apollo-unit ~/Projects/ApolloDot/packaging/systemd/user/apollo-shell.service
 ```
 
-没有安装 Apollo 基础 unit 时，按工具输出用 `systemctl --user link` 链接本仓库现有
-unit；key-cli 只生成开发 ExecStart drop-in，不接管 Shell 服务安装。随后执行
-`systemctl --user daemon-reload`，按需重启选定服务。剪贴板基础 unit 缺失时由
-key-cli 复用自身 unit 补齐；它与 Shell 仍独立运行。
+When Apollo's base unit is not installed, follow the tool's output and link this
+repository's existing unit with `systemctl --user link`; key-cli only generates a
+development ExecStart drop-in and does not take over installation of the shell service.
+Then run `systemctl --user daemon-reload` and restart the selected services as needed.
+If the clipboard base unit is missing, key-cli supplies its own; it still runs
+independently of the shell.
 
-fish 可选择 `fish_add_path --universal --move ~/Projects/key-cli/.venv/bin`，这也会
-影响 python/pip。服务不依赖 fish PATH，使用生成的绝对 `.venv/bin/key` 路径。
-`key shell` 自动传播自身入口到 `APOLLO_KEY`，剪贴板回调也使用启动它的 key。
-普通 Python 修改对新进程直接生效；已有 watcher 按需重启，安装元数据改变才需
-重装 editable 环境。不要重复 makepkg 或安装系统包来测试普通源码修改。
+In fish you may run `fish_add_path --universal --move ~/Projects/key-cli/.venv/bin`, which
+also affects python/pip. The services do not rely on the fish PATH — they use the generated
+absolute `.venv/bin/key` path.
+`key shell` propagates its own entry point to `APOLLO_KEY`, and clipboard callbacks use the
+same `key` that started it.
+Ordinary Python edits take effect for new processes immediately; restart existing watchers
+as needed, and reinstall the editable environment only when installation metadata changes.
+Do not re-run makepkg or install system packages to test ordinary source changes.
 
-撤回时在 key-cli 运行 `./scripts/install.sh --dev-services disable`，然后 reload
-用户 unit；保留自定义 drop-in。检查开发 PATH 后按需切回 `/usr/local/bin/key` 或
-发行版入口。源码稳定安装由 key-cli 的 `scripts/install.sh` 提供，不依赖 checkout
-持续存在；Apollo 的原生构建、QML 安装和会话管理仍由本仓库负责。
+To undo, run `./scripts/install.sh --dev-services disable` in key-cli, then reload the user
+units; custom drop-ins are preserved. Check the development PATH and switch back to
+`/usr/local/bin/key` or the distribution entry point as needed. A stable source
+installation is provided by key-cli's `scripts/install.sh` and does not depend on the
+checkout continuing to exist; Apollo's native build, QML installation and session
+management remain this repository's responsibility.

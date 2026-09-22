@@ -1,8 +1,9 @@
-# 壁纸后端与 niri overview
+# Wallpaper backends and the niri overview
 
-Apollo 将普通桌面壁纸和 niri overview 背景视为两个独立表面。
+Apollo treats the ordinary desktop wallpaper and the niri overview background as two
+separate surfaces.
 
-桌面后端为 `quickshell` 时，运行结构为：
+With the `quickshell` desktop backend, the runtime structure is:
 
 ```text
 Quickshell
@@ -10,31 +11,34 @@ Quickshell
 └── Background: apollo-overview-wallpaper
 ```
 
-桌面后端为 `awww` 时，运行结构为：
+With the `awww` desktop backend, the runtime structure is:
 
 ```text
 Quickshell
-├── Background: apollo-wallpaper（表面常驻，壁纸内容隐藏）
+├── Background: apollo-wallpaper (surface stays resident, wallpaper content hidden)
 └── Background: apollo-overview-wallpaper
 
 awww-daemon --layer background --namespace apollo-desktop --no-cache
-└── 普通桌面壁纸
+└── ordinary desktop wallpaper
 
 Bottom
 └── apollo-desktop-cards
 ```
 
-`apollo-wallpaper` 的 PanelWindow 不随桌面后端销毁。切到 awww 时，Apollo
-先等待所有输出的 `awww img` 成功，再隐藏 Quickshell 桌面内容；切回时先
-恢复已加载的 Quickshell 静态壁纸，再停止 `apollo-desktop`。隐藏期间不会
-运行 DMS shader 转场。
+The `apollo-wallpaper` PanelWindow is not destroyed along with the desktop backend. When
+switching to awww, Apollo waits for `awww img` to succeed on every output before hiding the
+Quickshell desktop content; when switching back it first restores the already loaded
+Quickshell static wallpaper, then stops `apollo-desktop`. No DMS shader transition runs
+while hidden.
 
-overview 表面始终按输出由 Quickshell 创建，不参与桌面后端选择，也不继承
-桌面的工作区、平铺列或侧边栏视差。
+The overview surface is always created per output by Quickshell. It takes no part in
+desktop backend selection, and does not inherit the desktop's workspace, tiling column or
+sidebar parallax.
 
 ## niri layer rule
 
-壁纸页的 Overview“设置”按钮可显式创建并接入 `apollo/layer-rules.kdl`：
+The "Set up" button in the Overview section of the wallpaper page explicitly creates and
+wires up `apollo/layer-rules.kdl`:
 
 ```kdl
 layer-rule {
@@ -47,45 +51,49 @@ layout {
 }
 ```
 
-如果配置中仍是旧的
-`match namespace="awww-daemonoverview"`，需要由用户手动替换为上面的
-`apollo-overview-wallpaper` 规则。设置中心读取有效 include 链；外部已满足规则与 Apollo 托管接入分别显示。
-首次启动与打开页面不写配置，只有点击“设置”才创建缺失片段并追加 include。
+If the configuration still contains the old
+`match namespace="awww-daemonoverview"`, the user must replace it manually with the
+`apollo-overview-wallpaper` rule above. The Settings Center reads the effective include
+chain, and shows a rule already satisfied externally separately from Apollo-managed set-up.
+Neither first start nor opening the page writes configuration; only clicking "Set up"
+creates the missing fragment and appends the include.
 
-透明的 workspace 背景是 backdrop 与窗口透明/模糊效果正常共存的必要条件。
-如果保持 niri 默认的不透明背景色，kitty 的 `background_opacity` 仍会生效，
-但其后方只会露出不透明的 workspace 背景；xray blur 也无法采样桌面壁纸。
+A transparent workspace background is required for the backdrop to coexist properly with
+window transparency and blur effects.
+If niri's default opaque background color is kept, kitty's `background_opacity` still takes
+effect, but only the opaque workspace background shows through behind it, and xray blur
+cannot sample the desktop wallpaper either.
 
-不要对普通桌面 namespace `apollo-wallpaper` 使用
-`place-within-backdrop`。
+Do not use `place-within-backdrop` on the ordinary desktop namespace `apollo-wallpaper`.
 
-重新加载 niri 配置后运行：
+After reloading the niri configuration, run:
 
 ```bash
 niri msg layers
 ```
 
-确认 overview 表面的 namespace 为 `apollo-overview-wallpaper`，并且规则已匹配。
+to confirm the overview surface's namespace is `apollo-overview-wallpaper` and that the
+rule has matched.
 
-## 多显示器映射
+## Multi-monitor mapping
 
-桌面映射保存全局壁纸、`monitorWallpapers` 和
-`monitorWallpaperFillModes`。overview 另存全局壁纸、
-`overviewMonitorWallpapers` 和 `overviewMonitorFillModes`。
+The desktop mapping stores the global wallpaper, `monitorWallpapers` and
+`monitorWallpaperFillModes`. The overview separately stores a global wallpaper,
+`overviewMonitorWallpapers` and `overviewMonitorFillModes`.
 
-overview 使用独立壁纸时按以下顺序解析：
+When the overview uses its own wallpaper, resolution proceeds in this order:
 
-1. 当前输出的 overview 壁纸；
-2. 全局 overview 壁纸；
-3. 当前输出的桌面壁纸；
-4. 全局桌面壁纸。
+1. the current output's overview wallpaper;
+2. the global overview wallpaper;
+3. the current output's desktop wallpaper;
+4. the global desktop wallpaper.
 
-选择“使用桌面壁纸”时直接读取 Apollo 的原始桌面壁纸路径，不截图 awww
-表面，也不读取 awww 缓存。
+Choosing "use the desktop wallpaper" reads Apollo's original desktop wallpaper path
+directly — it does not screenshot the awww surface or read the awww cache.
 
 ## awww namespace
 
-Apollo 只拥有 `apollo-desktop`：
+Apollo owns only `apollo-desktop`:
 
 ```text
 awww-daemon --layer background --namespace apollo-desktop --no-cache
@@ -95,9 +103,9 @@ awww clear -n apollo-desktop -o <output> ...
 awww kill -n apollo-desktop
 ```
 
-所有命令都以参数数组执行。Apollo 不使用默认 namespace，不调用
-`killall`，也不会停止其他 awww 实例。
+Every command is executed as an argument array. Apollo does not use the default namespace,
+does not call `killall`, and never stops other awww instances.
 
-awww 的 FPS 和过渡步长保存于 `wallpaper.awww`。持续时间、缓动模式和
-贝塞尔曲线与 Quickshell overview 共用 `wallpaper.transition` 中的现有
-配置；overview 仅单独保存转场类型。
+awww's FPS and transition step are stored in `wallpaper.awww`. Duration, easing mode and
+Bézier curves share the existing configuration in `wallpaper.transition` with the Quickshell
+overview; only the transition type is stored separately for the overview.

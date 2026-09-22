@@ -1,70 +1,110 @@
-# 配置与启动所有权
+# Configuration and startup ownership
 
-Apollo 设置数据库位于 `$XDG_CONFIG_HOME/apollo/config.json`，保存 Shell 设置。
-Niri 主配置、输出、布局和用户自己的片段仍由用户管理；设置中心只读有效 include
-链，日常仅写以下 Apollo 托管片段，不迁移用户原有绑定。
+Apollo's settings database lives at `$XDG_CONFIG_HOME/apollo/config.json` and holds the
+shell's settings.
+The main Niri configuration, outputs, layout and the user's own fragments stay under user
+management. The Settings Center reads the effective include chain only, and in normal
+operation writes just the Apollo-managed fragments below; it does not migrate the user's
+existing bindings.
 
-| 片段 | 职责 | 显式入口 |
+| Fragment | Responsibility | Explicit entry point |
 | --- | --- | --- |
-| `apollo/effects.kdl` | Apollo 表面的 X-Ray 规则；默认可只有注释，不接管全局 blur | General → 透明与模糊 |
-| `apollo/cursor.kdl` | 光标主题、尺寸和隐藏选项 | 主题的光标区域 |
-| `apollo/layer-rules.kdl` | Overview backdrop 规则及全局透明 workspace 背景 | 壁纸的 Overview 区域 |
-| `apollo/binds.kdl` | 用户在快捷键页新增的绑定及完整覆盖 | General → 系统 → 快捷键 |
+| `apollo/effects.kdl` | X-Ray rules for Apollo surfaces; may contain only comments by default, and does not take over global blur | General → Transparency and blur |
+| `apollo/cursor.kdl` | Cursor theme, size and hide options | Cursor section of Theme |
+| `apollo/layer-rules.kdl` | Overview backdrop rules and the globally transparent workspace background | Overview section of Wallpaper |
+| `apollo/binds.kdl` | Bindings the user adds on the shortcuts page, plus full overrides | General → System → Shortcuts |
 
-没有内置 outputs/colors 片段注册或模板；历史文档的 colors.kdl 所有权说明已撤下。
-正常 Matugen、colors.json、输出查询、多屏定位和按屏幕壁纸保持各自职责。
-用户仍可注册自己的任意 Matugen 模板。历史用户文件及 include 不会自动清扫。
+There is no built-in outputs or colors fragment registration or template; the historical
+documentation's statement about colors.kdl ownership has been withdrawn.
+Normal Matugen, colors.json, output queries, multi-monitor positioning and per-screen
+wallpaper keep their own responsibilities.
+Users may still register arbitrary Matugen templates of their own. Historical user files
+and includes are not cleaned up automatically.
 
-安装只部署程序与只读资源。启动、页面加载、文件监听均不初始化片段。
-点击对应“设置”才创建缺失文件并在主配置末尾追加缺失的顶层 include；已有文件
-即使为空也不填充。普通、可选、间接和等价路径 include 均由 KDL 解析器识别。
-删除文件或 include 后停止生成并重新提示，不能用永久 firstSetupDone 标记代替状态。
+Installation deploys only the program and read-only resources. Startup, page loading and
+file watching never initialize a fragment.
+Clicking the corresponding "Set up" creates the missing file and appends the missing
+top-level include at the end of the main configuration; an existing file is not populated,
+even when empty. Ordinary, optional, indirect and equivalent-path includes are all
+recognized by the KDL parser.
+Deleting the file or the include stops generation and prompts again; a permanent
+`firstSetupDone` flag must not stand in for that state.
 
-默认主配置采用 XDG 路径；优先尊重 NIRI_CONFIG 和可确认的 niri 自定义启动路径。
-不能确定多个会话配置时拒绝写入。主配置不存在时不另建；符号链接、硬链接、特殊
-文件和不可写目标只读，不提权。片段路径相对于实际主配置的目录。
+The default main configuration uses the XDG path, preferring `NIRI_CONFIG` and any
+confirmable custom niri startup path. Writing is refused when multiple session
+configurations cannot be told apart. When no main configuration exists, none is created.
+Symlinks, hard links, special files and unwritable targets are read-only, and privileges
+are never escalated. Fragment paths are relative to the directory of the actual main
+configuration.
 
-共享按需 helper `scripts/system/niri_config.py` 使用随程序部署的 KDL-py 解析器，
-不执行动作。候选 include 图在临时目录中保留合并边界，用真实 `niri validate`
-验证后发布。所有功能共用 flock，提交前比较读取版本；主配置修改前保存唯一命名
-的备份。先发布片段，再追加 include；失败时在内容仍为本次版本的情况下回滚片段。
-多文件操作不是原子事务；不遵守锁的外部编辑器仍存在最后检查后的竞争窗口。
-磁盘保存、已引用及 niri 实际重载是不同状态，不主动执行 reload 或重启。
+The shared on-demand helper `scripts/system/niri_config.py` uses the KDL-py parser deployed
+with the program and performs no actions.
+The candidate include graph preserves merge boundaries in a temporary directory and is
+published only after a real `niri validate` passes. All features share a flock and compare
+the read version before committing; a uniquely named backup of the main configuration is
+saved before it is modified. Fragments are published first, then the include is appended;
+on failure the fragment is rolled back provided its contents are still from this run.
+Multi-file operations are not atomic transactions; an external editor that does not honor
+the lock still leaves a race window after the final check.
+Saved to disk, referenced, and actually reloaded by niri are distinct states — no reload or
+restart is performed proactively.
 
-快捷键按照完整的有类型动作表达式归组；目录占位不保存到配置数据库。
-内置动作始终保留，参数模板需要用户填写。首次显式接入时，缺失的 binds.kdl 使用
-[默认 IPC 键位](../ipc.md)；先检查有效 include 链中的物理键位占用，有冲突时拒绝
-写入并列出冲突键。已有文件不填充，升级和重新启动不补回已删除绑定。
+Shortcuts are grouped by complete, typed action expressions; directory placeholders are not
+saved to the settings database.
+Built-in actions are always retained, and parameter templates must be filled in by the
+user. On first explicit set-up, a missing binds.kdl uses the
+[default IPC key bindings](../ipc.md); physical key occupancy in the effective include
+chain is checked first, and a conflict refuses the write and lists the conflicting keys.
+An existing file is not populated, and upgrades or restarts do not restore deleted
+bindings.
 
-外部绑定的标题或选项编辑会在 binds.kdl 中建立同键的完整覆盖，不修改源文件。
-每颗 chip 的标题和选项独立；未设置标题、空串和 null 分别保留。
-同一托管项就地更新；改键组成一次候选修改。撞上另一托管键时拒绝，不自动让位。
-外部原绑定不能删除或直接改键；使用“+”添加另一个键。托管项可删除，覆盖项可
-移除覆盖，之后重新展示外部回落。后续 include 可以再次覆盖 Apollo 项，UI 展示来源
-及覆盖状态；不调整 include 顺序。Mod 与实际修饰键的不同拼写按 niri 的符号合并与
-物理触发顺序分别判断，物理冲突不伪报成后写覆盖。鼠标、滚轮、switch-events 等范围外内容原样保留。
+Editing the title or options of an external binding creates a full override for the same
+key in binds.kdl without modifying the source file.
+Each chip's title and options are independent; unset, empty string and null are each
+preserved distinctly.
+The same managed entry is updated in place, and changing its key forms a single candidate
+modification. Colliding with another managed key is refused rather than silently yielding.
+An external binding's original key cannot be deleted or rebound directly — use "+" to add
+another key. Managed entries can be deleted and overrides can be removed, after which the
+external fallback is shown again. A later include may override Apollo's entry again; the UI
+shows the source and override state, and include order is not adjusted.
+Differing spellings of Mod and the actual modifier are judged separately by niri's symbol
+merging and by physical trigger order, so a physical conflict is not misreported as a
+later-write override. Out-of-scope content such as mouse, scroll wheel and switch-events is
+preserved as-is.
 
-监听只覆盖主配置、有效 include 链及这些文件的父目录，支持原子替换和缺失文件
-恢复，不扫描备份或轮询整个目录。编辑期间保留草稿，版本变化要求取消并重载。
-按键录制仅在实际设置窗口获准 ShortcutInhibitor 后捕获，失焦/关闭立即释放；
-无法匹配实时键盘布局时提示手工输入 XKB 键名。
+Watching covers only the main configuration, the effective include chain and those files'
+parent directories, supporting atomic replacement and recovery of missing files, without
+scanning backups or polling whole directories.
+Drafts are preserved during editing, and a version change requires cancelling and
+reloading.
+Key recording captures only once the actual settings window has been granted a
+ShortcutInhibitor, and releases immediately on focus loss or close. When a key cannot be
+matched against the live keyboard layout, the user is prompted to type the XKB key name
+manually.
 
-会话由 niri-session 启动，Shell 与剪贴板 watcher 的 unit 跟随 niri.service。
-Fcitx5、nm-applet、blueman-applet 由 XDG Autostart 管理，Polkit 代理仍由用户配置启动。
+The session is started by niri-session, and the units for the shell and the clipboard
+watcher follow `niri.service`.
+Fcitx5, nm-applet and blueman-applet are managed by XDG Autostart, and the Polkit agent is
+still started by the user's own configuration.
 
-## Matugen 模板注册与启用状态
+## Matugen template registration and enablement state
 
-`<shell root>/matugen/config.toml` 和 `templates/` 是只读的内置资源，由包管理器
-安装；`$APOLLO_CONFIG_HOME/matugen/config.toml`（默认
-`$XDG_CONFIG_HOME/apollo/matugen/config.toml`）只注册用户模板。不会在首次启动时复制
-内置资源，用户目录可以不存在。模板目录里的孤立文件不构成注册。
+`<shell root>/matugen/config.toml` and `templates/` are read-only built-in resources
+installed by the package manager. `$APOLLO_CONFIG_HOME/matugen/config.toml` (by default
+`$XDG_CONFIG_HOME/apollo/matugen/config.toml`) registers user templates only. Built-in
+resources are not copied on first start, and the user directory need not exist. An orphan
+file in the templates directory does not constitute registration.
 
-`scripts/lib/matugen-registry.sh` 与 `scripts/theme/matugen_registry.jq` 共同读取两层
-registry，解析结果供 `manage_matugen_templates.sh list` 和生成脚本共享。
-`MatugenTemplateService` 提供动态模型、来源、解析后的绝对输入/输出路径、hook 和错误。
-用户 ID 不得覆盖内置 ID，同层重复 ID 无效；`quickshell` 为隐藏、必需的内部模板。
+`scripts/lib/matugen-registry.sh` and `scripts/theme/matugen_registry.jq` together read
+both registry layers, and the parsed result is shared by
+`manage_matugen_templates.sh list` and the generation script.
+`MatugenTemplateService` exposes the dynamic model, the source, resolved absolute
+input/output paths, hooks and errors.
+A user ID must not override a built-in ID, and a duplicate ID within the same layer is
+invalid; `quickshell` is a hidden, required internal template.
 
-支持明确的 canonical TOML 子集：
+An explicit canonical subset of TOML is supported:
 
 ```toml
 [templates.ghostty]
@@ -73,72 +113,109 @@ output_path = "~/.config/ghostty/themes/Matugen"
 post_hook = "optional command"
 ```
 
-字段使用单行双引号字符串，支持 `\"`、`\\`、`\b`、`\f`、`\n`、`\r`、`\t` 和
-`\uXXXX` 转义，以及空行和 `#` 注释。`post_hook` 可省略。不支持 inline table、
-多行/单引号字符串、其他字段或完整 TOML 等价写法；不支持的内容会报告错误。
-ID 区分大小写，由字母、数字、下划线、连字符组成，可用单个点连接这些片段。
-含点 ID 必须写为 `[templates."editor.custom"]`，避免被 TOML 当作嵌套 table；管理器
-统一输出带引号的 ID，不擅自改名。
+Fields use single-line double-quoted strings, supporting `\"`, `\\`, `\b`, `\f`, `\n`,
+`\r`, `\t` and `\uXXXX` escapes, plus blank lines and `#` comments. `post_hook` may be
+omitted. Inline tables, multi-line or single-quoted strings, other fields and other
+TOML-equivalent spellings are not supported; unsupported content is reported as an error.
+IDs are case-sensitive and consist of letters, digits, underscores and hyphens, and such
+segments may be joined by a single dot.
+An ID containing a dot must be written as `[templates."editor.custom"]` so TOML does not
+treat it as a nested table; the manager always emits quoted IDs and never renames them on
+its own.
 
-输入相对路径以所属 registry 目录为基准；输出必须是绝对文件路径、`~/...` 或
-`$HOME/...`。路径不执行变量/命令替换，不使用 `eval`，剩余 `$`、反引号和控制字符
-会被拒绝。内置输出支持 `@APOLLO_GENERATED_HOME@` 占位符。
+A relative input path is resolved against its own registry's directory; an output must be
+an absolute file path, `~/...` or `$HOME/...`. Paths undergo no variable or command
+substitution and no `eval`; remaining `$`, backticks and control characters are rejected.
+Built-in outputs support the `@APOLLO_GENERATED_HOME@` placeholder.
 
-`config.json` 的 `theme.matugenTemplates` 是 ID → bool map，保留未知但合法 ID 的
-已有状态。首次发现内置模板记录 `true`，用户模板记录 `false`；显式状态始终优先。
-无效模板不能启用，也不会被设置中心送入生成。配置文件监听加 5 秒轮询刷新负责发现
-首次创建的 registry、手工编辑以及输入文件的删除/恢复。
+`theme.matugenTemplates` in `config.json` is an ID → bool map that preserves existing state
+for unknown but valid IDs. A newly discovered built-in template is recorded as `true` and a
+user template as `false`; an explicit state always wins.
+An invalid template cannot be enabled and is never passed to generation by the Settings
+Center. Configuration file watching plus a 5-second polling refresh is what discovers a
+registry created for the first time, manual edits, and deletion or restoration of input
+files.
 
-添加窗口复用 FilePicker，接收任意普通 UTF-8 模板文件。点击添加后由管理器静态校验并调用 Matugen
-`--dry-run`（使用固定验证色，移除 hook），成功才写入注册。独立 `validate` CLI 保留，
-UI 不要求用户先点击验证。添加期间使用固定占位的 BrailleSpinner，失败保持窗口并显示错误。Matugen 的
-`--dry-run` 不渲染模板表达式，因此语法/渲染问题仍可能在实际生成时报告。
-管理器复制源文件至用户 `templates/<ID>.<原扩展名>`，临时写入同目录 config 后
-rename 替换；Apollo 写入者通过 flock 串行化，提交前检查配置是否被外部编辑。
-失败不会发布半套 registry；不支持的配置语法需要用户先修复，symlink config 请手工管理。
-外部编辑器仍应使用原子写入；提交前比较不能消除不遵守锁的编辑器的全部竞争窗口。
+The add window reuses FilePicker and accepts any ordinary UTF-8 template file. After the
+user clicks add, the manager validates statically and invokes Matugen `--dry-run` (with a
+fixed validation color and hooks removed), writing the registration only on success. The
+standalone `validate` CLI remains, and the UI does not require the user to click validate
+first. A BrailleSpinner with a fixed placeholder is shown while adding; on failure the
+window stays open and displays the error. Matugen's `--dry-run` does not render template
+expressions, so syntax and rendering problems may still be reported during real generation.
+The manager copies the source file to the user's `templates/<ID>.<original extension>`,
+writes the config to a temporary file in the same directory and replaces it by rename.
+Apollo writers are serialized through flock and check whether the configuration was edited
+externally before committing.
+A failure never publishes a half-written registry; unsupported configuration syntax must be
+fixed by the user first, and a symlinked config should be managed manually.
+External editors should still use atomic writes; comparing before committing cannot
+eliminate every race window for editors that do not honor the lock.
 
-删除操作只移除用户 section，随后清理 `config.json` 状态；仅清理没有被其他注册
-引用、且位于托管目录直属位置的普通源文件。手工注册的外部源文件、symlink 源和共享
-源保留。**任何 output_path 都不会因关闭开关或删除注册而被删除。**
+Deletion removes only the user section and then cleans up the `config.json` state. Only
+ordinary source files that no other registration references and that sit directly in the
+managed directory are cleaned up. Manually registered external source files, symlinked
+sources and shared sources are kept.
+**No output_path is ever deleted as a result of turning off a switch or removing a
+registration.**
 
-“打开模板位置”通过 argv 调用 `xdg-open` 打开源文件父目录，不打开生成目标。
-默认目录处理器声明 `Terminal=true` 时，使用 `xdg-terminal-exec` 提供终端，避免
-`xdg-open` 通用后端直接启动终端文件管理器却没有 TTY。不修改 MIME 默认配置。
+"Open template location" calls `xdg-open` via argv on the source file's parent directory,
+not on the generated target.
+When the default directory handler declares `Terminal=true`, `xdg-terminal-exec` supplies
+the terminal, avoiding the case where `xdg-open`'s generic backend launches a terminal file
+manager with no TTY. MIME default configuration is not modified.
 
-模板中的 `post_hook` 是以用户权限执行的任意命令，不是沙箱。新发现用户模板默认
-关闭；设置中心显示无点击/键盘动作的 terminal 信息标记，通过 tooltip 展示命令。
-开关直接控制整个模板，不存在独立 hook 权限或启用确认。
-验证和添加不执行 hook。用户启用模板即信任其内容，之后应谨慎修改模板和 hook。
+A template's `post_hook` is an arbitrary command executed with the user's privileges — it
+is not a sandbox. Newly discovered user templates default to off. The Settings Center shows
+a terminal information marker with no click or keyboard action, exposing the command
+through a tooltip.
+The switch controls the whole template directly; there is no separate hook permission or
+enablement confirmation.
+Validation and adding do not execute hooks. Enabling a template means the user trusts its
+contents, and subsequent edits to the template and its hook warrant care.
 
-每次生成在 `$APOLLO_RUNTIME_HOME/temporary/matugen.XXXXXX/config.toml` 中写入 runtime
-配置，不改两层 registry。先单独生成内部配色，输出 JSONL `core-ready` 后立即通知
-`Appearance.reloadColors()`；再逐个生成有效且启用的外部模板，按 output_path 创建父目录。
-新增模板无需修改 service、UI 或生成脚本中的应用列表。无 `--templates` 参数的脚本
-调用只默认启用内置模板；`--templates ''` 仅生成内部配色。
+Each generation writes a runtime configuration to
+`$APOLLO_RUNTIME_HOME/temporary/matugen.XXXXXX/config.toml` without touching either
+registry layer. The internal color scheme is generated first and, after the `core-ready`
+JSONL line is emitted, `Appearance.reloadColors()` is notified immediately; valid, enabled
+external templates are then generated one by one, creating parent directories for each
+output_path.
+Adding a template requires no changes to the service, the UI or the application list in the
+generation script. A script invocation without `--templates` enables only the built-in
+templates by default; `--templates ''` generates just the internal color scheme.
 
-生成脚本 stdout 是 schemaVersion 1 的状态 JSONL（`core-ready`、`core-error`、
-`external-error`、`finished`）；Matugen 诊断通过 stderr/error 字段报告。退出 0 表示
-成功，3 表示核心成功但外部失败，其他非零表示核心或调用失败。外部失败仍继续后续
-模板，设置中心显示错误并通过 tooltip 提供详细信息。挂起的 hook 会延迟后续外部
-模板，但不会延迟已经完成的核心配色重载；这里不提供命令沙箱或 hook 超时策略。
+The generation script's stdout is schemaVersion 1 status JSONL (`core-ready`, `core-error`,
+`external-error`, `finished`); Matugen diagnostics are reported through stderr and the error
+field. Exit 0 means success, 3 means the core succeeded but an external template failed, and
+any other non-zero means a core or invocation failure. An external failure still continues
+with the remaining templates, and the Settings Center shows the error with details in a
+tooltip. A hanging hook delays subsequent external templates but does not delay the already
+completed core color reload; no command sandbox or hook timeout policy is provided here.
 
-## Spotlight 应用排序与使用记录
+## Spotlight application ordering and usage records
 
-设置中心 Spotlight → Applications → Application order 提供 Smart、Most used、
-Recently used、Name；`ui-preferences.json` 的 `spotlightAppOrder` 分别保存
-`smart`、`most-used`、`recently-used`、`name`，缺失或非法值默认 Name。
-列表和网格共用排序；搜索时关键词相关度始终优先，使用排序只比较相同相关度，
-最后按名称、desktop ID 确定稳定顺序。
+Settings Center → Spotlight → Applications → Application order offers Smart, Most used,
+Recently used and Name. `spotlightAppOrder` in `ui-preferences.json` stores `smart`,
+`most-used`, `recently-used` and `name` respectively, defaulting to Name when missing or
+invalid.
+The list and grid share the ordering. During a search, keyword relevance always comes
+first, usage ordering compares only within equal relevance, and name then desktop ID give a
+stable final order.
 
-使用记录单独保存在 `Paths.stateHome/spotlight-app-usage.json`（默认
-`$XDG_STATE_HOME/apollo`，未设置时为 `~/.local/state/apollo`），按 desktop ID
-记录 `launchCount` 和 Unix 毫秒 `lastLaunchedAt`。只记录 Spotlight 经现有启动
-链路发出的有效请求，不统计终端或其他入口，也不声称确认应用窗口已成功出现。
-历史文件缺失时从空记录开始，首次启动应用后原子保存；读取期间的启动先累积再
-合并。无法读取、格式损坏或未知 schema 的文件保留原样，本次会话继续内存计数。
+Usage records are stored separately in `Paths.stateHome/spotlight-app-usage.json` (by
+default `$XDG_STATE_HOME/apollo`, or `~/.local/state/apollo` when unset), recording
+`launchCount` and a Unix-millisecond `lastLaunchedAt` per desktop ID.
+Only valid requests issued by Spotlight through the existing launch path are recorded;
+terminal and other entry points are not counted, and no claim is made that an application
+window actually appeared.
+When the history file is missing, counting starts from empty and is saved atomically after
+the first launch; launches during a read are accumulated and then merged. A file that
+cannot be read, is corrupt, or has an unknown schema is left untouched, and the session
+continues with in-memory counts.
 
-Most used 比较累计次数；Recently used 比较最后启动时间；Smart 使用
-`log2(launchCount + 1)` 加最近使用分数：距上次启动不足 1 小时、1 天、7 天、
-30 天分别加 8、6、4、2 分，更早或未知时间不加分。每次打开 Apps 或重新搜索时
-按当前时间计算，不增加定时轮询；启动后不重排正在关闭的网格。
+Most used compares cumulative counts; Recently used compares last launch time; Smart uses
+`log2(launchCount + 1)` plus a recency score, adding 8, 6, 4 and 2 points for a last launch
+under 1 hour, 1 day, 7 days and 30 days ago respectively, with no points for older or
+unknown times. It is computed against the current time each time Apps is opened or a search
+is rerun, without adding periodic polling, and a closing grid is not reordered after a
+launch.

@@ -1,6 +1,6 @@
 # IPC
 
-Shell 生命周期可使用 `key-cli`；新增快捷键直接调用 Quickshell IPC：
+`key-cli` can be used for the shell lifecycle; new shortcuts call Quickshell IPC directly:
 
 ```bash
 key shell
@@ -8,7 +8,7 @@ qs -c apollo ipc show
 qs -c apollo ipc call TARGET METHOD [ARGUMENTS...]
 ```
 
-对应的 Quickshell 调用为：
+The corresponding Quickshell invocations are:
 
 ```text
 key shell                 → qs -c apollo -n
@@ -19,65 +19,87 @@ key ipc show              → qs -c apollo ipc show
 key ipc call A B ...      → qs -c apollo ipc call A B ...
 ```
 
-Niri 快捷键和脚本不写裸 `quickshell ipc`，也不写用户源码路径。Shell 内部直接使用
-Quickshell API 的地方不需要机械地经过 CLI。
+Niri shortcuts and scripts must not write a bare `quickshell ipc`, nor a user source path.
+Places inside the shell that use the Quickshell API directly need not mechanically go
+through the CLI.
 
-托管快捷键写为独立 argv，不经过 shell 字符串或每次按键的配置 helper：
+Managed shortcuts are written as separate argv entries, without a shell string or a
+per-keypress configuration helper:
 
 ```kdl
 spawn "qs" "-c" "apollo" "ipc" "call" "keystone" "hub"
 ```
 
-`key ipc call` 的标准既有绑定可以识别为同一 Apollo 动作，但保留原文本。
-录屏、录音、剪贴板继续使用各自的 `key` 接口。
-动作目录根据实际 IpcHandler 注册维护；需参数的方法保留显式参数模板。
-首次在快捷键页面点击“设置”创建缺失的 binds.kdl 时，写入以下默认键位。
-全部使用 `spawn "qs" "-c" "apollo" "ipc" "call" ...`，并设置 `repeat=false`。
-`Mod` 跟随 Niri 的主修饰键（通常为 Super）。
+A standard existing binding using `key ipc call` is recognized as the same Apollo action,
+but its original text is preserved.
+Screen recording, audio recording and the clipboard continue to use their own `key`
+interfaces.
+The action catalog is maintained against the actual IpcHandler registrations; methods that
+take parameters keep an explicit parameter template.
+The first time "Set up" is clicked on the shortcuts page and a missing binds.kdl is created,
+the default bindings below are written.
+All of them use `spawn "qs" "-c" "apollo" "ipc" "call" ...` with `repeat=false`.
+`Mod` follows Niri's primary modifier, usually Super.
 
-| 快捷键 | 功能 | IPC target / method / arguments |
+| Shortcut | Function | IPC target / method / arguments |
 | --- | --- | --- |
-| Mod+Space | Spotlight 搜索 | spotlight toggle |
-| Mod+Slash | 快捷键配置图 | shortcut-map toggle |
-| Mod+Shift+Space | 网页搜索 | spotlight web |
-| Mod+Alt+V | 剪贴板历史 | spotlight openMode clipboard |
-| Mod+Alt+W | 壁纸选择 | spotlight openMode wallpapers |
-| Mod+N | 通知与信息侧栏 | sidebar toggle dashboard |
-| Mod+A | 快捷设置侧栏 | sidebar toggle quicksettings |
-| Mod+Ctrl+Comma | 设置中心 | control-center toggle general |
-| Mod+Shift+W | Keystone 主面板 | keystone hub |
-| Mod+Shift+T | 工具面板 | keystone tools |
-| Alt+Shift+L | 锁屏 | lock open |
+| Mod+Space | Spotlight search | spotlight toggle |
+| Mod+Slash | Shortcut map | shortcut-map toggle |
+| Mod+Shift+Space | Web search | spotlight web |
+| Mod+Alt+V | Clipboard history | spotlight openMode clipboard |
+| Mod+Alt+W | Wallpaper picker | spotlight openMode wallpapers |
+| Mod+N | Notifications and dashboard sidebar | sidebar toggle dashboard |
+| Mod+A | Quick settings sidebar | sidebar toggle quicksettings |
+| Mod+Ctrl+Comma | Settings Center | control-center toggle general |
+| Mod+Shift+W | Keystone hub | keystone hub |
+| Mod+Shift+T | Tools panel | keystone tools |
+| Alt+Shift+L | Lock screen | lock open |
 
-这些键避开 Niri 常用窗口、工作区、截图和媒体控制。首次接入前按有效 include 链
-检查物理键位占用（含 Mod/Super 别名），发现冲突则拒绝写入并列出键名；用户可释放
-这些键，或自行创建自定义 binds.kdl 后接入。任意第三方配置都可能占用默认键，不能
-保证对所有配置天然无冲突。已有文件即使为空也不补写，升级不恢复用户删改的绑定。
-安装只部署程序；不会自动改写用户 Niri 配置。
+These keys avoid Niri's common window, workspace, screenshot and media controls. Before
+first set-up, physical key occupancy is checked across the effective include chain
+(including Mod/Super aliases); a conflict refuses the write and lists the key names. The
+user can free those keys, or create a custom binds.kdl and then set up. Any third-party
+configuration may occupy the default keys, so freedom from conflicts cannot be guaranteed
+for every configuration. An existing file is not populated even when empty, and upgrades do
+not restore bindings the user has deleted or changed.
+Installation deploys only the program; it never rewrites the user's Niri configuration
+automatically.
 
-目录维护依据：[niri 键绑定](https://niri-wm.github.io/niri/Configuration:-Key-Bindings.html)、
-[默认配置](https://github.com/niri-wm/niri/blob/main/resources/default-config.kdl)、
-[可绑定动作定义](https://github.com/niri-wm/niri/blob/main/niri-config/src/binds.rs) 与
-[Quickshell IpcHandler](https://quickshell.org/docs/v0.3.0/types/Quickshell.Io/IpcHandler/)。
-托管片段按 [niri include 顺序](https://niri-wm.github.io/niri/Configuration:-Include.html)
-处理覆盖。目录随程序部署，运行时只在本机验证动作支持，不联网下载。
+The catalog is maintained against [niri key bindings](https://niri-wm.github.io/niri/Configuration:-Key-Bindings.html),
+the [default configuration](https://github.com/niri-wm/niri/blob/main/resources/default-config.kdl),
+the [bindable action definitions](https://github.com/niri-wm/niri/blob/main/niri-config/src/binds.rs) and
+the [Quickshell IpcHandler](https://quickshell.org/docs/v0.3.0/types/Quickshell.Io/IpcHandler/).
+Managed fragments handle overrides according to [niri include order](https://niri-wm.github.io/niri/Configuration:-Include.html).
+The catalog is deployed with the program; at runtime it only verifies action support
+locally and never downloads anything.
 
-快捷键配置图独立于设置中心加载，使用 `qs -c apollo ipc call shortcut-map toggle`
-打开或关闭；也提供无参数的 `open` 和 `close`。账户页按钮与 IPC 共用同一个弹层。
+The shortcut map loads independently of the Settings Center and is opened or closed with
+`qs -c apollo ipc call shortcut-map toggle`; parameterless `open` and `close` are also
+provided. The account page button and IPC share the same popup layer.
 
-侧栏 IPC 的参数按内容区分：`dashboard` 表示信息、抽屉和天气侧栏，`quicksettings`
-表示快捷设置侧栏。通用设置 → 侧边栏中可独立选择各自的屏幕位置，默认仍为信息侧栏在左、快捷设置在右。
-不同侧可同时打开；同侧时，点击另一组按钮会自动收起当前侧栏，待其退出后展开新的侧栏，
-无需手动关闭。连续切换以最后一次请求为准，再次点击待展开侧栏可取消展开，Esc 可关闭全部。
-将已打开的两组调整到同侧时，保留最近打开的一组。
-`open`、`close`、`toggle` 均接受上述参数，返回 `DASHBOARD_OPEN/CLOSED` 或
-`QUICKSETTINGS_OPEN/CLOSED`。旧参数 `left`、`right` 继续分别指向信息和快捷设置内容，
-返回值保持 `LEFT_OPEN/CLOSED`、`RIGHT_OPEN/CLOSED`；它们不随实际位置重新解释。
-已有用户绑定无需改写，快捷键页面会将旧参数识别为对应的内容动作。
+The sidebar IPC parameters distinguish content: `dashboard` means the information, drawer
+and weather sidebar, and `quicksettings` means the quick settings sidebar. General settings
+→ Sidebar lets each one's screen position be chosen independently, still defaulting to the
+information sidebar on the left and quick settings on the right.
+Different sides can be open simultaneously. On the same side, clicking the other group's
+button automatically retracts the current sidebar and expands the new one once it has
+exited, with no need to close it manually. Rapid switching follows the last request;
+clicking again on a sidebar that is waiting to expand cancels the expansion, and Esc closes
+everything.
+Moving two already-open groups to the same side keeps the most recently opened one.
+`open`, `close` and `toggle` all accept the parameters above and return
+`DASHBOARD_OPEN/CLOSED` or `QUICKSETTINGS_OPEN/CLOSED`. The legacy parameters `left` and
+`right` continue to refer to the information and quick settings content respectively, and
+keep returning `LEFT_OPEN/CLOSED` and `RIGHT_OPEN/CLOSED`; they are not reinterpreted
+according to actual position.
+Existing user bindings need no rewriting, and the shortcuts page recognizes the legacy
+parameters as the corresponding content actions.
 
-灵动岛歌词界面通过 `qs -c apollo ipc call keystone lyrics` 切换展开与收起，返回
-`LYRICS_OPENED` / `LYRICS_CLOSED`。两种样式均作用于当前输出（无匹配时使用首个屏幕），
-展开时收起其他灵动岛面板。快捷键设置提供歌词动作占位，不绑定默认快捷键。
+The dynamic island lyrics view is expanded and collapsed with
+`qs -c apollo ipc call keystone lyrics`, returning `LYRICS_OPENED` / `LYRICS_CLOSED`. Both
+styles act on the current output (falling back to the first screen when none matches), and
+expanding collapses the other dynamic island panels. The shortcut settings provide a
+placeholder for the lyrics action but bind no default shortcut.
 
 ### Spotlight Files
 

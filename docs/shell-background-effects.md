@@ -1,27 +1,29 @@
-# Shell 背景透明与模糊
+# Shell background transparency and blur
 
-控制中心的“通用 → 透明与模糊”只调整 Apollo 窗口的外层背景。
-文字、图标、图片、按钮和内部卡片不会继承额外透明度。背景模糊由
-niri 的 `ext-background-effect` 实现，需要 niri 26.04 或更新版本。
+"General → Transparency and blur" in the Control Center adjusts only the outer background
+of Apollo's windows.
+Text, icons, images, buttons and inner cards do not inherit extra transparency. Background
+blur is implemented by niri's `ext-background-effect` and requires niri 26.04 or newer.
 
-Apollo 管理 `~/.config/niri/apollo/effects.kdl`。niri 默认对客户端
-请求的效果使用 X-Ray，因此“仅模糊壁纸”开启时片段不生成任何
-`background-effect` override。关闭该选项时，片段只为
-`^apollo-shell-` layer namespace 以及 Apollo 设置/文件选择窗口配置
-`xray false`。片段不会写入 `blur true`，也不会匹配壁纸、overview、
-锁屏、截图选区或输入捕获 surface。
+Apollo manages `~/.config/niri/apollo/effects.kdl`. niri applies X-Ray to
+client-requested effects by default, so when "blur wallpaper only" is enabled the fragment
+generates no `background-effect` override at all. When that option is disabled, the fragment
+sets `xray false` only for the `^apollo-shell-` layer namespace and for Apollo's settings
+and file picker windows. The fragment never writes `blur true`, and never matches the
+wallpaper, overview, lock screen, screenshot selection or input capture surfaces.
 
-主配置必须包含：
+The main configuration must contain:
 
 ```kdl
 include optional=true "apollo/effects.kdl"
 ```
 
-若缺少该 include，设置页面会显示“Niri 集成”。只有点击“配置”后，
-Apollo 才会先创建 `config.kdl.apollo-backup`，验证候选配置，再以原子
-替换方式更新主配置。include 已存在时不会重复追加。
+Without that include, the settings page shows "Niri integration". Only after "Configure" is
+clicked does Apollo create `config.kdl.apollo-backup`, validate the candidate
+configuration, and then update the main configuration by atomic replacement. An include
+that already exists is not appended again.
 
-niri 的全局 `blur` 块仍由用户管理。若其中配置了：
+niri's global `blur` block remains under user management. If it contains:
 
 ```kdl
 blur {
@@ -29,4 +31,5 @@ blur {
 }
 ```
 
-Apollo 提交的 Region 不会产生可见模糊；Apollo 不会修改或删除该设置。
+the Region Apollo submits will produce no visible blur; Apollo does not modify or remove
+that setting.

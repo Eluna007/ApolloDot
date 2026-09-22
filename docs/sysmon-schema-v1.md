@@ -1,15 +1,17 @@
 # keytop JSONL schema v1
 
-系统监测唯一机器接口是：
+The one machine interface for system monitoring is:
 
 ```bash
 keytop value stream --format jsonl --interval 1000 \
   --modules cpu,memory,gpu,disk,network
 ```
 
-每行是一个完整 JSON 对象，包含 `schemaVersion: 1`、`timestampMs`、`sequence`、
-`intervalMs` 以及请求到的 `cpu`、`memory`、`gpus`、`disks`、`network` 字段和
-`errors`。不可用数值使用 `null`。Shell 直接消费并验证这些字段；没有 CLI 中转层。
-Apollo 不从该 stream 请求 `system` 或 `battery`：前者使用一次性
-`keytop value system --format json`，后者使用 Quickshell UPower。keytop 的 v1
-协议仍完整保留 `system` 与 `battery` module，供自身 CLI/TUI 和其他消费者使用。
+Each line is a complete JSON object containing `schemaVersion: 1`, `timestampMs`,
+`sequence`, `intervalMs`, the requested `cpu`, `memory`, `gpus`, `disks` and `network`
+fields, and `errors`. Unavailable values are `null`. The shell consumes and validates these
+fields directly; there is no CLI relay layer.
+Apollo does not request `system` or `battery` from this stream: the former uses a one-shot
+`keytop value system --format json`, and the latter uses Quickshell UPower. keytop's v1
+protocol still retains the `system` and `battery` modules in full, for its own CLI and TUI
+and for other consumers.

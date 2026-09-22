@@ -1,11 +1,16 @@
-# 统一逻辑尺寸
+# Unified logical sizing
 
-`Common/Metrics.qml` 保存跨组件复用的静态逻辑像素 token，包括 spacing、icon、control
-height、touch target、corner、card/page padding、sidebar、bar 和头像尺寸。
+`Common/Metrics.qml` holds the static logical-pixel tokens reused across components,
+covering spacing, icons, control height, touch targets, corners, card and page padding,
+sidebar, bar and avatar sizes.
 
-组件使用 `Metrics.controlHeightM` 等逻辑尺寸。这些 token 不接受用户级全局乘数，也不
-乘以 Niri scale 或 `devicePixelRatio`；Qt/Wayland 已负责逻辑像素到 buffer 像素的
-转换。DPR 只可用于必要的一像素边缘对齐。
+Components use logical sizes such as `Metrics.controlHeightM`. These tokens take no
+user-level global multiplier, and are not multiplied by the Niri scale or by
+`devicePixelRatio` — Qt/Wayland already handles the conversion from logical pixels to
+buffer pixels. DPR may be used only for the one-pixel edge alignment that genuinely needs
+it.
 
-迁移按通用 Widgets、设置中心控件、bar/sidebar/弹窗与高频模块渐进进行。shader 常量、
-单一特殊视觉值、动画曲线和内容计算尺寸保持局部，不为消灭数字制造无语义 token。
+Migration proceeds gradually: common Widgets first, then Settings Center controls, then the
+bar, sidebars and popups, then the high-traffic modules. Shader constants, one-off special
+visual values, animation curves and content-derived sizes stay local; do not invent
+semantically meaningless tokens just to eliminate numbers.

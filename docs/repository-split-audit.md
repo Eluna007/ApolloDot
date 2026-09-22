@@ -1,36 +1,41 @@
-# 项目职责审计
+# Project responsibility audit
 
 ## Apollo Shell
 
-`core/src/` 和 `core/plugin/` 提供：
+`core/src/` and `core/plugin/` provide:
 
-- `Apollo.Niri`：Niri IPC、窗口、工作区、输出和窗口图标；
-- `Apollo.Weather` / `Apollo.WeatherMap`：Open-Meteo、地图凭据和 RainViewer metadata；地图渲染与网络瓦片缓存由 MapLibre Native Qt 负责；
-- `Apollo.Cava`：PipeWire 实时采集、RMS/Peak、频谱和 libcava；
-- `Apollo.Lyrics`：异步 Local/LRCLIB/NetEase provider、缓存、LRC 和 seek 映射；
-- `Apollo.Media`、`Apollo.Keyboard`、`Apollo.I18n`、`Apollo.Runtime`。
+- `Apollo.Niri`: Niri IPC, windows, workspaces, outputs and window icons;
+- `Apollo.Weather` / `Apollo.WeatherMap`: Open-Meteo, map credentials and RainViewer metadata; map rendering and network tile caching are handled by MapLibre Native Qt;
+- `Apollo.Cava`: PipeWire live capture, RMS/Peak, spectrum and libcava;
+- `Apollo.Lyrics`: asynchronous Local/LRCLIB/NetEase providers, caching, LRC and seek mapping;
+- `Apollo.Media`, `Apollo.Keyboard`, `Apollo.I18n`, `Apollo.Runtime`.
 
-`M3Shapes` 由系统包提供（Arch：`qt6-m3shapes-git`），是外部 QML 运行时依赖。
+`M3Shapes` is provided by a system package (Arch: `qt6-m3shapes-git`) and is an external
+QML runtime dependency.
 
 ## key-cli
 
-Python wheel 只提供 `shell`、`ipc`、`record`、`audio`、`clipboard`、`doctor` 和
-`version`。它编排 `qs`、gpu-screen-recorder、slurp、FFmpeg、PulseAudio/PipeWire
-兼容的 `pactl`、cliphist 和 wl-clipboard；不会读取 `/proc` 实现系统监测，也不会拥有
-QML 状态或天气/歌词模型。
+The Python wheel provides only `shell`, `ipc`, `record`, `audio`, `clipboard`, `doctor` and
+`version`. It orchestrates `qs`, gpu-screen-recorder, slurp, FFmpeg, the
+PulseAudio/PipeWire-compatible `pactl`, cliphist and wl-clipboard. It does not read `/proc`
+to implement system monitoring, and it does not own QML state or the weather and lyrics
+models.
 
 ## keytop
 
-`keytop` 独立拥有系统采样、TUI、JSON snapshot 和 JSONL stream。Apollo 直接启动
-`keytop value stream`，不经过 `key-cli`。
+`keytop` alone owns system sampling, the TUI, JSON snapshots and the JSONL stream. Apollo
+starts `keytop value stream` directly, without going through `key-cli`.
 
-Apollo 对系统信息采用四种独立生命周期：静态 identity 在 Quickshell 进程启动时通过
-`keytop value system` 读取一次；uptime 在可见 consumer 存在时从 `/proc/uptime` 校准
-一次并用本地单调时钟更新；电池直接使用 `Quickshell.Services.UPower`；CPU、GPU、
-Memory、Disk、Network 则按可见 owner 的 module union 维持单个 keytop JSONL stream，
-所有 active module 共用用户配置的采样间隔。
+Apollo uses four independent lifecycles for system information: static identity is read
+once through `keytop value system` when the Quickshell process starts; uptime is calibrated
+once from `/proc/uptime` while a visible consumer exists and then updated from the local
+monotonic clock; battery uses `Quickshell.Services.UPower` directly; and CPU, GPU, Memory,
+Disk and Network maintain a single keytop JSONL stream over the module union of the visible
+owners, with all active modules sharing the user-configured sampling interval.
 
-## 明确删除
+## Explicitly removed
 
-Apollo 不再包含旧 C++ CLI、系统监测 plugin、录屏/录音 backend、天气 CLI bridge、
-投屏 cast、应用内版本/安装/回滚管理，也不创建额外的源码运行模式编排脚本。
+Apollo no longer contains the old C++ CLI, the system monitoring plugin, the screen and
+audio recording backends, the weather CLI bridge, screen casting, or in-application
+version/install/rollback management, and it does not create additional orchestration
+scripts for running from source.

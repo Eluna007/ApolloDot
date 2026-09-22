@@ -1,11 +1,14 @@
-# 运行时边界
+# Runtime boundaries
 
-Shell 的原生 module 与 QML 源码由同一次 CMake 构建产生，所有自制 QML import 使用
-无版本 URI。产品版本和 JSON `schemaVersion` 独立于 QML import 版本。
+The shell's native modules and its QML sources are produced by the same CMake build, and
+every first-party QML import uses an unversioned URI. The product version and the JSON
+`schemaVersion` are independent of QML import versions.
 
-系统监测协议由 `keytop value stream --format jsonl` 提供，Shell 校验
-`schemaVersion`、时间戳、序列号和模块字段；失联时显示明确的 stale/error 状态。
-录屏、录音和剪贴板协议由 `key-cli` 提供，Shell 只消费参数数组和机器 JSON。
+The system monitoring protocol is provided by `keytop value stream --format jsonl`. The
+shell validates `schemaVersion`, the timestamp, the sequence number and the module fields,
+and shows an explicit stale or error state when the connection is lost.
+The screen recording, audio recording and clipboard protocols are provided by `key-cli`;
+the shell only consumes argument arrays and machine JSON.
 
-天气、Cava、歌词和 Niri 状态在 Shell 进程内提供响应式模型，避免高频数据经过 CLI
-或 Python 中转。
+Weather, Cava, lyrics and Niri state are exposed as reactive models inside the shell
+process, so high-frequency data does not have to pass through a CLI or a Python relay.
