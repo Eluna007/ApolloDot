@@ -27,7 +27,7 @@ TestCase {
             state[pair[0]] = pair[1];
             compare(Source.encode(state), "");
         }
-        for (const source of ["clavis-palette:v2:{}", "clavis-palette:v1:%zz", "clavis-palette:v1:%7B%7D",
+        for (const source of ["apollo-palette:v2:{}", "apollo-palette:v1:%zz", "apollo-palette:v1:%7B%7D",
                               "#bad", "https://host/image.png"])
             compare(Source.kind(source), "invalid");
     }

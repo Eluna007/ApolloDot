@@ -19,7 +19,7 @@ Variants {
         // Normal wallpaper belongs below Bottom-layer desktop cards and
         // above the compositor backdrop only.
         WlrLayershell.layer: WlrLayer.Background
-        WlrLayershell.namespace: "clavis-wallpaper"
+        WlrLayershell.namespace: "apollo-wallpaper"
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
 
         anchors {

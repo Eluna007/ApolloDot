@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Wayland
 import qs.Common
 import "../../Common/NiriActionNames.js" as ActionNames
-import Clavis.Keyboard
+import Apollo.Keyboard
 import qs.Services
 import qs.Widgets.common
 

@@ -14,7 +14,7 @@
 * with this program. If not, see https://www.gnu.org/licenses/.
 */
 import QtQuick
-import Clavis.Runtime
+import Apollo.Runtime
 import qs.Services
 import "../../Common/functions/ZenPalette.js" as Zen
 
@@ -32,5 +32,5 @@ ShaderEffect {
     property real colorCount: safePalette.count
     property real paletteOpacity: safePalette.opacity
     property real grain: safePalette.grain
-    fragmentShader: "qrc:/clavis/shaders/zen-palette.frag.qsb"
+    fragmentShader: "qrc:/apollo/shaders/zen-palette.frag.qsb"
 }

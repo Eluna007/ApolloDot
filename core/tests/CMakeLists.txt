@@ -5,10 +5,10 @@ qt_add_executable(icon_theme_controller_tests
     icon_theme_controller_test.cpp
 )
 target_include_directories(icon_theme_controller_tests PRIVATE
-    ${CLAVIS_SOURCE_ROOT}/core/plugin/runtime/src
+    ${APOLLO_SOURCE_ROOT}/core/plugin/runtime/src
 )
 target_link_libraries(icon_theme_controller_tests PRIVATE
-    ClavisRuntime Qt6::Gui Qt6::Qml Qt6::Test
+    ApolloRuntime Qt6::Gui Qt6::Qml Qt6::Test
 )
 add_test(NAME icon_theme_controller_tests COMMAND icon_theme_controller_tests)
 set_tests_properties(icon_theme_controller_tests PROPERTIES
@@ -21,28 +21,28 @@ set_tests_properties(icon_theme_controller_tests PROPERTIES
 add_test(
     NAME niri_cursor_config_tests
     COMMAND ${BASH_EXECUTABLE}
-        ${CLAVIS_SOURCE_ROOT}/tests/test_niri_cursor_config.sh
+        ${APOLLO_SOURCE_ROOT}/tests/test_niri_cursor_config.sh
 )
 
 add_test(
     NAME manage_niri_effects_tests
     COMMAND ${BASH_EXECUTABLE}
-        ${CLAVIS_SOURCE_ROOT}/tests/test_manage_niri_effects.sh
+        ${APOLLO_SOURCE_ROOT}/tests/test_manage_niri_effects.sh
 )
 
 add_test(
     NAME matugen_registry_tests
     COMMAND ${BASH_EXECUTABLE}
-        ${CLAVIS_SOURCE_ROOT}/tests/test_matugen_registry.sh
+        ${APOLLO_SOURCE_ROOT}/tests/test_matugen_registry.sh
 )
 set_tests_properties(matugen_registry_tests PROPERTIES SKIP_RETURN_CODE 77)
 
 add_test(
     NAME qml_unit_tests
-    COMMAND Qt6::qmltestrunner -input ${CLAVIS_SOURCE_ROOT}/tests/qml
+    COMMAND Qt6::qmltestrunner -input ${APOLLO_SOURCE_ROOT}/tests/qml
 )
 set_tests_properties(qml_unit_tests PROPERTIES
-    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_QPA_PLATFORMTHEME=;QML_IMPORT_PATH=${CLAVIS_QML_BUILD_DIR}"
+    ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_QPA_PLATFORMTHEME=;QML_IMPORT_PATH=${APOLLO_QML_BUILD_DIR}"
 )
 
 qt_add_executable(niri_workspace_deriver_tests
@@ -50,7 +50,7 @@ qt_add_executable(niri_workspace_deriver_tests
 )
 
 target_link_libraries(niri_workspace_deriver_tests PRIVATE
-    ClavisNiriCore
+    ApolloNiriCore
     Qt6::Core
     Qt6::Test
 )
@@ -62,7 +62,7 @@ qt_add_executable(audio_visual_analyzer_tests
 )
 
 target_link_libraries(audio_visual_analyzer_tests PRIVATE
-    ClavisCavaCore
+    ApolloCavaCore
     Qt6::Core
     Qt6::Test
 )
@@ -74,7 +74,7 @@ qt_add_executable(lyrics_tests
 )
 
 target_link_libraries(lyrics_tests PRIVATE
-    ClavisLyrics
+    ApolloLyrics
     Qt6::Core
     Qt6::Network
     Qt6::Qml
@@ -82,29 +82,29 @@ target_link_libraries(lyrics_tests PRIVATE
 )
 
 target_include_directories(lyrics_tests PRIVATE
-    ${CLAVIS_SOURCE_ROOT}/core/plugin/lyrics/src
+    ${APOLLO_SOURCE_ROOT}/core/plugin/lyrics/src
 )
 
 add_test(NAME lyrics_tests COMMAND lyrics_tests)
 
-qt_add_executable(clavis_paths_tests
-    clavis_paths_test.cpp
+qt_add_executable(apollo_paths_tests
+    apollo_paths_test.cpp
 )
 
-target_link_libraries(clavis_paths_tests PRIVATE
-    ClavisRuntimeCore
+target_link_libraries(apollo_paths_tests PRIVATE
+    ApolloRuntimeCore
     Qt6::Core
     Qt6::Test
 )
 
-add_test(NAME clavis_paths_tests COMMAND clavis_paths_tests)
+add_test(NAME apollo_paths_tests COMMAND apollo_paths_tests)
 
 qt_add_executable(wallpaper_analyzer_tests
     wallpaper_analyzer_test.cpp
 )
 
 target_link_libraries(wallpaper_analyzer_tests PRIVATE
-    ClavisDesktopCardsCore
+    ApolloDesktopCardsCore
     Qt6::Core
     Qt6::Gui
     Qt6::Qml
@@ -112,7 +112,7 @@ target_link_libraries(wallpaper_analyzer_tests PRIVATE
 )
 
 target_include_directories(wallpaper_analyzer_tests PRIVATE
-    ${CLAVIS_SOURCE_ROOT}/core/plugin/desktopcards/src
+    ${APOLLO_SOURCE_ROOT}/core/plugin/desktopcards/src
 )
 
 add_test(NAME wallpaper_analyzer_tests COMMAND wallpaper_analyzer_tests)
@@ -122,14 +122,14 @@ qt_add_executable(weather_climate_normals_tests
 )
 
 target_link_libraries(weather_climate_normals_tests PRIVATE
-    ClavisWeatherCore
+    ApolloWeatherCore
     Qt6::Core
     Qt6::Network
     Qt6::Test
 )
 
 target_include_directories(weather_climate_normals_tests PRIVATE
-    ${CLAVIS_SOURCE_ROOT}/core/src
+    ${APOLLO_SOURCE_ROOT}/core/src
 )
 
 add_test(NAME weather_climate_normals_tests COMMAND weather_climate_normals_tests)
@@ -138,17 +138,17 @@ qt_add_executable(i18n_manager_tests
     i18n_manager_test.cpp
 )
 target_link_libraries(i18n_manager_tests PRIVATE
-    ClavisI18n
+    ApolloI18n
     Qt6::Core
     Qt6::Test
 )
 add_test(NAME i18n_manager_tests COMMAND i18n_manager_tests)
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
-add_test(NAME niri_config_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_ROOT}/tests/test_niri_config.py)
+add_test(NAME niri_config_contracts COMMAND ${Python3_EXECUTABLE} ${APOLLO_SOURCE_ROOT}/tests/test_niri_config.py)
 
 qt_add_executable(device_state_tests device_state_test.cpp)
-target_link_libraries(device_state_tests PRIVATE ClavisRuntimeCore Qt6::Core Qt6::Test)
+target_link_libraries(device_state_tests PRIVATE ApolloRuntimeCore Qt6::Core Qt6::Test)
 add_test(NAME device_state_tests COMMAND device_state_tests)
 
 qt_add_executable(gamma_curve_tests gamma_curve_test.cpp
@@ -156,16 +156,16 @@ qt_add_executable(gamma_curve_tests gamma_curve_test.cpp
 target_include_directories(gamma_curve_tests PRIVATE ../plugin/gamma/src)
 target_link_libraries(gamma_curve_tests PRIVATE Qt6::Core Qt6::Test)
 add_test(NAME gamma_curve_tests COMMAND gamma_curve_tests)
-add_test(NAME display_preview_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_ROOT}/tests/test_display_preview.py)
+add_test(NAME display_preview_contracts COMMAND ${Python3_EXECUTABLE} ${APOLLO_SOURCE_ROOT}/tests/test_display_preview.py)
 qt_add_executable(niri_ipc_async_tests niri_ipc_async_test.cpp)
-target_link_libraries(niri_ipc_async_tests PRIVATE ClavisNiriCore Qt6::Core Qt6::Network Qt6::Test)
+target_link_libraries(niri_ipc_async_tests PRIVATE ApolloNiriCore Qt6::Core Qt6::Network Qt6::Test)
 add_test(NAME niri_ipc_async_tests COMMAND niri_ipc_async_tests)
 
-add_test(NAME release_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_ROOT}/tests/test_release.py)
-add_test(NAME installer_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_ROOT}/tests/test_installer.py)
+add_test(NAME release_contracts COMMAND ${Python3_EXECUTABLE} ${APOLLO_SOURCE_ROOT}/tests/test_release.py)
+add_test(NAME installer_contracts COMMAND ${Python3_EXECUTABLE} ${APOLLO_SOURCE_ROOT}/tests/test_installer.py)
 
 qt_add_executable(weather_location_tests weather_location_test.cpp)
-target_link_libraries(weather_location_tests PRIVATE ClavisWeatherCore Qt6::Core Qt6::Network Qt6::Test)
+target_link_libraries(weather_location_tests PRIVATE ApolloWeatherCore Qt6::Core Qt6::Network Qt6::Test)
 add_test(NAME weather_location_tests COMMAND weather_location_tests)
 
-add_test(NAME search_catalog_contracts COMMAND ${Python3_EXECUTABLE} ${CLAVIS_SOURCE_ROOT}/tests/test_search_catalog.py)
+add_test(NAME search_catalog_contracts COMMAND ${Python3_EXECUTABLE} ${APOLLO_SOURCE_ROOT}/tests/test_search_catalog.py)

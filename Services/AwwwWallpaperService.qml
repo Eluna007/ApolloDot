@@ -8,9 +8,9 @@ import "../Common/functions/AwwwCommand.js" as AwwwCommand
 Singleton {
     id: root
 
-    readonly property string namespaceName: "clavis-desktop"
-    readonly property string awwwCommand: Quickshell.env("CLAVIS_AWWW_COMMAND") || "awww"
-    readonly property string daemonCommand: Quickshell.env("CLAVIS_AWWW_DAEMON_COMMAND") || "awww-daemon"
+    readonly property string namespaceName: "apollo-desktop"
+    readonly property string awwwCommand: Quickshell.env("APOLLO_AWWW_COMMAND") || "awww"
+    readonly property string daemonCommand: Quickshell.env("APOLLO_AWWW_DAEMON_COMMAND") || "awww-daemon"
 
     property bool available: false
     property bool probeComplete: false
@@ -420,7 +420,7 @@ Singleton {
             root.queryAttempts += 1;
             if (root.queryAttempts >= 20) {
                 root.failAwwwActivation(qsTr(
-                                            "The clavis-desktop awww namespace did not become ready before timeout"));
+                                            "The apollo-desktop awww namespace did not become ready before timeout"));
                 return;
             }
             queryRetry.restart();
@@ -471,7 +471,7 @@ Singleton {
         onExited: exitCode => {
             if (exitCode !== 0) {
                 root.daemonStopRequested = false;
-                root.lastError = qsTr("Failed to stop the clavis-desktop awww namespace; exit code %1").arg(
+                root.lastError = qsTr("Failed to stop the apollo-desktop awww namespace; exit code %1").arg(
                             exitCode);
                 root.state = "error";
                 return;

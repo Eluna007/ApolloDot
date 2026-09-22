@@ -39,7 +39,7 @@ void OpenMeteoClient::processNameRequest()
     if (m_nameRequests.isEmpty())
         return;
     const auto request = m_nameRequests.dequeue();
-    QUrl url(qEnvironmentVariable("CLAVIS_GEOCODING_URL", "https://nominatim.openstreetmap.org/reverse"));
+    QUrl url(qEnvironmentVariable("APOLLO_GEOCODING_URL", "https://nominatim.openstreetmap.org/reverse"));
     QUrlQuery query(url);
     query.addQueryItem("lat", QString::number(request.location.latitude, 'f', 6));
     query.addQueryItem("lon", QString::number(request.location.longitude, 'f', 6));
@@ -50,7 +50,7 @@ void OpenMeteoClient::processNameRequest()
     const QString key =
         "geocoding/" +
         QString::fromLatin1(QCryptographicHash::hash(url.toEncoded(), QCryptographicHash::Sha256).toHex());
-    QSettings settings("Clavis", "Weather");
+    QSettings settings("Apollo", "Weather");
     const QString cachedName = settings.value(key + "/name").toString();
     const qint64 retryAfter = settings.value(key + "/retryAfter").toLongLong();
     if (!cachedName.isEmpty() || retryAfter > QDateTime::currentSecsSinceEpoch()) {
@@ -64,7 +64,7 @@ void OpenMeteoClient::processNameRequest()
     m_nameRequestActive = true;
     getJson(url, [this, request, key](bool ok, const QJsonObject &response, const QString &error) {
         const QString name = ok ? locationNameFromAddress(response) : QString();
-        QSettings settings("Clavis", "Weather");
+        QSettings settings("Apollo", "Weather");
         settings.setValue(key + "/name", name);
         // Failed/empty lookups back off for a day; successful names persist across restarts.
         settings.setValue(key + "/retryAfter", QDateTime::currentSecsSinceEpoch() + 86400);
@@ -170,7 +170,7 @@ void OpenMeteoClient::requestClimateNormals(double latitude, double longitude, J
 void OpenMeteoClient::getJson(const QUrl &url, JsonCallback callback)
 {
     QNetworkRequest request(url);
-    request.setHeader(QNetworkRequest::UserAgentHeader, "ClavisWeather/1.0");
+    request.setHeader(QNetworkRequest::UserAgentHeader, "ApolloWeather/1.0");
     request.setTransferTimeout(15000);
     auto *reply = m_manager.get(request);
     QTimer::singleShot(20000, reply, [reply]() {

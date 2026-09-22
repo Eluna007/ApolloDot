@@ -1,15 +1,15 @@
 # 配置与启动所有权
 
-Clavis 设置数据库位于 `$XDG_CONFIG_HOME/clavis/config.json`，保存 Shell 设置。
+Apollo 设置数据库位于 `$XDG_CONFIG_HOME/apollo/config.json`，保存 Shell 设置。
 Niri 主配置、输出、布局和用户自己的片段仍由用户管理；设置中心只读有效 include
-链，日常仅写以下 Clavis 托管片段，不迁移用户原有绑定。
+链，日常仅写以下 Apollo 托管片段，不迁移用户原有绑定。
 
 | 片段 | 职责 | 显式入口 |
 | --- | --- | --- |
-| `clavis/effects.kdl` | Clavis 表面的 X-Ray 规则；默认可只有注释，不接管全局 blur | General → 透明与模糊 |
-| `clavis/cursor.kdl` | 光标主题、尺寸和隐藏选项 | 主题的光标区域 |
-| `clavis/layer-rules.kdl` | Overview backdrop 规则及全局透明 workspace 背景 | 壁纸的 Overview 区域 |
-| `clavis/binds.kdl` | 用户在快捷键页新增的绑定及完整覆盖 | General → 系统 → 快捷键 |
+| `apollo/effects.kdl` | Apollo 表面的 X-Ray 规则；默认可只有注释，不接管全局 blur | General → 透明与模糊 |
+| `apollo/cursor.kdl` | 光标主题、尺寸和隐藏选项 | 主题的光标区域 |
+| `apollo/layer-rules.kdl` | Overview backdrop 规则及全局透明 workspace 背景 | 壁纸的 Overview 区域 |
+| `apollo/binds.kdl` | 用户在快捷键页新增的绑定及完整覆盖 | General → 系统 → 快捷键 |
 
 没有内置 outputs/colors 片段注册或模板；历史文档的 colors.kdl 所有权说明已撤下。
 正常 Matugen、colors.json、输出查询、多屏定位和按屏幕壁纸保持各自职责。
@@ -40,7 +40,7 @@ Niri 主配置、输出、布局和用户自己的片段仍由用户管理；设
 每颗 chip 的标题和选项独立；未设置标题、空串和 null 分别保留。
 同一托管项就地更新；改键组成一次候选修改。撞上另一托管键时拒绝，不自动让位。
 外部原绑定不能删除或直接改键；使用“+”添加另一个键。托管项可删除，覆盖项可
-移除覆盖，之后重新展示外部回落。后续 include 可以再次覆盖 Clavis 项，UI 展示来源
+移除覆盖，之后重新展示外部回落。后续 include 可以再次覆盖 Apollo 项，UI 展示来源
 及覆盖状态；不调整 include 顺序。Mod 与实际修饰键的不同拼写按 niri 的符号合并与
 物理触发顺序分别判断，物理冲突不伪报成后写覆盖。鼠标、滚轮、switch-events 等范围外内容原样保留。
 
@@ -55,8 +55,8 @@ Fcitx5、nm-applet、blueman-applet 由 XDG Autostart 管理，Polkit 代理仍�
 ## Matugen 模板注册与启用状态
 
 `<shell root>/matugen/config.toml` 和 `templates/` 是只读的内置资源，由包管理器
-安装；`$CLAVIS_CONFIG_HOME/matugen/config.toml`（默认
-`$XDG_CONFIG_HOME/clavis/matugen/config.toml`）只注册用户模板。不会在首次启动时复制
+安装；`$APOLLO_CONFIG_HOME/matugen/config.toml`（默认
+`$XDG_CONFIG_HOME/apollo/matugen/config.toml`）只注册用户模板。不会在首次启动时复制
 内置资源，用户目录可以不存在。模板目录里的孤立文件不构成注册。
 
 `scripts/lib/matugen-registry.sh` 与 `scripts/theme/matugen_registry.jq` 共同读取两层
@@ -82,7 +82,7 @@ ID 区分大小写，由字母、数字、下划线、连字符组成，可用�
 
 输入相对路径以所属 registry 目录为基准；输出必须是绝对文件路径、`~/...` 或
 `$HOME/...`。路径不执行变量/命令替换，不使用 `eval`，剩余 `$`、反引号和控制字符
-会被拒绝。内置输出支持 `@CLAVIS_GENERATED_HOME@` 占位符。
+会被拒绝。内置输出支持 `@APOLLO_GENERATED_HOME@` 占位符。
 
 `config.json` 的 `theme.matugenTemplates` 是 ID → bool map，保留未知但合法 ID 的
 已有状态。首次发现内置模板记录 `true`，用户模板记录 `false`；显式状态始终优先。
@@ -94,7 +94,7 @@ ID 区分大小写，由字母、数字、下划线、连字符组成，可用�
 UI 不要求用户先点击验证。添加期间使用固定占位的 BrailleSpinner，失败保持窗口并显示错误。Matugen 的
 `--dry-run` 不渲染模板表达式，因此语法/渲染问题仍可能在实际生成时报告。
 管理器复制源文件至用户 `templates/<ID>.<原扩展名>`，临时写入同目录 config 后
-rename 替换；Clavis 写入者通过 flock 串行化，提交前检查配置是否被外部编辑。
+rename 替换；Apollo 写入者通过 flock 串行化，提交前检查配置是否被外部编辑。
 失败不会发布半套 registry；不支持的配置语法需要用户先修复，symlink config 请手工管理。
 外部编辑器仍应使用原子写入；提交前比较不能消除不遵守锁的编辑器的全部竞争窗口。
 
@@ -111,7 +111,7 @@ rename 替换；Clavis 写入者通过 flock 串行化，提交前检查配置�
 开关直接控制整个模板，不存在独立 hook 权限或启用确认。
 验证和添加不执行 hook。用户启用模板即信任其内容，之后应谨慎修改模板和 hook。
 
-每次生成在 `$CLAVIS_RUNTIME_HOME/temporary/matugen.XXXXXX/config.toml` 中写入 runtime
+每次生成在 `$APOLLO_RUNTIME_HOME/temporary/matugen.XXXXXX/config.toml` 中写入 runtime
 配置，不改两层 registry。先单独生成内部配色，输出 JSONL `core-ready` 后立即通知
 `Appearance.reloadColors()`；再逐个生成有效且启用的外部模板，按 output_path 创建父目录。
 新增模板无需修改 service、UI 或生成脚本中的应用列表。无 `--templates` 参数的脚本
@@ -132,7 +132,7 @@ Recently used、Name；`ui-preferences.json` 的 `spotlightAppOrder` 分别保�
 最后按名称、desktop ID 确定稳定顺序。
 
 使用记录单独保存在 `Paths.stateHome/spotlight-app-usage.json`（默认
-`$XDG_STATE_HOME/clavis`，未设置时为 `~/.local/state/clavis`），按 desktop ID
+`$XDG_STATE_HOME/apollo`，未设置时为 `~/.local/state/apollo`），按 desktop ID
 记录 `launchCount` 和 Unix 毫秒 `lastLaunchedAt`。只记录 Spotlight 经现有启动
 链路发出的有效请求，不统计终端或其他入口，也不声称确认应用窗口已成功出现。
 历史文件缺失时从空记录开始，首次启动应用后原子保存；读取期间的启动先累积再

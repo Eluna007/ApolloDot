@@ -85,8 +85,8 @@ function pinnedKey(entry) {
 
 function applicationForWindow(window, applications) {
     // The shell's internal Settings window does not have a desktop file.
-    if (window.title === "clavis-control-center") {
-        return applications.find(application => application.id === "org.clavis.Settings") || null;
+    if (window.title === "apollo-control-center") {
+        return applications.find(application => application.id === "org.apollo.Settings") || null;
     }
     const identity = desktopId(window.appId);
     if (!identity || identity === "unknown") return null;

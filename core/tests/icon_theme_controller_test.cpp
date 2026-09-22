@@ -36,40 +36,40 @@ void IconThemeControllerTest::switchesRenderedIconsAndRestoresStartupDefault()
         index.close();
         QImage image(32, 32, QImage::Format_ARGB32);
         image.fill(color);
-        return image.save(base + "/32x32/apps/clavis-test-app.png");
+        return image.save(base + "/32x32/apps/apollo-test-app.png");
     };
-    QVERIFY(writeTheme("ClavisTestDefault", "hicolor", Qt::red));
-    QVERIFY(writeTheme("ClavisTestSelected", "ClavisTestDefault", Qt::blue));
+    QVERIFY(writeTheme("ApolloTestDefault", "hicolor", Qt::red));
+    QVERIFY(writeTheme("ApolloTestSelected", "ApolloTestDefault", Qt::blue));
     QImage inherited(32, 32, QImage::Format_ARGB32);
     inherited.fill(Qt::green);
-    QVERIFY(inherited.save(directory.path() + "/ClavisTestDefault/32x32/apps/clavis-test-inherited.png"));
+    QVERIFY(inherited.save(directory.path() + "/ApolloTestDefault/32x32/apps/apollo-test-inherited.png"));
 
     QIcon::setThemeSearchPaths({directory.path()});
-    QIcon::setThemeName("ClavisTestDefault");
+    QIcon::setThemeName("ApolloTestDefault");
     IconThemeController controller;
     QSignalSpy changed(&controller, &IconThemeController::changed);
     const auto pixel = [](const QString &name) {
         return QIcon::fromTheme(name).pixmap(32, 32).toImage().pixelColor(16, 16);
     };
-    QCOMPARE(controller.systemThemeName(), QString("ClavisTestDefault"));
-    QCOMPARE(pixel("clavis-test-app"), QColor(Qt::red));
-    controller.setThemeName("ClavisTestSelected");
-    QCOMPARE(controller.themeName(), QString("ClavisTestSelected"));
+    QCOMPARE(controller.systemThemeName(), QString("ApolloTestDefault"));
+    QCOMPARE(pixel("apollo-test-app"), QColor(Qt::red));
+    controller.setThemeName("ApolloTestSelected");
+    QCOMPARE(controller.themeName(), QString("ApolloTestSelected"));
     QCOMPARE(controller.revision(), 1);
     QCOMPARE(changed.count(), 1);
-    QCOMPARE(pixel("clavis-test-app"), QColor(Qt::blue));
-    QCOMPARE(pixel("clavis-test-inherited"), QColor(Qt::green));
-    controller.setThemeName("ClavisTestSelected");
+    QCOMPARE(pixel("apollo-test-app"), QColor(Qt::blue));
+    QCOMPARE(pixel("apollo-test-inherited"), QColor(Qt::green));
+    controller.setThemeName("ApolloTestSelected");
     QCOMPARE(changed.count(), 1);
 
     // A replacement QML singleton must not capture the user's override as default.
     IconThemeController reloaded;
-    QCOMPARE(reloaded.systemThemeName(), QString("ClavisTestDefault"));
+    QCOMPARE(reloaded.systemThemeName(), QString("ApolloTestDefault"));
     controller.setThemeName("");
-    QCOMPARE(controller.themeName(), QString("ClavisTestDefault"));
+    QCOMPARE(controller.themeName(), QString("ApolloTestDefault"));
     QCOMPARE(controller.revision(), 2);
     QCOMPARE(changed.count(), 2);
-    QCOMPARE(pixel("clavis-test-app"), QColor(Qt::red));
+    QCOMPARE(pixel("apollo-test-app"), QColor(Qt::red));
 }
 
 QTEST_MAIN(IconThemeControllerTest)

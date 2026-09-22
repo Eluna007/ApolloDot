@@ -8,10 +8,10 @@ script_dir=$(
 repo_root=$(
     CDPATH='' cd -- "${script_dir}/../.." && pwd
 )
-build_root=${CLAVIS_BUILD_DIR:-${repo_root}/build}
-qml_build_dir=${CLAVIS_QML_BUILD_DIR:-${build_root}/qml}
+build_root=${APOLLO_BUILD_DIR:-${repo_root}/build}
+qml_build_dir=${APOLLO_QML_BUILD_DIR:-${build_root}/qml}
 qmlls_config=${repo_root}/.qmlls.ini
-tooling_timeout=${CLAVIS_QML_TOOLING_TIMEOUT:-5}
+tooling_timeout=${APOLLO_QML_TOOLING_TIMEOUT:-5}
 
 scope=changed
 case "${1:-}" in
@@ -24,27 +24,27 @@ esac
 cd "${repo_root}"
 # shellcheck source=scripts/dev/files.sh
 source "${script_dir}/files.sh"
-mapfile -d '' -t qml_files < <(clavis_qml_files "${scope}")
+mapfile -d '' -t qml_files < <(apollo_qml_files "${scope}")
 if [[ ${#qml_files[@]} -eq 0 ]]; then
     printf 'lint-qml: no QML files in scope\n'
     exit 0
 fi
-qmllint_bin=$(clavis_qt_tool qmllint "${QMLLINT:-}")
+qmllint_bin=$(apollo_qt_tool qmllint "${QMLLINT:-}")
 command -v qs >/dev/null 2>&1 || {
     printf 'error: Quickshell qs is required for QML tooling\n' >&2
     exit 127
 }
 
 native_build_ready() {
-    [[ -f "${qml_build_dir}/Clavis/Weather/qmldir" ]] \
-        && [[ -f "${qml_build_dir}/Clavis/Lyrics/qmldir" ]]
+    [[ -f "${qml_build_dir}/Apollo/Weather/qmldir" ]] \
+        && [[ -f "${qml_build_dir}/Apollo/Lyrics/qmldir" ]]
 }
 
 if ! native_build_ready; then
     printf 'lint-qml: native QML modules are missing; configuring and building %s\n' \
         "${build_root}"
     cmake -S "${repo_root}" -B "${build_root}" -G Ninja \
-        -DCMAKE_BUILD_TYPE="${CLAVIS_BUILD_TYPE:-Debug}"
+        -DCMAKE_BUILD_TYPE="${APOLLO_BUILD_TYPE:-Debug}"
     cmake --build "${build_root}"
 fi
 
@@ -82,7 +82,7 @@ tooling_config_valid() {
 refresh_tooling() {
     local log_file
     local qs_status
-    log_file=$(mktemp "${TMPDIR:-/tmp}/clavis-qmlls.XXXXXX.log")
+    log_file=$(mktemp "${TMPDIR:-/tmp}/apollo-qmlls.XXXXXX.log")
 
     if [[ -L "${qmlls_config}" && ! -e "${qmlls_config}" ]]; then
         rm -f -- "${qmlls_config}"
@@ -91,7 +91,7 @@ refresh_tooling() {
     touch "${qmlls_config}"
 
     set +e
-    QT_QPA_PLATFORM="${CLAVIS_QML_TOOLING_PLATFORM:-offscreen}" \
+    QT_QPA_PLATFORM="${APOLLO_QML_TOOLING_PLATFORM:-offscreen}" \
     QML2_IMPORT_PATH="${qml_build_dir}${QML2_IMPORT_PATH:+:${QML2_IMPORT_PATH}}" \
     QML_IMPORT_PATH="${qml_build_dir}${QML_IMPORT_PATH:+:${QML_IMPORT_PATH}}" \
         timeout --kill-after=2s --signal=TERM "${tooling_timeout}s" qs -p "${repo_root}" -n \

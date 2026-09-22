@@ -184,7 +184,7 @@ void configureTemporaryPaths(const QString &root, ScopedEnvironment &cacheHome, 
     Q_UNUSED(localDirectory)
     qputenv("XDG_CACHE_HOME", QFile::encodeName(root + QStringLiteral("/cache")));
     qputenv("XDG_DATA_HOME", QFile::encodeName(root + QStringLiteral("/data")));
-    qputenv("CLAVIS_LYRICS_DIR", QFile::encodeName(root + QStringLiteral("/local")));
+    qputenv("APOLLO_LYRICS_DIR", QFile::encodeName(root + QStringLiteral("/local")));
     QVERIFY(QDir().mkpath(root + QStringLiteral("/local")));
 }
 
@@ -277,7 +277,7 @@ void LyricsTest::localLyricsUseReadableFilename()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     const QString path =
@@ -304,7 +304,7 @@ void LyricsTest::cacheUsesProviderIdentityAndDuration()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager firstManager;
@@ -366,7 +366,7 @@ void LyricsTest::trackDurationIsSafe()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager manager;
@@ -406,7 +406,7 @@ void LyricsTest::netEaseRequestUsesCompatibleContract()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager manager;
@@ -461,7 +461,7 @@ void LyricsTest::missingMetadataDoesNotRejectCandidates()
             return false;
         ScopedEnvironment cacheHome("XDG_CACHE_HOME");
         ScopedEnvironment dataHome("XDG_DATA_HOME");
-        ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+        ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
         configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
         FixtureNetworkAccessManager manager;
@@ -518,7 +518,7 @@ void LyricsTest::fallsBackToNetEaseWithScoring()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager manager;
@@ -554,7 +554,7 @@ void LyricsTest::lrclibNotFoundAndNetEaseNotFoundAreEmpty()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager manager;
@@ -582,7 +582,7 @@ void LyricsTest::netEaseTransportFailureIsError()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager manager;
@@ -602,7 +602,7 @@ void LyricsTest::plainLyricsAreUnsynced()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager manager;
@@ -625,7 +625,7 @@ void LyricsTest::reportsEmptyAndErrorStates()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager emptyManager;
@@ -657,7 +657,7 @@ void LyricsTest::deduplicatesSameTrackButRefreshes()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager manager;
@@ -688,7 +688,7 @@ void LyricsTest::staleReplyCannotReplaceTrack()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager manager;
@@ -715,7 +715,7 @@ void LyricsTest::rapidSwitchingAndClearTrackInvalidateReplies()
     QVERIFY(temporary.isValid());
     ScopedEnvironment cacheHome("XDG_CACHE_HOME");
     ScopedEnvironment dataHome("XDG_DATA_HOME");
-    ScopedEnvironment localDirectory("CLAVIS_LYRICS_DIR");
+    ScopedEnvironment localDirectory("APOLLO_LYRICS_DIR");
     configureTemporaryPaths(temporary.path(), cacheHome, dataHome, localDirectory);
 
     FixtureNetworkAccessManager manager;

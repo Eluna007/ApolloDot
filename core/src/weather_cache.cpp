@@ -10,7 +10,7 @@ QString WeatherCache::defaultPath()
 {
     const QByteArray configured = qgetenv("XDG_CACHE_HOME");
     const QString base = configured.isEmpty() ? QDir::homePath() + "/.cache" : QString::fromUtf8(configured);
-    const QString cacheDir = base + "/clavis";
+    const QString cacheDir = base + "/apollo";
     QDir().mkpath(cacheDir);
     return cacheDir + "/weather.json";
 }

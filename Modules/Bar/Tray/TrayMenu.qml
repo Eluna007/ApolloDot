@@ -91,7 +91,7 @@ PopupWindow {
         color: "transparent"
         exclusiveZone: 0
         WlrLayershell.layer: WlrLayer.Top
-        WlrLayershell.namespace: "clavis-shell-tray-menu-backdrop"
+        WlrLayershell.namespace: "apollo-shell-tray-menu-backdrop"
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
 
         anchors {

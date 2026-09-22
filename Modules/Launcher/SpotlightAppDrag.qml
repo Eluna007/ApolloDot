@@ -51,7 +51,7 @@ Item {
     Drag.supportedActions: Qt.CopyAction
     Drag.proposedAction: Qt.CopyAction
     Drag.mimeData: ({
-                        "application/x-clavis-dock": JSON.stringify({
+                        "application/x-apollo-dock": JSON.stringify({
                                                                         schemaVersion: 1,
                                                                         kind: root.spaceTemplate ? "spacer" :
                                                                                                    "app",

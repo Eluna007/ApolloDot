@@ -22,10 +22,10 @@ static void report(const QJsonObject &value)
 int main(int argc, char **argv)
 {
     QGuiApplication app(argc, argv);
-    app.setApplicationName("clavis-window-preview");
+    app.setApplicationName("apollo-window-preview");
     QCommandLineParser parser;
     parser.setApplicationDescription(
-        "Standalone SHM ext toplevel capture probe; never starts Clavis services.");
+        "Standalone SHM ext toplevel capture probe; never starts Apollo services.");
     parser.addHelpOption();
     parser.addOptions({{{"d", "display"}, "Explicit capture Wayland socket.", "socket"},
                        {"list", "List protocol toplevels as JSON and exit."},
@@ -39,8 +39,8 @@ int main(int argc, char **argv)
                        {"fixture", "Show an isolated animated test window (A or B).", "label"},
                        {"static", "Disable fixture animation."}});
     parser.process(app);
-    app.setDesktopFileName(parser.isSet("fixture") ? "clavis-window-preview-fixture"
-                                                   : "clavis-window-preview");
+    app.setDesktopFileName(parser.isSet("fixture") ? "apollo-window-preview-fixture"
+                                                   : "apollo-window-preview");
     bool valid = false;
     const int timeout = parser.value("timeout").toInt(&valid);
     if (!valid || timeout < 100 || timeout > 3600000)
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
     if (!valid || cycles < 1 || cycles > 10000)
         return 2;
     QQmlApplicationEngine engine;
-    engine.addImportPath(QStringLiteral(CLAVIS_CAPTURE_IMPORT_PATH));
+    engine.addImportPath(QStringLiteral(APOLLO_CAPTURE_IMPORT_PATH));
     if (parser.isSet("fixture")) {
         engine.setInitialProperties(
             {{"label", parser.value("fixture")}, {"animate", !parser.isSet("static")}});

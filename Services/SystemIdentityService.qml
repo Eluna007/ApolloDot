@@ -8,7 +8,7 @@ Singleton {
 
     readonly property int supportedSchemaVersion: 1
     property string commandName: {
-        const configured = String(Quickshell.env("CLAVIS_KEYTOP") || "").trim();
+        const configured = String(Quickshell.env("APOLLO_KEYTOP") || "").trim();
         return configured !== "" ? configured : "keytop";
     }
     property var system: ({})

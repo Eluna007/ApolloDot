@@ -8,17 +8,17 @@ function clamp(value, fallback, minimum, maximum) {
 }
 
 function namespaceArgs(namespaceName) {
-    return ["-n", String(namespaceName || "clavis-desktop")];
+    return ["-n", String(namespaceName || "apollo-desktop")];
 }
 
 function daemon(commandPath, namespaceName) {
     return [
         String(commandPath || "awww-daemon"),
-        // Keep awww below Clavis' Bottom-layer DesktopCardHost.  awww
+        // Keep awww below Apollo' Bottom-layer DesktopCardHost.  awww
         // supports both background and bottom; background gives the same
         // deterministic stack as the Quickshell wallpaper surface.
         "--layer", "background",
-        "--namespace", String(namespaceName || "clavis-desktop"),
+        "--namespace", String(namespaceName || "apollo-desktop"),
         "--no-cache"
     ];
 }
@@ -119,7 +119,7 @@ function resolvedTransitionOptions(options, randomX, randomY) {
         resolved[key] = source[key];
 
     // `any` asks every awww invocation to choose its own random point.
-    // Clavis applies one wallpaper once per output, so resolve that alias
+    // Apollo applies one wallpaper once per output, so resolve that alias
     // once for the whole batch and share one normalized desktop position.
     if (transition(source.type) === "any") {
         resolved.type = "grow";

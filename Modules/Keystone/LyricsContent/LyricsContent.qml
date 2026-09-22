@@ -1,5 +1,5 @@
 import QtQuick
-import Clavis.Lyrics
+import Apollo.Lyrics
 import qs.Services
 
 Item {

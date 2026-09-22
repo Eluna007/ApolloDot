@@ -1,6 +1,6 @@
 import QtQuick
 import QtTest
-import Clavis.Gamma
+import Apollo.Gamma
 
 TestCase {
     name: "GammaBackendWithoutProtocol"

@@ -1,6 +1,6 @@
 # CPU 功耗读取边界
 
-RAPL 和其他 CPU 功耗指标属于独立的 `keytop` 能力。Clavis Shell 只消费
+RAPL 和其他 CPU 功耗指标属于独立的 `keytop` 能力。Apollo Shell 只消费
 `keytop value stream` 的结果，不请求 sudo、不安装 capability，也不管理权限 helper。
 
 ```bash

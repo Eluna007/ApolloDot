@@ -8,7 +8,7 @@ ApplicationWindow {
     width: 480
     height: 320
     visible: true
-    title: "Clavis Capture Fixture " + label
+    title: "Apollo Capture Fixture " + label
     color: label === "A" ? "#b02436" : "#164eb5"
     property int tick: 0
     Timer {

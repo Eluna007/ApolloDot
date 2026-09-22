@@ -1,9 +1,9 @@
 pragma Singleton
 import QtQuick
-import Clavis.Weather as NativeWeather
+import Apollo.Weather as NativeWeather
 
 // Compatibility facade for the existing QML service namespace. All weather
-// state and network work lives in the in-process Clavis.Weather singleton.
+// state and network work lives in the in-process Apollo.Weather singleton.
 QtObject {
     id: root
 

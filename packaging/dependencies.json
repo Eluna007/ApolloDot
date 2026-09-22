@@ -1,6 +1,6 @@
 {
-  "name": "clavis-shell",
-  "repository": "StatIndet/quickshell",
+  "name": "apollo-shell",
+  "repository": "Eluna007/ApolloDot",
   "versionFile": "VERSION",
   "arch": "x86_64",
   "sourceRoots": [
@@ -305,7 +305,7 @@
     }
   ],
   "packages": {
-    "clavis-shell": {
+    "apollo-shell": {
       "runtime": [
         {
           "package": "quickshell",
@@ -641,21 +641,21 @@
     }
   ],
   "releaseSources": {
-    "clavis-shell": {
-      "repository": "StatIndet/quickshell",
+    "apollo-shell": {
+      "repository": "Eluna007/ApolloDot",
       "packages": [
-        "clavis-shell"
+        "apollo-shell"
       ]
     },
     "key-cli": {
-      "repository": "StatIndet/key-cli",
+      "repository": "Eluna007/key-cli",
       "packages": [
         "key-cli",
         "key-cli-keyboard-access"
       ]
     },
     "keytop": {
-      "repository": "StatIndet/keytop",
+      "repository": "Eluna007/keytop",
       "packages": [
         "keytop",
         "keytop-privileged-access"

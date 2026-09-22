@@ -1,8 +1,8 @@
 pragma Singleton
 import QtQuick
 import Quickshell
-import Clavis.Niri
-import Clavis.WindowPreview
+import Apollo.Niri
+import Apollo.WindowPreview
 
 Singleton {
     id: root

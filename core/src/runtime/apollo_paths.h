@@ -3,11 +3,11 @@
 #include <QProcessEnvironment>
 #include <QString>
 
-namespace Clavis::Runtime {
+namespace Apollo::Runtime {
 
-class ClavisPaths {
+class ApolloPaths {
   public:
-    static ClavisPaths fromEnvironment();
+    static ApolloPaths fromEnvironment();
 
     QString home() const;
     QString binHome() const;
@@ -41,4 +41,4 @@ class ClavisPaths {
     QString m_generatedHome;
 };
 
-} // namespace Clavis::Runtime
+} // namespace Apollo::Runtime

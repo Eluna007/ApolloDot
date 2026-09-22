@@ -456,7 +456,7 @@ StyledFlickable {
         NiriSetupPrompt {
             Layout.fillWidth: true
             title: qsTr("Cursor integration")
-            description: qsTr("Create or connect the Clavis cursor configuration.")
+            description: qsTr("Create or connect the Apollo cursor configuration.")
             integrationState: NiriConfigService.state("cursor")
             busy: NiriConfigService.busy && NiriConfigService.activeFeature === "cursor"
             blocked: NiriConfigService.busy

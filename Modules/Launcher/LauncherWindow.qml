@@ -4,7 +4,7 @@ import QtQuick.Controls
 import QtQuick.Controls.Material
 import Quickshell
 import Quickshell.Wayland
-import Clavis.Keyboard
+import Apollo.Keyboard
 import qs.Common
 import qs.Services
 import qs.Widgets.common
@@ -24,7 +24,7 @@ PanelWindow {
         right: true
     }
 
-    WlrLayershell.namespace: "clavis-shell-spotlight"
+    WlrLayershell.namespace: "apollo-shell-spotlight"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     WlrLayershell.exclusionMode: ExclusionMode.Ignore

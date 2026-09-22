@@ -1,24 +1,24 @@
-# Clavis Shell 开发约定
+# Apollo Shell 开发约定
 
 ## Project responsibilities
 
-Clavis 是 CMake/Ninja + QML/Quickshell 项目。`shell.qml` 是入口，`AppShell.qml`
+Apollo 是 CMake/Ninja + QML/Quickshell 项目。`shell.qml` 是入口，`AppShell.qml`
 负责顶层装配；`Modules/` 放业务模块，`Services/` 放长期状态和系统交互，`Widgets/`
 只放展示控件，`Common/` 放主题、尺寸、路径和纯工具，`core/` 放原生 backend 与 QML
 plugin。
 
 三个仓库是独立项目，测试和构建不得跨仓库依赖：
 
-- Clavis 负责 QML UI、Quickshell 生命周期、Niri IPC、窗口/工作区/输出、天气、
+- Apollo 负责 QML UI、Quickshell 生命周期、Niri IPC、窗口/工作区/输出、天气、
   WeatherMapProvider、MediaPalette、快捷键录制、实时 Cava、MPRIS 歌词和
   同步时间轴。
 - `key-cli` 负责 `key shell`、`key ipc`、录屏、音频文件录制、剪贴板与键盘锁状态 backend 以及
   对外 machine JSON protocol。
-- `keytop` 唯一负责系统指标采集、解析、TUI 和 JSON/JSONL machine protocol；Clavis
-  直接消费 `keytop value stream --format jsonl`，不得在 Clavis 重新实现 keytop parser。
+- `keytop` 唯一负责系统指标采集、解析、TUI 和 JSON/JSONL machine protocol；Apollo
+  直接消费 `keytop value stream --format jsonl`，不得在 Apollo 重新实现 keytop parser。
 
-Clavis 测试必须在单独 clone 后成立，不能依赖 `../keytop`、`../key-cli` 或它们的构建
-产物。不得恢复 `cast`、`key top`、`key sysmon`、Clavis.Sysmon、天气 CLI 中转、Python
+Apollo 测试必须在单独 clone 后成立，不能依赖 `../keytop`、`../key-cli` 或它们的构建
+产物。不得恢复 `cast`、`key top`、`key sysmon`、Apollo.Sysmon、天气 CLI 中转、Python
 歌词脚本、内嵌 C++ key CLI、release manager、rollback、`current` 软链接、`releases/`、
 `setup.sh`、`justfile` 或 Makefile。参考仓库只读，不能修改。
 
@@ -26,35 +26,34 @@ Clavis 测试必须在单独 clone 后成立，不能依赖 `../keytop`、`../ke
 
 顶层 CMake/Ninja 统一构建原生 module、测试与 QML 安装；构建命令与开发入口见
 [docs/development.md](docs/development.md)，仅在准备开发环境或启动 shell 时阅读。
-开发入口 `~/.config/quickshell/clavis` 指向源码；外部入口使用 `${CLAVIS_KEY:-key}`。
+开发入口 `~/.config/quickshell/apollo` 指向源码；外部入口使用 `${APOLLO_KEY:-key}`。
 key-cli 联调使用其 editable `.venv` 与显式用户服务 drop-in；`key shell` 自动传播
 当前入口。key-cli 源码安装及可选键盘授权由其独立安装工具管理，不要求发行版打包；
-Clavis 保留自身 unit 和会话生命周期，详见开发文档。
-新增快捷键直接使用 `qs -c clavis ipc call TARGET METHOD [ARGUMENTS...]`；
+Apollo 保留自身 unit 和会话生命周期，详见开发文档。
+新增快捷键直接使用 `qs -c apollo ipc call TARGET METHOD [ARGUMENTS...]`；
 `key ipc` 兼容入口保留。不得将仓库或构建绝对路径写入 Niri 配置。
 
 ## QML modules
 
 - `import M3Shapes` 使用系统安装的外部 QML 运行时模块（Arch：`qt6-m3shapes-git`），
-  不由 Clavis 编译或安装，不恢复 vendored 实现。
+  不由 Apollo 编译或安装，不恢复 vendored 实现。
 
 - `import qs.Common`、`import qs.Services`、`import qs.Modules.Foo` 是 Quickshell
   root-relative shell modules。纯 QML 目录不得新增手写 `qmldir`。
-- `import Clavis.Weather`、`import Clavis.WeatherMap`、`import Clavis.Cava`、
-  `import Clavis.Lyrics` 等 native imports 由 CMake 的 `qt_add_qml_module()` 管理，
+- `import Apollo.Weather`、`import Apollo.WeatherMap`、`import Apollo.Cava`、
+  `import Apollo.Lyrics` 等 native imports 由 CMake 的 `qt_add_qml_module()` 管理，
   不添加无意义的版本号。
 - Native QML module 的 build-tree 输出统一在 `build/qml/`；`qmldir`、`*.qmltypes`、
   plugin 是 CMake/Qt 生成物，不能手写或编辑。
 - 展示组件不得创建 `Process` 或执行系统命令。录屏、录音和剪贴板通过带参数数组的
   `key` 调用，必须校验 machine response 的 `schemaVersion` 和错误。
 - FFmpeg、pactl、ffprobe、录音 PID、临时音频文件和 finalizer 属于 `key audio`；歌词
-  获取、缓存、LRC 解析和 MPRIS seek 属于 `Clavis.Lyrics`。
+  获取、缓存、LRC 解析和 MPRIS seek 属于 `Apollo.Lyrics`。
 
 ## Internationalization
 
 面向用户的可翻译源文案统一使用英文，沿用 `qsTr()` / `qsTranslate()` 的 context 与
-消歧机制；新增或修改文案时同步维护 `i18n/clavis_en_US.ts`、`clavis_zh_CN.ts` 和
-`clavis_zh_TW.ts`。动态值使用占位符，数量使用 Qt numerus，避免拼接翻译片段。
+消歧机制；新增或修改文案时同步维护 `i18n/apollo_en_US.ts`。动态值使用占位符，数量使用 Qt numerus，避免拼接翻译片段。
 
 语言选择由 `I18nManager` 统一解析：已保存的用户选择优先，否则匹配系统 UI language
 偏好，无匹配时回退英文。切换界面语言不得更改全局地区 locale、单位或天气位置。
@@ -89,7 +88,7 @@ quality checks，不是 tests。
 3. 为什么 unit test 或必要的 integration test 是合适层级；
 4. 为什么测试不会锁死当前实现细节。
 
-允许的 Clavis tests 主要是 deterministic C++ unit tests（parser、geometry/math、工作区
+允许的 Apollo tests 主要是 deterministic C++ unit tests（parser、geometry/math、工作区
 拓扑推导、坐标转换、壁纸分析、歌词解析、路径/config resolution、状态变换）、少量
 纯 QML/JavaScript state/math QtTest，以及真正验证外部行为的脚本 integration test。
 QML UI、Button、Loader、动画、颜色、Item hierarchy、compositor timing 和普通视觉

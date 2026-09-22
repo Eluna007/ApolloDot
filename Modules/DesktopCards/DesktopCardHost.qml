@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
-import Clavis.DesktopCards
+import Apollo.DesktopCards
 import qs.Common
 import qs.Services
 import qs.Widgets.common
@@ -214,7 +214,7 @@ Variants {
         color: "transparent"
         exclusiveZone: 0
         WlrLayershell.layer: WlrLayer.Bottom
-        WlrLayershell.namespace: "clavis-desktop-cards"
+        WlrLayershell.namespace: "apollo-desktop-cards"
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         onDesktopIdsChanged: window.scheduleDesktopLayout("desktop-cards-changed")
         onWidthChanged: window.scheduleDesktopLayout("screen-geometry-changed")

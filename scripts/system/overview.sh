@@ -3,15 +3,15 @@ set -euo pipefail
 
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 scripts_dir=$(cd -- "$script_dir/.." && pwd)
-# shellcheck source=scripts/lib/clavis-paths.sh
-source "$scripts_dir/lib/clavis-paths.sh"
-clavis_paths_init
+# shellcheck source=scripts/lib/apollo-paths.sh
+source "$scripts_dir/lib/apollo-paths.sh"
+apollo_paths_init
 
-wallpaper=${1:-$CLAVIS_STATE_HOME/wallpaper/current}
+wallpaper=${1:-$APOLLO_STATE_HOME/wallpaper/current}
 if [[ -z "$wallpaper" || ! -e "$wallpaper" ]]; then
-    mkdir -p "$CLAVIS_STATE_HOME/logs"
+    mkdir -p "$APOLLO_STATE_HOME/logs"
     printf '%s - ERROR: no wallpaper path found\n' "$(date -Is)" \
-        >> "$CLAVIS_STATE_HOME/logs/wallpaper-overview.log"
+        >> "$APOLLO_STATE_HOME/logs/wallpaper-overview.log"
     exit 1
 fi
 if ! command -v magick >/dev/null 2>&1; then
@@ -19,10 +19,10 @@ if ! command -v magick >/dev/null 2>&1; then
     exit 127
 fi
 
-blur_dir=$CLAVIS_CACHE_HOME/wallpaper/blur
-overview_dir=$CLAVIS_CACHE_HOME/wallpaper/overview
-state_dir=$CLAVIS_STATE_HOME/wallpaper
-mkdir -p "$blur_dir" "$overview_dir" "$state_dir" "$CLAVIS_STATE_HOME/logs"
+blur_dir=$APOLLO_CACHE_HOME/wallpaper/blur
+overview_dir=$APOLLO_CACHE_HOME/wallpaper/overview
+state_dir=$APOLLO_STATE_HOME/wallpaper
+mkdir -p "$blur_dir" "$overview_dir" "$state_dir" "$APOLLO_STATE_HOME/logs"
 
 filename=$(basename -- "$wallpaper")
 blurred=$blur_dir/blurred_$filename
@@ -36,4 +36,4 @@ ln -sfn -- "$wallpaper" "$state_dir/current"
 ln -sfn -- "$blurred" "$state_dir/blurred"
 ln -sfn -- "$overview" "$state_dir/overview"
 printf '%s - linked %s\n' "$(date -Is)" "$filename" \
-    >> "$CLAVIS_STATE_HOME/logs/wallpaper-overview.log"
+    >> "$APOLLO_STATE_HOME/logs/wallpaper-overview.log"

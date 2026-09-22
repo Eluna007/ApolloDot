@@ -68,7 +68,7 @@ of arbitrary `title:` properties. Keep the declaration literal on one line; do
 not place secrets or settings values in it. Source filenames must agree with the
 route, with the explicit General overview host as the only special case.
 
-`search` metadata in `scripts/system/niri-actions.json` classifies every Clavis
+`search` metadata in `scripts/system/niri-actions.json` classifies every Apollo
 shortcut as `include`, `alias`, `settings`, `parameters`, `internal` or `unsafe`.
 Included entries supply translated title/description, icon, aliases, fixed `args`,
 availability and confirmation policy. The compiler checks the fixed argv against

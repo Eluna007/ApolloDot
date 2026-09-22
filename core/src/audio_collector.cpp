@@ -141,7 +141,7 @@ void AudioCollector::runPipewire()
     state.stopRequested = &m_stopRequested;
     state.loop = pw_main_loop_new(nullptr);
     if (!state.loop) {
-        qWarning() << "[ClavisAudio] Failed to create PipeWire main loop";
+        qWarning() << "[ApolloAudio] Failed to create PipeWire main loop";
         pw_deinit();
         return;
     }
@@ -149,7 +149,7 @@ void AudioCollector::runPipewire()
     timespec timerInterval = {0, 50 * SPA_NSEC_PER_MSEC};
     state.timer = pw_loop_add_timer(pw_main_loop_get_loop(state.loop), handleTimer, &state);
     if (!state.timer) {
-        qWarning() << "[ClavisAudio] Failed to create PipeWire stop timer";
+        qWarning() << "[ApolloAudio] Failed to create PipeWire stop timer";
         pw_main_loop_destroy(state.loop);
         pw_deinit();
         return;
@@ -185,9 +185,9 @@ void AudioCollector::runPipewire()
     events.process = handleProcess;
 
     state.stream =
-        pw_stream_new_simple(pw_main_loop_get_loop(state.loop), "clavis-shell-audio", props, &events, &state);
+        pw_stream_new_simple(pw_main_loop_get_loop(state.loop), "apollo-shell-audio", props, &events, &state);
     if (!state.stream) {
-        qWarning() << "[ClavisAudio] Failed to create PipeWire stream";
+        qWarning() << "[ApolloAudio] Failed to create PipeWire stream";
         pw_main_loop_destroy(state.loop);
         pw_deinit();
         return;
@@ -199,7 +199,7 @@ void AudioCollector::runPipewire()
                                                                       PW_STREAM_FLAG_RT_PROCESS),
                                          params, 1);
     if (result < 0) {
-        qWarning() << "[ClavisAudio] Failed to connect PipeWire stream";
+        qWarning() << "[ApolloAudio] Failed to connect PipeWire stream";
         pw_stream_destroy(state.stream);
         pw_main_loop_destroy(state.loop);
         pw_deinit();

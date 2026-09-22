@@ -2,7 +2,7 @@ pragma Singleton
 
 import QtQuick
 import Quickshell
-import Clavis.Niri
+import Apollo.Niri
 import qs.Common
 import "../Common/SidebarPolicy.js" as SidebarPolicy
 import qs.Services
@@ -200,7 +200,7 @@ Singleton {
                                                   + fillModeName + "|" + Math.round(canvasWidth) + "x"
                                                   + Math.round(canvasHeight) + "|" + Math.round(
                                                       imagePixelWidth) + "x" + Math.round(imagePixelHeight)
-                                                  + "|" + (externalBackend ? "external" : "clavis")
+                                                  + "|" + (externalBackend ? "external" : "apollo")
 
             Behavior on animatedOffsetX {
                 NumberAnimation {

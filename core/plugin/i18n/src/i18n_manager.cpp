@@ -26,14 +26,9 @@ QString supportedLanguage(const QString &language)
                                   .split(QLatin1Char('_'));
     if (parts.first() == QStringLiteral("en"))
         return QStringLiteral("en_US");
-    if (parts.first() != QStringLiteral("zh"))
-        return {};
-    if (parts.contains(QStringLiteral("hans")))
-        return QStringLiteral("zh_CN");
-    if (parts.contains(QStringLiteral("hant")) || parts.contains(QStringLiteral("tw")) ||
-        parts.contains(QStringLiteral("hk")) || parts.contains(QStringLiteral("mo")))
-        return QStringLiteral("zh_TW");
-    return QStringLiteral("zh_CN");
+    // English is the only shipped catalog; every other locale falls back to it
+    // in preferredLanguage() rather than resolving to a catalog that cannot load.
+    return {};
 }
 } // namespace
 
@@ -73,7 +68,7 @@ bool I18nManager::setLanguage(const QString &language)
         m_installed = false;
     }
 
-    const QString resourcePath = QStringLiteral(":/i18n/clavis_%1.qm").arg(normalized);
+    const QString resourcePath = QStringLiteral(":/i18n/apollo_%1.qm").arg(normalized);
     if (!m_translator.load(resourcePath)) {
         setLastError(QStringLiteral("Unable to load translation catalog: %1").arg(resourcePath));
         return false;

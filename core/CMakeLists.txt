@@ -5,48 +5,48 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # globally enable MOC to parse Q_OBJECT macros
 set(CMAKE_AUTOMOC ON)
 
-set(CLAVIS_RELEASE "${PROJECT_VERSION}")
-set(CLAVIS_COMMIT "unknown" CACHE STRING "Git commit embedded in the release")
-set(CLAVIS_SOURCE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
-get_filename_component(CLAVIS_SOURCE_ROOT "${CLAVIS_SOURCE_ROOT}" ABSOLUTE)
-if(EXISTS "${CLAVIS_SOURCE_ROOT}/RELEASE.json")
-    file(READ "${CLAVIS_SOURCE_ROOT}/RELEASE.json" CLAVIS_RELEASE_METADATA)
-    string(JSON CLAVIS_COMMIT GET "${CLAVIS_RELEASE_METADATA}" commit)
-    string(JSON CLAVIS_BUILD_TIME GET "${CLAVIS_RELEASE_METADATA}" buildTime)
+set(APOLLO_RELEASE "${PROJECT_VERSION}")
+set(APOLLO_COMMIT "unknown" CACHE STRING "Git commit embedded in the release")
+set(APOLLO_SOURCE_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/..")
+get_filename_component(APOLLO_SOURCE_ROOT "${APOLLO_SOURCE_ROOT}" ABSOLUTE)
+if(EXISTS "${APOLLO_SOURCE_ROOT}/RELEASE.json")
+    file(READ "${APOLLO_SOURCE_ROOT}/RELEASE.json" APOLLO_RELEASE_METADATA)
+    string(JSON APOLLO_COMMIT GET "${APOLLO_RELEASE_METADATA}" commit)
+    string(JSON APOLLO_BUILD_TIME GET "${APOLLO_RELEASE_METADATA}" buildTime)
 endif()
-if(CLAVIS_COMMIT STREQUAL "unknown")
+if(APOLLO_COMMIT STREQUAL "unknown")
     find_package(Git QUIET)
     if(Git_FOUND)
         execute_process(
             COMMAND "${GIT_EXECUTABLE}" rev-parse HEAD
-            WORKING_DIRECTORY "${CLAVIS_SOURCE_ROOT}"
-            OUTPUT_VARIABLE CLAVIS_GIT_COMMIT
+            WORKING_DIRECTORY "${APOLLO_SOURCE_ROOT}"
+            OUTPUT_VARIABLE APOLLO_GIT_COMMIT
             OUTPUT_STRIP_TRAILING_WHITESPACE
             ERROR_QUIET
         )
-        if(CLAVIS_GIT_COMMIT)
-            set(CLAVIS_COMMIT "${CLAVIS_GIT_COMMIT}")
+        if(APOLLO_GIT_COMMIT)
+            set(APOLLO_COMMIT "${APOLLO_GIT_COMMIT}")
         endif()
     endif()
 endif()
-if(NOT CLAVIS_BUILD_TIME)
-    string(TIMESTAMP CLAVIS_BUILD_TIME "%Y-%m-%dT%H:%M:%SZ" UTC)
+if(NOT APOLLO_BUILD_TIME)
+    string(TIMESTAMP APOLLO_BUILD_TIME "%Y-%m-%dT%H:%M:%SZ" UTC)
 endif()
 configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/clavis_release.h.in"
-    "${CMAKE_BINARY_DIR}/generated/clavis_release.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/apollo_release.h.in"
+    "${CMAKE_BINARY_DIR}/generated/apollo_release.h"
     @ONLY
 )
 
-if(NOT DEFINED CLAVIS_QML_BUILD_DIR)
-    set(CLAVIS_QML_BUILD_DIR "${CMAKE_BINARY_DIR}/qml")
+if(NOT DEFINED APOLLO_QML_BUILD_DIR)
+    set(APOLLO_QML_BUILD_DIR "${CMAKE_BINARY_DIR}/qml")
 endif()
-set(QT_QML_OUTPUT_DIRECTORY "${CLAVIS_QML_BUILD_DIR}")
-if(NOT DEFINED CLAVIS_QML_INSTALL_DIR)
-    set(CLAVIS_QML_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/qt6/qml")
+set(QT_QML_OUTPUT_DIRECTORY "${APOLLO_QML_BUILD_DIR}")
+if(NOT DEFINED APOLLO_QML_INSTALL_DIR)
+    set(APOLLO_QML_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/qt6/qml")
 endif()
-if(NOT DEFINED CLAVIS_CONFIG_INSTALL_DIR)
-    set(CLAVIS_CONFIG_INSTALL_DIR "etc/xdg/quickshell/clavis")
+if(NOT DEFINED APOLLO_CONFIG_INSTALL_DIR)
+    set(APOLLO_CONFIG_INSTALL_DIR "etc/xdg/quickshell/apollo")
 endif()
 # Find Qt 6 basics
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Quick Network ShaderTools LinguistTools)
@@ -86,8 +86,8 @@ add_subdirectory(plugin/gamma)
 add_subdirectory(plugin/windowpreview)
 
 install(
-    DIRECTORY "${CLAVIS_QML_BUILD_DIR}/Clavis/"
-    DESTINATION "${CLAVIS_QML_INSTALL_DIR}/Clavis"
+    DIRECTORY "${APOLLO_QML_BUILD_DIR}/Apollo/"
+    DESTINATION "${APOLLO_QML_INSTALL_DIR}/Apollo"
     FILES_MATCHING
         PATTERN "qmldir"
         PATTERN "*.qmltypes"
@@ -97,27 +97,27 @@ install(
 
 install(
     DIRECTORY
-        "${CLAVIS_SOURCE_ROOT}/Common"
-        "${CLAVIS_SOURCE_ROOT}/Components"
-        "${CLAVIS_SOURCE_ROOT}/Modules"
-        "${CLAVIS_SOURCE_ROOT}/Services"
-        "${CLAVIS_SOURCE_ROOT}/Widgets"
-    DESTINATION "${CLAVIS_CONFIG_INSTALL_DIR}"
+        "${APOLLO_SOURCE_ROOT}/Common"
+        "${APOLLO_SOURCE_ROOT}/Components"
+        "${APOLLO_SOURCE_ROOT}/Modules"
+        "${APOLLO_SOURCE_ROOT}/Services"
+        "${APOLLO_SOURCE_ROOT}/Widgets"
+    DESTINATION "${APOLLO_CONFIG_INSTALL_DIR}"
     PATTERN "*.qmlc" EXCLUDE
 )
 install(
     FILES
-        "${CLAVIS_SOURCE_ROOT}/shell.qml"
-        "${CLAVIS_SOURCE_ROOT}/AppShell.qml"
-    DESTINATION "${CLAVIS_CONFIG_INSTALL_DIR}"
+        "${APOLLO_SOURCE_ROOT}/shell.qml"
+        "${APOLLO_SOURCE_ROOT}/AppShell.qml"
+    DESTINATION "${APOLLO_CONFIG_INSTALL_DIR}"
 )
 install(
-    DIRECTORY "${CLAVIS_SOURCE_ROOT}/assets/"
-    DESTINATION "${CLAVIS_CONFIG_INSTALL_DIR}/assets"
+    DIRECTORY "${APOLLO_SOURCE_ROOT}/assets/"
+    DESTINATION "${APOLLO_CONFIG_INSTALL_DIR}/assets"
 )
 install(
-    DIRECTORY "${CLAVIS_SOURCE_ROOT}/scripts/"
-    DESTINATION "${CLAVIS_CONFIG_INSTALL_DIR}/scripts"
+    DIRECTORY "${APOLLO_SOURCE_ROOT}/scripts/"
+    DESTINATION "${APOLLO_CONFIG_INSTALL_DIR}/scripts"
     USE_SOURCE_PERMISSIONS
     PATTERN "__pycache__" EXCLUDE
     PATTERN "*.pyc" EXCLUDE
@@ -128,20 +128,20 @@ install(
     PATTERN "check-package.py" EXCLUDE
 )
 install(
-    DIRECTORY "${CLAVIS_SOURCE_ROOT}/matugen/templates/"
-    DESTINATION "${CLAVIS_CONFIG_INSTALL_DIR}/matugen/templates"
+    DIRECTORY "${APOLLO_SOURCE_ROOT}/matugen/templates/"
+    DESTINATION "${APOLLO_CONFIG_INSTALL_DIR}/matugen/templates"
 )
 install(
-    FILES "${CLAVIS_SOURCE_ROOT}/matugen/config.toml"
-    DESTINATION "${CLAVIS_CONFIG_INSTALL_DIR}/matugen"
+    FILES "${APOLLO_SOURCE_ROOT}/matugen/config.toml"
+    DESTINATION "${APOLLO_CONFIG_INSTALL_DIR}/matugen"
 )
 
 install(
-    FILES "${CLAVIS_SOURCE_ROOT}/packaging/systemd/user/clavis-shell.service"
-    DESTINATION "${CLAVIS_SYSTEMD_USER_INSTALL_DIR}"
+    FILES "${APOLLO_SOURCE_ROOT}/packaging/systemd/user/apollo-shell.service"
+    DESTINATION "${APOLLO_SYSTEMD_USER_INSTALL_DIR}"
 )
 
-install(DIRECTORY "${CLAVIS_SOURCE_ROOT}/licenses/"
-    DESTINATION "${CLAVIS_CONFIG_INSTALL_DIR}/licenses")
-install(FILES "${CLAVIS_SOURCE_ROOT}/LICENSE"
-    DESTINATION "${CLAVIS_CONFIG_INSTALL_DIR}")
+install(DIRECTORY "${APOLLO_SOURCE_ROOT}/licenses/"
+    DESTINATION "${APOLLO_CONFIG_INSTALL_DIR}/licenses")
+install(FILES "${APOLLO_SOURCE_ROOT}/LICENSE"
+    DESTINATION "${APOLLO_CONFIG_INSTALL_DIR}")

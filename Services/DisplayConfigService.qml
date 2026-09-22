@@ -3,7 +3,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import Clavis.Niri
+import Apollo.Niri
 import qs.Common
 import "../Common/functions/DisplayConfiguration.js" as Config
 

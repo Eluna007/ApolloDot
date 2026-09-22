@@ -107,17 +107,17 @@ Item {
                 property var tiles: [root.overlayTileUrl]
                 property int tileSize: 256
 
-                styleId: "clavis-weather-overlay-source"
+                styleId: "apollo-weather-overlay-source"
                 type: "raster"
             }
 
             LayerParameter {
-                property string source: "clavis-weather-overlay-source"
+                property string source: "apollo-weather-overlay-source"
                 // Qt's display zoom is one level above the native style zoom.
                 property real maxzoom: root.overlayMaximumDisplayZoom > 0 ? root.overlayMaximumDisplayZoom
                                                                             - 1 : 25
 
-                styleId: "clavis-weather-overlay-layer"
+                styleId: "apollo-weather-overlay-layer"
                 type: "raster"
                 paint: {
                     "raster-opacity": root.overlayOpacity

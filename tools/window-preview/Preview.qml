@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Clavis.WindowPreview
+import Apollo.WindowPreview
 
 ApplicationWindow {
     id: root

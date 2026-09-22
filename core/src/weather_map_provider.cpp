@@ -10,11 +10,11 @@
 #include <qt6keychain/keychain.h>
 
 namespace {
-constexpr auto kKeychainService = "Clavis.Quickshell.WeatherMap";
+constexpr auto kKeychainService = "Apollo.Quickshell.WeatherMap";
 constexpr auto kOpenWeatherKeychainEntry = "openweather-api-key";
 constexpr auto kMapTilerKeychainEntry = "maptiler-api-key";
 constexpr auto kRadarMetadataUrl = "https://api.rainviewer.com/public/weather-maps.json";
-constexpr auto kUserAgent = "ClavisWeatherMap/2.0 (MapLibre Native Qt)";
+constexpr auto kUserAgent = "ApolloWeatherMap/2.0 (MapLibre Native Qt)";
 constexpr int kRadarRefreshIntervalMs = 10 * 60 * 1000;
 } // namespace
 

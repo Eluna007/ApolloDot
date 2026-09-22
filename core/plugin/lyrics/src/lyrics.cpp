@@ -842,7 +842,7 @@ void Lyrics::startReply(const QUrl &url, ReplyKind kind, quint64 generation)
         request.setRawHeader("User-Agent", kNetEaseUserAgent);
         request.setRawHeader("Referer", "https://music.163.com/");
     } else {
-        request.setRawHeader("User-Agent", "Clavis/lyrics");
+        request.setRawHeader("User-Agent", "Apollo/lyrics");
     }
 
     QNetworkReply *reply = m_manager->get(request);
@@ -1308,7 +1308,7 @@ QString Lyrics::cacheDirectory() const
     const QByteArray configured = qgetenv("XDG_CACHE_HOME");
     const QString base =
         configured.isEmpty() ? QDir::homePath() + QStringLiteral("/.cache") : QString::fromUtf8(configured);
-    return QDir::cleanPath(base + QStringLiteral("/clavis/lyrics/v2"));
+    return QDir::cleanPath(base + QStringLiteral("/apollo/lyrics/v2"));
 }
 
 QString Lyrics::cacheIndexPath() const { return cacheDirectory() + QStringLiteral("/index.json"); }
@@ -1336,12 +1336,12 @@ QString Lyrics::cacheKey() const
 
 QString Lyrics::localDirectory() const
 {
-    QString directory = QString::fromUtf8(qgetenv("CLAVIS_LYRICS_DIR"));
+    QString directory = QString::fromUtf8(qgetenv("APOLLO_LYRICS_DIR"));
     if (directory.isEmpty()) {
         const QByteArray dataHome = qgetenv("XDG_DATA_HOME");
         const QString base = dataHome.isEmpty() ? QDir::homePath() + QStringLiteral("/.local/share")
                                                 : QString::fromUtf8(dataHome);
-        directory = base + QStringLiteral("/clavis/lyrics");
+        directory = base + QStringLiteral("/apollo/lyrics");
     }
 
     if (directory == QStringLiteral("~"))

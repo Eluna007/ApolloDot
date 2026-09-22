@@ -100,7 +100,7 @@ void CavaProvider::rebuildCava()
 
     m_plan = cava_init(m_bars, AudioCollector::SampleRate, 1, 1, 0.85, 50, 10000);
     if (!m_plan) {
-        qWarning() << "[ClavisCava] Failed to initialise libcava";
+        qWarning() << "[ApolloCava] Failed to initialise libcava";
         setAvailable(false);
         return;
     }

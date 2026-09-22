@@ -23,7 +23,7 @@ PanelWindow {
         bottom: true
     }
     color: "transparent"
-    WlrLayershell.namespace: "clavis-shell-shortcut-map"
+    WlrLayershell.namespace: "apollo-shell-shortcut-map"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.exclusionMode: ExclusionMode.Ignore
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive

@@ -945,10 +945,10 @@
     "parameters": true
   },
   {
-    "id": "clavis:lock:open",
-    "category": "clavis",
+    "id": "apollo:lock:open",
+    "category": "apollo",
     "name": "Lock: open",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"lock\" \"open\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"lock\" \"open\"",
     "parameters": false,
     "target": "lock",
     "method": "open",
@@ -968,10 +968,10 @@
     }
   },
   {
-    "id": "clavis:lock:isLocked",
-    "category": "clavis",
+    "id": "apollo:lock:isLocked",
+    "category": "apollo",
     "name": "Lock: is locked",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"lock\" \"isLocked\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"lock\" \"isLocked\"",
     "parameters": false,
     "target": "lock",
     "method": "isLocked",
@@ -980,10 +980,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:toggle",
-    "category": "clavis",
+    "id": "apollo:spotlight:toggle",
+    "category": "apollo",
     "name": "Spotlight: toggle",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"toggle\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"toggle\"",
     "parameters": false,
     "target": "spotlight",
     "method": "toggle",
@@ -992,10 +992,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:open",
-    "category": "clavis",
+    "id": "apollo:spotlight:open",
+    "category": "apollo",
     "name": "Spotlight: open",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"open\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"open\"",
     "parameters": false,
     "target": "spotlight",
     "method": "open",
@@ -1004,10 +1004,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:search",
-    "category": "clavis",
+    "id": "apollo:spotlight:search",
+    "category": "apollo",
     "name": "Spotlight: Search",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"search\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"search\"",
     "parameters": false,
     "target": "spotlight",
     "method": "search",
@@ -1026,10 +1026,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:close",
-    "category": "clavis",
+    "id": "apollo:spotlight:close",
+    "category": "apollo",
     "name": "Spotlight: close",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"close\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"close\"",
     "parameters": false,
     "target": "spotlight",
     "method": "close",
@@ -1038,10 +1038,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:web",
-    "category": "clavis",
+    "id": "apollo:spotlight:web",
+    "category": "apollo",
     "name": "Spotlight: web",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"web\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"web\"",
     "parameters": false,
     "target": "spotlight",
     "method": "web",
@@ -1061,10 +1061,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:commands",
-    "category": "clavis",
+    "id": "apollo:spotlight:commands",
+    "category": "apollo",
     "name": "Spotlight: Commands",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"commands\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"commands\"",
     "parameters": false,
     "target": "spotlight",
     "method": "commands",
@@ -1073,10 +1073,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:command:calc",
-    "category": "clavis",
+    "id": "apollo:spotlight:command:calc",
+    "category": "apollo",
     "name": "Spotlight: Calculator",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"calc\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"command\" \"calc\"",
     "parameters": false,
     "target": "spotlight",
     "method": "command",
@@ -1085,10 +1085,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:command:fx",
-    "category": "clavis",
+    "id": "apollo:spotlight:command:fx",
+    "category": "apollo",
     "name": "Spotlight: Currency",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"fx\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"command\" \"fx\"",
     "parameters": false,
     "target": "spotlight",
     "method": "command",
@@ -1097,10 +1097,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:command:time",
-    "category": "clavis",
+    "id": "apollo:spotlight:command:time",
+    "category": "apollo",
     "name": "Spotlight: Time zone",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"time\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"command\" \"time\"",
     "parameters": false,
     "target": "spotlight",
     "method": "command",
@@ -1109,10 +1109,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:command:light",
-    "category": "clavis",
+    "id": "apollo:spotlight:command:light",
+    "category": "apollo",
     "name": "Spotlight: Light theme",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"light\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"command\" \"light\"",
     "parameters": false,
     "target": "spotlight",
     "method": "command",
@@ -1121,10 +1121,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:command:dark",
-    "category": "clavis",
+    "id": "apollo:spotlight:command:dark",
+    "category": "apollo",
     "name": "Spotlight: Dark theme",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"dark\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"command\" \"dark\"",
     "parameters": false,
     "target": "spotlight",
     "method": "command",
@@ -1133,10 +1133,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:command:find-settings",
-    "category": "clavis",
+    "id": "apollo:spotlight:command:find-settings",
+    "category": "apollo",
     "name": "Spotlight: Search settings",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"find-settings\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"command\" \"find-settings\"",
     "parameters": false,
     "target": "spotlight",
     "method": "command",
@@ -1145,10 +1145,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:command:actions",
-    "category": "clavis",
+    "id": "apollo:spotlight:command:actions",
+    "category": "apollo",
     "name": "Spotlight: Search IPC actions",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"actions\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"command\" \"actions\"",
     "parameters": false,
     "target": "spotlight",
     "method": "command",
@@ -1157,10 +1157,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:command:map",
-    "category": "clavis",
+    "id": "apollo:spotlight:command:map",
+    "category": "apollo",
     "name": "Spotlight: Location picker",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"command\" \"map\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"command\" \"map\"",
     "parameters": false,
     "target": "spotlight",
     "method": "command",
@@ -1169,10 +1169,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:openMode",
-    "category": "clavis",
+    "id": "apollo:spotlight:openMode",
+    "category": "apollo",
     "name": "Spotlight: open mode",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"<mode>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"<mode>\"",
     "parameters": true,
     "target": "spotlight",
     "method": "openMode",
@@ -1181,10 +1181,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:files",
-    "category": "clavis",
+    "id": "apollo:spotlight:files",
+    "category": "apollo",
     "name": "Spotlight: Find files",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"files\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"files\"",
     "parameters": false,
     "target": "spotlight",
     "method": "files",
@@ -1203,10 +1203,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:openMode:apps",
-    "category": "clavis",
+    "id": "apollo:spotlight:openMode:apps",
+    "category": "apollo",
     "name": "Spotlight: open applications",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"apps\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"apps\"",
     "parameters": false,
     "target": "spotlight",
     "method": "openMode",
@@ -1228,10 +1228,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:openMode:clipboard",
-    "category": "clavis",
+    "id": "apollo:spotlight:openMode:clipboard",
+    "category": "apollo",
     "name": "Spotlight: open clipboard",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"clipboard\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"clipboard\"",
     "parameters": false,
     "target": "spotlight",
     "method": "openMode",
@@ -1252,10 +1252,10 @@
     }
   },
   {
-    "id": "clavis:spotlight:openMode:wallpapers",
-    "category": "clavis",
+    "id": "apollo:spotlight:openMode:wallpapers",
+    "category": "apollo",
     "name": "Spotlight: open wallpaper picker",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"wallpapers\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"spotlight\" \"openMode\" \"wallpapers\"",
     "parameters": false,
     "target": "spotlight",
     "method": "openMode",
@@ -1276,10 +1276,10 @@
     }
   },
   {
-    "id": "clavis:wallpaper:set",
-    "category": "clavis",
+    "id": "apollo:wallpaper:set",
+    "category": "apollo",
     "name": "Wallpaper: set",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"set\" \"<path>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"wallpaper\" \"set\" \"<path>\"",
     "parameters": true,
     "target": "wallpaper",
     "method": "set",
@@ -1288,10 +1288,10 @@
     }
   },
   {
-    "id": "clavis:wallpaper:setForScreen",
-    "category": "clavis",
+    "id": "apollo:wallpaper:setForScreen",
+    "category": "apollo",
     "name": "Wallpaper: set for screen",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"setForScreen\" \"<path>\" \"<screenName>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"wallpaper\" \"setForScreen\" \"<path>\" \"<screenName>\"",
     "parameters": true,
     "target": "wallpaper",
     "method": "setForScreen",
@@ -1300,10 +1300,10 @@
     }
   },
   {
-    "id": "clavis:wallpaper:clear",
-    "category": "clavis",
+    "id": "apollo:wallpaper:clear",
+    "category": "apollo",
     "name": "Wallpaper: clear",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"clear\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"wallpaper\" \"clear\"",
     "parameters": false,
     "target": "wallpaper",
     "method": "clear",
@@ -1322,10 +1322,10 @@
     }
   },
   {
-    "id": "clavis:wallpaper:clearForScreen",
-    "category": "clavis",
+    "id": "apollo:wallpaper:clearForScreen",
+    "category": "apollo",
     "name": "Wallpaper: clear for screen",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"clearForScreen\" \"<screenName>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"wallpaper\" \"clearForScreen\" \"<screenName>\"",
     "parameters": true,
     "target": "wallpaper",
     "method": "clearForScreen",
@@ -1334,10 +1334,10 @@
     }
   },
   {
-    "id": "clavis:wallpaper:previous",
-    "category": "clavis",
+    "id": "apollo:wallpaper:previous",
+    "category": "apollo",
     "name": "Wallpaper: previous",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"previous\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"wallpaper\" \"previous\"",
     "parameters": false,
     "target": "wallpaper",
     "method": "previous",
@@ -1356,10 +1356,10 @@
     }
   },
   {
-    "id": "clavis:wallpaper:next",
-    "category": "clavis",
+    "id": "apollo:wallpaper:next",
+    "category": "apollo",
     "name": "Wallpaper: next",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"next\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"wallpaper\" \"next\"",
     "parameters": false,
     "target": "wallpaper",
     "method": "next",
@@ -1378,10 +1378,10 @@
     }
   },
   {
-    "id": "clavis:wallpaper:random",
-    "category": "clavis",
+    "id": "apollo:wallpaper:random",
+    "category": "apollo",
     "name": "Wallpaper: random",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"random\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"wallpaper\" \"random\"",
     "parameters": false,
     "target": "wallpaper",
     "method": "random",
@@ -1400,10 +1400,10 @@
     }
   },
   {
-    "id": "clavis:wallpaper:setFolder",
-    "category": "clavis",
+    "id": "apollo:wallpaper:setFolder",
+    "category": "apollo",
     "name": "Wallpaper: set folder",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"wallpaper\" \"setFolder\" \"<path>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"wallpaper\" \"setFolder\" \"<path>\"",
     "parameters": true,
     "target": "wallpaper",
     "method": "setFolder",
@@ -1412,10 +1412,10 @@
     }
   },
   {
-    "id": "clavis:control-center:open",
-    "category": "clavis",
+    "id": "apollo:control-center:open",
+    "category": "apollo",
     "name": "Control center: open",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"<pageId>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"open\" \"<pageId>\"",
     "parameters": true,
     "target": "control-center",
     "method": "open",
@@ -1424,10 +1424,10 @@
     }
   },
   {
-    "id": "clavis:control-center:open:account",
-    "category": "clavis",
+    "id": "apollo:control-center:open:account",
+    "category": "apollo",
     "name": "Control center: open Account",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"account\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"open\" \"account\"",
     "parameters": false,
     "target": "control-center",
     "method": "open",
@@ -1436,10 +1436,10 @@
     }
   },
   {
-    "id": "clavis:control-center:open:general",
-    "category": "clavis",
+    "id": "apollo:control-center:open:general",
+    "category": "apollo",
     "name": "Control center: open General",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"general\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"open\" \"general\"",
     "parameters": false,
     "target": "control-center",
     "method": "open",
@@ -1448,10 +1448,10 @@
     }
   },
   {
-    "id": "clavis:control-center:open:wallpaper",
-    "category": "clavis",
+    "id": "apollo:control-center:open:wallpaper",
+    "category": "apollo",
     "name": "Control center: open Wallpaper",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"wallpaper\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"open\" \"wallpaper\"",
     "parameters": false,
     "target": "control-center",
     "method": "open",
@@ -1460,10 +1460,10 @@
     }
   },
   {
-    "id": "clavis:control-center:open:theme",
-    "category": "clavis",
+    "id": "apollo:control-center:open:theme",
+    "category": "apollo",
     "name": "Control center: open Theme",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"theme\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"open\" \"theme\"",
     "parameters": false,
     "target": "control-center",
     "method": "open",
@@ -1472,10 +1472,10 @@
     }
   },
   {
-    "id": "clavis:control-center:open:keystone",
-    "category": "clavis",
+    "id": "apollo:control-center:open:keystone",
+    "category": "apollo",
     "name": "Control center: open Keystone",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"keystone\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"open\" \"keystone\"",
     "parameters": false,
     "target": "control-center",
     "method": "open",
@@ -1484,10 +1484,10 @@
     }
   },
   {
-    "id": "clavis:control-center:open:advanced",
-    "category": "clavis",
+    "id": "apollo:control-center:open:advanced",
+    "category": "apollo",
     "name": "Control center: open Advanced",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"advanced\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"open\" \"advanced\"",
     "parameters": false,
     "target": "control-center",
     "method": "open",
@@ -1496,10 +1496,10 @@
     }
   },
   {
-    "id": "clavis:control-center:open:language-region",
-    "category": "clavis",
+    "id": "apollo:control-center:open:language-region",
+    "category": "apollo",
     "name": "Control center: open Language & region",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"language-region\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"open\" \"language-region\"",
     "parameters": false,
     "target": "control-center",
     "method": "open",
@@ -1508,10 +1508,10 @@
     }
   },
   {
-    "id": "clavis:control-center:open:current",
-    "category": "clavis",
+    "id": "apollo:control-center:open:current",
+    "category": "apollo",
     "name": "Control center: open current page",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"open\" \"\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"open\" \"\"",
     "parameters": false,
     "target": "control-center",
     "method": "open",
@@ -1520,10 +1520,10 @@
     }
   },
   {
-    "id": "clavis:control-center:close",
-    "category": "clavis",
+    "id": "apollo:control-center:close",
+    "category": "apollo",
     "name": "Control center: close",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"close\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"close\"",
     "parameters": false,
     "target": "control-center",
     "method": "close",
@@ -1532,10 +1532,10 @@
     }
   },
   {
-    "id": "clavis:control-center:toggle",
-    "category": "clavis",
+    "id": "apollo:control-center:toggle",
+    "category": "apollo",
     "name": "Control center: toggle",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"<pageId>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"<pageId>\"",
     "parameters": true,
     "target": "control-center",
     "method": "toggle",
@@ -1544,10 +1544,10 @@
     }
   },
   {
-    "id": "clavis:control-center:toggle:account",
-    "category": "clavis",
+    "id": "apollo:control-center:toggle:account",
+    "category": "apollo",
     "name": "Control center: toggle Account",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"account\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"account\"",
     "parameters": false,
     "target": "control-center",
     "method": "toggle",
@@ -1556,10 +1556,10 @@
     }
   },
   {
-    "id": "clavis:control-center:toggle:general",
-    "category": "clavis",
+    "id": "apollo:control-center:toggle:general",
+    "category": "apollo",
     "name": "Control center: toggle General",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"general\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"general\"",
     "parameters": false,
     "target": "control-center",
     "method": "toggle",
@@ -1568,10 +1568,10 @@
     }
   },
   {
-    "id": "clavis:control-center:toggle:wallpaper",
-    "category": "clavis",
+    "id": "apollo:control-center:toggle:wallpaper",
+    "category": "apollo",
     "name": "Control center: toggle Wallpaper",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"wallpaper\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"wallpaper\"",
     "parameters": false,
     "target": "control-center",
     "method": "toggle",
@@ -1580,10 +1580,10 @@
     }
   },
   {
-    "id": "clavis:control-center:toggle:theme",
-    "category": "clavis",
+    "id": "apollo:control-center:toggle:theme",
+    "category": "apollo",
     "name": "Control center: toggle Theme",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"theme\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"theme\"",
     "parameters": false,
     "target": "control-center",
     "method": "toggle",
@@ -1592,10 +1592,10 @@
     }
   },
   {
-    "id": "clavis:control-center:toggle:keystone",
-    "category": "clavis",
+    "id": "apollo:control-center:toggle:keystone",
+    "category": "apollo",
     "name": "Control center: toggle Keystone",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"keystone\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"keystone\"",
     "parameters": false,
     "target": "control-center",
     "method": "toggle",
@@ -1604,10 +1604,10 @@
     }
   },
   {
-    "id": "clavis:control-center:toggle:advanced",
-    "category": "clavis",
+    "id": "apollo:control-center:toggle:advanced",
+    "category": "apollo",
     "name": "Control center: toggle Advanced",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"advanced\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"advanced\"",
     "parameters": false,
     "target": "control-center",
     "method": "toggle",
@@ -1616,10 +1616,10 @@
     }
   },
   {
-    "id": "clavis:control-center:toggle:language-region",
-    "category": "clavis",
+    "id": "apollo:control-center:toggle:language-region",
+    "category": "apollo",
     "name": "Control center: toggle Language & region",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"language-region\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"language-region\"",
     "parameters": false,
     "target": "control-center",
     "method": "toggle",
@@ -1628,10 +1628,10 @@
     }
   },
   {
-    "id": "clavis:control-center:toggle:current",
-    "category": "clavis",
+    "id": "apollo:control-center:toggle:current",
+    "category": "apollo",
     "name": "Control center: toggle current page",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"control-center\" \"toggle\" \"\"",
     "parameters": false,
     "target": "control-center",
     "method": "toggle",
@@ -1640,10 +1640,10 @@
     }
   },
   {
-    "id": "clavis:keystone:cancelRecord",
-    "category": "clavis",
+    "id": "apollo:keystone:cancelRecord",
+    "category": "apollo",
     "name": "Keystone: cancel record",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"cancelRecord\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"keystone\" \"cancelRecord\"",
     "parameters": false,
     "target": "keystone",
     "method": "cancelRecord",
@@ -1653,10 +1653,10 @@
     }
   },
   {
-    "id": "clavis:keystone:closeAllOthers",
-    "category": "clavis",
+    "id": "apollo:keystone:closeAllOthers",
+    "category": "apollo",
     "name": "Keystone: close all others",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"closeAllOthers\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"keystone\" \"closeAllOthers\"",
     "parameters": false,
     "target": "keystone",
     "method": "closeAllOthers",
@@ -1675,10 +1675,10 @@
     }
   },
   {
-    "id": "clavis:keystone:currentStyle",
-    "category": "clavis",
+    "id": "apollo:keystone:currentStyle",
+    "category": "apollo",
     "name": "Keystone: current style",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"currentStyle\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"keystone\" \"currentStyle\"",
     "parameters": false,
     "target": "keystone",
     "method": "currentStyle",
@@ -1687,10 +1687,10 @@
     }
   },
   {
-    "id": "clavis:keystone:dashboard",
-    "category": "clavis",
+    "id": "apollo:keystone:dashboard",
+    "category": "apollo",
     "name": "Keystone: dashboard",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"dashboard\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"keystone\" \"dashboard\"",
     "parameters": false,
     "target": "keystone",
     "method": "dashboard",
@@ -1709,10 +1709,10 @@
     }
   },
   {
-    "id": "clavis:keystone:hub",
-    "category": "clavis",
+    "id": "apollo:keystone:hub",
+    "category": "apollo",
     "name": "Keystone: hub",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"hub\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"keystone\" \"hub\"",
     "parameters": false,
     "target": "keystone",
     "method": "hub",
@@ -1731,10 +1731,10 @@
     }
   },
   {
-    "id": "clavis:keystone:lyrics",
-    "category": "clavis",
+    "id": "apollo:keystone:lyrics",
+    "category": "apollo",
     "name": "Keystone: lyrics",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"lyrics\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"keystone\" \"lyrics\"",
     "parameters": false,
     "target": "keystone",
     "method": "lyrics",
@@ -1753,10 +1753,10 @@
     }
   },
   {
-    "id": "clavis:keystone:tools",
-    "category": "clavis",
+    "id": "apollo:keystone:tools",
+    "category": "apollo",
     "name": "Keystone: tools",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"keystone\" \"tools\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"keystone\" \"tools\"",
     "parameters": false,
     "target": "keystone",
     "method": "tools",
@@ -1776,10 +1776,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:open",
-    "category": "clavis",
+    "id": "apollo:sidebar:open",
+    "category": "apollo",
     "name": "Sidebar: open",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"open\" \"<target>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"open\" \"<target>\"",
     "parameters": true,
     "target": "sidebar",
     "method": "open",
@@ -1788,10 +1788,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:open:dashboard",
-    "category": "clavis",
+    "id": "apollo:sidebar:open:dashboard",
+    "category": "apollo",
     "name": "Notifications: open",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"open\" \"dashboard\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"open\" \"dashboard\"",
     "parameters": false,
     "target": "sidebar",
     "method": "open",
@@ -1812,10 +1812,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:open:quicksettings",
-    "category": "clavis",
+    "id": "apollo:sidebar:open:quicksettings",
+    "category": "apollo",
     "name": "Quick settings: open",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"open\" \"quicksettings\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"open\" \"quicksettings\"",
     "parameters": false,
     "target": "sidebar",
     "method": "open",
@@ -1836,10 +1836,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:toggle:weather",
-    "category": "clavis",
+    "id": "apollo:sidebar:toggle:weather",
+    "category": "apollo",
     "name": "Weather sidebar: toggle",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"weather\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"weather\"",
     "parameters": false,
     "target": "sidebar",
     "method": "toggle",
@@ -1861,10 +1861,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:toggle:drawer",
-    "category": "clavis",
+    "id": "apollo:sidebar:toggle:drawer",
+    "category": "apollo",
     "name": "Sidebar drawer: toggle",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"drawer\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"drawer\"",
     "parameters": false,
     "target": "sidebar",
     "method": "toggle",
@@ -1886,10 +1886,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:close",
-    "category": "clavis",
+    "id": "apollo:sidebar:close",
+    "category": "apollo",
     "name": "Sidebar: close",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"close\" \"<target>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"close\" \"<target>\"",
     "parameters": true,
     "target": "sidebar",
     "method": "close",
@@ -1898,10 +1898,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:close:dashboard",
-    "category": "clavis",
+    "id": "apollo:sidebar:close:dashboard",
+    "category": "apollo",
     "name": "Notifications: close",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"close\" \"dashboard\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"close\" \"dashboard\"",
     "parameters": false,
     "target": "sidebar",
     "method": "close",
@@ -1910,10 +1910,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:close:quicksettings",
-    "category": "clavis",
+    "id": "apollo:sidebar:close:quicksettings",
+    "category": "apollo",
     "name": "Quick settings: close",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"close\" \"quicksettings\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"close\" \"quicksettings\"",
     "parameters": false,
     "target": "sidebar",
     "method": "close",
@@ -1922,10 +1922,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:toggle",
-    "category": "clavis",
+    "id": "apollo:sidebar:toggle",
+    "category": "apollo",
     "name": "Sidebar: toggle",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"<target>\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"<target>\"",
     "parameters": true,
     "target": "sidebar",
     "method": "toggle",
@@ -1934,10 +1934,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:toggle:dashboard",
-    "category": "clavis",
+    "id": "apollo:sidebar:toggle:dashboard",
+    "category": "apollo",
     "name": "Notifications: toggle",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"dashboard\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"dashboard\"",
     "parameters": false,
     "target": "sidebar",
     "method": "toggle",
@@ -1946,10 +1946,10 @@
     }
   },
   {
-    "id": "clavis:sidebar:toggle:quicksettings",
-    "category": "clavis",
+    "id": "apollo:sidebar:toggle:quicksettings",
+    "category": "apollo",
     "name": "Quick settings: toggle",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"quicksettings\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"sidebar\" \"toggle\" \"quicksettings\"",
     "parameters": false,
     "target": "sidebar",
     "method": "toggle",
@@ -1958,10 +1958,10 @@
     }
   },
   {
-    "id": "clavis:shortcut-map:open",
-    "category": "clavis",
+    "id": "apollo:shortcut-map:open",
+    "category": "apollo",
     "name": "Shortcut map: open",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"shortcut-map\" \"open\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"shortcut-map\" \"open\"",
     "parameters": false,
     "target": "shortcut-map",
     "method": "open",
@@ -1980,10 +1980,10 @@
     }
   },
   {
-    "id": "clavis:shortcut-map:close",
-    "category": "clavis",
+    "id": "apollo:shortcut-map:close",
+    "category": "apollo",
     "name": "Shortcut map: close",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"shortcut-map\" \"close\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"shortcut-map\" \"close\"",
     "parameters": false,
     "target": "shortcut-map",
     "method": "close",
@@ -1992,10 +1992,10 @@
     }
   },
   {
-    "id": "clavis:shortcut-map:toggle",
-    "category": "clavis",
+    "id": "apollo:shortcut-map:toggle",
+    "category": "apollo",
     "name": "Shortcut map: toggle",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"shortcut-map\" \"toggle\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"shortcut-map\" \"toggle\"",
     "parameters": false,
     "target": "shortcut-map",
     "method": "toggle",
@@ -2004,10 +2004,10 @@
     }
   },
   {
-    "id": "clavis:power-menu:open",
-    "category": "clavis",
+    "id": "apollo:power-menu:open",
+    "category": "apollo",
     "name": "Power menu: open",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"power-menu\" \"open\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"power-menu\" \"open\"",
     "parameters": false,
     "target": "power-menu",
     "method": "open",
@@ -2029,10 +2029,10 @@
     }
   },
   {
-    "id": "clavis:power-menu:close",
-    "category": "clavis",
+    "id": "apollo:power-menu:close",
+    "category": "apollo",
     "name": "Power menu: close",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"power-menu\" \"close\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"power-menu\" \"close\"",
     "parameters": false,
     "target": "power-menu",
     "method": "close",
@@ -2041,10 +2041,10 @@
     }
   },
   {
-    "id": "clavis:power-menu:toggle",
-    "category": "clavis",
+    "id": "apollo:power-menu:toggle",
+    "category": "apollo",
     "name": "Power menu: toggle",
-    "expression": "spawn \"qs\" \"-c\" \"clavis\" \"ipc\" \"call\" \"power-menu\" \"toggle\"",
+    "expression": "spawn \"qs\" \"-c\" \"apollo\" \"ipc\" \"call\" \"power-menu\" \"toggle\"",
     "parameters": false,
     "target": "power-menu",
     "method": "toggle",

@@ -5,7 +5,7 @@ Release tooling generates PKGBUILD dependency fields from this inventory. `defau
 selects the full installation profile; optional authorization and vendor GPU drivers are never implicit.
 
 Runtime-only dependencies are assigned in package functions, so this repository builds and
-tests independently of other Clavis repositories. CI installs only build, check and CI entries.
+tests independently of other Apollo repositories. CI installs only build, check and CI entries.
 
 ## Build
 
@@ -75,7 +75,7 @@ This phase is used only in CI; these tools are not installer runtime requests.
 | `glib2` | GSettings and gio | Yes |
 | `libnotify` | Desktop notifications | Yes |
 
-## clavis-shell runtime
+## apollo-shell runtime
 
 | Arch package | Purpose | Full install |
 | --- | --- | --- |
@@ -116,7 +116,7 @@ This phase is used only in CI; these tools are not installer runtime requests.
 | `grep` | Theme filtering | Yes |
 | `wl-clipboard` | Copy editor curves and clipboard integration | Yes |
 
-## clavis-shell optional
+## apollo-shell optional
 
 | Arch package | Purpose | Full install |
 | --- | --- | --- |
@@ -151,10 +151,10 @@ compatible provider is retained. Shell font settings keep their existing fallbac
 Meteocons SVG 0.1.0 and Lottie 0.1.0 are fetched from fixed npm registry URLs with SHA-256
 verification during release-source preparation. No npm runtime or first-launch download is needed.
 The source archive contains SVG fill/flat/line/monochrome, Lottie fill, and the upstream MIT notice.
-M3Shapes remains an external QML module and is never built or vendored by Clavis.
+M3Shapes remains an external QML module and is never built or vendored by Apollo.
 
 The Arch baseline is Quickshell 0.3.1 with networking, Bluetooth, PAM, PipeWire and UPower
-enabled. Clavis native gamma control requires Qt 6.8 or newer. `libcava` must supply the
+enabled. Apollo native gamma control requires Qt 6.8 or newer. `libcava` must supply the
 shared library and pkg-config interface; installing the `cava` command alone is insufficient.
 
 NetworkManager, BlueZ, UPower and PipeWire must be usable in the session. Installation does
@@ -166,7 +166,7 @@ Map-provider credentials and Rclone authentication are supplied by the user in t
 
 Saved weather coordinates are reverse-geocoded through Nominatim. Forecasts always
 use the original coordinates; the returned city/town/region is only a display name.
-Successful names are cached in Clavis Weather settings; failed lookups back off for
+Successful names are cached in Apollo Weather settings; failed lookups back off for
 24 hours and retain the coordinate label. Names use the service's local-language
 response. Requests are serialized with at least 1.1 seconds between network lookups,
 with an identifying User-Agent and a compact map-corner attribution for OpenFreeMap, OpenMapTiles, and OpenStreetMap
@@ -176,10 +176,10 @@ Map dragging does not perform lookups.
 The [public Nominatim usage policy](https://operations.osmfoundation.org/policies/nominatim/)
 limits aggregate application traffic to 1 request/second and requires caching and
 attribution. Larger deployments must use a suitable provider or their own instance.
-Set `CLAVIS_GEOCODING_URL` to a compatible reverse endpoint to change providers
-without updating Clavis. The endpoint receives the saved coordinates; cached results
+Set `APOLLO_GEOCODING_URL` to a compatible reverse endpoint to change providers
+without updating Apollo. The endpoint receives the saved coordinates; cached results
 are scoped to the endpoint. IP-based automatic location continues to use ipwho.is.
 
 The installer maps first-party package bases and split permission packages through
-`releaseSources` in the manifest. Generated installers pin Clavis to their release version;
+`releaseSources` in the manifest. Generated installers pin Apollo to their release version;
 backend releases are resolved independently and checked against the runtime requirements.

@@ -8,8 +8,8 @@ def issue($message):
 def finish:
     if .current >= 0 then .sections[.current].end = .line else . end;
 def path($base):
-    if startswith("@CLAVIS_GENERATED_HOME@/") and $origin == "builtin" then
-        $ENV.CLAVIS_GENERATED_HOME + ltrimstr("@CLAVIS_GENERATED_HOME@")
+    if startswith("@APOLLO_GENERATED_HOME@/") and $origin == "builtin" then
+        $ENV.APOLLO_GENERATED_HOME + ltrimstr("@APOLLO_GENERATED_HOME@")
     elif . == "~" or . == "$HOME" then $ENV.HOME
     elif startswith("~/") then $ENV.HOME + .[1:]
     elif startswith("$HOME/") then $ENV.HOME + .[5:]

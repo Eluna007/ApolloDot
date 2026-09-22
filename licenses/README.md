@@ -6,7 +6,7 @@ components.
 ## Animated Weather Cards
 
 Source: [Animated Weather Cards](https://codepen.io/ste-vg/pen/GqaZbo) by Steve Gardner.
-The current-weather animation at the top of Clavis's sidebar weather view
+The current-weather animation at the top of Apollo's sidebar weather view
 recreates the original web project's visuals and animation in Qt/QML.
 
 The original project is licensed under MIT. [AnimatedWeatherCards-MIT.txt](AnimatedWeatherCards-MIT.txt)
@@ -18,7 +18,7 @@ CodePen project's `LICENSE.txt`.
 Source: [Zen Browser / zen-browser/desktop](https://github.com/zen-browser/desktop),
 local checkout commit `412731f37e567223097101d9fae9f9d364708b6b`.
 
-| Upstream file | Clavis adaptation |
+| Upstream file | Apollo adaptation |
 | --- | --- |
 | `src/zen/spaces/ZenGradientGenerator.mjs` | `Common/functions/ZenPalette.js`: color-position math, harmony relations, primary identity and Linux opaque background semantics; `assets/shaders/zen-palette.frag`: layered gradients |
 | `src/browser/base/content/zen-panels/theme-picker.inc` | `Common/functions/ZenPalette.js`: all 41 presets across five pages, including positions, algorithms, lightness and type; `Modules/ControlCenter/ZenPaletteEditor.qml`: editor controls |
@@ -33,11 +33,11 @@ was found for these source files. No Zen artwork, logos, or grain bitmap is
 copied; the shader implements independent, deterministic monochrome grain.
 
 The modified files and their additions are initially distributed under both
-MPL-2.0 and GPL-3.0-or-later as part of the Clavis Larger Work, pursuant to MPL
+MPL-2.0 and GPL-3.0-or-later as part of the Apollo Larger Work, pursuant to MPL
 section 3.3. Recipients may use these files under either license. See Mozilla's
 [MPL-in-GPL developer guidelines](https://www.mozilla.org/en-US/MPL/2.0/combining-mpl-and-gpl/).
 The existing GPL code is reused through component interfaces, not copied into
-the MPL files. Clavis configuration, draft lifecycle and backend services remain
+the MPL files. Apollo configuration, draft lifecycle and backend services remain
 under the project's original license.
 
 Adaptations replace browser DOM/events with QML, normalize editor positions on a fixed 380px square color plane (the upstream
@@ -45,16 +45,16 @@ nominal panel width), independent of browser padding and live QML geometry,
 make secondary positions and RGB derived state, fix secondary dragging and
 primary selection, canonicalize the upstream `float` preset spelling to
 `floating`, and keep theme selection local to the wallpaper. The desktop uses
-an opaque base following the global Clavis theme, using Zen’s light/dark base
+an opaque base following the global Apollo theme, using Zen’s light/dark base
 colors instead of browser platform transparency. Palette data and presets do not
 select or change the global theme.
-Save/cancel, per-output scopes and external theme generation belong to Clavis.
+Save/cancel, per-output scopes and external theme generation belong to Apollo.
 
 QML/JS and GLSL source are installed with the shell. The shader is compiled by
 `qt_add_shaders` in `core/plugin/runtime/CMakeLists.txt` into the existing
-`Clavis.Runtime` module at `qrc:/clavis/shaders/zen-palette.frag.qsb`; normal
+`Apollo.Runtime` module at `qrc:/apollo/shaders/zen-palette.frag.qsb`; normal
 CMake source distributions include that build recipe. No reference checkout
-is needed to build, test, install or run Clavis. This port does not imply Zen
+is needed to build, test, install or run Apollo. This port does not imply Zen
 Browser endorsement.
 
 ## Caelestia media cover
@@ -65,11 +65,11 @@ commit `20e625d6bf1a9d0bb7625a4bb814797d187b075d`.
 `Modules/Keystone/MediaContent/CaelestiaCover.qml` adapts
 `modules/dashboard/media/CoverVisualiser.qml` and
 `components/widgets/CoverArt.qml`: the rotating nine-sided Cookie mask and
-spectrum bars that follow its outline. Clavis uses its own audio service and
+spectrum bars that follow its outline. Apollo uses its own audio service and
 color tokens, pools peaks from the full spectrum into 36 bars with a linear
 response, and uses 4-pixel strokes with a 2–20 pixel amplitude range. It releases
 audio acquisition while hidden or paused. The cover
-scales with the media layout and uses Clavis's missing-art placeholder.
+scales with the media layout and uses Apollo's missing-art placeholder.
 
 The upstream GPL-3.0 license is preserved in
 [caelestia-shell-GPL-3.0.txt](caelestia-shell-GPL-3.0.txt). The shape is supplied
@@ -78,7 +78,7 @@ by the external M3Shapes runtime; no upstream geometry implementation is copied.
 ## M3Shapes and Cookie Clock
 
 [M3Shapes](https://github.com/soramanew/m3shapes) is an external QML runtime
-dependency, supplied on Arch by `qt6-m3shapes-git`. Clavis no longer distributes
+dependency, supplied on Arch by `qt6-m3shapes-git`. Apollo no longer distributes
 or builds its former vendored C++ geometry, morphing, renderer or plugin sources.
 `M3Shapes-Apache-2.0.txt` is retained as an upstream license reference; the installed
 module and its license are provided by the system package.

@@ -16,8 +16,8 @@ class CatalogTests(unittest.TestCase):
     def setUp(self):
         self.routes = {'schemaVersion': 1, 'routes': [dict(id='general', title='General', context='Settings', icon='settings', source='GeneralPage.qml', path=['general'], aliases=[])]}
         self.section = dict(id='general.section.language', route='general', title='Language', context='Settings', icon='language', aliases=['locale'])
-        self.action = dict(id='clavis:spotlight:openMode:clipboard', category='clavis', name='Clipboard', target='spotlight', method='openMode', parameters=False,
-            expression='spawn "qs" "-c" "clavis" "ipc" "call" "spotlight" "openMode" "clipboard"',
+        self.action = dict(id='apollo:spotlight:openMode:clipboard', category='apollo', name='Clipboard', target='spotlight', method='openMode', parameters=False,
+            expression='spawn "qs" "-c" "apollo" "ipc" "call" "spotlight" "openMode" "clipboard"',
             search=dict(policy='include', title='Clipboard', description='Open clipboard history', context='Actions', icon='content_paste', args=['clipboard'], aliases=[], confirmation='none'))
 
     def compile(self, sections=None, actions=None):
@@ -57,13 +57,13 @@ class CatalogTests(unittest.TestCase):
             action['search']['args'] = args
             with self.subTest(args=args), self.assertRaises(ValueError): self.compile(actions=[action])
         action = copy.deepcopy(self.action)
-        action.update(target='power-menu', method='open', expression='spawn "qs" "-c" "clavis" "ipc" "call" "power-menu" "open"')
+        action.update(target='power-menu', method='open', expression='spawn "qs" "-c" "apollo" "ipc" "call" "power-menu" "open"')
         action['search']['args'] = []
         with self.assertRaises(ValueError): self.compile(actions=[action])
         action['search']['confirmation'] = 'power-menu'
         self.assertEqual(len(self.compile(actions=[action])['actions']), 1)
 
-    def test_explicit_exclusions_and_non_clavis_actions(self):
+    def test_explicit_exclusions_and_non_apollo_actions(self):
         for policy in ['parameters', 'internal', 'alias', 'settings', 'unsafe']:
             excluded = dict(self.action, search={'policy': policy})
             self.assertEqual(self.compile(actions=[excluded])['actions'], [])

@@ -1,7 +1,7 @@
 # 单窗口捕获技术验证
 
-这是独立的 Qt/QML 验证入口，使用 `Clavis.WindowPreview` 原生模块，通过一条独立
-Wayland 连接枚举 ext toplevel，并按稳定的 `identifier` 捕获窗口。它不会启动 Clavis
+这是独立的 Qt/QML 验证入口，使用 `Apollo.WindowPreview` 原生模块，通过一条独立
+Wayland 连接枚举 ext toplevel，并按稳定的 `identifier` 捕获窗口。它不会启动 Apollo
 服务，不更改 Dock 设置。无需替换系统 Quickshell。
 
 Dock 使用同一模块的 `WindowPreviewManager`：按 niri 的十进制 IPC window ID 关联
@@ -11,12 +11,12 @@ ext identifier，只为悬停弹层中可见的卡片创建会话，多输出上
 
 ## 构建
 
-在 Clavis 仓库根目录执行（依赖本机的 `wayland-client`、`wayland-scanner` 和
+在 Apollo 仓库根目录执行（依赖本机的 `wayland-client`、`wayland-scanner` 和
 `wayland-protocols >= 1.41`；协议代码由 CMake 生成）：
 
 ```bash
-cmake -S . -B build -G Ninja -DCLAVIS_BUILD_WINDOW_PREVIEW_PROBE=ON
-cmake --build build --target clavis-window-preview ClavisWindowPreviewplugin
+cmake -S . -B build -G Ninja -DAPOLLO_BUILD_WINDOW_PREVIEW_PROBE=ON
+cmake --build build --target apollo-window-preview ApolloWindowPreviewplugin
 ```
 
 构建和单元测试不依赖 niri 源码仓库。以下运行验证才需要支持相应协议的合成器。
@@ -32,17 +32,17 @@ WAYLAND_DISPLAY=wayland-2 wayshot --list-toplevels-json
 
 # 实时视图：选择窗口后 Start；捕获中切换选择会替换会话；Stop 清空画面并释放缓冲。
 WAYLAND_DISPLAY=wayland-2 QT_QPA_PLATFORM=wayland \
-  build/tools/clavis-window-preview --display wayland-2 --timeout 300000
+  build/tools/apollo-window-preview --display wayland-2 --timeout 300000
 
 # 纯协议枚举，不创建显示窗口。
-QT_QPA_PLATFORM=offscreen build/tools/clavis-window-preview --display wayland-2 --list
+QT_QPA_PLATFORM=offscreen build/tools/apollo-window-preview --display wayland-2 --list
 
 # 将实际 identifier 填入 2、3 的位置。
-QT_QPA_PLATFORM=offscreen build/tools/clavis-window-preview \
+QT_QPA_PLATFORM=offscreen build/tools/apollo-window-preview \
   --display wayland-2 --capture 2 --frames 10 --timeout 15000
 
 # 反复停止、创建及切换目标，输出每帧及最终资源统计。
-QT_QPA_PLATFORM=offscreen build/tools/clavis-window-preview \
+QT_QPA_PLATFORM=offscreen build/tools/apollo-window-preview \
   --display wayland-2 --capture 2 --alternate 3 --frames 2 --cycles 100 --timeout 30000
 ```
 

@@ -4,19 +4,19 @@ Shell 生命周期可使用 `key-cli`；新增快捷键直接调用 Quickshell I
 
 ```bash
 key shell
-qs -c clavis ipc show
-qs -c clavis ipc call TARGET METHOD [ARGUMENTS...]
+qs -c apollo ipc show
+qs -c apollo ipc call TARGET METHOD [ARGUMENTS...]
 ```
 
 对应的 Quickshell 调用为：
 
 ```text
-key shell                 → qs -c clavis -n
-key shell --daemon        → qs -c clavis -n -d
-key shell --kill          → qs -c clavis kill
-key shell --log           → qs -c clavis log
-key ipc show              → qs -c clavis ipc show
-key ipc call A B ...      → qs -c clavis ipc call A B ...
+key shell                 → qs -c apollo -n
+key shell --daemon        → qs -c apollo -n -d
+key shell --kill          → qs -c apollo kill
+key shell --log           → qs -c apollo log
+key ipc show              → qs -c apollo ipc show
+key ipc call A B ...      → qs -c apollo ipc call A B ...
 ```
 
 Niri 快捷键和脚本不写裸 `quickshell ipc`，也不写用户源码路径。Shell 内部直接使用
@@ -25,14 +25,14 @@ Quickshell API 的地方不需要机械地经过 CLI。
 托管快捷键写为独立 argv，不经过 shell 字符串或每次按键的配置 helper：
 
 ```kdl
-spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
+spawn "qs" "-c" "apollo" "ipc" "call" "keystone" "hub"
 ```
 
-`key ipc call` 的标准既有绑定可以识别为同一 Clavis 动作，但保留原文本。
+`key ipc call` 的标准既有绑定可以识别为同一 Apollo 动作，但保留原文本。
 录屏、录音、剪贴板继续使用各自的 `key` 接口。
 动作目录根据实际 IpcHandler 注册维护；需参数的方法保留显式参数模板。
 首次在快捷键页面点击“设置”创建缺失的 binds.kdl 时，写入以下默认键位。
-全部使用 `spawn "qs" "-c" "clavis" "ipc" "call" ...`，并设置 `repeat=false`。
+全部使用 `spawn "qs" "-c" "apollo" "ipc" "call" ...`，并设置 `repeat=false`。
 `Mod` 跟随 Niri 的主修饰键（通常为 Super）。
 
 | 快捷键 | 功能 | IPC target / method / arguments |
@@ -62,7 +62,7 @@ spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
 托管片段按 [niri include 顺序](https://niri-wm.github.io/niri/Configuration:-Include.html)
 处理覆盖。目录随程序部署，运行时只在本机验证动作支持，不联网下载。
 
-快捷键配置图独立于设置中心加载，使用 `qs -c clavis ipc call shortcut-map toggle`
+快捷键配置图独立于设置中心加载，使用 `qs -c apollo ipc call shortcut-map toggle`
 打开或关闭；也提供无参数的 `open` 和 `close`。账户页按钮与 IPC 共用同一个弹层。
 
 侧栏 IPC 的参数按内容区分：`dashboard` 表示信息、抽屉和天气侧栏，`quicksettings`
@@ -75,14 +75,14 @@ spawn "qs" "-c" "clavis" "ipc" "call" "keystone" "hub"
 返回值保持 `LEFT_OPEN/CLOSED`、`RIGHT_OPEN/CLOSED`；它们不随实际位置重新解释。
 已有用户绑定无需改写，快捷键页面会将旧参数识别为对应的内容动作。
 
-灵动岛歌词界面通过 `qs -c clavis ipc call keystone lyrics` 切换展开与收起，返回
+灵动岛歌词界面通过 `qs -c apollo ipc call keystone lyrics` 切换展开与收起，返回
 `LYRICS_OPENED` / `LYRICS_CLOSED`。两种样式均作用于当前输出（无匹配时使用首个屏幕），
 展开时收起其他灵动岛面板。快捷键设置提供歌词动作占位，不绑定默认快捷键。
 
 ### Spotlight Files
 
-`qs -c clavis ipc call spotlight openMode files` and
-`qs -c clavis ipc call spotlight files` open Files and focus its input. Repeated
+`qs -c apollo ipc call spotlight openMode files` and
+`qs -c apollo ipc call spotlight files` open Files and focus its input. Repeated
 calls keep it open. Existing Apps/Wallpapers/Clipboard and web methods remain.
 
 Ctrl+1/2/3/4 selects Apps/Wallpapers/Clipboard/Files. Tab expands the four-mode rail; subsequent Tab/Shift+Tab cycle it, and Enter selects a mode. In Files, Enter opens the selected file or enters
@@ -90,7 +90,7 @@ the folder; Ctrl+Enter requests selection in a file manager. Holding Ctrl immedi
 the selected result's containing path; the right-click menu also exposes Open
 and Show in file manager. Clipboard retains Shift+Enter.
 
-Search uses the public `key file` capability through `${CLAVIS_KEY:-key}`. Install
+Search uses the public `key file` capability through `${APOLLO_KEY:-key}`. Install
 fd plus key-cli supporting `file.status`/`file.search`; there is no invented
 minimum release version. HOME is the default root, with fd's normal ignore/hidden
 rules and no directory-symlink traversal. Queries are literal and case-insensitive;
@@ -112,7 +112,7 @@ shortcut is added and existing user bindings are preserved.
 and `spotlight openMode search` enter Search. `open` and `search` are idempotent:
 when Search is visible they focus it. A new session starts with an empty input
 and no results panel. To open the application Grid/List directly, use
-`qs -c clavis ipc call spotlight openMode apps`.
+`qs -c apollo ipc call spotlight openMode apps`.
 
 Ctrl+0 or the search icon returns to Search and preserves ordinary search text. Tool parameters and command drafts are cleared.
 Ctrl+1/2/3/4 still opens Apps/Wallpapers/Clipboard/Files; Tab expands and cycles
@@ -141,7 +141,7 @@ highlight after loading and layout. Later requests replace earlier ones; leaving
 the page or closing the window cancels pending navigation. A missing or hidden
 section reports that it is unavailable.
 
-Actions reuse fixed Clavis shortcuts and business functions. Power opens the
+Actions reuse fixed Apollo shortcuts and business functions. Power opens the
 existing confirmation menu. Parameter templates, raw compositor commands,
 queries, duplicate navigation aliases and the reserved no-op `cancelRecord` are
 not exposed as executable Search results. No shell expression is evaluated.
@@ -154,7 +154,7 @@ entries. Explicit IPC mode navigation clears temporary tools/overrides through
 the same session controller as local navigation; it does not change user keys.
 
 All 16 command-palette actions are also callable as
-`qs -c clavis ipc call spotlight command NAME`, using the slash name without `/`
+`qs -c apollo ipc call spotlight command NAME`, using the slash name without `/`
 (e.g. `calc`, `fx`, `time`, `light`, `dark`, `find-settings`, `actions`, `map`).
 This returns `OK` or `INVALID_COMMAND`; scoped layout/order overrides are rejected.
 Tools open a fresh session; theme, Settings and map actions also work while
@@ -217,7 +217,7 @@ times still use the existing explicit result/error flow.
 
 ### Sidebar weather and drawer
 
-`qs -c clavis ipc call sidebar open weather` and `sidebar open drawer` select the
+`qs -c apollo ipc call sidebar open weather` and `sidebar open drawer` select the
 respective dashboard tab and open its sidebar, following the configured edge.
 Open/close remain explicit IPC operations. Spotlight Actions and permanent
 unassigned shortcut rows instead use `sidebar toggle weather` / `sidebar toggle drawer`.

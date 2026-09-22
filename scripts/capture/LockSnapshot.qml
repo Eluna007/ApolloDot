@@ -6,8 +6,8 @@ import Quickshell.Wayland
 // alive until process exit instead of destroying it inside frame callbacks.
 ShellRoot {
     id: root
-    readonly property string outputName: Quickshell.env("CLAVIS_SNAPSHOT_OUTPUT")
-    readonly property string outputPath: Quickshell.env("CLAVIS_SNAPSHOT_PATH")
+    readonly property string outputName: Quickshell.env("APOLLO_SNAPSHOT_OUTPUT")
+    readonly property string outputPath: Quickshell.env("APOLLO_SNAPSHOT_PATH")
     readonly property var output: Quickshell.screens.find(screen => screen.name === outputName) || null
     property bool grabbing: false
 
@@ -26,7 +26,7 @@ ShellRoot {
         color: "transparent"
         exclusionMode: ExclusionMode.Ignore
         WlrLayershell.layer: WlrLayer.Background
-        WlrLayershell.namespace: "clavis-lock-snapshot"
+        WlrLayershell.namespace: "apollo-lock-snapshot"
         mask: Region {}
 
         ScreencopyView {

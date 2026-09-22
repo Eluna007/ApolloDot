@@ -2,7 +2,7 @@ pragma Singleton
 
 import QtQuick
 import Quickshell
-import Clavis.Lyrics
+import Apollo.Lyrics
 
 Singleton {
     id: root

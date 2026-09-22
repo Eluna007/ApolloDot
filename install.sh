@@ -18,14 +18,14 @@ main() (
     for command in curl sha256sum mktemp bash; do
         command -v "$command" >/dev/null || { printf 'Required command: %s\n' "$command" >&2; return 1; }
     done
-    temporary=$(mktemp -d "${TMPDIR:-/tmp}/clavis-bootstrap.XXXXXX")
+    temporary=$(mktemp -d "${TMPDIR:-/tmp}/apollo-bootstrap.XXXXXX")
     trap 'rm -rf -- "$temporary"' EXIT
     metadata=$(curl --fail --silent --show-error --location --proto '=https' --tlsv1.2 \
-        https://api.github.com/repos/StatIndet/quickshell/releases/latest)
+        https://api.github.com/repos/Eluna007/ApolloDot/releases/latest)
     pattern='"tag_name"[[:space:]]*:[[:space:]]*"(v[0-9]{4}\.[0-9]{1,2}\.[0-9]{1,2}(\.[0-9]+)?)"'
-    [[ $metadata =~ $pattern ]] || { printf 'No completed Clavis date release is available.\n' >&2; return 1; }
+    [[ $metadata =~ $pattern ]] || { printf 'No completed Apollo date release is available.\n' >&2; return 1; }
     tag=${BASH_REMATCH[1]}
-    local base="https://github.com/StatIndet/quickshell/releases/download/$tag"
+    local base="https://github.com/Eluna007/ApolloDot/releases/download/$tag"
     for filename in SHA256SUMS install-arch.sh; do
         curl --fail --silent --show-error --location --proto '=https' --tlsv1.2 \
             "$base/$filename" --output "$temporary/$filename"

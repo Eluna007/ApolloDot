@@ -4,7 +4,7 @@ import QtQuick
 import "../Common/functions/SpotlightAppOrder.js" as AppOrder
 import Quickshell
 import Quickshell.Io
-import Clavis.I18n
+import Apollo.I18n
 import qs.Common
 import "../Common/functions/SpotlightSearch.js" as SpotlightSearch
 

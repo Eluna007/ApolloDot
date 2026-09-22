@@ -232,7 +232,7 @@ TopBarPill {
         }
 
         WlrLayershell.layer: WlrLayer.Top
-        WlrLayershell.namespace: "clavis-shell-tray-overflow"
+        WlrLayershell.namespace: "apollo-shell-tray-overflow"
         WlrLayershell.keyboardFocus: overflowPopup.visible ? WlrKeyboardFocus.Exclusive :
                                                              WlrKeyboardFocus.None
         WlrLayershell.exclusionMode: ExclusionMode.Ignore

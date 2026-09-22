@@ -1,6 +1,6 @@
 import QtQuick
 import Qt5Compat.GraphicalEffects
-import Clavis.WeatherMap
+import Apollo.WeatherMap
 import qs.Common
 import qs.Modules.Map
 import qs.Services
