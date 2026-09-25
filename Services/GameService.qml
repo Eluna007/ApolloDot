@@ -35,11 +35,13 @@ Singleton {
         return root.games.indexOf(String(name || "")) !== -1;
     }
 
-    function open(name) {
+    // `screen` is optional: a click in a bar passes its own output, IPC opens
+    // on the focused one.
+    function open(name, screen) {
         if (!root.isGame(name))
             return false;
 
-        const screen = Brightness.getScreenByName(Niri.currentOutput) || Quickshell.screens[0];
+        screen = screen || Brightness.getScreenByName(Niri.currentOutput) || Quickshell.screens[0];
         if (!screen || !screen.name)
             return false;
 
@@ -57,11 +59,11 @@ Singleton {
         return true;
     }
 
-    function toggle(name) {
+    function toggle(name, screen) {
         if (!root.isGame(name))
             return false;
 
-        return root.activeGame === name ? !root.close() : root.open(name);
+        return root.activeGame === name ? !root.close() : root.open(name, screen);
     }
 
     // The username is validated before it is put in the URL, so a hostile

@@ -147,7 +147,8 @@ TopBarPill {
         anchors.centerIn: parent
         rowSpacing: 15
         columnSpacing: 15
-        columns: root.vertical ? 1 : Math.max(1, root.pinnedItems.length + 1)
+        // + the overflow button and the two game buttons
+        columns: root.vertical ? 1 : Math.max(1, root.pinnedItems.length + 3)
 
         RippleButton {
             id: trayOverflowButton
@@ -213,6 +214,22 @@ TopBarPill {
                 onMenuOpened: window => root.setActiveMenu(window)
                 onMenuClosed: root.releaseActiveMenu(null)
             }
+        }
+
+        GameTrayButton {
+            Layout.alignment: Qt.AlignVCenter
+            screen: root.screen
+            game: "apolloku"
+            iconName: "grid_on"
+            label: qsTr("Apolloku")
+        }
+
+        GameTrayButton {
+            Layout.alignment: Qt.AlignVCenter
+            screen: root.screen
+            game: "chess"
+            iconName: "chess"
+            label: qsTr("Chess")
         }
     }
 
