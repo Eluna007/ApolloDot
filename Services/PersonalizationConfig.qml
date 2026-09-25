@@ -341,6 +341,8 @@ Singleton {
     property bool cursorHideWhenTyping: false
     property int cursorHideAfterInactiveMs: 0
     property string iconTheme: ""
+    // chess.com handle for the chess game's ratings; empty hides them.
+    property string chessUsername: ""
     property string keystoneStyle: "bangs"
     readonly property var keystoneKeyholeCardIds: ["weather", "pomodoro"]
     readonly property var keystoneKeyholeCardOptions: [
@@ -924,6 +926,10 @@ Singleton {
 
         root[propertyName] = value;
         root.save();
+    }
+
+    function setChessUsername(value) {
+        setValue("chessUsername", String(value || "").trim());
     }
 
     function setBannerSource(value) {
@@ -1849,6 +1855,9 @@ Singleton {
             "desktopCards": {
                 "gridSnapEnabled": root.desktopCardGridSnapEnabled,
                 "gridVisibleWhileDragging": root.desktopCardGridVisibleWhileDragging
+            },
+            "games": {
+                "chessUsername": root.chessUsername
             }
         };
     }
@@ -1862,6 +1871,7 @@ Singleton {
         const bar = parsed.bar || {};
         const sidebar = parsed.sidebar || {};
         const desktopCards = parsed.desktopCards || {};
+        const games = parsed.games || {};
         const transition = wallpaper.transition || {};
         const awww = wallpaper.awww || {};
         const overview = wallpaper.overview || {};
@@ -1932,6 +1942,8 @@ Singleton {
         root.cursorHideAfterInactiveMs = root.normalizedBoundedInt(theme.cursorHideAfterInactiveMs, 0, 0,
                                                                    5000);
         root.iconTheme = theme.iconTheme || "";
+        // The standalone widgets kept the handle at the top level of this file.
+        root.chessUsername = String(games.chessUsername || parsed.chessUsername || "").trim();
         Fonts.setConfiguredFamilies(fonts.ui, fonts.mono, fonts.numeric, fonts.expressive);
         root.shellBackgroundOpacity = normalizedBoundedReal(effects.shellBackgroundOpacity, 1, 0, 1);
         root.shellBlurEnabled = typeof effects.shellBlurEnabled === "boolean" ? effects.shellBlurEnabled :
