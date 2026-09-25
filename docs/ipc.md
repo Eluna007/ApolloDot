@@ -258,6 +258,8 @@ qs -c apollo ipc call games open chess
 qs -c apollo ipc call games close
 ```
 
+Both games also have a button in the bar's tray pill, which opens the game on that bar's
+output.
 `open` and `toggle` return `OPEN`, `CLOSED`, `UNAVAILABLE` or `INVALID_GAME`; `close`
 returns `CLOSED` or `NOT_OPEN`. No default shortcut is bound. A niri binding:
 

@@ -12833,6 +12833,19 @@ detected</translation>
     </message>
 </context>
 <context>
+    <name>Tray</name>
+    <message>
+        <location filename="../Modules/Bar/Tray/Tray.qml" line="224"/>
+        <source>Apolloku</source>
+        <translation>Apolloku</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Bar/Tray/Tray.qml" line="232"/>
+        <source>Chess</source>
+        <translation>Chess</translation>
+    </message>
+</context>
+<context>
     <name>TrayMenu</name>
     <message>
         <location filename="../Modules/Bar/Tray/TrayMenu.qml" line="290"/>
