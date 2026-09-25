@@ -607,6 +607,16 @@
           "defaultInstall": true
         },
         {
+          "package": "tailscale",
+          "purpose": "Tailscale quick settings tile and page",
+          "defaultInstall": false
+        },
+        {
+          "package": "polkit",
+          "purpose": "pkexec for the one-time Tailscale operator grant",
+          "defaultInstall": false
+        },
+        {
           "package": "paru",
           "purpose": "Unused PackageService package counters; not needed by the installer",
           "defaultInstall": false,

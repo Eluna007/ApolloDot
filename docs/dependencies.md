@@ -140,6 +140,8 @@ This phase is used only in CI; these tools are not installer runtime requests.
 | `pipewire` | Audio server | Yes |
 | `wireplumber` | Audio session manager when none is installed | Yes |
 | `gsettings-desktop-schemas` | Desktop color scheme schema | Yes |
+| `tailscale` | Tailscale quick settings tile and page | No |
+| `polkit` | pkexec for the one-time Tailscale operator grant | No |
 | `paru` (AUR) | Unused PackageService package counters; not needed by the installer | No |
 
 ## Bundled resources

@@ -245,3 +245,35 @@ Open/close remain explicit IPC operations. Spotlight Actions and permanent
 unassigned shortcut rows instead use `sidebar toggle weather` / `sidebar toggle drawer`.
 Toggling the already open target tab closes it; a closed sidebar or a different
 active tab opens the requested tab. No default key is installed.
+
+## Games
+
+The Apolloku (sudoku) and Chess windows open centred on the focused output. Opening one
+closes the other, and `Esc` closes whichever is open:
+
+```bash
+qs -c apollo ipc call games toggle apolloku
+qs -c apollo ipc call games toggle chess
+qs -c apollo ipc call games open chess
+qs -c apollo ipc call games close
+```
+
+`open` and `toggle` return `OPEN`, `CLOSED`, `UNAVAILABLE` or `INVALID_GAME`; `close`
+returns `CLOSED` or `NOT_OPEN`. No default shortcut is bound. A niri binding:
+
+```kdl
+Mod+Shift+S { spawn "qs" "-c" "apollo" "ipc" "call" "games" "toggle" "apolloku"; }
+```
+
+Games, statistics and the chess.com handle are kept in the Apollo configuration directory
+(`apolloku.json`, `apolloku-stats.json`, `chess.json`, `chess-stats.json`), the same files
+the standalone ApolloWidgets used. Set `games.chessUsername` in `config.json` to show
+chess.com ratings; the old top-level `chessUsername` key is still read.
+
+## Tailscale
+
+The Tailscale tile in quick settings connects and disconnects; right-click opens its page
+with the device list, exit node, and the shields-up, DNS and route switches. Changing
+Tailscale settings requires this user to be the tailscaled operator. When it is not, the
+page offers **Grant access**, which runs `pkexec tailscale set --operator=$USER` once;
+the equivalent by hand is `sudo tailscale set --operator=$USER`.

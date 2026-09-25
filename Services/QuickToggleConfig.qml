@@ -47,6 +47,10 @@ Singleton {
                     {
                         "type": "night",
                         "size": 2
+                    },
+                    {
+                        "type": "tailscale",
+                        "size": 2
                     }
                 ];
     }
@@ -73,6 +77,11 @@ Singleton {
         if (!seen.night)
             normalized.push({
                                 "type": "night",
+                                "size": 2
+                            });
+        if (!seen.tailscale)
+            normalized.push({
+                                "type": "tailscale",
                                 "size": 2
                             });
         return normalized;

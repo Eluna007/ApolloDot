@@ -63,7 +63,7 @@ WidgetPanel {
 
     function hasAltActionForType(type) {
         return type === "network" || type === "bluetooth" || type === "caffeine" || type === "audio" || type
-                === "mic" || type === "night";
+                === "mic" || type === "night" || type === "tailscale";
     }
 
     function titleForType(type) {
@@ -84,6 +84,8 @@ WidgetPanel {
             return qsTr("Appearance");
         case "dnd":
             return qsTr("Do not disturb");
+        case "tailscale":
+            return qsTr("Tailscale");
         default:
             return type;
         }
@@ -117,6 +119,16 @@ WidgetPanel {
             return PersonalizationConfig.themeMode === "dark" ? qsTr("Dark") : qsTr("Light");
         case "dnd":
             return UiPreferences.dndEnabled ? qsTr("On") : qsTr("Off");
+        case "tailscale":
+            if (!TailscaleService.available)
+                return qsTr("Unavailable");
+            if (TailscaleService.needsLogin)
+                return qsTr("Log in required");
+            if (!TailscaleService.connected)
+                return qsTr("Off");
+            return TailscaleService.currentExitNode ? qsTr("Via %1").arg(TailscaleService.displayName(
+                                                                            TailscaleService.currentExitNode)) :
+                                                      TailscaleService.self.ipv4 || qsTr("Connected");
         default:
             return "";
         }
@@ -141,6 +153,8 @@ WidgetPanel {
             return PersonalizationConfig.themeMode === "dark" ? "dark_mode" : "light_mode";
         case "dnd":
             return UiPreferences.dndEnabled ? "notifications_paused" : "notifications";
+        case "tailscale":
+            return TailscaleService.connected ? "vpn_lock" : "vpn_key_off";
         default:
             return "toggle_off";
         }
@@ -164,6 +178,8 @@ WidgetPanel {
             return PersonalizationConfig.themeMode === "dark";
         case "dnd":
             return UiPreferences.dndEnabled;
+        case "tailscale":
+            return TailscaleService.connected;
         default:
             return false;
         }
@@ -177,6 +193,8 @@ WidgetPanel {
             return NetworkService.available && NetworkService.wifiAvailable;
         case "bluetooth":
             return BluetoothService.available;
+        case "tailscale":
+            return TailscaleService.available && TailscaleService.status.ok;
         default:
             return true;
         }
@@ -208,6 +226,14 @@ WidgetPanel {
         case "dnd":
             UiPreferences.toggleDnd();
             break;
+        case "tailscale":
+            // Without operator access the change would be refused; show the
+            // page that offers to grant it instead.
+            if (TailscaleService.needsOperator && !TailscaleService.needsLogin)
+                root.altType(type);
+            else
+                TailscaleService.toggle();
+            break;
         }
     }
 
@@ -225,6 +251,8 @@ WidgetPanel {
             view = "microphone";
         else if (type === "night")
             view = "night";
+        else if (type === "tailscale")
+            view = "tailscale";
 
         if (view.length === 0)
             return;

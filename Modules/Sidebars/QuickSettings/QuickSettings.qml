@@ -16,27 +16,22 @@ Item {
         case "audio":
         case "microphone":
         case "night":
+        case "tailscale":
         case "settings":
             return WidgetState.quickSettingsView;
         default:
             return "settings";
         }
     }
-    readonly property var activeViewLoader: activeView === "network" ? networkLoader : activeView
-                                                                       === "bluetooth" ? bluetoothLoader :
-                                                                                         activeView
-                                                                                         === "idle"
-                                                                                         ? idleLoader :
-                                                                                           activeView
-                                                                                           === "audio"
-                                                                                           ? audioLoader :
-                                                                                             activeView
-                                                                                             === "microphone"
-                                                                                             ? microphoneLoader :
-                                                                                               activeView
-                                                                                               === "night"
-                                                                                               ? nightLoader :
-                                                                                                 settingsLoader
+    readonly property var activeViewLoader: ({
+                                                 "network": networkLoader,
+                                                 "bluetooth": bluetoothLoader,
+                                                 "idle": idleLoader,
+                                                 "audio": audioLoader,
+                                                 "microphone": microphoneLoader,
+                                                 "night": nightLoader,
+                                                 "tailscale": tailscaleLoader
+                                             })[activeView] || settingsLoader
     readonly property bool readyForPresentation: activeViewLoader.active && activeViewLoader.status
                                                  === Loader.Ready && activeViewLoader.item !== null
                                                  && displayedView === activeView
@@ -179,6 +174,27 @@ Item {
 
     PageTransitionLayer {
         anchors.fill: parent
+        active: root.displayedView === "tailscale"
+        transitionsEnabled: root.foreground
+
+        Loader {
+            id: tailscaleLoader
+
+            property bool loadedOnce: false
+
+            anchors.fill: parent
+            active: root.activeView === "tailscale" || loadedOnce
+            asynchronous: true
+            sourceComponent: tailscaleComponent
+            onLoaded: {
+                loadedOnce = true;
+                root.syncDisplayedView();
+            }
+        }
+    }
+
+    PageTransitionLayer {
+        anchors.fill: parent
         active: root.displayedView === "settings"
         hubPage: true
         transitionsEnabled: root.foreground
@@ -243,6 +259,14 @@ Item {
         id: nightComponent
 
         NightModeContent {}
+    }
+
+    Component {
+        id: tailscaleComponent
+
+        TailscaleContent {
+            foreground: root.foreground && root.activeView === "tailscale"
+        }
     }
 
     Component {

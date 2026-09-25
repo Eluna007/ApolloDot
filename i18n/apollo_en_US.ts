@@ -535,6 +535,161 @@
     </message>
 </context>
 <context>
+    <name>ApollokuWindow</name>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="98"/>
+        <source>Easy</source>
+        <translation>Easy</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="100"/>
+        <source>Medium</source>
+        <translation>Medium</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="102"/>
+        <source>Hard</source>
+        <translation>Hard</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="104"/>
+        <source>Expert</source>
+        <translation>Expert</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="112"/>
+        <source>Generating %1%</source>
+        <translation>Generating %1%</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="114"/>
+        <source>Choose a difficulty</source>
+        <translation>Choose a difficulty</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="116"/>
+        <source>Solved with %n hint(s)</source>
+        <translation>
+            <numerusform>Solved with %n hint</numerusform>
+            <numerusform>Solved with %n hints</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="116"/>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="871"/>
+        <source>Solved</source>
+        <translation>Solved</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="118"/>
+        <source>Paused</source>
+        <translation>Paused</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="120"/>
+        <source>Pencil marks</source>
+        <translation>Pencil marks</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="122"/>
+        <source>Check your work</source>
+        <translation>Check your work</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="122"/>
+        <source>%n to go</source>
+        <translation>
+            <numerusform>%n to go</numerusform>
+            <numerusform>%n to go</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="640"/>
+        <source>Apolloku</source>
+        <translation>Apolloku</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="655"/>
+        <source>%1 → %2</source>
+        <translation>%1 → %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="871"/>
+        <source>Solved clean</source>
+        <translation>Solved clean</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="880"/>
+        <source>%1 in %2</source>
+        <translation>%1 in %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="891"/>
+        <source>New personal best</source>
+        <translation>New personal best</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="891"/>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="1141"/>
+        <source>Best %1</source>
+        <translation>Best %1</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="904"/>
+        <source>%n hint(s)</source>
+        <translation>
+            <numerusform>%n hint</numerusform>
+            <numerusform>%n hints</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="1017"/>
+        <source>Pencil marks (N)</source>
+        <translation>Pencil marks (N)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="1027"/>
+        <source>Undo (U)</source>
+        <translation>Undo (U)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="1036"/>
+        <source>Hint (H)</source>
+        <translation>Hint (H)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="1045"/>
+        <source>Resume (Space)</source>
+        <translation>Resume (Space)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="1045"/>
+        <source>Pause (Space)</source>
+        <translation>Pause (Space)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="1096"/>
+        <source>New %1 game</source>
+        <translation>New %1 game</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="1119"/>
+        <source>%n solved</source>
+        <translation>
+            <numerusform>%n solved</numerusform>
+            <numerusform>%n solved</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/Games/ApollokuWindow.qml" line="1127"/>
+        <source>%n streak</source>
+        <translation>
+            <numerusform>%n streak</numerusform>
+            <numerusform>%n streak</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>AppBrowserPopup</name>
     <message>
         <location filename="../Modules/ControlCenter/AppBrowserPopup.qml" line="186"/>
@@ -1948,6 +2103,174 @@ Scroll to adjust</translation>
         <location filename="../Modules/Sidebars/Dashboard/infoTools/CalendarWidget.qml" line="83"/>
         <source>Next month</source>
         <translation>Next month</translation>
+    </message>
+</context>
+<context>
+    <name>ChessWindow</name>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="73"/>
+        <source>Beginner</source>
+        <translation>Beginner</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="75"/>
+        <source>Casual</source>
+        <translation>Casual</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="77"/>
+        <source>Club</source>
+        <translation>Club</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="79"/>
+        <source>Strong</source>
+        <translation>Strong</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="81"/>
+        <source>Best</source>
+        <translation>Best</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="89"/>
+        <source>Black wins by checkmate</source>
+        <translation>Black wins by checkmate</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="89"/>
+        <source>White wins by checkmate</source>
+        <translation>White wins by checkmate</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="92"/>
+        <source>Stalemate</source>
+        <translation>Stalemate</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="94"/>
+        <source>Draw by the fifty-move rule</source>
+        <translation>Draw by the fifty-move rule</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="96"/>
+        <source>Draw by threefold repetition</source>
+        <translation>Draw by threefold repetition</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="98"/>
+        <source>Draw by insufficient material</source>
+        <translation>Draw by insufficient material</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="108"/>
+        <source>Thinking…</source>
+        <translation>Thinking…</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="110"/>
+        <source>Choose a piece</source>
+        <translation>Choose a piece</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="113"/>
+        <source>Check — white to move</source>
+        <translation>Check — white to move</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="113"/>
+        <source>Check — black to move</source>
+        <translation>Check — black to move</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="114"/>
+        <source>White to move</source>
+        <translation>White to move</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="114"/>
+        <source>Black to move</source>
+        <translation>Black to move</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="120"/>
+        <source>Bullet</source>
+        <translation>Bullet</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="122"/>
+        <source>Blitz</source>
+        <translation>Blitz</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="124"/>
+        <source>Rapid</source>
+        <translation>Rapid</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="126"/>
+        <source>Daily</source>
+        <translation>Daily</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="478"/>
+        <source>Chess</source>
+        <translation>Chess</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="490"/>
+        <source>Two players</source>
+        <translation>Two players</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="696"/>
+        <source>New game (N)</source>
+        <translation>New game (N)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="704"/>
+        <source>Undo (U)</source>
+        <translation>Undo (U)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="713"/>
+        <source>Flip board (F)</source>
+        <translation>Flip board (F)</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="722"/>
+        <source>Playing the engine; switch to two players</source>
+        <translation>Playing the engine; switch to two players</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="723"/>
+        <source>Two players; switch to the engine</source>
+        <translation>Two players; switch to the engine</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="788"/>
+        <source>%1 won · %2 lost · %3 drawn against the engine</source>
+        <translation>%1 won · %2 lost · %3 drawn against the engine</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="819"/>
+        <source>%1 on chess.com</source>
+        <translation>%1 on chess.com</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="833"/>
+        <source>Puzzles %1</source>
+        <translation>Puzzles %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="869"/>
+        <source>%1  %2%</source>
+        <translation>%1  %2%</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Games/ChessWindow.qml" line="890"/>
+        <source>Could not reach chess.com for %1</source>
+        <translation>Could not reach chess.com for %1</translation>
     </message>
 </context>
 <context>
@@ -8709,172 +9032,172 @@ Click to open network settings</translation>
         <translation>Right</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="349"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="527"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="631"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="351"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="529"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="633"/>
         <source>Weather</source>
         <translation>Weather</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="390"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="392"/>
         <source>Quick Settings</source>
         <translation>Quick Settings</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="468"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="470"/>
         <source>Caelestia</source>
         <translation>Caelestia</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="354"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="356"/>
         <source>Pomodoro</source>
         <translation>Pomodoro</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="366"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="517"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="368"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="519"/>
         <source>Media</source>
         <translation>Media</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="370"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="512"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="372"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="514"/>
         <source>Workspaces</source>
         <translation>Workspaces</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="374"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="376"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="378"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="380"/>
         <source>Active Window</source>
         <translation>Active Window</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="382"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="384"/>
         <source>Tray</source>
         <translation>Tray</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="386"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="388"/>
         <source>System Monitor</source>
         <translation>System Monitor</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="399"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="532"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="401"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="534"/>
         <source>Network</source>
         <translation>Network</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="403"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="537"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="405"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="539"/>
         <source>Bluetooth</source>
         <translation>Bluetooth</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="407"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="542"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="409"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="544"/>
         <source>Brightness</source>
         <translation>Brightness</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="411"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="547"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="413"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="549"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="415"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="552"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="417"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="554"/>
         <source>Microphone</source>
         <translation>Microphone</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="419"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="557"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="421"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="559"/>
         <source>Battery</source>
         <translation>Battery</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="424"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="426"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="429"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="431"/>
         <source>Power</source>
         <translation>Power</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="454"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="456"/>
         <source>Sine wave</source>
         <translation>Sine wave</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="458"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="460"/>
         <source>Material wave</source>
         <translation>Material wave</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="464"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="466"/>
         <source>Rounded cover</source>
         <translation>Rounded cover</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="472"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="474"/>
         <source>Cover background</source>
         <translation>Cover background</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="478"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="480"/>
         <source>Theme colors</source>
         <translation>Theme colors</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="482"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="484"/>
         <source>Cover colors</source>
         <translation>Cover colors</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="522"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="524"/>
         <source>System monitor</source>
         <translation>System monitor</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="611"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="613"/>
         <source>Do not open</source>
         <translation>Do not open</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="615"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="617"/>
         <source>Media controls</source>
         <translation>Media controls</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="619"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="621"/>
         <source>Lyrics</source>
         <translation>Lyrics</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="623"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="625"/>
         <source>Dashboard</source>
         <translation>Dashboard</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="627"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="629"/>
         <source>Upload</source>
         <translation>Upload</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="635"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="637"/>
         <source>Tools</source>
         <translation>Tools</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="642"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="644"/>
         <source>Peak</source>
         <translation>Peak</translation>
     </message>
@@ -9044,105 +9367,123 @@ Click to open network settings</translation>
         <translation>Do not disturb</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="95"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="99"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="105"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="88"/>
+        <source>Tailscale</source>
+        <translation>Tailscale</translation>
+    </message>
+    <message>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="97"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="101"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="107"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="124"/>
         <source>Unavailable</source>
         <translation>Unavailable</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="96"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="98"/>
         <source>%1 K</source>
         <translation>%1 K</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="101"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="103"/>
         <source>No Wi-Fi device</source>
         <translation>No Wi-Fi device</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="102"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="107"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="119"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="104"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="109"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="121"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="128"/>
         <source>Off</source>
         <translation>Off</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="108"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="110"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="131"/>
         <source>Connected</source>
         <translation>Connected</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="108"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="113"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="119"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="110"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="115"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="121"/>
         <source>On</source>
         <translation>On</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="111"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="113"/>
         <source>Keep awake</source>
         <translation>Keep awake</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="111"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="113"/>
         <source>Normal sleep</source>
         <translation>Normal sleep</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="113"/>
         <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="115"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="117"/>
         <source>Muted</source>
         <translation>Muted</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="117"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="119"/>
         <source>Dark</source>
         <translation>Dark</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="117"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="119"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="239"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="126"/>
+        <source>Log in required</source>
+        <translation>Log in required</translation>
+    </message>
+    <message>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="129"/>
+        <source>Via %1</source>
+        <translation>Via %1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="267"/>
         <source>
 Right-click to change shape; scroll to reorder</source>
         <translation>
 Right-click to change shape; scroll to reorder</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="241"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="269"/>
         <source>
 Right-click to open the details panel</source>
         <translation>
 Right-click to open the details panel</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="262"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="290"/>
         <source>Edit quick actions
 Right-click to change shape; scroll to reorder</source>
         <translation>Edit quick actions
 Right-click to change shape; scroll to reorder</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="264"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="292"/>
         <source>Edit quick actions</source>
         <translation>Edit quick actions</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="273"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="301"/>
         <source>Restart Quickshell</source>
         <translation>Restart Quickshell</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="282"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="310"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="291"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="319"/>
         <source>Power menu</source>
         <translation>Power menu</translation>
     </message>
@@ -11929,6 +12270,235 @@ detected</translation>
         <location filename="../Modules/SystemCards/SystemWeatherCard.qml" line="23"/>
         <source>Weather unavailable</source>
         <translation>Weather unavailable</translation>
+    </message>
+</context>
+<context>
+    <name>TailscaleContent</name>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="23"/>
+        <source>Tailscale is not installed</source>
+        <translation>Tailscale is not installed</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="25"/>
+        <source>The Tailscale daemon is not running. Start it with: systemctl enable --now tailscaled</source>
+        <translation>The Tailscale daemon is not running. Start it with: systemctl enable --now tailscaled</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="27"/>
+        <source>Finish logging in in your browser</source>
+        <translation>Finish logging in in your browser</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="27"/>
+        <source>Log in to connect this device to your tailnet</source>
+        <translation>Log in to connect this device to your tailnet</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="55"/>
+        <source>Online</source>
+        <translation>Online</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="55"/>
+        <source>Offline</source>
+        <translation>Offline</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="66"/>
+        <source>Tailscale</source>
+        <translation>Tailscale</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="132"/>
+        <source>Access</source>
+        <translation>Access</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="137"/>
+        <source>Operator access</source>
+        <translation>Operator access</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="138"/>
+        <source>Let %1 change Tailscale without a password. You are asked for your password once.</source>
+        <translation>Let %1 change Tailscale without a password. You are asked for your password once.</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="143"/>
+        <source>Grant access</source>
+        <translation>Grant access</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="153"/>
+        <source>Account</source>
+        <translation>Account</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="158"/>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="163"/>
+        <source>Log in</source>
+        <translation>Log in</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="160"/>
+        <source>Opens the login page in your browser</source>
+        <translation>Opens the login page in your browser</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="163"/>
+        <source>Open</source>
+        <translation>Open</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="174"/>
+        <source>This device</source>
+        <translation>This device</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="194"/>
+        <source>Exit node</source>
+        <translation>Exit node</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="195"/>
+        <source>No device in this tailnet offers itself as an exit node</source>
+        <translation>No device in this tailnet offers itself as an exit node</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="202"/>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="203"/>
+        <source>Use this device&apos;s own internet connection</source>
+        <translation>Use this device&apos;s own internet connection</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="243"/>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="250"/>
+        <source>Allow local network access</source>
+        <translation>Allow local network access</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="244"/>
+        <source>Reach printers and other LAN devices while using an exit node</source>
+        <translation>Reach printers and other LAN devices while using an exit node</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="260"/>
+        <source>Settings</source>
+        <translation>Settings</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="265"/>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="272"/>
+        <source>Shields up</source>
+        <translation>Shields up</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="266"/>
+        <source>Block incoming connections from other devices</source>
+        <translation>Block incoming connections from other devices</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="280"/>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="287"/>
+        <source>Use Tailscale DNS</source>
+        <translation>Use Tailscale DNS</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="281"/>
+        <source>MagicDNS names and the tailnet&apos;s DNS settings</source>
+        <translation>MagicDNS names and the tailnet&apos;s DNS settings</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="295"/>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="302"/>
+        <source>Accept routes</source>
+        <translation>Accept routes</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="296"/>
+        <source>Use subnet routes advertised by other devices</source>
+        <translation>Use subnet routes advertised by other devices</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="312"/>
+        <source>Devices</source>
+        <translation>Devices</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="313"/>
+        <source>%1 of %n online</source>
+        <translation>
+            <numerusform>%1 of %n online</numerusform>
+            <numerusform>%1 of %n online</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="339"/>
+        <source>No other devices in this tailnet</source>
+        <translation>No other devices in this tailnet</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="359"/>
+        <source>Refresh Tailscale status</source>
+        <translation>Refresh Tailscale status</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="370"/>
+        <source>Tailscale switch</source>
+        <translation>Tailscale switch</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="389"/>
+        <source>Copy address</source>
+        <translation>Copy address</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="400"/>
+        <source>Copy IP address</source>
+        <translation>Copy IP address</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Sidebars/QuickSettings/TailscaleContent.qml" line="407"/>
+        <source>Copy MagicDNS name</source>
+        <translation>Copy MagicDNS name</translation>
+    </message>
+</context>
+<context>
+    <name>TailscaleService</name>
+    <message>
+        <location filename="../Services/TailscaleService.qml" line="177"/>
+        <source>Tailscale access was not granted</source>
+        <translation>Tailscale access was not granted</translation>
+    </message>
+    <message>
+        <location filename="../Services/TailscaleService.qml" line="182"/>
+        <source>Tailscale refused the change. Grant this account operator access first.</source>
+        <translation>Tailscale refused the change. Grant this account operator access first.</translation>
+    </message>
+    <message>
+        <location filename="../Services/TailscaleService.qml" line="185"/>
+        <source>Tailscale: %1</source>
+        <translation>Tailscale: %1</translation>
+    </message>
+    <message>
+        <location filename="../Services/TailscaleService.qml" line="185"/>
+        <source>The Tailscale command failed</source>
+        <translation>The Tailscale command failed</translation>
+    </message>
+    <message>
+        <location filename="../Services/TailscaleService.qml" line="266"/>
+        <source>pkexec is not installed; run: sudo tailscale set --operator=%1</source>
+        <translation>pkexec is not installed; run: sudo tailscale set --operator=%1</translation>
+    </message>
+    <message>
+        <location filename="../Services/TailscaleService.qml" line="267"/>
+        <source>The Tailscale command could not be started</source>
+        <translation>The Tailscale command could not be started</translation>
     </message>
 </context>
 <context>
