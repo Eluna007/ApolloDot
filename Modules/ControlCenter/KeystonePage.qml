@@ -250,11 +250,11 @@ Item {
 
                 SettingsRow {
                     Layout.fillWidth: true
-                    title: qsTr("Show spectrum")
+                    title: qsTr("Show source app icon")
                     trailing: StyledSwitch {
-                        checked: PersonalizationConfig.keystoneLongShowSpectrum
-                        Accessible.name: qsTr("Show spectrum")
-                        onToggled: PersonalizationConfig.setKeystoneLongShowSpectrum(checked)
+                        checked: PersonalizationConfig.keystoneLongShowSourceIcon
+                        Accessible.name: qsTr("Show source app icon")
+                        onToggled: PersonalizationConfig.setKeystoneLongShowSourceIcon(checked)
                     }
                 }
 

@@ -1532,7 +1532,6 @@ Variants {
                         width: implicitWidth
                         height: implicitHeight
                         player: root.currentPlayer
-                        active: root.isLyricsMode
                         vertical: !keystoneWindow.horizontalEdge
                         edge: keystoneWindow.edge
                         opacity: root.isLyricsMode ? 1 : 0

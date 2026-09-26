@@ -5456,7 +5456,7 @@ Scroll to adjust</source>
 <context>
     <name>KeystonePage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1917"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1921"/>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="405"/>
         <source>Horizontal clock style</source>
         <translation>横向时钟样式</translation>
@@ -5467,7 +5467,7 @@ Scroll to adjust</source>
         <translation>返回拱心石设置</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1955"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1959"/>
         <source>Keystone style</source>
         <translation>拱心石样式</translation>
     </message>
@@ -5487,7 +5487,7 @@ Scroll to adjust</source>
         <translation>屏幕边缘</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1958"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1962"/>
         <source>Keyboard indicators</source>
         <translation>键盘状态提示</translation>
     </message>
@@ -5504,17 +5504,17 @@ Scroll to adjust</source>
         <translation>小键盘数字锁定状态变化</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1957"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1961"/>
         <source>Media controls</source>
         <translation>媒体控制</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1959"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1963"/>
         <source>Keyhole</source>
         <translation>钥匙孔</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1960"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1964"/>
         <source>Horizontal clock</source>
         <translation>横向时钟</translation>
     </message>
@@ -5530,7 +5530,7 @@ Scroll to adjust</source>
         <translation>字体、数字位置和颜色</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1961"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1965"/>
         <source>Recording</source>
         <translation>录制</translation>
     </message>
@@ -5608,7 +5608,7 @@ Scroll to adjust</source>
         <translation>可选择当前文件夹或选中的子文件夹</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1956"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1960"/>
         <source>Mouse actions</source>
         <translation>鼠标操作</translation>
     </message>
@@ -5666,8 +5666,8 @@ Scroll to adjust</source>
     <message>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="253"/>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="256"/>
-        <source>Show spectrum</source>
-        <translation>显示频谱</translation>
+        <source>Show source app icon</source>
+        <translation>显示音源应用图标</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="263"/>

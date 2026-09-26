@@ -5457,7 +5457,7 @@ Scroll to adjust</translation>
 <context>
     <name>KeystonePage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1917"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1921"/>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="405"/>
         <source>Horizontal clock style</source>
         <translation>Horizontal clock style</translation>
@@ -5468,7 +5468,7 @@ Scroll to adjust</translation>
         <translation>Back to Keystone settings</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1955"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1959"/>
         <source>Keystone style</source>
         <translation>Keystone style</translation>
     </message>
@@ -5488,7 +5488,7 @@ Scroll to adjust</translation>
         <translation>Screen edge</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1958"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1962"/>
         <source>Keyboard indicators</source>
         <translation>Keyboard indicators</translation>
     </message>
@@ -5505,17 +5505,17 @@ Scroll to adjust</translation>
         <translation>Num Lock changes</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1957"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1961"/>
         <source>Media controls</source>
         <translation>Media controls</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1959"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1963"/>
         <source>Keyhole</source>
         <translation>Keyhole</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1960"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1964"/>
         <source>Horizontal clock</source>
         <translation>Horizontal clock</translation>
     </message>
@@ -5531,7 +5531,7 @@ Scroll to adjust</translation>
         <translation>Font, digit positions, and colors</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1961"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1965"/>
         <source>Recording</source>
         <translation>Recording</translation>
     </message>
@@ -5609,7 +5609,7 @@ Scroll to adjust</translation>
         <translation>Choose the current folder or a selected subfolder</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1956"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1960"/>
         <source>Mouse actions</source>
         <translation>Mouse actions</translation>
     </message>
@@ -5667,8 +5667,8 @@ Scroll to adjust</translation>
     <message>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="253"/>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="256"/>
-        <source>Show spectrum</source>
-        <translation>Show spectrum</translation>
+        <source>Show source app icon</source>
+        <translation>Show source app icon</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="263"/>

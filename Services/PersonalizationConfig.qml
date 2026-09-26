@@ -437,7 +437,7 @@ Singleton {
     property bool keystoneCapsLockOsd: true
     property bool keystoneNumLockOsd: true
     property bool keystoneHideDate: false
-    property bool keystoneLongShowSpectrum: true
+    property bool keystoneLongShowSourceIcon: true
     property bool keystoneLongShowNames: true
     property bool keystoneLongShowMonitorValues: true
     property bool barShowMonitorValues: true
@@ -1618,8 +1618,8 @@ Singleton {
         setValue("keystoneNumLockOsd", !!value);
     }
 
-    function setKeystoneLongShowSpectrum(value) {
-        setValue("keystoneLongShowSpectrum", !!value);
+    function setKeystoneLongShowSourceIcon(value) {
+        setValue("keystoneLongShowSourceIcon", !!value);
     }
 
     function setKeystoneLongShowNames(value) {
@@ -1809,7 +1809,7 @@ Singleton {
                 "capsLockOsd": root.keystoneCapsLockOsd,
                 "numLockOsd": root.keystoneNumLockOsd,
                 "hideDate": root.keystoneHideDate,
-                "longShowSpectrum": root.keystoneLongShowSpectrum,
+                "longShowSourceIcon": root.keystoneLongShowSourceIcon,
                 "longShowNames": root.keystoneLongShowNames,
                 "longShowMonitorValues": root.keystoneLongShowMonitorValues,
                 "longShowValues": root.keystoneLongShowValues,
@@ -1948,8 +1948,9 @@ Singleton {
         root.keystonePosition = normalizedEdgePosition(keystone.position);
         root.keystoneCapsLockOsd = typeof keystone.capsLockOsd === "boolean" ? keystone.capsLockOsd : true;
         root.keystoneNumLockOsd = typeof keystone.numLockOsd === "boolean" ? keystone.numLockOsd : true;
-        root.keystoneLongShowSpectrum = typeof keystone.longShowSpectrum === "boolean"
-                ? keystone.longShowSpectrum : true;
+        root.keystoneLongShowSourceIcon = typeof keystone.longShowSourceIcon === "boolean"
+                ? keystone.longShowSourceIcon : typeof keystone.longShowSpectrum === "boolean"
+                  ? keystone.longShowSpectrum : true;
         root.keystoneLongShowValues = typeof keystone.longShowValues === "boolean" ? keystone.longShowValues :
                                                                                      true;
         root.keystoneLongShowNames = typeof keystone.longShowNames === "boolean" ? keystone.longShowNames :

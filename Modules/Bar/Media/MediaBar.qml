@@ -10,12 +10,14 @@ TopBarPill {
 
     property bool vertical: false
     property bool showSpectrum: true
+    property bool showSourceIcon: false
     property string edge: PersonalizationConfig.barPosition
     property real maximumTitleWidth: 180
     readonly property var player: MediaManager.active
     readonly property string title: player ? player.trackTitle || player.identity || qsTr("No media") : qsTr(
                                                  "No media")
-    readonly property bool spectrumActive: showSpectrum && visible && player !== null && player.isPlaying
+    readonly property bool spectrumActive: showSpectrum && !showSourceIcon && visible && player !== null
+                                           && player.isPlaying
     readonly property string spectrumToken: "bar-media-" + String(root)
 
     implicitWidth: vertical ? Sizes.barVisualThickness : layout.implicitWidth + 2
@@ -42,7 +44,7 @@ TopBarPill {
         columnSpacing: 4
 
         Row {
-            visible: root.showSpectrum
+            visible: root.showSpectrum && !root.showSourceIcon
             Layout.alignment: Qt.AlignCenter
             Layout.preferredWidth: 28
             Layout.preferredHeight: 28
@@ -76,6 +78,14 @@ TopBarPill {
                     }
                 }
             }
+        }
+
+        MediaSourceIcon {
+            visible: root.showSourceIcon
+            Layout.alignment: Qt.AlignCenter
+            Layout.preferredWidth: 24
+            Layout.preferredHeight: 24
+            player: root.player
         }
 
         MediaButton {

@@ -108,7 +108,8 @@ Item {
                     Component {
                         id: media
                         MediaBar {
-                            showSpectrum: PersonalizationConfig.keystoneLongShowSpectrum
+                            showSpectrum: false
+                            showSourceIcon: PersonalizationConfig.keystoneLongShowSourceIcon
                             vertical: root.vertical
                             edge: root.edge
                             maximumTitleWidth: root.vertical ? 120 : 180
