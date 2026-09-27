@@ -44,26 +44,30 @@ Item {
         y: root.vertical ? 32 : (root.height - height) / 2
     }
 
-    MouseArea {
+    ActionButton {
         id: mouseArea
         anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
+        padding: 0
+        contentItem: Item {}
+        Accessible.name: tooltip.text
 
-        onWheel: wheel => {
-            const step = 0.05;
-            let newBri = root.brightnessValue;
-            if (wheel.angleDelta.y > 0)
-                newBri += step;
-            else
-                newBri -= step;
-            Brightness.setBrightnessForScreen(root.screen, newBri);
-            wheel.accepted = true;
+        WheelHandler {
+            onWheel: wheel => {
+                const step = 0.05;
+                let newBri = root.brightnessValue;
+                if (wheel.angleDelta.y > 0)
+                    newBri += step;
+                else
+                    newBri -= step;
+                Brightness.setBrightnessForScreen(root.screen, newBri);
+                wheel.accepted = true;
+            }
         }
     }
 
     PopupToolTip {
-        extraVisibleCondition: mouseArea.containsMouse
+        id: tooltip
+        extraVisibleCondition: mouseArea.pointerHovered
         text: qsTr("Brightness: ") + Math.round(root.brightnessValue * 100) + qsTr("%\nScroll to adjust")
     }
 }

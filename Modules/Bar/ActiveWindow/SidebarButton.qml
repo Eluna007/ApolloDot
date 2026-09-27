@@ -8,7 +8,6 @@ TopBarPill {
     id: root
 
     property bool vertical: false
-    backgroundVisible: false
 
     implicitHeight: vertical ? buttonRow.implicitHeight + 16 : Sizes.barPillThickness
     implicitWidth: vertical ? Sizes.barVisualThickness : buttonRow.implicitWidth + 16

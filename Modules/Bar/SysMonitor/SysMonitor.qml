@@ -13,7 +13,7 @@ TopBarPill {
     property bool vertical: false
     property bool showValues: true
     property string ownerId: "bar-sysmonitor"
-    readonly property bool isHovered: mouseArea.containsMouse
+    readonly property bool isHovered: mouseArea.pointerHovered
     readonly property var memory: SystemMonitorService.memory || ({})
     readonly property var cpu: SystemMonitorService.cpu || ({})
     readonly property var disk: Format.rootDisk(SystemMonitorService.disks)
@@ -148,12 +148,13 @@ TopBarPill {
         }
     }
 
-    MouseArea {
+    ActionButton {
         id: mouseArea
 
         anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
+        padding: 0
+        contentItem: Item {}
+        Accessible.name: root.tooltipText
         onClicked: ApplicationService.launchCommand(["gnome-system-monitor"])
     }
 

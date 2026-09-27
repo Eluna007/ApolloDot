@@ -69,7 +69,6 @@ Loader {
         id: mediaComponent
 
         MediaBar {
-            backgroundVisible: false
             maximumTitleWidth: Math.max(48, Math.min(180, (root.vertical ? root.barVisualItem.height :
                                                                            root.barVisualItem.width) * 0.12))
             vertical: root.vertical
@@ -92,7 +91,6 @@ Loader {
 
         SysMonitor {
             flatIndicators: true
-            backgroundVisible: false
             showValues: PersonalizationConfig.barShowValues
             ownerId: "bar-sysmonitor:" + root.screen.name
             vertical: root.vertical

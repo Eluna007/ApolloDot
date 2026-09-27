@@ -15,13 +15,6 @@ Item {
     signal clicked
     implicitWidth: vertical ? Sizes.barControlCircleSize : content.implicitWidth + 8
     implicitHeight: vertical ? content.implicitHeight + 8 : Sizes.barControlCircleSize
-    activeFocusOnTab: true
-    Keys.onPressed: event => {
-        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) {
-            root.clicked();
-            event.accepted = true;
-        }
-    }
     Accessible.role: Accessible.Button
     Accessible.name: tooltipText
     Accessible.onPressAction: root.clicked()
@@ -36,8 +29,8 @@ Item {
             Layout.alignment: Qt.AlignCenter
             text: root.iconName
             iconSize: 20
-            color: root.selected || root.activeFocus || pointer.containsMouse ? Appearance.colors.colPrimary :
-                                                                                Appearance.colors.colOnSurface
+            color: root.selected || pointer.visualFocus || pointer.pointerHovered
+                   ? Appearance.colors.colPrimary : Appearance.colors.colOnSurface
         }
         Item {
             visible: root.showLabel && root.label !== ""
@@ -59,15 +52,16 @@ Item {
             }
         }
     }
-    MouseArea {
+    ActionButton {
         id: pointer
         anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
+        padding: 0
+        contentItem: Item {}
+        Accessible.name: root.tooltipText
         onClicked: root.clicked()
     }
     PopupToolTip {
-        extraVisibleCondition: pointer.containsMouse
+        extraVisibleCondition: pointer.pointerHovered
         text: root.tooltipText
     }
 }

@@ -53,20 +53,23 @@ Item {
         y: root.vertical ? 32 : (root.height - height) / 2
     }
 
-    MouseArea {
+    ActionButton {
         id: mouseArea
         anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
+        padding: 0
+        contentItem: Item {}
+        Accessible.name: tooltip.text
 
-        onWheel: wheel => {
-            const step = 0.05;
-            let newVol = Volume.sinkVolume;
-            if (wheel.angleDelta.y > 0)
-                newVol += step;
-            else
-                newVol -= step;
-            Volume.setSinkVolume(newVol);
+        WheelHandler {
+            onWheel: wheel => {
+                const step = 0.05;
+                let newVol = Volume.sinkVolume;
+                if (wheel.angleDelta.y > 0)
+                    newVol += step;
+                else
+                    newVol -= step;
+                Volume.setSinkVolume(newVol);
+            }
         }
         onClicked: {
             if (root.screen && root.screen.name)
@@ -81,7 +84,8 @@ Item {
     }
 
     PopupToolTip {
-        extraVisibleCondition: mouseArea.containsMouse
+        id: tooltip
+        extraVisibleCondition: mouseArea.pointerHovered
         text: (Volume.sinkMuted ? qsTr("Volume: muted") : qsTr("Volume: ") + Math.round(Volume.sinkVolume
                                                                                         * 100) + "%") + qsTr(
                   "\nScroll to adjust; click to open sound")

@@ -44,21 +44,24 @@ Item {
         y: root.vertical ? 32 : (root.height - height) / 2
     }
 
-    MouseArea {
+    ActionButton {
         id: mouseArea
         anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
+        padding: 0
+        contentItem: Item {}
+        Accessible.name: tooltip.text
 
-        onWheel: wheel => {
-            const step = 0.05;
-            let newVol = Volume.sourceVolume;
-            if (wheel.angleDelta.y > 0)
-                newVol += step;
-            else
-                newVol -= step;
-            Volume.setSourceVolume(newVol);
-            wheel.accepted = true;
+        WheelHandler {
+            onWheel: wheel => {
+                const step = 0.05;
+                let newVol = Volume.sourceVolume;
+                if (wheel.angleDelta.y > 0)
+                    newVol += step;
+                else
+                    newVol -= step;
+                Volume.setSourceVolume(newVol);
+                wheel.accepted = true;
+            }
         }
         onClicked: {
             if (root.screen && root.screen.name)
@@ -73,7 +76,8 @@ Item {
     }
 
     PopupToolTip {
-        extraVisibleCondition: mouseArea.containsMouse
+        id: tooltip
+        extraVisibleCondition: mouseArea.pointerHovered
         text: (Volume.sourceMuted ? qsTr("Microphone: muted") : qsTr("Microphone: ") + Math.round(
                                         Volume.sourceVolume * 100) + "%") + qsTr(
                   "\nScroll to adjust; click to open microphone controls")

@@ -10,8 +10,6 @@ TopBarPill {
     property var screen: null
     property bool vertical: false
 
-    backgroundVisible: false
-
     function componentFor(componentId) {
         switch (componentId) {
         case "network":

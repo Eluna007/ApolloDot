@@ -46,14 +46,13 @@ Item {
         font.bold: true
     }
 
-    RippleButton {
+    ActionButton {
         id: button
 
         anchors.fill: parent
         buttonRadius: height / 2
         containerColor: "transparent"
         rippleColor: Appearance.colors.colOnSurface
-        stateLayerEnabled: false
         releaseAction: () => {
             return root.toggleView();
         }
