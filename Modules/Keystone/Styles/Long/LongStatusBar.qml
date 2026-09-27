@@ -122,8 +122,6 @@ Item {
                     Component {
                         id: media
                         MediaBar {
-                            showSpectrum: false
-                            showSourceIcon: true
                             vertical: root.vertical
                             edge: root.edge
                             maximumTitleWidth: root.vertical ? 120 : 180

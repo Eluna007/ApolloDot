@@ -8,12 +8,20 @@ Item {
     id: root
 
     property var screen: null
+    property bool vertical: false
+    readonly property bool showValue: PersonalizationConfig.barShowValues
 
-    implicitHeight: 28
-    implicitWidth: 28
+    implicitHeight: vertical && showValue ? 46 : 28
+    implicitWidth: vertical ? Math.max(28, showValue ? valueText.implicitWidth : 0) : 28 + (showValue
+                                                                                            ? valueText.implicitWidth
+                                                                                              + 6 : 0)
 
     ArcGauge {
-        anchors.fill: parent
+        id: gauge
+        width: 28
+        height: 28
+        x: root.vertical ? (root.width - width) / 2 : 0
+        y: root.vertical ? 0 : (root.height - height) / 2
 
         value: Volume.sinkVolume
         progressColor: (Volume.sinkMuted || Volume.sinkVolume <= 0) ? Appearance.colors.colError :
@@ -32,6 +40,17 @@ Item {
                 return "volume_down";
             return "volume_up";
         }
+    }
+
+    Text {
+        id: valueText
+        visible: root.showValue
+        text: Math.round(Volume.sinkVolume * 100) + "%"
+        font.family: Fonts.numeric
+        font.pixelSize: 12
+        color: Appearance.colors.colOnSurface
+        x: root.vertical ? (root.width - width) / 2 : 34
+        y: root.vertical ? 32 : (root.height - height) / 2
     }
 
     MouseArea {

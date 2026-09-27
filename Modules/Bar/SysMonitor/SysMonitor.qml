@@ -8,6 +8,7 @@ import "../../../Common/functions/SystemFormat.js" as Format
 
 TopBarPill {
     id: root
+    property bool flatIndicators: false
 
     property bool vertical: false
     property bool showValues: true
@@ -87,6 +88,7 @@ TopBarPill {
         columns: root.vertical ? 1 : 4
 
         ResourcePie {
+            flat: root.flatIndicators
             Layout.alignment: Qt.AlignCenter
             indicatorSize: root.indicatorSize
             iconSize: root.indicatorIconSize
@@ -101,6 +103,7 @@ TopBarPill {
         }
 
         ResourcePie {
+            flat: root.flatIndicators
             Layout.alignment: Qt.AlignCenter
             indicatorSize: root.indicatorSize
             iconSize: root.indicatorIconSize
@@ -115,6 +118,7 @@ TopBarPill {
         }
 
         ResourcePie {
+            flat: root.flatIndicators
             Layout.alignment: Qt.AlignCenter
             indicatorSize: root.indicatorSize
             iconSize: root.indicatorIconSize
@@ -129,6 +133,7 @@ TopBarPill {
         }
 
         ResourcePie {
+            flat: root.flatIndicators
             Layout.alignment: Qt.AlignCenter
             indicatorSize: root.indicatorSize
             iconSize: root.indicatorIconSize

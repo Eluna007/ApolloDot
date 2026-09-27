@@ -4439,53 +4439,61 @@ Scroll to adjust</source>
 <context>
     <name>GeneralBarPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="28"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1948"/>
         <source>Position</source>
         <translation>位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="33"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="40"/>
         <source>Screen edge</source>
         <translation>螢幕邊緣</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="47"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1949"/>
         <source>Components</source>
         <translation>元件</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="49"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="66"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="69"/>
+        <source>Show device names</source>
+        <translation>顯示裝置名稱</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="75"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="78"/>
+        <source>Show numeric values</source>
+        <translation>顯示數值</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="82"/>
         <source>Drag components to reorder them or move them to the other side.</source>
         <translation>拖曳元件調整順序，拖到另一側可移動位置。</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="53"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="87"/>
         <source>Left</source>
         <translation>左側</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="53"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="87"/>
         <source>Top</source>
         <translation>上方</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="74"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="110"/>
         <source>Right</source>
         <translation>右側</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="74"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="110"/>
         <source>Bottom</source>
         <translation>下方</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="101"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="138"/>
         <source>Quick settings widgets</source>
         <translation>快速設定元件</translation>
-    </message>
-    <message>
-        <source>Show system monitor values</source>
-        <translation>顯示系統監測數值</translation>
     </message>
 </context>
 <context>

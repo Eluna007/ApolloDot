@@ -10,16 +10,7 @@ TopBarPill {
     property var screen: null
     property bool vertical: false
 
-    // The network button already animates its width. Follow those frames
-    // directly instead of applying a second, lagging size animation.
-    animateResize: {
-        for (let index = 0; index < componentRepeater.count; ++index) {
-            const loader = componentRepeater.itemAt(index);
-            if (loader && loader.modelData === "network" && loader.item && loader.item.resizing)
-                return false;
-        }
-        return true;
-    }
+    backgroundVisible: false
 
     function componentFor(componentId) {
         switch (componentId) {
@@ -83,6 +74,7 @@ TopBarPill {
         id: bluetoothComponent
 
         BluetoothButton {
+            vertical: root.vertical
             screen: root.screen
         }
     }
@@ -91,6 +83,7 @@ TopBarPill {
         id: brightnessComponent
 
         Brightness {
+            vertical: root.vertical
             screen: root.screen
         }
     }
@@ -99,6 +92,7 @@ TopBarPill {
         id: volumeComponent
 
         Volume {
+            vertical: root.vertical
             screen: root.screen
         }
     }
@@ -107,6 +101,7 @@ TopBarPill {
         id: microphoneComponent
 
         Microphone {
+            vertical: root.vertical
             screen: root.screen
         }
     }

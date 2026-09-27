@@ -1,0 +1,73 @@
+import QtQuick
+import QtQuick.Layouts
+import qs.Services
+import qs.Common
+import qs.Components
+
+Item {
+    id: root
+    property string iconName: ""
+    property string label: ""
+    property string tooltipText: ""
+    property bool showLabel: false
+    property bool vertical: false
+    property bool selected: false
+    signal clicked
+    implicitWidth: vertical ? Sizes.barControlCircleSize : content.implicitWidth + 8
+    implicitHeight: vertical ? content.implicitHeight + 8 : Sizes.barControlCircleSize
+    activeFocusOnTab: true
+    Keys.onPressed: event => {
+        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) {
+            root.clicked();
+            event.accepted = true;
+        }
+    }
+    Accessible.role: Accessible.Button
+    Accessible.name: tooltipText
+    Accessible.onPressAction: root.clicked()
+    opacity: enabled ? 1 : 0.4
+    GridLayout {
+        id: content
+        anchors.centerIn: parent
+        columns: root.vertical ? 1 : 2
+        rowSpacing: 6
+        columnSpacing: 6
+        MaterialSymbol {
+            Layout.alignment: Qt.AlignCenter
+            text: root.iconName
+            iconSize: 20
+            color: root.selected || root.activeFocus || pointer.containsMouse ? Appearance.colors.colPrimary :
+                                                                                Appearance.colors.colOnSurface
+        }
+        Item {
+            visible: root.showLabel && root.label !== ""
+            readonly property real extent: Math.min(120, labelText.implicitWidth)
+            implicitWidth: root.vertical ? labelText.implicitHeight : extent
+            implicitHeight: root.vertical ? extent : labelText.implicitHeight
+            Layout.alignment: Qt.AlignCenter
+            Text {
+                id: labelText
+                anchors.centerIn: parent
+                width: parent.extent
+                rotation: root.vertical ? (PersonalizationConfig.barPosition === "right" ? 90 : -90) : 0
+                text: root.label
+                textFormat: Text.PlainText
+                elide: Text.ElideRight
+                font.family: Fonts.ui
+                font.pixelSize: 12
+                color: Appearance.colors.colOnSurface
+            }
+        }
+    }
+    MouseArea {
+        id: pointer
+        anchors.fill: parent
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
+        onClicked: root.clicked()
+    }
+    PopupToolTip {
+        extraVisibleCondition: pointer.containsMouse
+        text: root.tooltipText
+    }
+}

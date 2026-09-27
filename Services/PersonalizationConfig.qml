@@ -439,7 +439,8 @@ Singleton {
     property bool keystoneHideDate: false
     property bool keystoneLongShowNames: true
     property bool keystoneLongShowMonitorValues: true
-    property bool barShowMonitorValues: true
+    property bool barShowValues: true
+    property bool barShowNames: false
     property bool keystoneLongShowValues: true
     property string keystoneHoverAction: "peak"
     property string keystoneLeftClickAction: "media"
@@ -1630,8 +1631,12 @@ Singleton {
         setValue("keystoneLongShowMonitorValues", !!value);
     }
 
-    function setBarShowMonitorValues(value) {
-        setValue("barShowMonitorValues", !!value);
+    function setBarShowNames(value) {
+        setValue("barShowNames", !!value);
+    }
+
+    function setBarShowValues(value) {
+        setValue("barShowValues", !!value);
     }
 
     function setKeystoneLongShowValues(value) {
@@ -1835,7 +1840,8 @@ Singleton {
             },
             "bar": {
                 "position": root.barPosition,
-                "showMonitorValues": root.barShowMonitorValues,
+                "showValues": root.barShowValues,
+                "showNames": root.barShowNames,
                 "barLeadingComponents": root.barLeadingComponents.slice(),
                 "barTrailingComponents": root.barTrailingComponents.slice(),
                 "quickSettingsComponents": root.quickSettingsComponents.slice()
@@ -1977,7 +1983,10 @@ Singleton {
         root.horizontalClockFontSize = root.normalizedBoundedInt(horizontalClock.fontSize, 22, 16, 28);
         root.horizontalClockAxes = root.normalizedHorizontalClockAxes(horizontalClock.axes);
         root.horizontalClockDigits = root.normalizedHorizontalClockDigits(horizontalClock.digits);
-        root.barShowMonitorValues = typeof bar.showMonitorValues === "boolean" ? bar.showMonitorValues : true;
+        root.barShowValues = typeof bar.showValues === "boolean" ? bar.showValues :
+                                                                   typeof bar.showMonitorValues === "boolean"
+                                                                   ? bar.showMonitorValues : true;
+        root.barShowNames = typeof bar.showNames === "boolean" ? bar.showNames : false;
         root.barPosition = normalizedEdgePosition(bar.position);
         const hasBarLayout = Array.isArray(bar.barLeadingComponents) || Array.isArray(
                   bar.barTrailingComponents);

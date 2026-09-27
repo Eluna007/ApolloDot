@@ -63,11 +63,20 @@ StyledFlickable {
 
             SettingsRow {
                 Layout.fillWidth: true
-                title: qsTr("Show system monitor values")
+                title: qsTr("Show device names")
                 trailing: StyledSwitch {
-                    checked: PersonalizationConfig.barShowMonitorValues
-                    Accessible.name: qsTr("Show system monitor values")
-                    onToggled: PersonalizationConfig.setBarShowMonitorValues(checked)
+                    checked: PersonalizationConfig.barShowNames
+                    Accessible.name: qsTr("Show device names")
+                    onToggled: PersonalizationConfig.setBarShowNames(checked)
+                }
+            }
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("Show numeric values")
+                trailing: StyledSwitch {
+                    checked: PersonalizationConfig.barShowValues
+                    Accessible.name: qsTr("Show numeric values")
+                    onToggled: PersonalizationConfig.setBarShowValues(checked)
                 }
             }
             supportingText: qsTr("Drag components to reorder them or move them to the other side.")

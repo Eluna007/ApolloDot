@@ -9,6 +9,7 @@ Item {
     id: root
 
     property bool vertical: false
+    readonly property bool showValue: PersonalizationConfig.barShowValues
     readonly property string temperatureText: WeatherPlugin.hasValidData ? Math.round(
                                                                                UiPreferences.weatherTemperature(
                                                                                    WeatherPlugin.currentTemperatureC))
@@ -18,8 +19,8 @@ Item {
     readonly property int contentSpacing: 6
     readonly property int iconSlotWidth: 24
     readonly property real temperatureSlotWidth: Math.ceil(temperatureMetrics.width)
-    readonly property real buttonWidth: root.iconSlotWidth + root.contentSpacing + root.temperatureSlotWidth
-                                        + 20
+    readonly property real buttonWidth: root.iconSlotWidth + (root.showValue ? root.contentSpacing + root.temperatureSlotWidth :
+                                                                               0) + 20
     readonly property int buttonHeight: Sizes.barControlCircleSize
     readonly property bool active: WidgetState.dashboardSidebarOpen && WidgetState.dashboardSidebarView
                                    === "weather"
@@ -34,7 +35,7 @@ Item {
     }
 
     implicitWidth: root.vertical ? root.buttonHeight : root.buttonWidth
-    implicitHeight: root.vertical ? Sizes.barWeatherVerticalPillHeight : root.buttonHeight
+    implicitHeight: root.vertical && root.showValue ? Sizes.barWeatherVerticalPillHeight : root.buttonHeight
 
     TextMetrics {
         id: temperatureMetrics
@@ -50,8 +51,8 @@ Item {
 
         anchors.fill: parent
         buttonRadius: height / 2
-        containerColor: Appearance.colors.colTertiaryContainer
-        rippleColor: Appearance.colors.colOnTertiaryContainer
+        containerColor: "transparent"
+        rippleColor: Appearance.colors.colOnSurface
         stateLayerEnabled: false
         releaseAction: () => {
             return root.toggleView();
@@ -73,10 +74,11 @@ Item {
                     text: WeatherPlugin.currentIconName || "cloud"
                     iconSize: root.iconSize
                     fill: 0
-                    color: Appearance.colors.colOnTertiaryContainer
+                    color: Appearance.colors.colOnSurface
                 }
 
                 Text {
+                    visible: root.showValue
                     Layout.preferredWidth: root.vertical ? root.buttonHeight : root.temperatureSlotWidth
                     Layout.preferredHeight: root.vertical ? 16 : root.buttonHeight
                     Layout.alignment: Qt.AlignCenter
@@ -86,7 +88,7 @@ Item {
                     font.family: Fonts.numeric
                     font.pixelSize: root.temperatureSize
                     font.bold: true
-                    color: Appearance.colors.colOnTertiaryContainer
+                    color: Appearance.colors.colOnSurface
                 }
             }
         }

@@ -8,6 +8,7 @@ TopBarPill {
     id: root
 
     property bool vertical: false
+    backgroundVisible: false
 
     implicitHeight: vertical ? buttonRow.implicitHeight + 16 : Sizes.barPillThickness
     implicitWidth: vertical ? Sizes.barVisualThickness : buttonRow.implicitWidth + 16
@@ -23,15 +24,11 @@ TopBarPill {
         SidebarPillButton {
             viewName: "info"
             sidebarIconName: "notifications"
-            activeColor: Appearance.colors.colSecondary
-            activeContentColor: Appearance.colors.colOnSecondary
         }
 
         SidebarPillButton {
             viewName: "drawer"
             sidebarIconName: "widgets"
-            activeColor: Appearance.colors.colTertiary
-            activeContentColor: Appearance.colors.colOnTertiary
         }
 
         SidebarWeatherButton {
