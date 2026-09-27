@@ -250,16 +250,6 @@ Item {
 
                 SettingsRow {
                     Layout.fillWidth: true
-                    title: qsTr("Show source app icon")
-                    trailing: StyledSwitch {
-                        checked: PersonalizationConfig.keystoneLongShowSourceIcon
-                        Accessible.name: qsTr("Show source app icon")
-                        onToggled: PersonalizationConfig.setKeystoneLongShowSourceIcon(checked)
-                    }
-                }
-
-                SettingsRow {
-                    Layout.fillWidth: true
                     title: qsTr("Show numeric values")
                     trailing: StyledSwitch {
                         checked: PersonalizationConfig.keystoneLongShowValues

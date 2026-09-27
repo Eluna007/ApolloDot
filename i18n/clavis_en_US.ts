@@ -5458,7 +5458,7 @@ Scroll to adjust</translation>
     <name>KeystonePage</name>
     <message>
         <location filename="../Common/generated/SearchCatalog.js" line="1921"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="405"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="395"/>
         <source>Horizontal clock style</source>
         <translation>Horizontal clock style</translation>
     </message>
@@ -5493,14 +5493,14 @@ Scroll to adjust</translation>
         <translation>Keyboard indicators</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="325"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="328"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="315"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="318"/>
         <source>Caps Lock changes</source>
         <translation>Caps Lock changes</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="335"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="338"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="325"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="328"/>
         <source>Num Lock changes</source>
         <translation>Num Lock changes</translation>
     </message>
@@ -5520,13 +5520,13 @@ Scroll to adjust</translation>
         <translation>Horizontal clock</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="393"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="397"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="383"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="387"/>
         <source>Hide date</source>
         <translation>Hide date</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="406"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="396"/>
         <source>Font, digit positions, and colors</source>
         <translation>Font, digit positions, and colors</translation>
     </message>
@@ -5541,70 +5541,70 @@ Scroll to adjust</translation>
         <translation>Status items</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="275"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="265"/>
         <source>Left</source>
         <translation>Left</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="275"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="265"/>
         <source>Top</source>
         <translation>Top</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="294"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="284"/>
         <source>Right</source>
         <translation>Right</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="294"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="284"/>
         <source>Bottom</source>
         <translation>Bottom</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="424"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="414"/>
         <source>Video recording</source>
         <translation>Video recording</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="430"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="420"/>
         <source>GIF recording</source>
         <translation>GIF recording</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="436"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="426"/>
         <source>Microphone recording</source>
         <translation>Microphone recording</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="442"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="432"/>
         <source>System audio recording</source>
         <translation>System audio recording</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="487"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="534"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="477"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="524"/>
         <source>Save location</source>
         <translation>Save location</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="491"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="481"/>
         <source>This folder is empty</source>
         <translation>This folder is empty</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="492"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="544"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="545"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="482"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="534"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="535"/>
         <source>Choose folder</source>
         <translation>Choose folder</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="493"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="483"/>
         <source>Choose</source>
         <translation>Choose</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="494"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="484"/>
         <source>Choose the current folder or a selected subfolder</source>
         <translation>Choose the current folder or a selected subfolder</translation>
     </message>
@@ -5660,19 +5660,13 @@ Scroll to adjust</translation>
         <translation>Colors</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="356"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="346"/>
         <source>Card</source>
         <translation>Card</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="253"/>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="256"/>
-        <source>Show source app icon</source>
-        <translation>Show source app icon</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="263"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="266"/>
         <source>Show numeric values</source>
         <translation>Show numeric values</translation>
     </message>
@@ -8669,8 +8663,8 @@ Click to open network settings</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="349"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="527"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="631"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="531"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="635"/>
         <source>Weather</source>
         <translation>Weather</translation>
     </message>
@@ -8680,7 +8674,7 @@ Click to open network settings</translation>
         <translation>Quick Settings</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="468"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="467"/>
         <source>Caelestia</source>
         <translation>Caelestia</translation>
     </message>
@@ -8691,13 +8685,13 @@ Click to open network settings</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="366"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="517"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="521"/>
         <source>Media</source>
         <translation>Media</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="370"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="512"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="516"/>
         <source>Workspaces</source>
         <translation>Workspaces</translation>
     </message>
@@ -8723,37 +8717,37 @@ Click to open network settings</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="399"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="532"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="536"/>
         <source>Network</source>
         <translation>Network</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="403"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="537"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="541"/>
         <source>Bluetooth</source>
         <translation>Bluetooth</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="407"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="542"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="546"/>
         <source>Brightness</source>
         <translation>Brightness</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="411"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="547"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="551"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="415"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="552"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="556"/>
         <source>Microphone</source>
         <translation>Microphone</translation>
     </message>
     <message>
         <location filename="../Services/PersonalizationConfig.qml" line="419"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="557"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="561"/>
         <source>Battery</source>
         <translation>Battery</translation>
     </message>
@@ -8768,72 +8762,77 @@ Click to open network settings</translation>
         <translation>Power</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="454"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="453"/>
         <source>Sine wave</source>
         <translation>Sine wave</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="458"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="457"/>
         <source>Material wave</source>
         <translation>Material wave</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="464"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="463"/>
         <source>Rounded cover</source>
         <translation>Rounded cover</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="472"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="471"/>
         <source>Cover background</source>
         <translation>Cover background</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="478"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="477"/>
         <source>Theme colors</source>
         <translation>Theme colors</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="482"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="481"/>
         <source>Cover colors</source>
         <translation>Cover colors</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="522"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="511"/>
+        <source>System tray</source>
+        <translation>System tray</translation>
+    </message>
+    <message>
+        <location filename="../Services/PersonalizationConfig.qml" line="526"/>
         <source>System monitor</source>
         <translation>System monitor</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="611"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="615"/>
         <source>Do not open</source>
         <translation>Do not open</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="615"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="619"/>
         <source>Media controls</source>
         <translation>Media controls</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="619"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="623"/>
         <source>Lyrics</source>
         <translation>Lyrics</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="623"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="627"/>
         <source>Dashboard</source>
         <translation>Dashboard</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="627"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="631"/>
         <source>Upload</source>
         <translation>Upload</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="635"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="639"/>
         <source>Tools</source>
         <translation>Tools</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="642"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="646"/>
         <source>Peak</source>
         <translation>Peak</translation>
     </message>

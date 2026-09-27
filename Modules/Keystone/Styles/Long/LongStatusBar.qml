@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import qs.Services
 import qs.Modules.Keystone.ClockContent
 import qs.Modules.Bar.Workspaces
+import qs.Modules.Bar.Tray
 import qs.Modules.Bar.Media
 import qs.Modules.Bar.SysMonitor
 
@@ -91,10 +92,12 @@ Item {
                     required property string modelData
                     Layout.alignment: Qt.AlignCenter
                     Layout.preferredWidth: root.vertical ? root.width : implicitWidth
-                    sourceComponent: modelData === "workspaces" ? workspaces : modelData === "media" ? media : modelData
-                                                                                                       === "systemMonitor"
-                                                                                                       ? systemMonitor :
-                                                                                                         status
+                    sourceComponent: modelData === "tray" ? tray : modelData === "workspaces" ? workspaces : modelData
+                                                                                                === "media"
+                                                                                                ? media : modelData
+                                                                                                  === "systemMonitor"
+                                                                                                  ? systemMonitor :
+                                                                                                    status
 
                     Component {
                         id: workspaces
@@ -106,10 +109,21 @@ Item {
                     }
 
                     Component {
+                        id: tray
+                        Tray {
+                            screen: root.screen
+                            edge: root.edge
+                            vertical: root.vertical
+                            barVisualItem: root
+                            backgroundVisible: false
+                        }
+                    }
+
+                    Component {
                         id: media
                         MediaBar {
                             showSpectrum: false
-                            showSourceIcon: PersonalizationConfig.keystoneLongShowSourceIcon
+                            showSourceIcon: true
                             vertical: root.vertical
                             edge: root.edge
                             maximumTitleWidth: root.vertical ? 120 : 180

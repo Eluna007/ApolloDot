@@ -437,7 +437,6 @@ Singleton {
     property bool keystoneCapsLockOsd: true
     property bool keystoneNumLockOsd: true
     property bool keystoneHideDate: false
-    property bool keystoneLongShowSourceIcon: true
     property bool keystoneLongShowNames: true
     property bool keystoneLongShowMonitorValues: true
     property bool barShowMonitorValues: true
@@ -499,14 +498,19 @@ Singleton {
 
     property int keystoneHoverOpenDelay: 150
     property int keystoneHoverCloseDelay: 250
-    readonly property var keystoneLongItemIds: ["workspaces", "media", "systemMonitor", "network", "bluetooth",
-        "brightness", "volume", "microphone", "battery", "weather"]
+    readonly property var keystoneLongItemIds: ["workspaces", "media", "systemMonitor", "tray", "network",
+        "bluetooth", "brightness", "volume", "microphone", "battery", "weather"]
     readonly property var defaultKeystoneLongLeading: ["workspaces", "media", "systemMonitor"]
     readonly property var defaultKeystoneLongTrailing: ["network", "bluetooth", "brightness", "volume",
         "microphone", "battery"]
     property var keystoneLongLeading: defaultKeystoneLongLeading.slice()
     property var keystoneLongTrailing: defaultKeystoneLongTrailing.slice()
     readonly property var keystoneLongItemOptions: [
+        {
+            value: "tray",
+            label: qsTr("System tray"),
+            icon: "apps"
+        },
         {
             value: "workspaces",
             label: qsTr("Workspaces"),
@@ -1618,10 +1622,6 @@ Singleton {
         setValue("keystoneNumLockOsd", !!value);
     }
 
-    function setKeystoneLongShowSourceIcon(value) {
-        setValue("keystoneLongShowSourceIcon", !!value);
-    }
-
     function setKeystoneLongShowNames(value) {
         setValue("keystoneLongShowNames", !!value);
     }
@@ -1809,7 +1809,6 @@ Singleton {
                 "capsLockOsd": root.keystoneCapsLockOsd,
                 "numLockOsd": root.keystoneNumLockOsd,
                 "hideDate": root.keystoneHideDate,
-                "longShowSourceIcon": root.keystoneLongShowSourceIcon,
                 "longShowNames": root.keystoneLongShowNames,
                 "longShowMonitorValues": root.keystoneLongShowMonitorValues,
                 "longShowValues": root.keystoneLongShowValues,
@@ -1948,9 +1947,6 @@ Singleton {
         root.keystonePosition = normalizedEdgePosition(keystone.position);
         root.keystoneCapsLockOsd = typeof keystone.capsLockOsd === "boolean" ? keystone.capsLockOsd : true;
         root.keystoneNumLockOsd = typeof keystone.numLockOsd === "boolean" ? keystone.numLockOsd : true;
-        root.keystoneLongShowSourceIcon = typeof keystone.longShowSourceIcon === "boolean"
-                ? keystone.longShowSourceIcon : typeof keystone.longShowSpectrum === "boolean"
-                  ? keystone.longShowSpectrum : true;
         root.keystoneLongShowValues = typeof keystone.longShowValues === "boolean" ? keystone.longShowValues :
                                                                                      true;
         root.keystoneLongShowNames = typeof keystone.longShowNames === "boolean" ? keystone.longShowNames :
