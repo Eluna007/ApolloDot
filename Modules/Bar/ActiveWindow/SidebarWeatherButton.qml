@@ -17,10 +17,10 @@ Item {
     readonly property int iconSize: 20
     readonly property int temperatureSize: 12
     readonly property int contentSpacing: 6
-    readonly property int iconSlotWidth: 24
+    readonly property real iconSlotWidth: Sizes.barControlCircleSize
     readonly property real temperatureSlotWidth: Math.ceil(temperatureMetrics.width)
     readonly property real buttonWidth: root.iconSlotWidth + (root.showValue ? root.contentSpacing + root.temperatureSlotWidth :
-                                                                               0) + 20
+                                                                               0)
     readonly property int buttonHeight: Sizes.barControlCircleSize
     readonly property bool active: WidgetState.dashboardSidebarOpen && WidgetState.dashboardSidebarView
                                    === "weather"

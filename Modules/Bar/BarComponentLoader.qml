@@ -90,7 +90,7 @@ Loader {
         id: systemMonitorComponent
 
         SysMonitor {
-            flatIndicators: true
+            flatIndicators: PersonalizationConfig.barShowValues
             showValues: PersonalizationConfig.barShowValues
             ownerId: "bar-sysmonitor:" + root.screen.name
             vertical: root.vertical

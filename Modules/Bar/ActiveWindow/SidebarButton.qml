@@ -16,8 +16,8 @@ TopBarPill {
         id: buttonRow
 
         anchors.centerIn: parent
-        rowSpacing: 8
-        columnSpacing: 8
+        rowSpacing: 4
+        columnSpacing: 4
         columns: root.vertical ? 1 : 3
 
         SidebarPillButton {
