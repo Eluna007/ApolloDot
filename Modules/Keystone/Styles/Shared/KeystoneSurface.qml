@@ -220,8 +220,9 @@ Variants {
         // ============================================================
         Item {
             id: shadowSource
+            parent: backgroundVisual
 
-            anchors.fill: maskContainer
+            anchors.fill: parent
 
             AttachedEdgeCurve {
                 id: shadowLeftTopCurve
@@ -347,6 +348,7 @@ Variants {
         // Keep the canvas paintable while hiding its black source from the scene.
         ShaderEffectSource {
             id: shadowTexture
+            parent: backgroundVisual
             anchors.fill: shadowSource
             sourceItem: shadowSource
             hideSource: true
@@ -354,6 +356,7 @@ Variants {
         }
 
         DropShadow {
+            parent: backgroundVisual
             anchors.fill: shadowSource
             source: shadowTexture
             horizontalOffset: keystoneWindow.leftEdge ? 6 : keystoneWindow.rightEdge ? -6 : 0
@@ -362,8 +365,6 @@ Variants {
             samples: 32
             color: "#80000000"
             cached: false
-            opacity: styleSurface.elongated ? 0 : root.color.a * (styleSurface.splitRecording
-                                                                  && root.recordingPresentationActive ? 0 : 1)
         }
 
         // ============================================================
@@ -371,6 +372,19 @@ Variants {
         // ============================================================
         Item {
             id: maskContainer
+
+            Item {
+                id: backgroundVisual
+                visible: !styleSurface.elongated && !(styleSurface.splitRecording
+                                                      && root.recordingPresentationActive)
+                anchors.fill: parent
+                // Composite the opaque surface and its shadow before applying glass alpha.
+                // Padding preserves the shadow outside the island's bounding rectangle.
+                opacity: root.color.a
+                layer.enabled: opacity < 1
+                layer.sourceRect: Qt.rect(-32, -32, width + 64, height + 64)
+                readonly property color surfaceColor: Qt.rgba(root.color.r, root.color.g, root.color.b, 1)
+            }
 
             anchors.topMargin: keystoneWindow.topEdge ? styleSurface.edgeMargin : 0
             anchors.bottomMargin: keystoneWindow.bottomEdge ? styleSurface.edgeMargin : 0
@@ -440,6 +454,8 @@ Variants {
 
             AttachedEdgeCurve {
                 id: leftTopCurve
+                parent: backgroundVisual
+                z: 1
 
                 visible: styleSurface.showAttachedEdgeCurves
                 edge: keystoneWindow.edge
@@ -448,16 +464,16 @@ Variants {
                 depth: keystoneWindow.edgeCurveDepth
                 sideControl: keystoneWindow.edgeCurveSideControl
                 edgeControl: keystoneWindow.edgeCurveOuterControl
-                fillColor: root.color
+                fillColor: backgroundVisual.surfaceColor
 
                 anchors {
-                    right: keystoneWindow.horizontalEdge ? root.left : keystoneWindow.rightEdge ? root.right :
-                                                                                                  undefined
+                    right: keystoneWindow.horizontalEdge ? rootSurface.left : keystoneWindow.rightEdge
+                                                           ? rootSurface.right : undefined
 
-                    left: keystoneWindow.leftEdge ? root.left : undefined
-                    bottom: !keystoneWindow.horizontalEdge ? root.top : keystoneWindow.bottomEdge
-                                                             ? root.bottom : undefined
-                    top: keystoneWindow.topEdge ? root.top : undefined
+                    left: keystoneWindow.leftEdge ? rootSurface.left : undefined
+                    bottom: !keystoneWindow.horizontalEdge ? rootSurface.top : keystoneWindow.bottomEdge
+                                                             ? rootSurface.bottom : undefined
+                    top: keystoneWindow.topEdge ? rootSurface.top : undefined
                 }
 
                 Connections {
@@ -1310,7 +1326,14 @@ Variants {
 
                 SurfaceShape {
                     id: rootSurface
-                    surfaceColor: root.color
+                    parent: backgroundVisual
+                    z: 1
+                    anchors.fill: undefined
+                    x: root.x
+                    y: root.y
+                    width: root.width
+                    height: root.height
+                    surfaceColor: backgroundVisual.surfaceColor
                     topLeftRadius: styleSurface.detached || (!keystoneWindow.topEdge &&
                                                              !keystoneWindow.leftEdge) ? root.radius : 0
                     topRightRadius: styleSurface.detached || (!keystoneWindow.topEdge &&
@@ -1325,9 +1348,6 @@ Variants {
                     cutoutWidth: dashboardKeyholeCutout.width
                     cutoutHeight: dashboardKeyholeCutout.height
                     cutoutRadius: dashboardKeyholeCutout.radius
-
-                    opacity: styleSurface.elongated || (styleSurface.splitRecording
-                                                        && root.recordingPresentationActive) ? 0 : 1
                 }
 
                 Loader {
@@ -1845,6 +1865,8 @@ Variants {
 
             AttachedEdgeCurve {
                 id: rightTopCurve
+                parent: backgroundVisual
+                z: 1
 
                 visible: styleSurface.showAttachedEdgeCurves
                 edge: keystoneWindow.edge
@@ -1853,16 +1875,16 @@ Variants {
                 depth: keystoneWindow.edgeCurveDepth
                 sideControl: keystoneWindow.edgeCurveSideControl
                 edgeControl: keystoneWindow.edgeCurveOuterControl
-                fillColor: root.color
+                fillColor: backgroundVisual.surfaceColor
 
                 anchors {
-                    left: keystoneWindow.leftEdge ? root.left : (keystoneWindow.horizontalEdge ? root.right :
-                                                                                                 undefined)
+                    left: keystoneWindow.leftEdge ? rootSurface.left : (keystoneWindow.horizontalEdge
+                                                                        ? rootSurface.right : undefined)
 
-                    right: keystoneWindow.rightEdge ? root.right : undefined
-                    top: keystoneWindow.topEdge ? root.top : (!keystoneWindow.horizontalEdge ? root.bottom :
-                                                                                               undefined)
-                    bottom: keystoneWindow.bottomEdge ? root.bottom : undefined
+                    right: keystoneWindow.rightEdge ? rootSurface.right : undefined
+                    top: keystoneWindow.topEdge ? rootSurface.top : (!keystoneWindow.horizontalEdge
+                                                                     ? rootSurface.bottom : undefined)
+                    bottom: keystoneWindow.bottomEdge ? rootSurface.bottom : undefined
                 }
 
                 Connections {
