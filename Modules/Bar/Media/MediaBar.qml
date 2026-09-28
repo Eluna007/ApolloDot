@@ -14,23 +14,29 @@ TopBarPill {
     readonly property var player: MediaManager.active
     readonly property string title: player ? player.trackTitle || player.identity || qsTr("No media") : qsTr(
                                                  "No media")
-    implicitWidth: vertical ? Sizes.barVisualThickness : layout.implicitWidth + 2
+    implicitWidth: vertical ? Sizes.barPillThickness : layout.implicitWidth + 2
                               * Sizes.barPillHorizontalPadding
-    implicitHeight: vertical ? layout.implicitHeight + 16 : Sizes.barPillThickness
+    implicitHeight: vertical ? layout.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
+                               Sizes.barPillThickness
 
     GridLayout {
         id: layout
 
         anchors.centerIn: parent
         columns: root.vertical ? 1 : 5
-        rowSpacing: 6
-        columnSpacing: 4
+        rowSpacing: Sizes.barItemSpacing
+        columnSpacing: Sizes.barItemSpacing
 
-        MediaSourceIcon {
+        Item {
             Layout.alignment: Qt.AlignCenter
-            Layout.preferredWidth: 24
-            Layout.preferredHeight: 24
-            player: root.player
+            Layout.preferredWidth: Sizes.barControlCircleSize
+            Layout.preferredHeight: Sizes.barControlCircleSize
+            MediaSourceIcon {
+                anchors.centerIn: parent
+                width: Sizes.barIconSize
+                height: Sizes.barIconSize
+                player: root.player
+            }
         }
 
         MediaButton {
@@ -157,8 +163,8 @@ TopBarPill {
 
     component MediaButton: IconButton {
         Layout.alignment: Qt.AlignCenter
-        controlSize: 28
-        iconSize: 22
+        controlSize: Sizes.barControlCircleSize
+        iconSize: Sizes.barIconSize
         opacity: enabled ? 1 : 0.35
     }
 }

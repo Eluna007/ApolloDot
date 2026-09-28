@@ -13,8 +13,10 @@ TopBarPill {
     property bool vertical: false
     readonly property bool hasMultipleOutputs: Niri.outputs.count > 1
 
-    implicitHeight: vertical ? layout.implicitHeight + 16 : Sizes.barPillThickness
-    implicitWidth: vertical ? Sizes.barVisualThickness : layout.implicitWidth + 24
+    implicitHeight: vertical ? layout.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
+                               Sizes.barPillThickness
+    implicitWidth: vertical ? Sizes.barPillThickness : layout.implicitWidth + 2
+                              * Sizes.barPillHorizontalPadding
 
     animateResize: {
         for (let index = 0; index < workspaceRepeater.count; ++index) {
@@ -36,8 +38,8 @@ TopBarPill {
     GridLayout {
         id: layout
         anchors.centerIn: parent
-        rowSpacing: 8
-        columnSpacing: 8
+        rowSpacing: Sizes.barItemSpacing
+        columnSpacing: Sizes.barItemSpacing
         columns: root.vertical ? 1 : Math.max(1, Niri.workspaces.count)
 
         Repeater {

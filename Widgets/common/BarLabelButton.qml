@@ -13,8 +13,10 @@ Item {
     property bool vertical: false
     property bool selected: false
     signal clicked
-    implicitWidth: vertical ? Sizes.barControlCircleSize : content.implicitWidth + 8
-    implicitHeight: vertical ? content.implicitHeight + 8 : Sizes.barControlCircleSize
+    implicitWidth: vertical ? Sizes.barControlCircleSize : Math.max(Sizes.barControlCircleSize,
+                                                                    content.implicitWidth)
+    implicitHeight: vertical ? Math.max(Sizes.barControlCircleSize, content.implicitHeight) :
+                               Sizes.barControlCircleSize
     Accessible.role: Accessible.Button
     Accessible.name: tooltipText
     Accessible.onPressAction: root.clicked()
@@ -23,12 +25,14 @@ Item {
         id: content
         anchors.centerIn: parent
         columns: root.vertical ? 1 : 2
-        rowSpacing: 6
-        columnSpacing: 6
+        rowSpacing: Sizes.barLabelSpacing
+        columnSpacing: Sizes.barLabelSpacing
         MaterialSymbol {
+            Layout.preferredWidth: Sizes.barControlCircleSize
+            Layout.preferredHeight: Sizes.barControlCircleSize
             Layout.alignment: Qt.AlignCenter
             text: root.iconName
-            iconSize: 20
+            iconSize: Sizes.barIconSize
             color: root.selected || pointer.visualFocus || pointer.pointerHovered
                    ? Appearance.colors.colPrimary : Appearance.colors.colOnSurface
         }

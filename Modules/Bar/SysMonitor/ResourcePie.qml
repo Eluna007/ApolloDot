@@ -17,7 +17,7 @@ Item {
     property bool showText: false
     property bool vertical: false
     property string displayText: ""
-    property real labelSpacing: Appearance.spacing.xSmall
+    property real labelSpacing: Sizes.barLabelSpacing
     property bool animationEnabled: true
     property int animationDuration: Appearance.animation.standardSmall.duration
     readonly property real normalizedValue: {
@@ -92,7 +92,7 @@ Item {
         MaterialSymbol {
             anchors.centerIn: parent
             text: root.icon
-            iconSize: root.flat ? 20 : root.iconSize
+            iconSize: root.flat ? Sizes.barIconSize : root.iconSize
             color: root.flat ? Appearance.colors.colOnSurface : root.iconColor
             fill: 1
         }

@@ -9,15 +9,17 @@ TopBarPill {
 
     property bool vertical: false
 
-    implicitHeight: vertical ? buttonRow.implicitHeight + 16 : Sizes.barPillThickness
-    implicitWidth: vertical ? Sizes.barVisualThickness : buttonRow.implicitWidth + 16
+    implicitHeight: vertical ? buttonRow.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
+                               Sizes.barPillThickness
+    implicitWidth: vertical ? Sizes.barPillThickness : buttonRow.implicitWidth + 2
+                              * Sizes.barPillHorizontalPadding
 
     GridLayout {
         id: buttonRow
 
         anchors.centerIn: parent
-        rowSpacing: 4
-        columnSpacing: 4
+        rowSpacing: Sizes.barItemSpacing
+        columnSpacing: Sizes.barItemSpacing
         columns: root.vertical ? 1 : 3
 
         SidebarPillButton {

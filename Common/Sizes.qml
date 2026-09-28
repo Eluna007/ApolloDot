@@ -6,6 +6,10 @@ Singleton {
     readonly property real barVisualThickness: 44
     readonly property real barPillThickness: 36
     readonly property real barPillHorizontalPadding: 8
+    // Pill content: 28px controls inside a 36px surface; 8px along its axis.
+    readonly property real barItemSpacing: 4
+    readonly property real barLabelSpacing: 6
+    readonly property real barIconSize: 20
     readonly property real barControlCircleSize: 28
     readonly property real barWeatherVerticalPillHeight: 56
     readonly property real barOuterEdgeMargin: 8

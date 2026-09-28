@@ -14,9 +14,9 @@ Item {
                                                                                UiPreferences.weatherTemperature(
                                                                                    WeatherPlugin.currentTemperatureC))
                                                                            + "°" : "--°"
-    readonly property int iconSize: 20
+    readonly property int iconSize: Sizes.barIconSize
     readonly property int temperatureSize: 12
-    readonly property int contentSpacing: 6
+    readonly property real contentSpacing: Sizes.barLabelSpacing
     readonly property real iconSlotWidth: Sizes.barControlCircleSize
     readonly property real temperatureSlotWidth: Math.ceil(temperatureMetrics.width)
     readonly property real buttonWidth: root.iconSlotWidth + (root.showValue ? root.contentSpacing + root.temperatureSlotWidth :

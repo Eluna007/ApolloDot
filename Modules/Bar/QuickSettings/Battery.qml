@@ -84,7 +84,8 @@ Item {
 
     implicitWidth: root.vertical ? Math.max(28, batteryContent.implicitWidth) : batteryContent.implicitWidth
                                    + 8
-    implicitHeight: root.vertical ? batteryContent.implicitHeight + 8 : Sizes.barControlCircleSize
+    implicitHeight: root.vertical ? Math.max(Sizes.barControlCircleSize, batteryContent.implicitHeight) :
+                                    Sizes.barControlCircleSize
     Accessible.name: root.tooltipText
     Accessible.role: Accessible.StaticText
 
@@ -93,8 +94,10 @@ Item {
         anchors.centerIn: parent
         columns: root.vertical ? 1 : 2
         rowSpacing: 4
-        columnSpacing: 6
+        columnSpacing: Sizes.barLabelSpacing
         MaterialSymbol {
+            Layout.preferredWidth: Sizes.barControlCircleSize
+            Layout.preferredHeight: Sizes.barControlCircleSize
             Layout.alignment: Qt.AlignCenter
             text: !root.valueAvailable ? "battery_android_question" : PowerService.charging
                                          ? "battery_android_bolt" : root.percentage >= 95
@@ -103,7 +106,7 @@ Item {
                                                                                                              Math.floor(
                                                                                                                  root.percentage
                                                                                                                  * 7 / 100)))
-            iconSize: 20
+            iconSize: Sizes.barIconSize
             fill: 1
             color: root.foregroundColor
         }

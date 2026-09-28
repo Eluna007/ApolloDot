@@ -33,16 +33,17 @@ TopBarPill {
         }
     }
 
-    implicitHeight: vertical ? layout.implicitHeight + 16 : Sizes.barPillThickness
-    implicitWidth: vertical ? Sizes.barVisualThickness : layout.implicitWidth + 2
+    implicitHeight: vertical ? layout.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
+                               Sizes.barPillThickness
+    implicitWidth: vertical ? Sizes.barPillThickness : layout.implicitWidth + 2
                               * Sizes.barPillHorizontalPadding
 
     GridLayout {
         id: layout
 
         anchors.centerIn: parent
-        rowSpacing: 8
-        columnSpacing: 8
+        rowSpacing: Sizes.barItemSpacing
+        columnSpacing: Sizes.barItemSpacing
         columns: root.vertical ? 1 : 8
 
         Repeater {

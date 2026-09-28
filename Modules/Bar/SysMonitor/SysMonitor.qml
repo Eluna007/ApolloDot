@@ -37,8 +37,7 @@ TopBarPill {
     readonly property real indicatorSize: root.vertical ? root.verticalIndicatorSize :
                                                           root.horizontalIndicatorSize
     readonly property real indicatorIconSize: 15
-    readonly property real indicatorSpacing: root.vertical ? Appearance.spacing.small :
-                                                             Appearance.spacing.xSmall
+    readonly property real indicatorSpacing: Sizes.barItemSpacing
 
     readonly property string tooltipText: [qsTr("Memory") + "    " + root.bytesPair(root.memory), qsTr("Disk")
         + "    " + root.bytesPair(root.disk), qsTr("Temperature") + "    " + Format.temperature(root.temperatureValue,
@@ -71,7 +70,7 @@ TopBarPill {
                                                                                  + " / " + total;
     }
 
-    implicitWidth: root.vertical ? Sizes.barVisualThickness : resourceLayout.implicitWidth + 2
+    implicitWidth: root.vertical ? Sizes.barPillThickness : resourceLayout.implicitWidth + 2
                                    * Sizes.barPillHorizontalPadding
 
     implicitHeight: root.vertical ? resourceLayout.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
