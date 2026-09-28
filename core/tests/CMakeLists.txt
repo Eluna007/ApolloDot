@@ -203,3 +203,7 @@ target_include_directories(desktop_files_tests PRIVATE ${CLAVIS_SOURCE_ROOT}/cor
 target_link_libraries(desktop_files_tests PRIVATE ClavisFiles Qt6::Core Qt6::Gui Qt6::Qml Qt6::Test)
 add_test(NAME desktop_files_tests COMMAND desktop_files_tests)
 set_tests_properties(desktop_files_tests PROPERTIES ENVIRONMENT "GIO_USE_VFS=local")
+
+qt_add_executable(niri_icon_lookup_tests niri_icon_lookup_test.cpp)
+target_link_libraries(niri_icon_lookup_tests PRIVATE ClavisNiriCore Qt6::Core Qt6::Test)
+add_test(NAME niri_icon_lookup_tests COMMAND niri_icon_lookup_tests)
