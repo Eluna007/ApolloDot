@@ -163,6 +163,35 @@ Variants {
         WlrLayershell.keyboardFocus: root.keyboardInteractionActive ? WlrKeyboardFocus.OnDemand :
                                                                       WlrKeyboardFocus.None
 
+        // The interactive surface spans the screen for expansion and animations.
+        // Reserve only the resting island thickness on a separately edge-anchored
+        // surface, so opening content never resizes the desktop's work area.
+        PanelWindow {
+            visible: !PersonalizationConfig.keystoneOverlay
+            screen: keystoneWindow.screen
+            readonly property real reservedThickness: styleSurface.edgeMargin + (styleSurface.elongated
+                                                                                 && longFrame.item
+                                                                                 ? longFrame.item.thickness :
+                                                                                   keystoneWindow.horizontalEdge
+                                                                                   ? horizontalLayout.collapsedHeight :
+                                                                                     verticalLayout.collapsedWidth)
+            implicitWidth: keystoneWindow.horizontalEdge ? 1 : reservedThickness
+            implicitHeight: keystoneWindow.horizontalEdge ? reservedThickness : 1
+            color: "transparent"
+            exclusiveZone: reservedThickness
+            WlrLayershell.layer: WlrLayer.Top
+            WlrLayershell.namespace: "clavis-shell-keystone-reservation"
+            WlrLayershell.exclusionMode: ExclusionMode.Normal
+            WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+            anchors {
+                top: !keystoneWindow.bottomEdge
+                bottom: !keystoneWindow.topEdge
+                left: !keystoneWindow.rightEdge
+                right: !keystoneWindow.leftEdge
+            }
+            mask: Region {}
+        }
+
         PanelWindow {
             // Niri focuses newly mapped OnDemand surfaces. Keep that mapping
             // separate from the visible island so expansion never drops a frame.

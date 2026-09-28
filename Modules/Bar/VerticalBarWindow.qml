@@ -17,10 +17,11 @@ PanelWindow {
 
     implicitWidth: surfaceThickness
     color: "transparent"
-    exclusiveZone: exclusiveThickness
+    exclusiveZone: PersonalizationConfig.barOverlay ? 0 : exclusiveThickness
     WlrLayershell.layer: PersonalizationConfig.barOverlay ? WlrLayer.Overlay : WlrLayer.Top
     WlrLayershell.namespace: "clavis-shell-bar-vertical"
-    WlrLayershell.exclusionMode: ExclusionMode.Normal
+    WlrLayershell.exclusionMode: PersonalizationConfig.barOverlay ? ExclusionMode.Ignore :
+                                                                    ExclusionMode.Normal
 
     BarAxis {
         id: axis
