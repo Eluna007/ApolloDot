@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import qs.Services
 import qs.Common
 import qs.Widgets.common
 
@@ -17,7 +18,7 @@ PanelWindow {
     implicitHeight: surfaceThickness
     color: "transparent"
     exclusiveZone: exclusiveThickness
-    WlrLayershell.layer: WlrLayer.Top
+    WlrLayershell.layer: PersonalizationConfig.barOverlay ? WlrLayer.Overlay : WlrLayer.Top
     WlrLayershell.namespace: "clavis-shell-bar-horizontal"
     WlrLayershell.exclusionMode: ExclusionMode.Normal
 

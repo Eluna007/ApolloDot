@@ -156,7 +156,7 @@ Variants {
         color: "transparent"
         exclusiveZone: -1
         WlrLayershell.namespace: "clavis-shell-keystone"
-        WlrLayershell.layer: WlrLayer.Top
+        WlrLayershell.layer: PersonalizationConfig.keystoneOverlay ? WlrLayer.Overlay : WlrLayer.Top
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         // On-demand focus lets desktop clicks leave the island and clicks on
         // the island focus it again. Hover previews never request keyboard input.
@@ -174,7 +174,7 @@ Variants {
             color: "transparent"
             exclusiveZone: -1
             WlrLayershell.namespace: "clavis-shell-keystone-keyboard"
-            WlrLayershell.layer: WlrLayer.Top
+            WlrLayershell.layer: PersonalizationConfig.keystoneOverlay ? WlrLayer.Overlay : WlrLayer.Top
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
             anchors {

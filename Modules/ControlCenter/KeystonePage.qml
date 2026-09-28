@@ -111,6 +111,26 @@ Item {
                 }
                 iconName: "toggle_off"
 
+                SettingsRow {
+                    Layout.fillWidth: true
+                    title: qsTr("Show Keystone")
+                    trailing: StyledSwitch {
+                        checked: PersonalizationConfig.keystoneEnabled
+                        Accessible.name: qsTr("Show Keystone")
+                        onToggled: PersonalizationConfig.setValue("keystoneEnabled", checked)
+                    }
+                }
+
+                SettingsRow {
+                    Layout.fillWidth: true
+                    title: qsTr("Use Overlay layer")
+                    trailing: StyledSwitch {
+                        checked: PersonalizationConfig.keystoneOverlay
+                        Accessible.name: qsTr("Use Overlay layer")
+                        onToggled: PersonalizationConfig.setValue("keystoneOverlay", checked)
+                    }
+                }
+
                 SearchSelectSettingRow {
                     title: qsTr("Style")
                     options: PersonalizationConfig.keystoneStyles

@@ -4445,7 +4445,7 @@ Scroll to adjust</translation>
         <translation>Position</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="40"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="60"/>
         <source>Screen edge</source>
         <translation>Screen edge</translation>
     </message>
@@ -4455,44 +4455,56 @@ Scroll to adjust</translation>
         <translation>Components</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="66"/>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="69"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="40"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="43"/>
+        <source>Show bar</source>
+        <translation>Show bar</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="50"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="53"/>
+        <source>Use Overlay layer</source>
+        <translation>Use Overlay layer</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="86"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="89"/>
         <source>Show device names</source>
         <translation>Show device names</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="75"/>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="78"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="95"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="98"/>
         <source>Show numeric values</source>
         <translation>Show numeric values</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="82"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="102"/>
         <source>Drag components to reorder them or move them to the other side.</source>
         <translation>Drag components to reorder them or move them to the other side.</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="87"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="107"/>
         <source>Left</source>
         <translation>Left</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="87"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="107"/>
         <source>Top</source>
         <translation>Top</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="110"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="130"/>
         <source>Right</source>
         <translation>Right</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="110"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="130"/>
         <source>Bottom</source>
         <translation>Bottom</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="138"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="158"/>
         <source>Quick settings widgets</source>
         <translation>Quick settings widgets</translation>
     </message>
@@ -5466,7 +5478,7 @@ Scroll to adjust</translation>
     <name>KeystonePage</name>
     <message>
         <location filename="../Common/generated/SearchCatalog.js" line="1921"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="395"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="415"/>
         <source>Horizontal clock style</source>
         <translation>Horizontal clock style</translation>
     </message>
@@ -5481,17 +5493,17 @@ Scroll to adjust</translation>
         <translation>Keystone style</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="115"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="135"/>
         <source>Style</source>
         <translation>Style</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="118"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="138"/>
         <source>Choose Keystone style</source>
         <translation>Choose Keystone style</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="126"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="146"/>
         <source>Screen edge</source>
         <translation>Screen edge</translation>
     </message>
@@ -5501,14 +5513,14 @@ Scroll to adjust</translation>
         <translation>Keyboard indicators</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="315"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="318"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="335"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="338"/>
         <source>Caps Lock changes</source>
         <translation>Caps Lock changes</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="325"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="328"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="345"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="348"/>
         <source>Num Lock changes</source>
         <translation>Num Lock changes</translation>
     </message>
@@ -5528,13 +5540,13 @@ Scroll to adjust</translation>
         <translation>Horizontal clock</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="383"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="387"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="403"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="407"/>
         <source>Hide date</source>
         <translation>Hide date</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="396"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="416"/>
         <source>Font, digit positions, and colors</source>
         <translation>Font, digit positions, and colors</translation>
     </message>
@@ -5544,75 +5556,75 @@ Scroll to adjust</translation>
         <translation>Recording</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="228"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="248"/>
         <source>Status items</source>
         <translation>Status items</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="265"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="285"/>
         <source>Left</source>
         <translation>Left</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="265"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="285"/>
         <source>Top</source>
         <translation>Top</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="284"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="304"/>
         <source>Right</source>
         <translation>Right</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="284"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="304"/>
         <source>Bottom</source>
         <translation>Bottom</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="414"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="434"/>
         <source>Video recording</source>
         <translation>Video recording</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="420"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="440"/>
         <source>GIF recording</source>
         <translation>GIF recording</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="426"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="446"/>
         <source>Microphone recording</source>
         <translation>Microphone recording</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="432"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="452"/>
         <source>System audio recording</source>
         <translation>System audio recording</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="477"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="524"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="497"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="544"/>
         <source>Save location</source>
         <translation>Save location</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="481"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="501"/>
         <source>This folder is empty</source>
         <translation>This folder is empty</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="482"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="534"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="535"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="502"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="554"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="555"/>
         <source>Choose folder</source>
         <translation>Choose folder</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="483"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="503"/>
         <source>Choose</source>
         <translation>Choose</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="484"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="504"/>
         <source>Choose the current folder or a selected subfolder</source>
         <translation>Choose the current folder or a selected subfolder</translation>
     </message>
@@ -5622,71 +5634,83 @@ Scroll to adjust</translation>
         <translation>Mouse actions</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="149"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="169"/>
         <source>Hover</source>
         <translation>Hover</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="156"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="176"/>
         <source>Hover open delay</source>
         <translation>Hover open delay</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="161"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="172"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="181"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="192"/>
         <source> ms</source>
         <translation> ms</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="167"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="187"/>
         <source>Hover close delay</source>
         <translation>Hover close delay</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="178"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="198"/>
         <source>Left click</source>
         <translation>Left click</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="185"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="205"/>
         <source>Middle click</source>
         <translation>Middle click</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="205"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="225"/>
         <source>Progress bar</source>
         <translation>Progress bar</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="212"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="232"/>
         <source>Cover style</source>
         <translation>Cover style</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="219"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="239"/>
         <source>Colors</source>
         <translation>Colors</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="346"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="366"/>
         <source>Card</source>
         <translation>Card</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="253"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="256"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="273"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="276"/>
         <source>Show numeric values</source>
         <translation>Show numeric values</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="233"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="236"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="116"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="119"/>
+        <source>Show Keystone</source>
+        <translation>Show Keystone</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="126"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="129"/>
+        <source>Use Overlay layer</source>
+        <translation>Use Overlay layer</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="253"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="256"/>
         <source>Show device names</source>
         <translation>Show device names</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="243"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="246"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="263"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="266"/>
         <source>Show system monitor values</source>
         <translation>Show system monitor values</translation>
     </message>

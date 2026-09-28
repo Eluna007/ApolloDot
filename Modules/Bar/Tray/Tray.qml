@@ -233,7 +233,7 @@ TopBarPill {
             right: true
         }
 
-        WlrLayershell.layer: WlrLayer.Top
+        WlrLayershell.layer: root.QsWindow.window ? root.QsWindow.window.WlrLayershell.layer : WlrLayer.Top
         WlrLayershell.namespace: "clavis-shell-tray-overflow"
         WlrLayershell.keyboardFocus: overflowPopup.visible ? WlrKeyboardFocus.Exclusive :
                                                              WlrKeyboardFocus.None

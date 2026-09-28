@@ -37,6 +37,26 @@ StyledFlickable {
 
             SettingsRow {
                 Layout.fillWidth: true
+                title: qsTr("Show bar")
+                trailing: StyledSwitch {
+                    checked: PersonalizationConfig.barEnabled
+                    Accessible.name: qsTr("Show bar")
+                    onToggled: PersonalizationConfig.setValue("barEnabled", checked)
+                }
+            }
+
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("Use Overlay layer")
+                trailing: StyledSwitch {
+                    checked: PersonalizationConfig.barOverlay
+                    Accessible.name: qsTr("Use Overlay layer")
+                    onToggled: PersonalizationConfig.setValue("barOverlay", checked)
+                }
+            }
+
+            SettingsRow {
+                Layout.fillWidth: true
                 title: qsTr("Screen edge")
 
                 trailing: EdgePositionSelector {

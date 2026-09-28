@@ -341,6 +341,8 @@ Singleton {
     property bool cursorHideWhenTyping: false
     property int cursorHideAfterInactiveMs: 0
     property string iconTheme: ""
+    property bool keystoneEnabled: true
+    property bool keystoneOverlay: false
     property string keystoneStyle: "bangs"
     readonly property var keystoneKeyholeCardIds: ["weather", "pomodoro"]
     readonly property var keystoneKeyholeCardOptions: [
@@ -356,6 +358,8 @@ Singleton {
         }
     ]
     property string keystoneKeyholeCard: "weather"
+    property bool barEnabled: true
+    property bool barOverlay: false
     property string barPosition: "top"
     readonly property var barComponentIds: ["workspaces", "information", "activeWindow", "media", "tray",
         "systemMonitor", "quickSettings"]
@@ -1809,6 +1813,8 @@ Singleton {
                 "shellBlurXray": root.shellBlurXray
             },
             "keystone": {
+                "enabled": root.keystoneEnabled,
+                "overlay": root.keystoneOverlay,
                 "style": root.keystoneStyle,
                 "position": root.keystonePosition,
                 "capsLockOsd": root.keystoneCapsLockOsd,
@@ -1839,6 +1845,8 @@ Singleton {
                 }
             },
             "bar": {
+                "enabled": root.barEnabled,
+                "overlay": root.barOverlay,
                 "position": root.barPosition,
                 "showValues": root.barShowValues,
                 "showNames": root.barShowNames,
@@ -1949,6 +1957,8 @@ Singleton {
                                                         "rounded");
         root.keystoneMediaColorStyle = normalizedOption(root.keystoneMediaColorOptions, media.colorStyle,
                                                         "theme");
+        root.keystoneEnabled = typeof keystone.enabled === "boolean" ? keystone.enabled : true;
+        root.keystoneOverlay = typeof keystone.overlay === "boolean" ? keystone.overlay : false;
         root.keystoneStyle = normalizedOption(root.keystoneStyles, keystone.style, "bangs");
         root.keystonePosition = normalizedEdgePosition(keystone.position);
         root.keystoneCapsLockOsd = typeof keystone.capsLockOsd === "boolean" ? keystone.capsLockOsd : true;
@@ -1987,6 +1997,8 @@ Singleton {
                                                                    typeof bar.showMonitorValues === "boolean"
                                                                    ? bar.showMonitorValues : true;
         root.barShowNames = typeof bar.showNames === "boolean" ? bar.showNames : false;
+        root.barEnabled = typeof bar.enabled === "boolean" ? bar.enabled : true;
+        root.barOverlay = typeof bar.overlay === "boolean" ? bar.overlay : false;
         root.barPosition = normalizedEdgePosition(bar.position);
         const hasBarLayout = Array.isArray(bar.barLeadingComponents) || Array.isArray(
                   bar.barTrailingComponents);

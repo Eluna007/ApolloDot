@@ -26,6 +26,7 @@ Item {
 
     Loader {
         id: styleLoader
+        active: PersonalizationConfig.keystoneEnabled
 
         sourceComponent: PersonalizationConfig.keystoneStyle === "long" ? longStyle :
                                                                           PersonalizationConfig.keystoneStyle
