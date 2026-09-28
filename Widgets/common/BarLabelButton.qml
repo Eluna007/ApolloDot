@@ -14,25 +14,17 @@ Item {
     property bool selected: false
     readonly property bool hasLabel: showLabel && label !== ""
     signal clicked
-    // Text buttons use ActionButton's padding; icon-only controls keep their compact slot.
-    implicitWidth: vertical ? Sizes.barControlCircleSize : Math.max(Sizes.barControlCircleSize,
-                                                                    content.implicitWidth + (hasLabel
-                                                                                             ? pointer.leftPadding
-                                                                                               + pointer.rightPadding :
-                                                                                               0))
-    implicitHeight: vertical ? Math.max(Sizes.barControlCircleSize, content.implicitHeight + (hasLabel
-                                                                                              ? pointer.topPadding
-                                                                                                + pointer.bottomPadding :
-                                                                                                0)) : Sizes.barControlCircleSize
+    implicitWidth: pointer.implicitWidth
+    implicitHeight: pointer.implicitHeight
     Accessible.role: Accessible.Button
     Accessible.name: tooltipText
     Accessible.onPressAction: root.clicked()
     opacity: enabled ? 1 : 0.4
-    ActionButton {
+    BarActionButton {
         id: pointer
         anchors.fill: parent
-        topPadding: root.vertical ? leftPadding : 0
-        bottomPadding: root.vertical ? rightPadding : 0
+        vertical: root.vertical
+        expandedContent: root.hasLabel
         Accessible.name: root.tooltipText
         onClicked: root.clicked()
         contentItem: Item {

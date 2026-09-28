@@ -11,7 +11,6 @@ Singleton {
     readonly property real barLabelSpacing: 6
     readonly property real barIconSize: 20
     readonly property real barControlCircleSize: 28
-    readonly property real barWeatherVerticalPillHeight: 56
     readonly property real barOuterEdgeMargin: 8
     readonly property real barShadowBuffer: 36
     readonly property real barPopupGap: 8

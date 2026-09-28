@@ -70,89 +70,88 @@ TopBarPill {
                                                                                  + " / " + total;
     }
 
-    implicitWidth: root.vertical ? Sizes.barPillThickness : resourceLayout.implicitWidth + 2
-                                   * Sizes.barPillHorizontalPadding
-
-    implicitHeight: root.vertical ? resourceLayout.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
-                                    Sizes.barPillThickness
+    implicitWidth: root.vertical ? Sizes.barPillThickness : mouseArea.implicitWidth
+    implicitHeight: root.vertical ? mouseArea.implicitHeight : Sizes.barPillThickness
     Component.onCompleted: SystemMonitorService.setConsumerModules(root.ownerId, ["cpu", "memory", "disk"])
     Component.onDestruction: SystemMonitorService.clearConsumer(root.ownerId)
 
-    GridLayout {
-        id: resourceLayout
-
-        anchors.centerIn: parent
-        rowSpacing: root.indicatorSpacing
-        columnSpacing: root.indicatorSpacing
-        columns: root.vertical ? 1 : 4
-
-        ResourcePie {
-            flat: root.flatIndicators
-            Layout.alignment: Qt.AlignCenter
-            indicatorSize: root.indicatorSize
-            iconSize: root.indicatorIconSize
-            value: root.memoryUsage
-            showText: root.showValues
-            vertical: root.vertical
-            displayText: root.memoryDisplayText
-            icon: "memory_alt"
-            fillColor: Appearance.colors.colPrimary
-            trackColor: Appearance.colors.colPrimaryContainer
-            iconColor: Appearance.colors.colOnPrimary
-        }
-
-        ResourcePie {
-            flat: root.flatIndicators
-            Layout.alignment: Qt.AlignCenter
-            indicatorSize: root.indicatorSize
-            iconSize: root.indicatorIconSize
-            value: root.diskUsage
-            showText: root.showValues
-            vertical: root.vertical
-            displayText: root.diskDisplayText
-            icon: "hard_drive"
-            fillColor: Appearance.colors.colSecondary
-            trackColor: Appearance.colors.colSecondaryContainer
-            iconColor: Appearance.colors.colOnSecondary
-        }
-
-        ResourcePie {
-            flat: root.flatIndicators
-            Layout.alignment: Qt.AlignCenter
-            indicatorSize: root.indicatorSize
-            iconSize: root.indicatorIconSize
-            value: root.temperatureUsage
-            showText: root.showValues
-            vertical: root.vertical
-            displayText: root.temperatureDisplayText
-            icon: "thermostat"
-            fillColor: Appearance.colors.colTertiary
-            trackColor: Appearance.colors.colTertiaryContainer
-            iconColor: Appearance.colors.colOnTertiary
-        }
-
-        ResourcePie {
-            flat: root.flatIndicators
-            Layout.alignment: Qt.AlignCenter
-            indicatorSize: root.indicatorSize
-            iconSize: root.indicatorIconSize
-            value: root.cpuUsage
-            showText: root.showValues
-            vertical: root.vertical
-            displayText: root.cpuDisplayText
-            icon: "developer_board"
-            fillColor: Appearance.colors.colTertiary
-            trackColor: Appearance.colors.colTertiaryContainer
-            iconColor: Appearance.colors.colOnTertiary
-        }
-    }
-
-    ActionButton {
+    BarActionButton {
         id: mouseArea
 
         anchors.fill: parent
-        padding: 0
-        contentItem: Item {}
+        vertical: root.vertical
+        contentItem: Item {
+            implicitWidth: resourceLayout.implicitWidth
+            implicitHeight: resourceLayout.implicitHeight
+            GridLayout {
+                id: resourceLayout
+
+                anchors.centerIn: parent
+                rowSpacing: root.indicatorSpacing
+                columnSpacing: root.indicatorSpacing
+                columns: root.vertical ? 1 : 4
+
+                ResourcePie {
+                    flat: root.flatIndicators
+                    Layout.alignment: Qt.AlignCenter
+                    indicatorSize: root.indicatorSize
+                    iconSize: root.indicatorIconSize
+                    value: root.memoryUsage
+                    showText: root.showValues
+                    vertical: root.vertical
+                    displayText: root.memoryDisplayText
+                    icon: "memory_alt"
+                    fillColor: Appearance.colors.colPrimary
+                    trackColor: Appearance.colors.colPrimaryContainer
+                    iconColor: Appearance.colors.colOnPrimary
+                }
+
+                ResourcePie {
+                    flat: root.flatIndicators
+                    Layout.alignment: Qt.AlignCenter
+                    indicatorSize: root.indicatorSize
+                    iconSize: root.indicatorIconSize
+                    value: root.diskUsage
+                    showText: root.showValues
+                    vertical: root.vertical
+                    displayText: root.diskDisplayText
+                    icon: "hard_drive"
+                    fillColor: Appearance.colors.colSecondary
+                    trackColor: Appearance.colors.colSecondaryContainer
+                    iconColor: Appearance.colors.colOnSecondary
+                }
+
+                ResourcePie {
+                    flat: root.flatIndicators
+                    Layout.alignment: Qt.AlignCenter
+                    indicatorSize: root.indicatorSize
+                    iconSize: root.indicatorIconSize
+                    value: root.temperatureUsage
+                    showText: root.showValues
+                    vertical: root.vertical
+                    displayText: root.temperatureDisplayText
+                    icon: "thermostat"
+                    fillColor: Appearance.colors.colTertiary
+                    trackColor: Appearance.colors.colTertiaryContainer
+                    iconColor: Appearance.colors.colOnTertiary
+                }
+
+                ResourcePie {
+                    flat: root.flatIndicators
+                    Layout.alignment: Qt.AlignCenter
+                    indicatorSize: root.indicatorSize
+                    iconSize: root.indicatorIconSize
+                    value: root.cpuUsage
+                    showText: root.showValues
+                    vertical: root.vertical
+                    displayText: root.cpuDisplayText
+                    icon: "developer_board"
+                    fillColor: Appearance.colors.colTertiary
+                    trackColor: Appearance.colors.colTertiaryContainer
+                    iconColor: Appearance.colors.colOnTertiary
+                }
+            }
+        }
         Accessible.name: root.tooltipText
         onClicked: ApplicationService.launchCommand(["gnome-system-monitor"])
     }
