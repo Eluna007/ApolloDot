@@ -588,6 +588,7 @@ Variants {
                 sourceComponent: LongIslandFrame {
                     screen: keystoneWindow.screen
                     edge: keystoneWindow.edge
+                    peeking: root.isCollapsedHovered
                     expanded: !root.isCollapsedMode
                     targetWidth: root.targetW
                     targetHeight: root.targetH
@@ -616,18 +617,21 @@ Variants {
 
             KeystoneHoverController {
                 id: hoverIntent
-                triggerHovered: styleSurface.elongated ? !!longFrame.item && longFrame.item.clockHovered :
+                triggerHovered: styleSurface.elongated ? !!longFrame.item && (
+                                                             PersonalizationConfig.keystoneHoverAction
+                                                             === "peak" ? longFrame.item.mainHovered :
+                                                                          longFrame.item.clockHovered) :
                                                          surfaceHover.hovered
-                surfaceHovered: surfaceHover.hovered || (styleSurface.elongated && !!longFrame.item
-                                                         && longFrame.item.mainHovered)
+                surfaceHovered: surfaceHover.hovered || (styleSurface.elongated && !!longFrame.item && (
+                                                             longFrame.item.mainHovered
+                                                             || longFrame.item.peekHovered))
                 canOpen: root.isCollapsedMode && PersonalizationConfig.keystoneHoverAction !== "none"
                 previewOpen: root.hoverOpened
                 openDelay: PersonalizationConfig.keystoneHoverOpenDelay
                 closeDelay: PersonalizationConfig.keystoneHoverCloseDelay
                 onOpenRequested: {
                     const action = PersonalizationConfig.keystoneHoverAction;
-                    root.activateMouseAction(styleSurface.elongated && action === "peak" ? "media" : action,
-                                             false, true);
+                    root.activateMouseAction(action, false, true);
                     root.hoverOpened = true;
                 }
                 onCloseRequested: keystoneWindow.closeAllOthers()
@@ -1959,7 +1963,10 @@ Variants {
                 radius: styleSurface.elongated ? 21 : 0
             }
             Region {
-                item: styleSurface.elongated && longFrame.item && longFrame.item.progress > 0.02 ? root : null
+                item: styleSurface.elongated && longFrame.item ? (longFrame.item.progress > 0.02 ? root :
+                                                                                                   longFrame.item.peekAmount
+                                                                                                   > 0 ? longFrame.item.childBlurItem :
+                                                                                                         null) : null
                 radius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius : 0
             }
         }

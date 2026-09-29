@@ -10,6 +10,18 @@ Item {
 
     required property var screen
     required property string edge
+    property bool peeking: false
+    property real peekAmount: peeking ? 1 : 0
+    readonly property real peekOffset: 8 * peekAmount * (1 - Math.min(1, Math.max(0, travel)))
+    readonly property bool peekHovered: peekHover.hovered
+
+    Behavior on peekAmount {
+        NumberAnimation {
+            duration: 180
+            easing.type: Easing.OutCubic
+        }
+    }
+
     required property bool expanded
     required property real targetWidth
     required property real targetHeight
@@ -67,7 +79,7 @@ Item {
                                                                                            inwardGrowth)
     readonly property real childHeight: pillHeight + (heldHeight - pillHeight) * (horizontal ? inwardGrowth :
                                                                                                alongGrowth)
-    readonly property real childOffset: (thickness + gap) * travel
+    readonly property real childOffset: (thickness + gap) * travel + peekOffset
     readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, 21 + 3 * Math.min(1,
                                                                                                     inwardGrowth))
     readonly property real contentOpacity: closing ? legPose.opacity * closingRemaining : stage(0.12, 0.50) + (
@@ -78,12 +90,14 @@ Item {
     readonly property real separation: Math.max(0, childOffset - thickness)
     // Expose the neck with the pill, then release it while both motion and
     // growth continue. The SDF itself determines when contact breaks.
-    readonly property real blendRadius: closing ? legPose.blend * closingRemaining + 56 * Math.sin(Math.PI
-                                                                                                   * closingRemaining)
-                                                  * smoothStep(childOffset / thickness) : openingBlend(
-                                                      progress, travel) + (legPose.blend - openingBlend(
-                                                                               legStart, legPose.travel))
-                                                  * openingCorrection
+    readonly property real blendRadius: Math.max(16 * peekOffset / 8, expansionBlendRadius)
+    readonly property real expansionBlendRadius: closing ? legPose.blend * closingRemaining + 56 * Math.sin(
+                                                               Math.PI * closingRemaining) * smoothStep(
+                                                               childOffset / thickness) : openingBlend(
+                                                               progress, travel) + (legPose.blend
+                                                                                    - openingBlend(legStart,
+                                                                                                   legPose.travel))
+                                                           * openingCorrection
     readonly property alias mainItem: mainBar
     readonly property bool clockHovered: mainBar.clockHovered
     readonly property bool mainHovered: mainBar.hovered
@@ -208,7 +222,11 @@ Item {
         width: root.childWidth
         height: root.childHeight
         property real radius: root.childRadius
-        visible: root.progress > 0
+        visible: root.progress > 0 || root.peekAmount > 0
+        HoverHandler {
+            id: peekHover
+            enabled: root.peekAmount > 0
+        }
     }
 
     Item {
