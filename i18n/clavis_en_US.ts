@@ -3949,6 +3949,19 @@ Scroll to adjust</translation>
 <context>
     <name>DockPreviewPopup</name>
     <message>
+        <source>Unable to force quit this application.</source>
+        <translation>Unable to force quit this application.</translation>
+    </message>
+    <message>
+        <source>Force quit</source>
+        <translation>Force quit</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="327"/>
+        <source>Close all windows</source>
+        <translation>Close all windows</translation>
+    </message>
+    <message>
         <location filename="../Modules/Dock/DockPreviewPopup.qml" line="223"/>
         <source>Application is unavailable</source>
         <translation>Application is unavailable</translation>

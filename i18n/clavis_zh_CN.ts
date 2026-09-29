@@ -3948,6 +3948,19 @@ Scroll to adjust</source>
 <context>
     <name>DockPreviewPopup</name>
     <message>
+        <source>Unable to force quit this application.</source>
+        <translation>无法强制退出此应用。</translation>
+    </message>
+    <message>
+        <source>Force quit</source>
+        <translation>强制退出</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Dock/DockPreviewPopup.qml" line="327"/>
+        <source>Close all windows</source>
+        <translation>关闭所有窗口</translation>
+    </message>
+    <message>
         <location filename="../Modules/Dock/DockPreviewPopup.qml" line="223"/>
         <source>Application is unavailable</source>
         <translation>应用不可用</translation>
