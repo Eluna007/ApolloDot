@@ -221,9 +221,7 @@ StyledFlickable {
                                   "label": String(root.currentHourOnes)
                               }), ({
                                        "value": "separator",
-                                       "label": ":",
-                                       "enabled": false,
-                                       "width": 24
+                                       "label": ":"
                                    }), ({
                                             "value": "m0",
                                             "label": String(root.currentMinuteTens)

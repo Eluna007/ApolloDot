@@ -690,6 +690,13 @@ Singleton {
                                                             "slnt": 0
                                                         })
     readonly property var horizontalClockDigitDefaults: ({
+                                                             "separator": ({
+                                                                               "x": 0,
+                                                                               "y": 0,
+                                                                               "rotation": 0,
+                                                                               "colorRole": "primary",
+                                                                               "customColor": ""
+                                                                           }),
                                                              "h0": ({
                                                                         "x": 0,
                                                                         "y": -2,
@@ -743,6 +750,13 @@ Singleton {
                                            "slnt": 0
                                        })
     property var horizontalClockDigits: ({
+                                             "separator": ({
+                                                               "x": 0,
+                                                               "y": 0,
+                                                               "rotation": 0,
+                                                               "colorRole": "primary",
+                                                               "customColor": ""
+                                                           }),
                                              "h0": ({
                                                         "x": 0,
                                                         "y": -2,
@@ -1125,7 +1139,7 @@ Singleton {
     function normalizedHorizontalClockDigits(raw) {
         const source = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
         const result = {};
-        const ids = ["h0", "h1", "m0", "m1", "ap", "periodM"];
+        const ids = ["h0", "h1", "separator", "m0", "m1", "ap", "periodM"];
         const colorRoles = ["primary", "inversePrimary", "custom"];
         for (let i = 0; i < ids.length; i += 1) {
             const id = ids[i];
