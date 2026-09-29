@@ -9,9 +9,9 @@
 
 | 参数 | 默认值 | 含义 |
 | --- | --- | --- |
-| `peekDepth` | 6 px | peak 向屏幕内侧探出的基础距离；融合会让最终轮廓略大 |
-| `peekWidth` | 96 px | 椭圆沿条栏方向的完整宽度；越宽越舒展，过宽会接近扁平台 |
-| `peekBlend` | 12 px | peak 的 SDF 融合半径；增大使肩部过渡更宽，也会增加凸起体积 |
+| `peekDepth` | 9 px | peak 弧形鼓包中心向内侧探出的高度 |
+| `peekWidth` | 120 px | 弧形鼓包两侧接回主体的总宽度；越宽越舒展 |
+| `peekBlend` | 12 px | 从 peak 转入完整展开时的 SDF 融合半径；静止 peak 不使用融合凸起 |
 | `peekDuration` | 220 ms | peak 探出与收回的时长 |
 | `openDuration` | 580 ms | 完整展开的时长 |
 | `closeDuration` | 210 ms | 完整收起的时长 |
@@ -96,3 +96,5 @@ DropShadow 的 `radius: 14`、`samples: 29` 和内向偏移 4 px 控制阴影；
 主内容在 `Shared/KeystoneSurface.qml` 中使用 0.02 的进度门槛启用交互，
 peak 使用独立的 `peekHovered`，不显示面板正文。
 屏幕边距 `edgeMargin` 在 `Long.qml` 中为 8 px；它不是 peak 的探出距离。
+
+静止 peak 现在直接变形主体内侧边缘：`height * (1 - t²)³`，其中 t 为归一化横向距离。中心圆滑、两侧斜率和曲率归零，形成连续弧形鼓包。展开前段再平滑切回原来的粘连 shader。

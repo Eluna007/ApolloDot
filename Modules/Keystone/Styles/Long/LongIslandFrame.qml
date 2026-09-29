@@ -11,8 +11,8 @@ Item {
     required property var screen
     required property string edge
     // Long-island motion tuning (logical pixels and milliseconds).
-    readonly property real peekDepth: 6
-    readonly property real peekWidth: 96
+    readonly property real peekDepth: 9
+    readonly property real peekWidth: 120
     readonly property real peekBlend: 12
     readonly property int peekDuration: 220
     readonly property int openDuration: 580
@@ -309,6 +309,7 @@ Item {
         property vector2d satelliteSize: Qt.vector2d(root.childWidth, root.childHeight)
         property real satelliteRadius: root.childRadius
         property real blendRadius: root.blendRadius
+        property vector2d peakBulge: Qt.vector2d(root.peekWidth, root.peekOffset)
         property real seedEllipse: 1 - root.stage(0, root.seedMorphEnd)
         property real edgeSoftness: 0.8
         property vector4d cutoutRect: Qt.vector4d(cutoutBlur.x + 24, cutoutBlur.y + 24, cutoutBlur.visible

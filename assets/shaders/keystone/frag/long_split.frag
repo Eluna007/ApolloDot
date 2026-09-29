@@ -15,6 +15,7 @@ layout(std140, binding = 0) uniform buf {
     vec2 satelliteSize;
     float satelliteRadius;
     float blendRadius;
+    vec2 peakBulge;
     float seedEllipse;
     float edgeSoftness;
     vec4 cutoutRect;
@@ -89,6 +90,13 @@ void main()
     float joinRadius = ubuf.blendRadius * mix(0.30, 1.0, contact)
         * smoothstep(0.0, ubuf.mainRadius, inward);
     float distanceToSurface = smoothMinimum(mainDistance, lobeDistance, joinRadius);
+    // Peak deforms the bar edge directly: one broad arch with zero slope
+    // and curvature at its shoulders, rather than a fused dangling lobe.
+    float along = horizontal ? pixel.x - ubuf.mainCenter.x : pixel.y - ubuf.mainCenter.y;
+    float t = clamp(abs(along) / max(ubuf.peakBulge.x * 0.5, 0.001), 0.0, 1.0);
+    float arch = pow(1.0 - t * t, 3.0) * ubuf.peakBulge.y;
+    float peakDistance = mainDistance - arch * smoothstep(0.0, ubuf.mainRadius, inward);
+    distanceToSurface = mix(distanceToSurface, peakDistance, ubuf.seedEllipse);
     if (ubuf.cutoutRect.z > 0.0) {
         float cutoutDistance = roundedBoxDistance(
             pixel - ubuf.cutoutRect.xy - ubuf.cutoutRect.zw * 0.5,
