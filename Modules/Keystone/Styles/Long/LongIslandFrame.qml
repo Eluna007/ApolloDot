@@ -12,7 +12,7 @@ Item {
     required property string edge
     property bool peeking: false
     property real peekAmount: peeking ? 1 : 0
-    readonly property real peekOffset: 8 * peekAmount * (1 - Math.min(1, Math.max(0, travel)))
+    readonly property real peekOffset: 10 * peekAmount * (1 - Math.min(1, Math.max(0, travel)))
     readonly property bool peekHovered: peekHover.hovered
 
     Behavior on peekAmount {
@@ -37,10 +37,10 @@ Item {
                                                                                             32))
     readonly property real thickness: 42
     readonly property real gap: 24
-    // Match the collapsed Pill surface. Only the child deforms; the status
-    // bar and its clock remain fixed throughout the split and fusion.
-    readonly property real pillWidth: horizontal ? 220 : 42
-    readonly property real pillHeight: horizontal ? 42 : 220
+    // A circular seed emerges as a rounded droplet, then grows into the panel.
+    // A wide pill here would expose a flat shelf along the bar during peak.
+    readonly property real pillWidth: thickness
+    readonly property real pillHeight: thickness
     property real progress: 0
     property bool componentReady: false
     // Capture the visible pose when changing direction. Closing uses a single
@@ -90,7 +90,7 @@ Item {
     readonly property real separation: Math.max(0, childOffset - thickness)
     // Expose the neck with the pill, then release it while both motion and
     // growth continue. The SDF itself determines when contact breaks.
-    readonly property real blendRadius: Math.max(16 * peekOffset / 8, expansionBlendRadius)
+    readonly property real blendRadius: Math.max(24 * peekOffset / 10, expansionBlendRadius)
     readonly property real expansionBlendRadius: closing ? legPose.blend * closingRemaining + 56 * Math.sin(
                                                                Math.PI * closingRemaining) * smoothStep(
                                                                childOffset / thickness) : openingBlend(
