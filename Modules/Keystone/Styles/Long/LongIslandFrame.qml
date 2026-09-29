@@ -10,14 +10,23 @@ Item {
 
     required property var screen
     required property string edge
+    // Long-island motion tuning (logical pixels and milliseconds).
+    readonly property real peekDepth: 6
+    readonly property real peekWidth: 96
+    readonly property real peekBlend: 12
+    readonly property int peekDuration: 220
+    readonly property int openDuration: 580
+    readonly property int closeDuration: 210
+    readonly property real fusionRadius: 56
+    readonly property real seedMorphEnd: 0.35
     property bool peeking: false
     property real peekAmount: peeking ? 1 : 0
-    readonly property real peekOffset: 10 * peekAmount * (1 - Math.min(1, Math.max(0, travel)))
+    readonly property real peekOffset: peekDepth * peekAmount * (1 - Math.min(1, Math.max(0, travel)))
     readonly property bool peekHovered: peekHover.hovered
 
     Behavior on peekAmount {
         NumberAnimation {
-            duration: 180
+            duration: root.peekDuration
             easing.type: Easing.OutCubic
         }
     }
@@ -37,10 +46,10 @@ Item {
                                                                                             32))
     readonly property real thickness: 42
     readonly property real gap: 24
-    // A circular seed emerges as a rounded droplet, then grows into the panel.
-    // A wide pill here would expose a flat shelf along the bar during peak.
-    readonly property real pillWidth: thickness
-    readonly property real pillHeight: thickness
+    // An elliptical seed gives peak a broad, shallow arc without a flat shelf.
+    // The shader gradually restores the rounded panel as expansion progresses.
+    readonly property real pillWidth: horizontal ? peekWidth : thickness
+    readonly property real pillHeight: horizontal ? thickness : peekWidth
     property real progress: 0
     property bool componentReady: false
     // Capture the visible pose when changing direction. Closing uses a single
@@ -90,9 +99,9 @@ Item {
     readonly property real separation: Math.max(0, childOffset - thickness)
     // Expose the neck with the pill, then release it while both motion and
     // growth continue. The SDF itself determines when contact breaks.
-    readonly property real blendRadius: Math.max(24 * peekOffset / 10, expansionBlendRadius)
-    readonly property real expansionBlendRadius: closing ? legPose.blend * closingRemaining + 56 * Math.sin(
-                                                               Math.PI * closingRemaining) * smoothStep(
+    readonly property real blendRadius: Math.max(peekBlend * peekOffset / peekDepth, expansionBlendRadius)
+    readonly property real expansionBlendRadius: closing ? legPose.blend * closingRemaining + fusionRadius
+                                                           * Math.sin(Math.PI * closingRemaining) * smoothStep(
                                                                childOffset / thickness) : openingBlend(
                                                                progress, travel) + (legPose.blend
                                                                                     - openingBlend(legStart,
@@ -131,8 +140,9 @@ Item {
     }
 
     function openingBlend(position, travelValue) {
-        return 56 * smoothStep((thickness + gap) * travelValue / thickness) * (1 - smoothStep((position
-                                                                                               - 0.25) / 0.40));
+        return fusionRadius * smoothStep((thickness + gap) * travelValue / thickness) * (1 - smoothStep((
+                                                                                                            position
+                                                                                                            - 0.25) / 0.40));
     }
 
     function updateSize() {
@@ -166,7 +176,7 @@ Item {
         Qt.callLater(updateSize);
         // Set timing before starting: a Behavior on a state-bound progress
         // can start with the previous state's duration during binding updates.
-        progressAnimation.duration = expanded ? 580 : 210;
+        progressAnimation.duration = expanded ? openDuration : closeDuration;
         progressAnimation.to = expanded ? 1 : 0;
         progressAnimation.start();
     }
@@ -299,6 +309,7 @@ Item {
         property vector2d satelliteSize: Qt.vector2d(root.childWidth, root.childHeight)
         property real satelliteRadius: root.childRadius
         property real blendRadius: root.blendRadius
+        property real seedEllipse: 1 - root.stage(0, root.seedMorphEnd)
         property real edgeSoftness: 0.8
         property vector4d cutoutRect: Qt.vector4d(cutoutBlur.x + 24, cutoutBlur.y + 24, cutoutBlur.visible
                                                   ? cutoutBlur.width : 0, cutoutBlur.height)

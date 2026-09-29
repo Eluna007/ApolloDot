@@ -15,6 +15,7 @@ layout(std140, binding = 0) uniform buf {
     vec2 satelliteSize;
     float satelliteRadius;
     float blendRadius;
+    float seedEllipse;
     float edgeSoftness;
     vec4 cutoutRect;
     float cutoutRadius;
@@ -50,6 +51,15 @@ void main()
         ubuf.satelliteSize * 0.5,
         ubuf.satelliteRadius
     );
+    // The resting lobe is an ellipse, not a capsule with a flat bottom.
+    // Blend distances back to a rounded panel before the content is fully shown.
+    vec2 ellipsePoint = pixel - ubuf.satelliteCenter;
+    vec2 ellipseRadii = max(ubuf.satelliteSize * 0.5, vec2(0.001));
+    float k0 = length(ellipsePoint / ellipseRadii);
+    float k1 = length(ellipsePoint / (ellipseRadii * ellipseRadii));
+    float ellipseDistance = k1 > 0.00001
+        ? k0 * (k0 - 1.0) / k1 : -min(ellipseRadii.x, ellipseRadii.y);
+    satelliteDistance = mix(satelliteDistance, ellipseDistance, ubuf.seedEllipse);
     // The circular seed supplies the thinning neck after separation.
     float seedDistance = length(pixel - ubuf.mainCenter) - ubuf.mainRadius;
     float lobeDistance = smoothMinimum(
