@@ -74,7 +74,6 @@ PanelWindow {
     onScreenChanged: WidgetState.sidebarScreenName = screen ? screen.name : ""
     visible: retainedScreen !== null || fallbackScreen !== null
     color: "transparent"
-    exclusiveZone: 0
 
     anchors {
         left: true
@@ -85,7 +84,8 @@ PanelWindow {
 
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.namespace: "clavis-shell-sidebars"
-    WlrLayershell.exclusionMode: ExclusionMode.Normal
+    // Reveal from physical screen edges, including the bar/dock reserved area.
+    WlrLayershell.exclusionMode: ExclusionMode.Ignore
     WlrLayershell.keyboardFocus: root.anySidebarOpen ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
     IpcHandler {
