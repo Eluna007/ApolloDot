@@ -586,6 +586,11 @@ Variants {
                 anchors.fill: parent
                 active: styleSurface.elongated
                 sourceComponent: LongIslandFrame {
+                    id: longIsland
+                    onContentInteractiveChanged: {
+                        if (longIsland.contentInteractive && root.keyboardInteractionActive)
+                            root.requestKeyboardFocus();
+                    }
                     screen: keystoneWindow.screen
                     edge: keystoneWindow.edge
                     peeking: root.isCollapsedHovered
@@ -711,7 +716,8 @@ Variants {
 
                 HoverHandler {
                     id: surfaceHover
-                    enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0.02)
+                    enabled: !styleSurface.elongated || (!!longFrame.item
+                                                         && longFrame.item.contentInteractive)
                 }
 
                 TapHandler {
@@ -947,7 +953,7 @@ Variants {
                 height: styleSurface.elongated && longFrame.item ? longFrame.item.childHeight : targetH
                 opacity: styleSurface.elongated ? (longFrame.item ? longFrame.item.contentOpacity : 0) : 1
                 visible: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0)
-                enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0.02)
+                enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.contentInteractive)
                 anchors.topMargin: styleSurface.elongated && keystoneWindow.topEdge && longFrame.item
                                    ? longFrame.item.childOffset : 0
                 anchors.bottomMargin: styleSurface.elongated && keystoneWindow.bottomEdge && longFrame.item
@@ -1416,9 +1422,9 @@ Variants {
                     width: 340
                     height: 456
                     anchors.left: parent.horizontalCenter
-                    anchors.leftMargin: hub.dashboardKeyholeCenterOffset + contentParallax.x
+                    anchors.leftMargin: hub.dashboardKeyholeCenterOffset
                     anchors.top: parent.top
-                    anchors.topMargin: 132 + contentParallax.y
+                    anchors.topMargin: 132
                     radius: 24
                     color: "transparent"
                     visible: root.showDashboardKeyhole
@@ -1541,18 +1547,6 @@ Variants {
                 Item {
                     id: staticCanvas
 
-                    transform: Translate {
-                        id: contentParallax
-
-                        x: styleSurface.elongated && longFrame.item ? (keystoneWindow.leftEdge ? -1 :
-                                                                                                 keystoneWindow.rightEdge
-                                                                                                 ? 1 : 0)
-                                                                      * longFrame.item.contentOffset : 0
-                        y: styleSurface.elongated && longFrame.item ? (keystoneWindow.topEdge ? -1 :
-                                                                                                keystoneWindow.bottomEdge
-                                                                                                ? 1 : 0)
-                                                                      * longFrame.item.contentOffset : 0
-                    }
                     enabled: !styleSurface.elongated || root.opacity > 0.1
                     anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -1940,6 +1934,8 @@ Variants {
             CompositorBlurRegion {
                 targetWindow: keystoneWindow
                 backgroundItem: styleSurface.elongated || root.useRecordingBlurRegions ? null : root
+                additionalRegions: styleSurface.elongated && longFrame.item
+                                   ? [longFrame.item.extensionRegion] : []
                 additionalBackgroundItems: styleSurface.elongated && longFrame.item
                                            ? longFrame.item.blurItems : root.recordingBlurBackgroundItems
                 subtractedBackgroundItems: !root.showDashboardKeyhole ? [] : styleSurface.elongated
@@ -1963,11 +1959,7 @@ Variants {
                 radius: styleSurface.elongated ? 21 : 0
             }
             Region {
-                item: styleSurface.elongated && longFrame.item ? (longFrame.item.progress > 0.02 ? root :
-                                                                                                   longFrame.item.peekAmount
-                                                                                                   > 0 ? longFrame.item.childBlurItem :
-                                                                                                         null) : null
-                radius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius : 0
+                regions: styleSurface.elongated && longFrame.item ? [longFrame.item.extensionRegion] : []
             }
         }
     }

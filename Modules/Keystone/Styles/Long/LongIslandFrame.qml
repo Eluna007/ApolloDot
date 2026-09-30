@@ -1,118 +1,90 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import Quickshell
 import Qt5Compat.GraphicalEffects
 import qs.Common
-import qs.Services
 
 Item {
     id: root
 
     required property var screen
     required property string edge
-    // Long-island motion tuning (logical pixels and milliseconds).
-    readonly property real peekDepth: 9
-    readonly property real peekWidth: 120
-    readonly property real peekBlend: 12
-    readonly property int peekDuration: 220
-    readonly property int openDuration: 580
-    readonly property int closeDuration: 210
-    readonly property real fusionRadius: 56
-    readonly property real seedMorphEnd: 0.35
-    property bool peeking: false
-    property real peekAmount: peeking ? 1 : 0
-    readonly property real peekOffset: peekDepth * peekAmount * (1 - Math.min(1, Math.max(0, travel)))
-    readonly property bool peekHovered: peekHover.hovered
-
-    Behavior on peekAmount {
-        NumberAnimation {
-            duration: root.peekDuration
-            easing.type: Easing.OutCubic
-        }
-    }
-
     required property bool expanded
     required property real targetWidth
     required property real targetHeight
     required property Item childItem
     required property Item cutoutItem
+    property bool peeking: false
     property bool cutoutVisible: false
     property color surfaceColor: Appearance.colors.colLayer0
+
+    // One reversible timeline: submerged bulge -> emergence -> adhesion -> release.
+    // All lengths are logical pixels; phase boundaries are normalized progress.
+    readonly property real thickness: 42
+    readonly property real gap: 24
+    readonly property real peekWidth: 144
+    readonly property real peekDepth: 10
+    readonly property int peekDuration: 200
+    readonly property int openDuration: 720
+    readonly property int closeDuration: 420
+    readonly property real peekStop: 0.18
+    readonly property real emergenceEnd: 0.66
+    readonly property real separationStart: 0.50
+    readonly property real separationEnd: 0.76
+    readonly property real releaseStart: 0.86
+    readonly property real shoulderRadius: 16
+    readonly property real neckWidth: 48
+    readonly property real panelRadius: 24
+    readonly property real seedDepth: 18
+    readonly property real seedWidth: 64
+
+    property real progress: 0
+    property bool componentReady: false
+    property real heldWidth: seedWidth
+    property real heldHeight: seedDepth
     readonly property bool horizontal: edge === "top" || edge === "bottom"
+    readonly property vector2d inwardNormal: edge === "top" ? Qt.vector2d(0, 1) : edge === "bottom" ? Qt.vector2d(0,
+                                                                                                                  -1) : edge
+                                                                                                      === "left"
+                                                                                                      ? Qt.vector2d(
+                                                                                                            1, 0) : Qt.vector2d(
+                                                                                                            -1, 0)
     readonly property real length: mainBar.contentLength
     readonly property real availableChildWidth: Math.max(24, screen.width - (horizontal ? 32 : thickness + gap
                                                                                           + 24))
     readonly property real availableChildHeight: Math.max(24, screen.height - (horizontal ? thickness + gap + 24 :
                                                                                             32))
-    readonly property real thickness: 42
-    readonly property real gap: 24
-    // An elliptical seed gives peak a broad, shallow arc without a flat shelf.
-    // The shader gradually restores the rounded panel as expansion progresses.
-    readonly property real pillWidth: horizontal ? peekWidth : thickness
-    readonly property real pillHeight: horizontal ? thickness : peekWidth
-    property real progress: 0
-    property bool componentReady: false
-    // Capture the visible pose when changing direction. Closing uses a single
-    // contraction curve instead of playing the opening spring backwards.
-    property bool closing: false
-    property real legStart: 0
-    property var legPose: ({
-                               travel: 0,
-                               along: 0,
-                               inward: 0,
-                               opacity: 0,
-                               blend: 0
-                           })
-    readonly property real closingRemaining: smoothStep(progress / Math.max(0.0001, legStart))
-    readonly property real openingCorrection: 1 - stage(legStart, Math.max(legStart + 0.0001, 1))
-    property real heldWidth: pillWidth
-    property real heldHeight: pillHeight
-    // As in Spotlight, overlapping damped responses keep velocity through
-    // emergence, separation and expansion instead of stopping at each pose.
-    readonly property real travel: closing ? legPose.travel * closingRemaining : response(0, 6.4, 7.2) + (
-                                                 legPose.travel - response(0, 6.4, 7.2, legStart))
-                                             * openingCorrection
-    readonly property real alongGrowth: closing ? legPose.along * closingRemaining : response(0.025, 6.8,
-                                                                                              5.8) + (legPose.along
-                                                                                                      - response(
-                                                                                                          0.025, 6.8,
-                                                                                                          5.8, legStart))
-                                                  * openingCorrection
-    readonly property real inwardGrowth: closing ? legPose.inward * closingRemaining : response(0.055, 6.4,
-                                                                                                5.4) + (legPose.inward
-                                                                                                        - response(
-                                                                                                            0.055, 6.4,
-                                                                                                            5.4, legStart))
-                                                   * openingCorrection
-    readonly property real childWidth: pillWidth + (heldWidth - pillWidth) * (horizontal ? alongGrowth :
-                                                                                           inwardGrowth)
-    readonly property real childHeight: pillHeight + (heldHeight - pillHeight) * (horizontal ? inwardGrowth :
-                                                                                               alongGrowth)
-    readonly property real childOffset: (thickness + gap) * travel + peekOffset
-    readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, 21 + 3 * Math.min(1,
-                                                                                                    inwardGrowth))
-    readonly property real contentOpacity: closing ? legPose.opacity * closingRemaining : stage(0.12, 0.50) + (
-                                                         legPose.opacity - smoothStep((legStart - 0.12)
-                                                                                      / 0.38))
-                                                     * openingCorrection
-    readonly property real contentOffset: 10 * (1 - Math.min(1, inwardGrowth))
-    readonly property real separation: Math.max(0, childOffset - thickness)
-    // Expose the neck with the pill, then release it while both motion and
-    // growth continue. The SDF itself determines when contact breaks.
-    readonly property real blendRadius: Math.max(peekBlend * peekOffset / peekDepth, expansionBlendRadius)
-    readonly property real expansionBlendRadius: closing ? legPose.blend * closingRemaining + fusionRadius
-                                                           * Math.sin(Math.PI * closingRemaining) * smoothStep(
-                                                               childOffset / thickness) : openingBlend(
-                                                               progress, travel) + (legPose.blend
-                                                                                    - openingBlend(legStart,
-                                                                                                   legPose.travel))
-                                                           * openingCorrection
+    readonly property real emergence: stage(peekStop, emergenceEnd)
+    readonly property real separation: gap * stage(separationStart, separationEnd)
+    readonly property real release: stage(releaseStart, 1)
+    readonly property real bulgeHeight: peekDepth * stage(0, peekStop) * (1 - emergence)
+    readonly property real childWidth: (horizontal ? seedWidth : seedDepth) * (1 - emergence) + heldWidth
+                                       * emergence
+
+    readonly property real childHeight: (horizontal ? seedDepth : seedWidth) * (1 - emergence) + heldHeight
+                                        * emergence
+    readonly property real childOffset: thickness - seedDepth * (1 - emergence) + separation
+    readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, panelRadius)
+    readonly property real surfaceGap: Math.max(0, childOffset - thickness)
+    readonly property real childAlong: horizontal ? childWidth : childHeight
+    // Peel the broad contact down to a neck over the first few pixels of air.
+    readonly property real neckRoot: Math.min(Math.max(0, childAlong / 2 - childRadius), neckWidth / 2 + childAlong
+                                              * 0.4 * Math.exp(-surfaceGap / 3)) * (1 - release)
+    readonly property real neckWaist: neckRoot - surfaceGap * 0.55 - seedDepth * release
+    readonly property real contactBlend: shoulderRadius * emergence * (1 - smoothStep(surfaceGap / 4))
+    // Text and cover art only appear once the panel has its final shape and has
+    // cleared the bar. Reversing the timeline hides them before absorption.
+    readonly property real contentOpacity: stage(emergenceEnd, separationEnd)
+    readonly property bool contentInteractive: expanded && contentOpacity > 0.1
+    readonly property bool peekHovered: bulgeHover.hovered || neckHover.hovered || childHover.hovered
     readonly property alias mainItem: mainBar
     readonly property bool clockHovered: mainBar.clockHovered
     readonly property bool mainHovered: mainBar.hovered
     readonly property alias childBlurItem: childBlur
     readonly property alias cutoutBlurItem: cutoutBlur
-    readonly property var blurItems: [mainBar, childBlur, neckBlur]
+    readonly property alias extensionRegion: extensionRegion
+    readonly property var blurItems: [mainBar]
 
     signal clockClicked(int button)
     signal mediaRequested
@@ -126,85 +98,78 @@ Item {
         return smoothStep((progress - start) / (end - start));
     }
 
-    // Zero initial velocity, a small natural overshoot, and an exact endpoint.
-    // A decaying correction preserves the current pose when reopening midway.
-    function response(delay, decay, frequency, position = progress) {
-        const time = Math.max(0, Math.min(1, position) - delay);
-        const end = 1 - delay;
-        const phase = decay / frequency;
-        const value = 1 - Math.exp(-decay * time) * (Math.cos(frequency * time) + phase * Math.sin(frequency
-                                                                                                   * time));
-        const terminal = 1 - Math.exp(-decay * end) * (Math.cos(frequency * end) + phase * Math.sin(frequency
-                                                                                                    * end));
-        return value / terminal;
+    function bulgeAt(along) {
+        const t = Math.min(1, Math.abs(along) / (peekWidth / 2));
+        return bulgeHeight * Math.pow(1 - t * t, 3);
     }
 
-    function openingBlend(position, travelValue) {
-        return fusionRadius * smoothStep((thickness + gap) * travelValue / thickness) * (1 - smoothStep((
-                                                                                                            position
-                                                                                                            - 0.25) / 0.40));
+    function neckAt(t) {
+        const q = 2 * t - 1;
+        return Math.max(0, neckRoot - (neckRoot - neckWaist) * Math.sqrt(Math.max(0, 1 - q * q)));
     }
 
     function updateSize() {
         if (!expanded)
             return;
-        heldWidth = Math.min(targetWidth, availableChildWidth);
-        heldHeight = Math.min(targetHeight, availableChildHeight);
+        heldWidth = Math.max(24, Math.min(targetWidth, availableChildWidth));
+        heldHeight = Math.max(24, Math.min(targetHeight, availableChildHeight));
     }
 
-    // Coalesce layout changes so a collapsed target cannot replace the held
-    // expanded size before the expanded binding has caught up in this turn.
+    function retarget() {
+        if (!componentReady)
+            return;
+        updateSize();
+        const destination = expanded ? 1 : peeking ? peekStop : 0;
+        if (progressAnimation.running && progressAnimation.to === destination)
+            return;
+        progressAnimation.stop();
+        const distance = Math.abs(destination - progress);
+        if (distance < 0.00001)
+            return;
+        const onlyPeek = Math.max(progress, destination) <= peekStop;
+        progressAnimation.duration = Math.max(16, onlyPeek ? peekDuration * distance / peekStop : (destination
+                                                                                                   > progress
+                                                                                                   ? openDuration :
+                                                                                                     closeDuration)
+                                                             * distance);
+        progressAnimation.easing.type = onlyPeek ? Easing.OutCubic : Easing.Linear;
+        progressAnimation.to = destination;
+        progressAnimation.start();
+    }
+
+    // Coalesce related mode/size bindings before selecting the next destination.
     onAvailableChildWidthChanged: Qt.callLater(updateSize)
     onAvailableChildHeightChanged: Qt.callLater(updateSize)
     onTargetWidthChanged: Qt.callLater(updateSize)
     onTargetHeightChanged: Qt.callLater(updateSize)
-    onExpandedChanged: {
-        if (!componentReady)
-            return;
-        progressAnimation.stop();
-        const pose = {
-            travel,
-            along: alongGrowth,
-            inward: inwardGrowth,
-            opacity: contentOpacity,
-            blend: blendRadius
-        };
-        const start = progress;
-        legPose = pose;
-        legStart = start;
-        closing = !expanded;
-        Qt.callLater(updateSize);
-        // Set timing before starting: a Behavior on a state-bound progress
-        // can start with the previous state's duration during binding updates.
-        progressAnimation.duration = expanded ? openDuration : closeDuration;
-        progressAnimation.to = expanded ? 1 : 0;
-        progressAnimation.start();
-    }
+    onExpandedChanged: Qt.callLater(retarget)
+    onPeekingChanged: Qt.callLater(retarget)
     Component.onCompleted: {
-        progress = expanded ? 1 : 0;
         updateSize();
+        progress = expanded ? 1 : peeking ? peekStop : 0;
         componentReady = true;
+        rebuildExtensionRegion();
     }
 
-    implicitWidth: horizontal ? Math.max(length, childWidth) : Math.max(thickness, childOffset + childWidth)
-    implicitHeight: horizontal ? Math.max(thickness, childOffset + childHeight) : Math.max(length,
-                                                                                           childHeight)
+    readonly property real extent: Math.max(thickness + bulgeHeight, childOffset + (horizontal ? childHeight :
+                                                                                                 childWidth))
+    implicitWidth: horizontal ? Math.max(length, childWidth) : extent
+    implicitHeight: horizontal ? extent : Math.max(length, childHeight)
 
     NumberAnimation {
         id: progressAnimation
         target: root
         property: "progress"
-        easing.type: Easing.Linear
     }
     Behavior on heldWidth {
-        enabled: root.progress > 0.99
+        enabled: root.emergence > 0
         NumberAnimation {
             duration: 400
             easing.type: Easing.OutCubic
         }
     }
     Behavior on heldHeight {
-        enabled: root.progress > 0.99
+        enabled: root.emergence > 0
         NumberAnimation {
             duration: 400
             easing.type: Easing.OutCubic
@@ -232,37 +197,133 @@ Item {
         width: root.childWidth
         height: root.childHeight
         property real radius: root.childRadius
-        visible: root.progress > 0 || root.peekAmount > 0
+        visible: root.emergence > 0
         HoverHandler {
-            id: peekHover
-            enabled: root.peekAmount > 0
+            id: childHover
         }
     }
 
     Item {
         id: cutoutBlur
-        // The fixed card and its hole move together; the growing child surface
-        // reveals both by clipping, without a second, independent hole animation.
         x: root.childItem.x + root.cutoutItem.x
         y: root.childItem.y + root.cutoutItem.y
         width: root.cutoutItem.width
         height: root.cutoutItem.height
         property real radius: root.cutoutItem.radius
-        visible: root.cutoutVisible && root.progress > 0 && width > 0 && height > 0
+        visible: root.cutoutVisible && root.contentOpacity > 0 && width > 0 && height > 0
+    }
+
+    // Everything outside the bar is constrained to its inward waterline.
+    Item {
+        id: inwardArea
+        x: root.edge === "left" ? root.thickness : 0
+        y: root.edge === "top" ? root.thickness : 0
+        width: root.width - (root.horizontal ? 0 : root.thickness)
+        height: root.height - (root.horizontal ? root.thickness : 0)
     }
 
     Item {
-        // Only blur the interior of an actually connected neck. Detached
-        // space is neither blurred nor included in the window input mask.
-        id: neckBlur
-        visible: root.separation > 0 && root.blendRadius > root.separation * 2.8
-        x: root.horizontal ? root.width / 2 - 6 : root.edge === "left" ? root.thickness : root.width
-                                                                         - root.childOffset
-        y: !root.horizontal ? root.height / 2 - 6 : root.edge === "top" ? root.thickness : root.height
-                                                                          - root.childOffset
-        width: root.horizontal ? 12 : root.separation
-        height: root.horizontal ? root.separation : 12
-        property real radius: 0
+        id: bulgeHitArea
+        x: root.horizontal ? root.width / 2 - width / 2 : root.edge === "left" ? root.thickness : root.width
+                                                                                 - root.thickness - width
+        y: !root.horizontal ? root.height / 2 - height / 2 : root.edge === "top" ? root.thickness :
+                                                                                   root.height
+                                                                                   - root.thickness - height
+        width: root.horizontal ? root.peekWidth : root.bulgeHeight
+        height: root.horizontal ? root.bulgeHeight : root.peekWidth
+        HoverHandler {
+            id: bulgeHover
+            enabled: root.bulgeHeight > 0
+        }
+    }
+
+    Item {
+        id: neckHitArea
+        x: root.horizontal ? root.width / 2 - width / 2 : root.edge === "left" ? root.thickness : root.width
+                                                                                 - root.thickness - width
+        y: !root.horizontal ? root.height / 2 - height / 2 : root.edge === "top" ? root.thickness :
+                                                                                   root.height
+                                                                                   - root.thickness - height
+        width: root.horizontal ? root.neckRoot * 2 : root.surfaceGap
+        height: root.horizontal ? root.surfaceGap : root.neckRoot * 2
+        HoverHandler {
+            id: neckHover
+            enabled: root.surfaceGap > 0 && root.release < 1
+        }
+    }
+
+    // Inscribed strips follow the same arch/neck equations as the shader.
+    // They keep blur and input out of transparent space, including a split neck.
+    Repeater {
+        id: bulgeStrips
+        model: 24
+        delegate: SurfaceStrip {
+            id: bulgeStrip
+            required property int index
+            readonly property real alongStart: -root.peekWidth / 2 + index * root.peekWidth / 24
+            readonly property real depth: Math.min(root.bulgeAt(alongStart), root.bulgeAt(alongStart
+                                                                                          + root.peekWidth
+                                                                                          / 24))
+            x: root.horizontal ? root.width / 2 + alongStart : root.edge === "left" ? root.thickness :
+                                                                                      root.width
+                                                                                      - root.thickness - width
+            y: !root.horizontal ? root.height / 2 + alongStart : root.edge === "top" ? root.thickness :
+                                                                                       root.height
+                                                                                       - root.thickness
+                                                                                       - height
+            width: root.horizontal ? root.peekWidth / 24 : depth
+            height: root.horizontal ? depth : root.peekWidth / 24
+            visible: depth > 0
+        }
+    }
+
+    Repeater {
+        id: neckStrips
+        model: 12
+        delegate: SurfaceStrip {
+            id: neckStrip
+            required property int index
+            readonly property real halfWidth: Math.min(root.neckAt(index / 12), root.neckAt((index + 1) / 12))
+            readonly property real offset: root.thickness + index * root.surfaceGap / 12
+            x: root.horizontal ? root.width / 2 - halfWidth : root.edge === "left" ? offset : root.width
+                                                                                     - offset - width
+            y: !root.horizontal ? root.height / 2 - halfWidth : root.edge === "top" ? offset : root.height
+                                                                                      - offset - height
+            width: root.horizontal ? halfWidth * 2 : root.surfaceGap / 12
+            height: root.horizontal ? root.surfaceGap / 12 : halfWidth * 2
+            visible: root.surfaceGap > 0 && root.release < 1 && halfWidth > 0
+        }
+    }
+
+    component SurfaceStrip: Item {
+        id: strip
+        property Region region: Region {
+            item: strip.visible ? strip : null
+        }
+    }
+
+    function rebuildExtensionRegion() {
+        const regions = [bodyRegion];
+        for (let i = 0; i < bulgeStrips.count; ++i)
+            regions.push((bulgeStrips.itemAt(i) as SurfaceStrip).region);
+        for (let i = 0; i < neckStrips.count; ++i)
+            regions.push((neckStrips.itemAt(i) as SurfaceStrip).region);
+        regions.push(waterlineClip);
+        extensionRegion.regions = regions;
+    }
+
+    Region {
+        id: extensionRegion
+    }
+    Region {
+        id: bodyRegion
+        item: childBlur.visible ? childBlur : null
+        radius: root.childRadius
+    }
+    Region {
+        id: waterlineClip
+        item: inwardArea
+        intersection: Intersection.Intersect
     }
 
     Item {
@@ -308,9 +369,12 @@ Item {
                                                        root.childItem.y + root.childHeight / 2 + 24)
         property vector2d satelliteSize: Qt.vector2d(root.childWidth, root.childHeight)
         property real satelliteRadius: root.childRadius
-        property real blendRadius: root.blendRadius
-        property vector2d peakBulge: Qt.vector2d(root.peekWidth, root.peekOffset)
-        property real seedEllipse: 1 - root.stage(0, root.seedMorphEnd)
+        property vector2d inwardNormal: root.inwardNormal
+        property vector2d peakBulge: Qt.vector2d(root.peekWidth, root.bulgeHeight)
+        property real bodyVisible: root.emergence > 0 ? 1 : 0
+        property real contactBlend: root.contactBlend
+        property vector4d neck: Qt.vector4d(root.surfaceGap, root.neckRoot, root.neckWaist, root.release < 1
+                                            ? 1 : 0)
         property real edgeSoftness: 0.8
         property vector4d cutoutRect: Qt.vector4d(cutoutBlur.x + 24, cutoutBlur.y + 24, cutoutBlur.visible
                                                   ? cutoutBlur.width : 0, cutoutBlur.height)
