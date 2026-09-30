@@ -95,7 +95,7 @@ Item {
                                                                                               qsTr("No lyrics available")
     }
 
-    MediaSourceIcon {
+    LyricsSpectrum {
         anchors.right: parent.right
         anchors.rightMargin: 15
         anchors.verticalCenter: parent.verticalCenter

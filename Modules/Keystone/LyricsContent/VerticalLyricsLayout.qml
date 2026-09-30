@@ -1,6 +1,5 @@
 import QtQuick
 import qs.Common
-import qs.Widgets.common
 
 Item {
     id: root
@@ -113,7 +112,7 @@ Item {
         }
     }
 
-    MediaSourceIcon {
+    LyricsSpectrum {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: root.padding
         anchors.horizontalCenter: parent.horizontalCenter
