@@ -47,10 +47,10 @@ StyledFlickable {
 
             SettingsRow {
                 Layout.fillWidth: true
-                title: qsTr("Use Overlay layer")
+                title: qsTr("Floating")
                 trailing: StyledSwitch {
                     checked: PersonalizationConfig.barOverlay
-                    Accessible.name: qsTr("Use Overlay layer")
+                    Accessible.name: qsTr("Floating")
                     onToggled: PersonalizationConfig.setValue("barOverlay", checked)
                 }
             }

@@ -123,10 +123,10 @@ Item {
 
                 SettingsRow {
                     Layout.fillWidth: true
-                    title: qsTr("Use Overlay layer")
+                    title: qsTr("Floating")
                     trailing: StyledSwitch {
                         checked: PersonalizationConfig.keystoneOverlay
-                        Accessible.name: qsTr("Use Overlay layer")
+                        Accessible.name: qsTr("Floating")
                         onToggled: PersonalizationConfig.setValue("keystoneOverlay", checked)
                     }
                 }

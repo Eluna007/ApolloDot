@@ -634,32 +634,32 @@
         <translation>Open advanced sound settings</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="77"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="73"/>
         <source>Output</source>
         <translation>Output</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="82"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="78"/>
         <source>Default output</source>
         <translation>Default output</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="102"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="96"/>
         <source>Output devices</source>
         <translation>Output devices</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="141"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="131"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="161"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="149"/>
         <source>Application volume</source>
         <translation>Application volume</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="193"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="177"/>
         <source>No active application audio</source>
         <translation>No active application audio</translation>
     </message>
@@ -1473,19 +1473,19 @@
     </message>
     <message>
         <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="90"/>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="210"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="205"/>
         <source>Connected</source>
         <translation>Connected</translation>
     </message>
     <message>
         <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="92"/>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="223"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="215"/>
         <source>Paired</source>
         <translation>Paired</translation>
     </message>
     <message>
         <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="94"/>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="236"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="226"/>
         <source>Available devices</source>
         <translation>Available devices</translation>
     </message>
@@ -1500,153 +1500,153 @@
         <translation>Bluetooth</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="252"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="242"/>
         <source>Searching for available Bluetooth devices</source>
         <translation>Searching for available Bluetooth devices</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="257"/>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="310"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="247"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="294"/>
         <source>Searching for nearby devices</source>
         <translation>Searching for nearby devices</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="298"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="284"/>
         <source>No available devices found</source>
         <translation>No available devices found</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="309"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="293"/>
         <source>Adapters</source>
         <translation>Adapters</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="311"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="295"/>
         <source>Device discovery is paused</source>
         <translation>Device discovery is paused</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="313"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="297"/>
         <source>Turn on Bluetooth to start discovery</source>
         <translation>Turn on Bluetooth to start discovery</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="329"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="309"/>
         <source>Bluetooth adapter</source>
         <translation>Bluetooth adapter</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="330"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="310"/>
         <source>Blocked by rfkill</source>
         <translation>Blocked by rfkill</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="331"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="311"/>
         <source>Off</source>
         <translation>Off</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="338"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="318"/>
         <source>Toggle adapter </source>
         <translation>Toggle adapter </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="352"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="332"/>
         <source>Allow discovery</source>
         <translation>Allow discovery</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="353"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="333"/>
         <source>Let nearby devices find this computer</source>
         <translation>Let nearby devices find this computer</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="360"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="340"/>
         <source>Bluetooth discoverability</source>
         <translation>Bluetooth discoverability</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="369"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="349"/>
         <source>Allow pairing</source>
         <translation>Allow pairing</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="377"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="357"/>
         <source>Bluetooth pairing</source>
         <translation>Bluetooth pairing</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="402"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="379"/>
         <source>Forget Bluetooth device</source>
         <translation>Forget Bluetooth device</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="415"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="392"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="423"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="400"/>
         <source>Forget</source>
         <translation>Forget</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="445"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="422"/>
         <source>Scan for Bluetooth devices again</source>
         <translation>Scan for Bluetooth devices again</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="455"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="432"/>
         <source>Bluetooth switch</source>
         <translation>Bluetooth switch</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="494"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="468"/>
         <source>Trust device</source>
         <translation>Trust device</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="499"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="473"/>
         <source>Trust %1</source>
         <translation>Trust %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="506"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="480"/>
         <source>Wake computer</source>
         <translation>Wake computer</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="511"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="485"/>
         <source>Allow %1 to wake the computer</source>
         <translation>Allow %1 to wake the computer</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="551"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="525"/>
         <source>Disconnect</source>
         <translation>Disconnect</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="552"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="526"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="554"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="528"/>
         <source>Pair</source>
         <translation>Pair</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="574"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="548"/>
         <source>Bluetooth device action</source>
         <translation>Bluetooth device action</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="585"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="559"/>
         <source>Forget device</source>
         <translation>Forget device</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="403"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="380"/>
         <source>This will delete the pairing information for “%1”.</source>
         <translation>This will delete the pairing information for “%1”.</translation>
     </message>
@@ -4307,12 +4307,12 @@ Scroll to adjust</translation>
         <translation>The connection recovers automatically; existing data is never presented as current.</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="432"/>
+        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="434"/>
         <source>Drawer grid; scrollable with draggable cards</source>
         <translation>Drawer grid; scrollable with draggable cards</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="434"/>
+        <location filename="../Modules/Sidebars/Dashboard/DrawerView.qml" line="436"/>
         <source>Drawer grid with draggable cards</source>
         <translation>Drawer grid with draggable cards</translation>
     </message>
@@ -4507,7 +4507,7 @@ Scroll to adjust</translation>
 <context>
     <name>GammaControlPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="39"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="36"/>
         <source>The compositor does not provide Gamma control</source>
         <translation>The compositor does not provide Gamma control</translation>
     </message>
@@ -4517,28 +4517,28 @@ Scroll to adjust</translation>
         <translation>Color</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="71"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="63"/>
         <source>Gamma</source>
         <translation>Gamma</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="80"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="72"/>
         <source>Contrast</source>
         <translation>Contrast</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="89"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="81"/>
         <source>Software dimming</source>
         <translation>Software dimming</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="108"/>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="112"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="98"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="102"/>
         <source>Night Mode</source>
         <translation>Night Mode</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="118"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="108"/>
         <source>Night temperature</source>
         <translation>Night temperature</translation>
     </message>
@@ -4548,105 +4548,105 @@ Scroll to adjust</translation>
         <translation>Schedule</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="147"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="135"/>
         <source>Automatic control</source>
         <translation>Automatic control</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="151"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="139"/>
         <source>Fixed temperature</source>
         <translation>Fixed temperature</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="155"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="143"/>
         <source>Time</source>
         <translation>Time</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="159"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="147"/>
         <source>Sunrise and sunset</source>
         <translation>Sunrise and sunset</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="168"/>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="175"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="156"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="163"/>
         <source>Night starts</source>
         <translation>Night starts</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="186"/>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="193"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="174"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="181"/>
         <source>Day starts</source>
         <translation>Day starts</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="269"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="257"/>
         <source>Day temperature</source>
         <translation>Day temperature</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="279"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="267"/>
         <source>Transition duration</source>
         <translation>Transition duration</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="283"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="271"/>
         <source> min</source>
         <translation> min</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="209"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="197"/>
         <source>Latitude</source>
         <translation>Latitude</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="214"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="202"/>
         <source>Longitude</source>
         <translation>Longitude</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="237"/>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="241"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="225"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="229"/>
         <source>Automatic IP location</source>
         <translation>Automatic IP location</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="328"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="314"/>
         <source>Period</source>
         <translation>Period</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="332"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="318"/>
         <source>Daytime</source>
         <translation>Daytime</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="332"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="318"/>
         <source>Nighttime</source>
         <translation>Nighttime</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="330"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="316"/>
         <source>Transitioning</source>
         <translation>Transitioning</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="341"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="327"/>
         <source>Transition ends</source>
         <translation>Transition ends</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="365"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="348"/>
         <source>Gamma control unavailable: %1</source>
         <translation>Gamma control unavailable: %1</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="256"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="244"/>
         <source>Refresh location</source>
         <translation>Refresh location</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="264"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="252"/>
         <source>Use weather location</source>
         <translation>Use weather location</translation>
     </message>
@@ -4656,17 +4656,17 @@ Scroll to adjust</translation>
         <translation>Current status</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="319"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="305"/>
         <source>%1 K</source>
         <translation>%1 K</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="315"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="301"/>
         <source>Scheduled temperature</source>
         <translation>Scheduled temperature</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="341"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="327"/>
         <source>Next transition</source>
         <translation>Next transition</translation>
     </message>
@@ -4697,8 +4697,8 @@ Scroll to adjust</translation>
     <message>
         <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="50"/>
         <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="53"/>
-        <source>Use Overlay layer</source>
-        <translation>Use Overlay layer</translation>
+        <source>Floating</source>
+        <translation>Floating</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="86"/>
@@ -5617,54 +5617,54 @@ Scroll to adjust</translation>
         <translation>Idle management</translation>
     </message>
     <message>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="79"/>
         <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="83"/>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="87"/>
         <source>Keep awake</source>
         <translation>Keep awake</translation>
     </message>
     <message>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="91"/>
         <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="95"/>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="99"/>
         <source>Automatic idle</source>
         <translation>Automatic idle</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="113"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="106"/>
         <source>Dim screen</source>
         <translation>Dim screen</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="125"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="115"/>
         <source>Lock session</source>
         <translation>Lock session</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="136"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="123"/>
         <source>Turn off displays</source>
         <translation>Turn off displays</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="147"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="131"/>
         <source>Suspend system</source>
         <translation>Suspend system</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="183"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="168"/>
         <source>Wait time</source>
         <translation>Wait time</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="206"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="191"/>
         <source>Dim percentage</source>
         <translation>Dim percentage</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="241"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="226"/>
         <source>Skip while keeping awake</source>
         <translation>Skip while keeping awake</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="224"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="209"/>
         <source>Screen dim percentage</source>
         <translation>Screen dim percentage</translation>
     </message>
@@ -5690,17 +5690,17 @@ Scroll to adjust</translation>
         <translation>%1 minutes</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="171"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="156"/>
         <source>Triggered</source>
         <translation>Triggered</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="194"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="179"/>
         <source>%1 wait time</source>
         <translation>%1 wait time</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="245"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="230"/>
         <source>%1: respect keep-awake</source>
         <translation>%1: respect keep-awake</translation>
     </message>
@@ -6029,8 +6029,8 @@ Scroll to adjust</translation>
     <message>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="126"/>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="129"/>
-        <source>Use Overlay layer</source>
-        <translation>Use Overlay layer</translation>
+        <source>Floating</source>
+        <translation>Floating</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="253"/>
@@ -6689,22 +6689,22 @@ Scroll to adjust; click to open microphone controls</translation>
         <translation>Open advanced sound settings</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="77"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="73"/>
         <source>Input</source>
         <translation>Input</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="82"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="78"/>
         <source>Default input</source>
         <translation>Default input</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="102"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="96"/>
         <source>Input devices</source>
         <translation>Input devices</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="141"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="131"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
@@ -6832,140 +6832,140 @@ Click to open network settings</translation>
         <translation>Network</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="234"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="233"/>
         <source>Not connected</source>
         <translation>Not connected</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="264"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="263"/>
         <source>Open network portal</source>
         <translation>Open network portal</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="291"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="285"/>
         <source>Wired connections</source>
         <translation>Wired connections</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="310"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="300"/>
         <source>Network cable unplugged</source>
         <translation>Network cable unplugged</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="311"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="301"/>
         <source>%1 Mbps</source>
         <translation>%1 Mbps</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="340"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="328"/>
         <source>Connection details</source>
         <translation>Connection details</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="345"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="333"/>
         <source>Signal strength</source>
         <translation>Signal strength</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="346"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="334"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="350"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="338"/>
         <source>Security</source>
         <translation>Security</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="351"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="339"/>
         <source>Protected network</source>
         <translation>Protected network</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="357"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="345"/>
         <source>Network adapter</source>
         <translation>Network adapter</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="375"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="361"/>
         <source>Saved networks</source>
         <translation>Saved networks</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="406"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="386"/>
         <source>Available networks</source>
         <translation>Available networks</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="424"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="429"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="404"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="409"/>
         <source>Searching for available networks</source>
         <translation>Searching for available networks</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="469"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="445"/>
         <source>No available networks found</source>
         <translation>No available networks found</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="492"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="610"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="732"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="465"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="583"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="705"/>
         <source>Forget network</source>
         <translation>Forget network</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="505"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="804"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="478"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="777"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="513"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="486"/>
         <source>Forget</source>
         <translation>Forget</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="538"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="511"/>
         <source>Refresh network list</source>
         <translation>Refresh network list</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="549"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="522"/>
         <source>Wi-Fi switch</source>
         <translation>Wi-Fi switch</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="599"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="714"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="572"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="687"/>
         <source>Network action</source>
         <translation>Network action</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="666"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="639"/>
         <source>Connected · </source>
         <translation>Connected · </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="667"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="640"/>
         <source>Saved · </source>
         <translation>Saved · </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="353"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="670"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="341"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="643"/>
         <source>Open network</source>
         <translation>Open network</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="315"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="361"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="725"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="305"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="349"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="698"/>
         <source>Disconnect</source>
         <translation>Disconnect</translation>
     </message>
     <message numerus="yes">
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="408"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="388"/>
         <source>%n network(s)</source>
         <translation>
             <numerusform>%n network</numerusform>
@@ -6973,28 +6973,28 @@ Click to open network settings</translation>
         </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="773"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="746"/>
         <source>Network password</source>
         <translation>Network password</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="786"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="759"/>
         <source>Hide password</source>
         <translation>Hide password</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="786"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="759"/>
         <source>Show password</source>
         <translation>Show password</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="315"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="809"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="305"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="782"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="493"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="466"/>
         <source>This will delete the saved connection for “%1”.</source>
         <translation>This will delete the saved connection for “%1”.</translation>
     </message>
@@ -9354,156 +9354,156 @@ Click to open network settings</translation>
         <translation>Quick Settings</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="73"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="75"/>
         <source>Night Mode</source>
         <translation>Night Mode</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="75"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="77"/>
         <source>Network</source>
         <translation>Network</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="77"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="79"/>
         <source>Bluetooth</source>
         <translation>Bluetooth</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="79"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="81"/>
         <source>Caffeine</source>
         <translation>Caffeine</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="81"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="83"/>
         <source>Microphone</source>
         <translation>Microphone</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="83"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="85"/>
         <source>Sound</source>
         <translation>Sound</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="85"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="87"/>
         <source>Appearance</source>
         <translation>Appearance</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="87"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="89"/>
         <source>Do not disturb</source>
         <translation>Do not disturb</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="96"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="100"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="106"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="98"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="102"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="108"/>
         <source>Unavailable</source>
         <translation>Unavailable</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="97"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="464"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="99"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="460"/>
         <source>%1 K</source>
         <translation>%1 K</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="102"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="104"/>
         <source>No Wi-Fi device</source>
         <translation>No Wi-Fi device</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="103"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="108"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="120"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="105"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="110"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="122"/>
         <source>Off</source>
         <translation>Off</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="109"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="111"/>
         <source>Connected</source>
         <translation>Connected</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="109"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="114"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="120"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="111"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="116"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="122"/>
         <source>On</source>
         <translation>On</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="112"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="114"/>
         <source>Keep awake</source>
         <translation>Keep awake</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="112"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="114"/>
         <source>Normal sleep</source>
         <translation>Normal sleep</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="114"/>
         <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="116"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="118"/>
         <source>Muted</source>
         <translation>Muted</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="118"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="120"/>
         <source>Dark</source>
         <translation>Dark</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="118"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="120"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="240"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="242"/>
         <source>
 Right-click to change shape; scroll to reorder</source>
         <translation>
 Right-click to change shape; scroll to reorder</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="242"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="244"/>
         <source>
 Right-click to open the details panel</source>
         <translation>
 Right-click to open the details panel</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="263"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="265"/>
         <source>Edit quick actions
 Right-click to change shape; scroll to reorder</source>
         <translation>Edit quick actions
 Right-click to change shape; scroll to reorder</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="265"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="267"/>
         <source>Edit quick actions</source>
         <translation>Edit quick actions</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="274"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="276"/>
         <source>Restart Quickshell</source>
         <translation>Restart Quickshell</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="283"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="285"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="292"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="294"/>
         <source>Power menu</source>
         <translation>Power menu</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="441"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="437"/>
         <source>Device settings</source>
         <translation>Device settings</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="450"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="446"/>
         <source>Idle management</source>
         <translation>Idle management</translation>
     </message>
@@ -9511,31 +9511,31 @@ Right-click to change shape; scroll to reorder</translation>
 <context>
     <name>QuickSliders</name>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="39"/>
-        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="44"/>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="40"/>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="45"/>
         <source>Brightness</source>
         <translation>Brightness</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="61"/>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="62"/>
         <source>Software dimming: %1%</source>
         <translation>Software dimming: %1%</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="81"/>
-        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="86"/>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="82"/>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="87"/>
         <source>Sound</source>
         <translation>Sound</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="90"/>
-        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="106"/>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="91"/>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="107"/>
         <source>Muted</source>
         <translation>Muted</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="97"/>
-        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="102"/>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="98"/>
+        <location filename="../Modules/QuickSettings/QuickSliders.qml" line="103"/>
         <source>Microphone</source>
         <translation>Microphone</translation>
     </message>
@@ -10060,7 +10060,7 @@ Right click: Control Center</translation>
 <context>
     <name>SidebarFlickable</name>
     <message>
-        <location filename="../Widgets/common/SidebarFlickable.qml" line="48"/>
+        <location filename="../Widgets/common/SidebarFlickable.qml" line="99"/>
         <source>Refreshing</source>
         <translation>Refreshing</translation>
     </message>
@@ -14064,27 +14064,27 @@ Scroll to adjust; click to open sound</translation>
         <translation>Refresh weather</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="578"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="575"/>
         <source>Unknown</source>
         <translation>Unknown</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="625"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="622"/>
         <source>Feels like: </source>
         <translation>Feels like: </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="635"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="632"/>
         <source>High </source>
         <translation>High </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="635"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="632"/>
         <source> · Low </source>
         <translation> · Low </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="721"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="706"/>
         <source>Gusts </source>
         <translation>Gusts </translation>
     </message>

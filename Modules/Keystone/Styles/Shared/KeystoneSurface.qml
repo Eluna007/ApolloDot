@@ -92,7 +92,6 @@ Variants {
         readonly property bool leftEdge: edge === "left"
         readonly property bool rightEdge: edge === "right"
         readonly property bool sidebarHasPriority: WidgetState.sidebarHasPriority(screen ? screen.name : "")
-        readonly property bool useOverlayLayer: PersonalizationConfig.keystoneOverlay && !sidebarHasPriority
         property int edgeCurveAlong: styleSurface.showAttachedEdgeCurves ? 8 : 0
         property int edgeCurveDepth: styleSurface.showAttachedEdgeCurves ? 14 : 0
         property real edgeCurveSideControl: 0.58
@@ -158,7 +157,8 @@ Variants {
         color: "transparent"
         exclusiveZone: -1
         WlrLayershell.namespace: "clavis-shell-keystone"
-        WlrLayershell.layer: keystoneWindow.useOverlayLayer ? WlrLayer.Overlay : WlrLayer.Top
+        // The reservation surface controls floating; Top stays below fullscreen.
+        WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         // On-demand focus lets desktop clicks leave the island and clicks on
         // the island focus it again. Hover previews never request keyboard input.
@@ -205,7 +205,7 @@ Variants {
             color: "transparent"
             exclusiveZone: -1
             WlrLayershell.namespace: "clavis-shell-keystone-keyboard"
-            WlrLayershell.layer: keystoneWindow.useOverlayLayer ? WlrLayer.Overlay : WlrLayer.Top
+            WlrLayershell.layer: WlrLayer.Top
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
             anchors {
