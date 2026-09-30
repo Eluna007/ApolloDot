@@ -18,7 +18,10 @@ PanelWindow {
     implicitHeight: surfaceThickness
     color: "transparent"
     exclusiveZone: PersonalizationConfig.barOverlay ? 0 : exclusiveThickness
-    WlrLayershell.layer: PersonalizationConfig.barOverlay ? WlrLayer.Overlay : WlrLayer.Top
+    WlrLayershell.layer: PersonalizationConfig.barOverlay && !WidgetState.sidebarHasPriority(root.screen
+                                                                                             ? root.screen.name :
+                                                                                               "") ? WlrLayer.Overlay :
+                                                                                                     WlrLayer.Top
     WlrLayershell.namespace: "clavis-shell-bar-horizontal"
     WlrLayershell.exclusionMode: PersonalizationConfig.barOverlay ? ExclusionMode.Ignore :
                                                                     ExclusionMode.Normal

@@ -554,9 +554,9 @@ Item {
                     id: currentSummary
 
                     width: parent.width
-                    // Keep the hero independent of viewport height: extra space reveals
-                    // more forecast content instead of stretching the first screen.
-                    height: 320
+                    // Fixed design sizes give the full-height sidebar a balanced
+                    // summary and roomier charts; shorter outputs simply scroll.
+                    height: 336
 
                     Column {
                         id: currentConditionsColumn
@@ -640,7 +640,7 @@ Item {
                     id: dailyForecastCard
 
                     width: parent.width
-                    height: 452
+                    height: 496
                     sourceModel: root.weatherSource.dailyTrendForecast
                     normalsSource: root.weatherSource
                     foreground: root.presentationActive && dailyForecastCard.y + dailyForecastCard.height
@@ -651,7 +651,7 @@ Item {
                     id: hourlyForecastCard
 
                     width: parent.width
-                    height: 340
+                    height: 368
                     sourceModel: root.weatherSource.hourlyForecast
                     normalsSource: root.weatherSource
                     foreground: root.presentationActive && hourlyForecastCard.y + hourlyForecastCard.height

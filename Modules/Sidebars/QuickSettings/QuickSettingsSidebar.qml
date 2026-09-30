@@ -8,7 +8,7 @@ Item {
 
     property var panelScreen: null
     readonly property bool onLeft: PersonalizationConfig.quickSettingsSidebarSide === "left"
-    property real sidebarWidth: Math.min(Metrics.sidebarWidthCompact, Math.max(0, width))
+    property real sidebarWidth: Math.min(Metrics.sidebarWidthComfortable, Math.max(0, width))
     readonly property alias blurBackgroundItem: revealSurface.blurBackgroundItem
     readonly property bool requestedOpen: WidgetState.quickSettingsOpen
     property bool presentationAllowed: true

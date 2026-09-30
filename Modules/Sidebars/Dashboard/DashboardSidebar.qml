@@ -140,6 +140,7 @@ Item {
             forAvatar = avatar;
             // Capture the output rather than follow subsequent sidebar moves.
             targetScreen = root.panelScreen;
+            WidgetState.closeAllPopups();
             const banner = WallpaperPaletteSession.previewForScreen("banner", "")
                   || PersonalizationConfig.bannerSource || WallpaperService.currentWallpaper;
             openAt(avatar ? picturesDir : WallpaperService.isImagePath(banner) ? WallpaperService.parentFolder(
@@ -169,7 +170,10 @@ Item {
             anchors.fill: parent
             screenName: root.panelScreen ? root.panelScreen.name : ""
             onImageSelectionRequested: forAvatar => profileImagePicker.chooseImage(forAvatar)
-            onBannerColorRequested: bannerColorPicker.showFor("banner", "")
+            onBannerColorRequested: {
+                WidgetState.closeAllPopups();
+                bannerColorPicker.showFor("banner", "");
+            }
             weatherSourceOverride: root.weatherSourceOverride
             foreground: root.contentOperational
             presentationActive: root.contentOperational

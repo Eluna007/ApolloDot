@@ -92,11 +92,8 @@ WidgetPanel {
             states.push(qsTr("Paired"));
         else
             states.push(qsTr("Available devices"));
-        if (device.trusted)
-            states.push(qsTr("Trusted"));
-
         if (device.batteryAvailable)
-            states.push(qsTr("Battery ") + device.batteryLevel + "%");
+            states.push(qsTr("Battery %1%").arg(device.batteryLevel));
 
         return states.join(" · ");
     }
@@ -190,8 +187,8 @@ WidgetPanel {
             ColumnLayout {
                 id: bluetoothContent
 
-                width: parent.width - Appearance.spacing.small
-                spacing: Appearance.spacing.small
+                width: parent.width
+                spacing: Metrics.spacingL
 
                 DeviceSection {
                     Layout.fillWidth: true
@@ -223,7 +220,7 @@ WidgetPanel {
 
                         Column {
                             anchors.centerIn: parent
-                            spacing: Appearance.spacing.small
+                            spacing: Metrics.spacingL
 
                             MaterialLoadingIndicator {
                                 anchors.horizontalCenter: parent.horizontalCenter
@@ -256,13 +253,12 @@ WidgetPanel {
                                                                   * spacing
 
                         Layout.fillWidth: true
-                        Layout.preferredHeight: Math.min(Sizes.sidebarScrollableListMaxHeight, Math.max(
-                                                             baseContentHeight, contentHeight))
+                        Layout.preferredHeight: Math.max(baseContentHeight, contentHeight)
                         visible: count > 0
                         spacing: Appearance.spacing.xSmall
                         clip: true
                         boundsBehavior: Flickable.StopAtBounds
-                        interactive: contentHeight > height
+                        interactive: false
                         model: BluetoothService.availableDevices
 
                         delegate: BluetoothDeviceRow {
@@ -340,7 +336,7 @@ WidgetPanel {
                         visible: BluetoothService.available
                         iconName: "handshake"
                         title: qsTr("Allow pairing")
-                        supportingText: qsTr("Accept pairing requests supported by the official module")
+                        supportingText: ""
                         enabled: BluetoothService.enabled
 
                         trailing: StyledSwitch {
@@ -441,16 +437,47 @@ WidgetPanel {
         property string category: ""
 
         title: sectionTitle
+        contentSpacing: Metrics.spacingL
 
         Repeater {
             model: deviceSection.devicesModel
 
-            BluetoothDeviceRow {
+            ColumnLayout {
+                id: deviceDetails
                 required property var modelData
-
                 Layout.fillWidth: true
-                deviceData: modelData
-                deviceCategory: deviceSection.category
+                spacing: Metrics.spacingXS
+
+                BluetoothDeviceRow {
+                    Layout.fillWidth: true
+                    deviceData: deviceDetails.modelData
+                    deviceCategory: deviceSection.category
+                }
+
+                SettingsRow {
+                    Layout.fillWidth: true
+                    title: qsTr("Trust device")
+                    iconName: "verified_user"
+                    trailing: StyledSwitch {
+                        checked: deviceDetails.modelData.trusted
+                        enabled: !BluetoothService.busy
+                        Accessible.name: qsTr("Trust %1").arg(deviceDetails.modelData.name)
+                        onToggled: BluetoothService.setDeviceTrusted(deviceDetails.modelData, checked)
+                    }
+                }
+
+                SettingsRow {
+                    Layout.fillWidth: true
+                    title: qsTr("Wake computer")
+                    iconName: "power_settings_new"
+                    trailing: StyledSwitch {
+                        checked: deviceDetails.modelData.wakeAllowed
+                        enabled: !BluetoothService.busy
+                        Accessible.name: qsTr("Allow %1 to wake the computer").arg(
+                                             deviceDetails.modelData.name)
+                        onToggled: BluetoothService.setDeviceWakeAllowed(deviceDetails.modelData, checked)
+                    }
+                }
             }
         }
     }

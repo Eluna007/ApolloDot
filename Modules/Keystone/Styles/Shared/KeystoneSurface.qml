@@ -91,6 +91,8 @@ Variants {
         readonly property bool bottomEdge: edge === "bottom"
         readonly property bool leftEdge: edge === "left"
         readonly property bool rightEdge: edge === "right"
+        readonly property bool sidebarHasPriority: WidgetState.sidebarHasPriority(screen ? screen.name : "")
+        readonly property bool useOverlayLayer: PersonalizationConfig.keystoneOverlay && !sidebarHasPriority
         property int edgeCurveAlong: styleSurface.showAttachedEdgeCurves ? 8 : 0
         property int edgeCurveDepth: styleSurface.showAttachedEdgeCurves ? 14 : 0
         property real edgeCurveSideControl: 0.58
@@ -156,12 +158,12 @@ Variants {
         color: "transparent"
         exclusiveZone: -1
         WlrLayershell.namespace: "clavis-shell-keystone"
-        WlrLayershell.layer: PersonalizationConfig.keystoneOverlay ? WlrLayer.Overlay : WlrLayer.Top
+        WlrLayershell.layer: keystoneWindow.useOverlayLayer ? WlrLayer.Overlay : WlrLayer.Top
         WlrLayershell.exclusionMode: ExclusionMode.Ignore
         // On-demand focus lets desktop clicks leave the island and clicks on
         // the island focus it again. Hover previews never request keyboard input.
-        WlrLayershell.keyboardFocus: root.keyboardInteractionActive ? WlrKeyboardFocus.OnDemand :
-                                                                      WlrKeyboardFocus.None
+        WlrLayershell.keyboardFocus: root.keyboardInteractionActive && !keystoneWindow.sidebarHasPriority
+                                     ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
         // The interactive surface spans the screen for expansion and animations.
         // Reserve only the resting island thickness on a separately edge-anchored
@@ -196,14 +198,14 @@ Variants {
             // Niri focuses newly mapped OnDemand surfaces. Keep that mapping
             // separate from the visible island so expansion never drops a frame.
             // After a desktop click, neither window requests focus again.
-            visible: root.keyboardInteractionActive
+            visible: root.keyboardInteractionActive && !keystoneWindow.sidebarHasPriority
             screen: keystoneWindow.screen
             implicitWidth: 1
             implicitHeight: 1
             color: "transparent"
             exclusiveZone: -1
             WlrLayershell.namespace: "clavis-shell-keystone-keyboard"
-            WlrLayershell.layer: PersonalizationConfig.keystoneOverlay ? WlrLayer.Overlay : WlrLayer.Top
+            WlrLayershell.layer: keystoneWindow.useOverlayLayer ? WlrLayer.Overlay : WlrLayer.Top
             WlrLayershell.exclusionMode: ExclusionMode.Ignore
             WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
             anchors {

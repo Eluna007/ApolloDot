@@ -70,6 +70,14 @@ StyledFlickable {
 
             SettingsActionRow {
                 Layout.fillWidth: true
+                iconName: "open_in_full"
+                text: SpotlightCatalog.title("general.hot-corners")
+                trailingIconName: "chevron_right"
+                onClicked: root.sectionRequested("hot-corners")
+            }
+
+            SettingsActionRow {
+                Layout.fillWidth: true
                 iconName: "blur_on"
                 text: SpotlightCatalog.title("general.effects")
                 trailingIconName: "chevron_right"

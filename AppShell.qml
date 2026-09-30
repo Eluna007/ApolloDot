@@ -1,10 +1,12 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import Clavis.Niri
 import qs.Modules.Bar
 import qs.Modules.ControlCenter
 import qs.Modules.DesktopCards
 import qs.Modules.Dock
+import qs.Modules.HotCorners
 import qs.Modules.Keystone
 import qs.Modules.Launcher
 import qs.Modules.Lock
@@ -128,6 +130,19 @@ Item {
 
     SidebarHostWindow {
         id: sidebarHost
+    }
+
+    HotCorners {
+        locked: sessionLocker.active
+        onTriggered: (action, screenName) => {
+            if (action === "overview") {
+                Niri.toggleOverview();
+                return;
+            }
+            const target = action.split(":");
+            if (target.length === 2)
+                sidebarHost.openOnScreen(target[0], target[1], screenName);
+        }
     }
 
     Lock {

@@ -825,6 +825,16 @@ Singleton {
                                     })
     readonly property string dashboardSidebarSide: sidebarPositions.dashboard
     readonly property string quickSettingsSidebarSide: sidebarPositions.quickSettings
+    readonly property var hotCornerIds: ["top-left", "top-right", "bottom-left", "bottom-right"]
+    readonly property var hotCornerActionIds: ["disabled", "overview", "dashboard:info", "dashboard:drawer",
+        "dashboard:weather", "quicksettings:settings", "quicksettings:network", "quicksettings:bluetooth",
+        "quicksettings:audio", "quicksettings:microphone", "quicksettings:idle", "quicksettings:night"]
+    property var hotCornerActions: ({
+                                        "top-left": "overview",
+                                        "top-right": "disabled",
+                                        "bottom-left": "disabled",
+                                        "bottom-right": "disabled"
+                                    })
     property bool desktopCardGridSnapEnabled: true
     property bool desktopCardGridVisibleWhileDragging: true
 
@@ -1472,6 +1482,25 @@ Singleton {
         setValue("keepSidebarsLoaded", !!value);
     }
 
+    function normalizedHotCornerActions(value) {
+        const source = value && typeof value === "object" ? value : {};
+        const result = {};
+        for (const corner of root.hotCornerIds) {
+            const action = source[corner];
+            result[corner] = root.hotCornerActionIds.indexOf(action) >= 0 ? action : corner === "top-left"
+                                                                            ? "overview" : "disabled";
+        }
+        return result;
+    }
+
+    function setHotCornerAction(corner, action) {
+        if (root.hotCornerIds.indexOf(corner) < 0 || root.hotCornerActionIds.indexOf(action) < 0)
+            return;
+        const next = root.normalizedHotCornerActions(root.hotCornerActions);
+        next[corner] = action;
+        setValue("hotCornerActions", next);
+    }
+
     function setDesktopCardGridSnapEnabled(value) {
         setValue("desktopCardGridSnapEnabled", !!value);
     }
@@ -1884,6 +1913,7 @@ Singleton {
                 "dashboardSide": root.dashboardSidebarSide,
                 "quickSettingsSide": root.quickSettingsSidebarSide
             },
+            "hotCorners": root.normalizedHotCornerActions(root.hotCornerActions),
             "desktopCards": {
                 "gridSnapEnabled": root.desktopCardGridSnapEnabled,
                 "gridVisibleWhileDragging": root.desktopCardGridVisibleWhileDragging
@@ -2034,6 +2064,7 @@ Singleton {
         root.quickSettingsComponents = root.normalizedQuickSettingsComponents(bar.quickSettingsComponents);
         root.keepSidebarsLoaded = sidebar.keepLoaded === undefined ? true : !!sidebar.keepLoaded;
         root.sidebarPositions = SidebarPolicy.restoredPositions(sidebar);
+        root.hotCornerActions = root.normalizedHotCornerActions(parsed.hotCorners);
         root.desktopCardGridSnapEnabled = desktopCards.gridSnapEnabled === undefined ? true : !
                                                                                        !desktopCards.gridSnapEnabled;
         root.desktopCardGridVisibleWhileDragging = desktopCards.gridVisibleWhileDragging === undefined ? true :

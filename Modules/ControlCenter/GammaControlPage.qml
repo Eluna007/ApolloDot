@@ -6,10 +6,12 @@ import qs.Widgets.common
 
 StyledFlickable {
     id: root
+    property real contentPadding: Metrics.pageMargin
+    property bool searchAnchorsEnabled: true
     readonly property var preferences: DisplayColor.preferences
     clip: true
     contentWidth: width
-    contentHeight: content.implicitHeight + Metrics.pageMargin * 2
+    contentHeight: content.implicitHeight + root.contentPadding * 2
     function timeText(minutes) {
         return Math.floor(minutes / 60).toString().padStart(2, "0") + ":" + (minutes % 60).toString().padStart(
                     2, "0");
@@ -21,9 +23,9 @@ StyledFlickable {
     }
     ColumnLayout {
         id: content
-        width: Math.min(640, Math.max(0, root.width - Metrics.pageMargin * 2))
-        x: Math.max(Metrics.pageMargin, (root.width - width) / 2)
-        y: Metrics.pageMargin
+        width: Math.min(640, Math.max(0, root.width - root.contentPadding * 2))
+        x: Math.max(root.contentPadding, (root.width - width) / 2)
+        y: root.contentPadding
         spacing: Metrics.spacingXL
         InlineStatusBanner {
             Layout.fillWidth: true
@@ -42,6 +44,7 @@ StyledFlickable {
             title: searchAnchor0.title
             SettingsSearchAnchor {
                 id: searchAnchor0
+                registerAnchor: root.searchAnchorsEnabled
                 target: searchSection0
                 declaration:
                     '{"id":"general.displays.gamma.section.color","route":"general.displays.gamma","title":"Color","context":"GammaControlPage","icon":"brightness_6","aliases":[]}'
@@ -108,6 +111,7 @@ StyledFlickable {
             title: searchAnchor1.title
             SettingsSearchAnchor {
                 id: searchAnchor1
+                registerAnchor: root.searchAnchorsEnabled
                 target: searchSection1
                 declaration:
                     '{"id":"general.displays.gamma.section.schedule","route":"general.displays.gamma","title":"Schedule","context":"GammaControlPage","icon":"brightness_6","aliases":[]}'
@@ -270,6 +274,7 @@ StyledFlickable {
             title: searchAnchor2.title
             SettingsSearchAnchor {
                 id: searchAnchor2
+                registerAnchor: root.searchAnchorsEnabled
                 target: searchSection2
                 declaration:
                     '{"id":"general.displays.gamma.section.current-status","route":"general.displays.gamma","title":"Current status","context":"GammaControlPage","icon":"brightness_6","aliases":[]}'
