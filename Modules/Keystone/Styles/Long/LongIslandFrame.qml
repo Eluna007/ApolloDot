@@ -23,11 +23,16 @@ Item {
     // All lengths are logical pixels; phase boundaries are normalized progress.
     readonly property real thickness: 42
     readonly property real gap: 24
-    readonly property real peekWidth: 144
+    readonly property real peekWidth: 240
     readonly property real peekDepth: 10
     readonly property int peekDuration: 200
     readonly property int openDuration: 720
     readonly property int closeDuration: 420
+    readonly property var peekEnterCurve: [0.2, 0, 0.18, 1, 1, 1]
+    readonly property var peekExitCurve: [0.35, 0, 0.35, 1, 1, 1]
+    readonly property var openCurve: [0.24, 0, 0.2, 1, 1, 1]
+    readonly property var closeCurve: [0.32, 0, 0.28, 1, 1, 1]
+    readonly property real reboundDistance: 8
     readonly property real peekStop: 0.18
     readonly property real emergenceEnd: 0.66
     readonly property real separationStart: 0.50
@@ -58,13 +63,21 @@ Item {
     readonly property real emergence: stage(peekStop, emergenceEnd)
     readonly property real separation: gap * stage(separationStart, separationEnd)
     readonly property real release: stage(releaseStart, 1)
+    // Let the already formed panel travel past its resting position and settle.
+    // Keep phase progress bounded so opacity, size and neck release never rewind
+    // during the rebound. Geometry, content, blur and input share this offset.
+    readonly property real reboundPhase: Math.max(0, Math.min(1, (progress - emergenceEnd) / (1
+                                                                                              - emergenceEnd)))
+
+    readonly property real reboundOffset: reboundDistance * 16 * Math.pow(reboundPhase * (1 - reboundPhase),
+                                                                          2)
     readonly property real bulgeHeight: peekDepth * stage(0, peekStop) * (1 - emergence)
     readonly property real childWidth: (horizontal ? seedWidth : seedDepth) * (1 - emergence) + heldWidth
                                        * emergence
 
     readonly property real childHeight: (horizontal ? seedDepth : seedWidth) * (1 - emergence) + heldHeight
                                         * emergence
-    readonly property real childOffset: thickness - seedDepth * (1 - emergence) + separation
+    readonly property real childOffset: thickness - seedDepth * (1 - emergence) + separation + reboundOffset
     readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, panelRadius)
     readonly property real surfaceGap: Math.max(0, childOffset - thickness)
     readonly property real childAlong: horizontal ? childWidth : childHeight
@@ -127,12 +140,14 @@ Item {
         if (distance < 0.00001)
             return;
         const onlyPeek = Math.max(progress, destination) <= peekStop;
+        const opening = destination > progress;
         progressAnimation.duration = Math.max(16, onlyPeek ? peekDuration * distance / peekStop : (destination
                                                                                                    > progress
                                                                                                    ? openDuration :
                                                                                                      closeDuration)
                                                              * distance);
-        progressAnimation.easing.type = onlyPeek ? Easing.OutCubic : Easing.Linear;
+        progressAnimation.easing.bezierCurve = onlyPeek ? (opening ? peekEnterCurve : peekExitCurve) : (
+                                                              opening ? openCurve : closeCurve);
         progressAnimation.to = destination;
         progressAnimation.start();
     }
@@ -160,6 +175,7 @@ Item {
         id: progressAnimation
         target: root
         property: "progress"
+        easing.type: Easing.BezierSpline
     }
     Behavior on heldWidth {
         enabled: root.emergence > 0
