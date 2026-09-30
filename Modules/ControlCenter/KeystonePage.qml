@@ -167,8 +167,8 @@ Item {
 
                 SearchSelectSettingRow {
                     title: qsTr("Hover")
-                    options: PersonalizationConfig.availableKeystoneHoverActionOptions
-                    value: PersonalizationConfig.effectiveKeystoneHoverAction
+                    options: PersonalizationConfig.keystoneHoverActionOptions
+                    value: PersonalizationConfig.keystoneHoverAction
                     onAccepted: value => PersonalizationConfig.setKeystoneAction("hover", value)
                 }
 
@@ -179,7 +179,7 @@ Item {
                     to: 500
                     stepSize: 25
                     suffix: qsTr(" ms")
-                    enabled: PersonalizationConfig.effectiveKeystoneHoverAction !== "none"
+                    enabled: PersonalizationConfig.keystoneHoverAction !== "none"
                     onMoved: value => PersonalizationConfig.setKeystoneHoverOpenDelay(value)
                 }
 
@@ -190,7 +190,7 @@ Item {
                     to: 600
                     stepSize: 25
                     suffix: qsTr(" ms")
-                    enabled: PersonalizationConfig.effectiveKeystoneHoverAction !== "none"
+                    enabled: PersonalizationConfig.keystoneHoverAction !== "none"
                     onMoved: value => PersonalizationConfig.setKeystoneHoverCloseDelay(value)
                 }
 

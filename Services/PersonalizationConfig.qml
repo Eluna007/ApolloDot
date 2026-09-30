@@ -652,15 +652,6 @@ Singleton {
         }
     ].concat(root.keystoneActionOptions)
 
-    readonly property var availableKeystoneHoverActionOptions: keystoneStyle === "long"
-                                                               ? keystoneActionOptions :
-                                                                 keystoneHoverActionOptions
-
-    // Older saved configurations can still request peak. Long has no peak
-    // state; retain the preference for other styles but resolve it to none.
-    readonly property string effectiveKeystoneHoverAction: keystoneStyle === "long" && keystoneHoverAction
-                                                           === "peak" ? "none" : keystoneHoverAction
-
     function setKeystoneAction(gesture, action) {
         const properties = {
             hover: "keystoneHoverAction",
@@ -669,11 +660,9 @@ Singleton {
         };
         if (!Object.prototype.hasOwnProperty.call(properties, gesture))
             return;
-        setValue(properties[gesture], normalizedOption(gesture === "hover"
-                                                       ? root.availableKeystoneHoverActionOptions :
-                                                         root.keystoneActionOptions, action, gesture
-                                                       === "hover" && root.keystoneStyle !== "long" ? "peak" :
-                                                                                                      "none"));
+        setValue(properties[gesture], normalizedOption(gesture === "hover" ? root.keystoneHoverActionOptions :
+                                                                             root.keystoneActionOptions,
+                                                       action, gesture === "hover" ? "peak" : "none"));
     }
 
     readonly property var horizontalClockAxisDefaults: ({
