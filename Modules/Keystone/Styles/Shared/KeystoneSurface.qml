@@ -620,14 +620,13 @@ Variants {
                                                          surfaceHover.hovered
                 surfaceHovered: surfaceHover.hovered || (styleSurface.elongated && !!longFrame.item
                                                          && longFrame.item.mainHovered)
-                canOpen: root.isCollapsedMode && PersonalizationConfig.keystoneHoverAction !== "none"
+                canOpen: root.isCollapsedMode && PersonalizationConfig.effectiveKeystoneHoverAction !== "none"
                 previewOpen: root.hoverOpened
                 openDelay: PersonalizationConfig.keystoneHoverOpenDelay
                 closeDelay: PersonalizationConfig.keystoneHoverCloseDelay
                 onOpenRequested: {
-                    const action = PersonalizationConfig.keystoneHoverAction;
-                    root.activateMouseAction(styleSurface.elongated && action === "peak" ? "media" : action,
-                                             false, true);
+                    const action = PersonalizationConfig.effectiveKeystoneHoverAction;
+                    root.activateMouseAction(action, false, true);
                     root.hoverOpened = true;
                 }
                 onCloseRequested: keystoneWindow.closeAllOthers()
@@ -766,8 +765,8 @@ Variants {
                                            !isLyricsMode
                 property bool isCollapsedMode: !contentPresentationActive && !expanded && !isNotifMode &&
                                                !isVolumeMode && !isLyricsMode && !isHubMode && !isToolsMode
-                property bool isCollapsedHovered: PersonalizationConfig.keystoneHoverAction === "peak"
-                                                  && isCollapsedMode && root.hoverOpened
+                property bool isCollapsedHovered: PersonalizationConfig.effectiveKeystoneHoverAction
+                                                  === "peak" && isCollapsedMode && root.hoverOpened
                 readonly property bool escapeDismissActive: !contentPresentationActive && (expanded
                                                                                            || isLyricsMode
                                                                                            || isHubMode
