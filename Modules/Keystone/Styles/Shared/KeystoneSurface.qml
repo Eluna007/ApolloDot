@@ -519,6 +519,7 @@ Variants {
             anchors.bottomMargin: keystoneWindow.bottomEdge ? styleSurface.edgeMargin : 0
             anchors.leftMargin: keystoneWindow.leftEdge ? styleSurface.edgeMargin : 0
             anchors.rightMargin: keystoneWindow.rightEdge ? styleSurface.edgeMargin : 0
+            anchors.alignWhenCentered: !styleSurface.elongated
             width: styleSurface.elongated && longFrame.item ? longFrame.item.implicitWidth : root.width + (
                                                                   keystoneWindow.horizontalEdge
                                                                   ? keystoneWindow.edgeCurveAlong * 2 : 0)
@@ -597,7 +598,6 @@ Variants {
                     expanded: !root.isCollapsedMode
                     targetWidth: root.targetW
                     targetHeight: root.targetH
-                    childItem: root
                     cutoutItem: dashboardKeyholeCutout
                     cutoutVisible: root.showDashboardKeyhole
                     surfaceColor: root.color
@@ -607,6 +607,18 @@ Variants {
                                                                        true)
                     onMediaRequested: root.activateMouseAction("media", true)
                 }
+            }
+
+            Item {
+                id: longContentViewport
+                readonly property real thickness: longFrame.item ? longFrame.item.thickness : 0
+                anchors.alignWhenCentered: false
+                x: keystoneWindow.leftEdge ? thickness : 0
+                y: keystoneWindow.topEdge ? thickness : 0
+                width: Math.max(0, maskContainer.width - (keystoneWindow.horizontalEdge ? 0 : thickness))
+                height: Math.max(0, maskContainer.height - (keystoneWindow.horizontalEdge ? thickness : 0))
+                clip: true
+                z: 100
             }
 
             // The long main bar stays visible while its child surface is collapsed.
@@ -629,7 +641,7 @@ Variants {
                                                          surfaceHover.hovered
                 surfaceHovered: surfaceHover.hovered || (styleSurface.elongated && !!longFrame.item && (
                                                              longFrame.item.mainHovered
-                                                             || longFrame.item.peekHovered))
+                                                             || longFrame.item.surfaceHovered))
                 canOpen: root.isCollapsedMode && PersonalizationConfig.keystoneHoverAction !== "none"
                 previewOpen: root.hoverOpened
                 openDelay: PersonalizationConfig.keystoneHoverOpenDelay
@@ -949,19 +961,24 @@ Variants {
                 }
                 clip: true
                 z: 100
-                width: styleSurface.elongated && longFrame.item ? longFrame.item.childWidth : targetW
-                height: styleSurface.elongated && longFrame.item ? longFrame.item.childHeight : targetH
+                parent: styleSurface.elongated ? longContentViewport : maskContainer
+                width: styleSurface.elongated && longFrame.item ? longFrame.item.heldWidth : targetW
+                height: styleSurface.elongated && longFrame.item ? longFrame.item.heldHeight : targetH
+                scale: styleSurface.elongated && longFrame.item ? longFrame.item.childScale : 1
+                // Animated sizes are fractional. Keep the foreground center
+                // on the same subpixel coordinates as the SDF and cutout.
+                anchors.alignWhenCentered: !styleSurface.elongated
                 opacity: styleSurface.elongated ? (longFrame.item ? longFrame.item.contentOpacity : 0) : 1
-                visible: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0)
+                visible: !styleSurface.elongated || (!!longFrame.item && longFrame.item.contentOpacity > 0)
                 enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.contentInteractive)
                 anchors.topMargin: styleSurface.elongated && keystoneWindow.topEdge && longFrame.item
-                                   ? longFrame.item.childOffset : 0
+                                   ? longFrame.item.layoutOffset : 0
                 anchors.bottomMargin: styleSurface.elongated && keystoneWindow.bottomEdge && longFrame.item
-                                      ? longFrame.item.childOffset : 0
+                                      ? longFrame.item.layoutOffset : 0
                 anchors.leftMargin: styleSurface.elongated && keystoneWindow.leftEdge && longFrame.item
-                                    ? longFrame.item.childOffset : 0
+                                    ? longFrame.item.layoutOffset : 0
                 anchors.rightMargin: styleSurface.elongated && keystoneWindow.rightEdge && longFrame.item
-                                     ? longFrame.item.childOffset : 0
+                                     ? longFrame.item.layoutOffset : 0
                 onAudioSessionActiveChanged: {
                     if (root.audioSessionActive) {
                         if (styleSurface.elongated) {
@@ -1139,11 +1156,11 @@ Variants {
 
                         AnchorChanges {
                             target: root
-                            anchors.top: maskContainer.top
+                            anchors.top: root.parent.top
                             anchors.bottom: undefined
                             anchors.left: undefined
                             anchors.right: undefined
-                            anchors.horizontalCenter: maskContainer.horizontalCenter
+                            anchors.horizontalCenter: root.parent.horizontalCenter
                             anchors.verticalCenter: undefined
                         }
                     },
@@ -1153,10 +1170,10 @@ Variants {
                         AnchorChanges {
                             target: root
                             anchors.top: undefined
-                            anchors.bottom: maskContainer.bottom
+                            anchors.bottom: root.parent.bottom
                             anchors.left: undefined
                             anchors.right: undefined
-                            anchors.horizontalCenter: maskContainer.horizontalCenter
+                            anchors.horizontalCenter: root.parent.horizontalCenter
                             anchors.verticalCenter: undefined
                         }
                     },
@@ -1167,10 +1184,10 @@ Variants {
                             target: root
                             anchors.top: undefined
                             anchors.bottom: undefined
-                            anchors.left: maskContainer.left
+                            anchors.left: root.parent.left
                             anchors.right: undefined
                             anchors.horizontalCenter: undefined
-                            anchors.verticalCenter: maskContainer.verticalCenter
+                            anchors.verticalCenter: root.parent.verticalCenter
                         }
                     },
                     State {
@@ -1181,9 +1198,9 @@ Variants {
                             anchors.top: undefined
                             anchors.bottom: undefined
                             anchors.left: undefined
-                            anchors.right: maskContainer.right
+                            anchors.right: root.parent.right
                             anchors.horizontalCenter: undefined
-                            anchors.verticalCenter: maskContainer.verticalCenter
+                            anchors.verticalCenter: root.parent.verticalCenter
                         }
                     }
                 ]
@@ -1422,9 +1439,9 @@ Variants {
                     width: 340
                     height: 456
                     anchors.left: parent.horizontalCenter
-                    anchors.leftMargin: hub.dashboardKeyholeCenterOffset + contentParallax.x
+                    anchors.leftMargin: hub.dashboardKeyholeCenterOffset
                     anchors.top: parent.top
-                    anchors.topMargin: 132 + contentParallax.y
+                    anchors.topMargin: 132
                     radius: 24
                     color: "transparent"
                     visible: root.showDashboardKeyhole
@@ -1439,14 +1456,14 @@ Variants {
                         sourceSize: Qt.size(Math.ceil(Math.min(mediaWidget.panelWidth,
                                                                mediaWidget.panelHeight * 1.5) * 2), Math.ceil(
                                                 mediaWidget.panelHeight * 2))
-                        topLeftRadius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius :
+                        topLeftRadius: styleSurface.elongated && longFrame.item ? longFrame.item.panelRadius :
                                                                                   rootSurface.topLeftRadius
-                        topRightRadius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius :
+                        topRightRadius: styleSurface.elongated && longFrame.item ? longFrame.item.panelRadius :
                                                                                    rootSurface.topRightRadius
                         bottomLeftRadius: styleSurface.elongated && longFrame.item
-                                          ? longFrame.item.childRadius : rootSurface.bottomLeftRadius
+                                          ? longFrame.item.panelRadius : rootSurface.bottomLeftRadius
                         bottomRightRadius: styleSurface.elongated && longFrame.item
-                                           ? longFrame.item.childRadius : rootSurface.bottomRightRadius
+                                           ? longFrame.item.panelRadius : rootSurface.bottomRightRadius
                     }
                 }
 
@@ -1547,18 +1564,6 @@ Variants {
                 Item {
                     id: staticCanvas
 
-                    transform: Translate {
-                        id: contentParallax
-
-                        x: styleSurface.elongated && longFrame.item ? (keystoneWindow.leftEdge ? -1 :
-                                                                                                 keystoneWindow.rightEdge
-                                                                                                 ? 1 : 0)
-                                                                      * longFrame.item.contentOffset : 0
-                        y: styleSurface.elongated && longFrame.item ? (keystoneWindow.topEdge ? -1 :
-                                                                                                keystoneWindow.bottomEdge
-                                                                                                ? 1 : 0)
-                                                                      * longFrame.item.contentOffset : 0
-                    }
                     enabled: !styleSurface.elongated || root.opacity > 0.1
                     anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
@@ -1649,7 +1654,7 @@ Variants {
                     MediaContent {
                         id: mediaWidget
                         surfaceTopRightRadius: styleSurface.elongated && longFrame.item
-                                               ? longFrame.item.childRadius : rootSurface.topRightRadius
+                                               ? longFrame.item.panelRadius : rootSurface.topRightRadius
 
                         anchors.top: parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -1836,6 +1841,7 @@ Variants {
             ClockContent {
                 id: clockContent
 
+                parent: root.parent
                 anchors.fill: root
                 player: root.currentPlayer
                 edge: keystoneWindow.edge
@@ -1864,6 +1870,7 @@ Variants {
             Loader {
                 id: pillRecordingPresenter
 
+                parent: root.parent
                 anchors.fill: root
                 visible: styleSurface.splitRecording && root.recordingPresentationActive
                 sourceComponent: keystoneWindow.horizontalEdge ? horizontalPillRecordingComponent :
@@ -1946,7 +1953,8 @@ Variants {
             CompositorBlurRegion {
                 targetWindow: keystoneWindow
                 backgroundItem: styleSurface.elongated || root.useRecordingBlurRegions ? null : root
-                additionalRegions: styleSurface.elongated && longFrame.item ? [longFrame.item.peekRegion] : []
+                additionalRegions: styleSurface.elongated && longFrame.item ? [longFrame.item.surfaceRegion] :
+                                                                              []
                 additionalBackgroundItems: styleSurface.elongated && longFrame.item
                                            ? longFrame.item.blurItems : root.recordingBlurBackgroundItems
                 subtractedBackgroundItems: !root.showDashboardKeyhole ? [] : styleSurface.elongated
@@ -1970,11 +1978,7 @@ Variants {
                 radius: styleSurface.elongated ? 21 : 0
             }
             Region {
-                item: styleSurface.elongated && longFrame.item && longFrame.item.progress > 0.02 ? root : null
-                radius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius : 0
-            }
-            Region {
-                regions: styleSurface.elongated && longFrame.item ? [longFrame.item.peekRegion] : []
+                regions: styleSurface.elongated && longFrame.item ? [longFrame.item.surfaceRegion] : []
             }
         }
     }

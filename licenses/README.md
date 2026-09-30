@@ -75,6 +75,29 @@ The upstream GPL-3.0 license is preserved in
 [caelestia-shell-GPL-3.0.txt](caelestia-shell-GPL-3.0.txt). The shape is supplied
 by the external M3Shapes runtime; no upstream geometry implementation is copied.
 
+## Caelestia drawer motion and circular fillets
+
+Source: [Caelestia Shell](https://github.com/caelestia-dots/shell), local checkout
+commit `454f46da16ae75cc57f34adf48dea74db0fa5175`.
+
+`Modules/Keystone/Styles/Long/LongIslandFrame.qml` and
+`assets/shaders/keystone/frag/long_split.frag` adapt the sliding drawer approach
+in `modules/dashboard/Wrapper.qml`, the shared foreground/background geometry
+in `modules/drawers/ContentWindow.qml`, the expressive spatial Bézier from
+`plugin/src/Caelestia/Config/tokens.hpp`, and the circular smooth minimum and
+near-edge corner filling in `plugin/src/Caelestia/Blobs/shaders/blob.frag` and
+`plugin/src/Caelestia/Blobs/blobshape.cpp`.
+
+Clavis adds uniform panel scaling, a shallow peak pose on the same trajectory,
+distance-dependent peeling and detachment, four-edge clipping, and transient
+blur/input regions. It uses the 500 ms expressive spatial Bézier for opening;
+it does not port Caelestia's native velocity-driven deformation solver.
+The shader source and compiled QSB are distributed with Clavis. No build or
+runtime dependency on the reference checkout or Caelestia plugin is added.
+
+The upstream GPL-3.0 license is preserved in
+[caelestia-shell-GPL-3.0.txt](caelestia-shell-GPL-3.0.txt).
+
 ## M3Shapes and Cookie Clock
 
 [M3Shapes](https://github.com/soramanew/m3shapes) is an external QML runtime

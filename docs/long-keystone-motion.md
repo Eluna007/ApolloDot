@@ -1,89 +1,88 @@
 # Long 灵动岛动画调节
 
-入口为 `Modules/Keystone/Styles/Long/LongIslandFrame.qml`。
-peak 与面板展开/收起使用独立动画。只调整 peak 时，修改下面四个参数即可；
-面板沿用添加 peak 之前的阻尼响应、收缩曲线和 SDF 融合。
+本轮实验的恢复基线为 `a205039`，标签 `long-keystone-baseline-a205039`。
+实验位于 `codex/long-caelestia-motion` 分支。入口为
+`Modules/Keystone/Styles/Long/LongIslandFrame.qml`。
 
-## Peak
+## 运动模型
+
+参考 Caelestia 的 dashboard：面板从条栏内侧边缘滑出，接触处使用圆形平滑并集，
+形成与两侧表面相切的内凹肩部。靠近条栏的面板圆角临时填平，避免内凹肩部下面
+再出现凸起的折痕。来源版本与许可证见 `licenses/README.md`。
+
+Clavis 的补充是等比缩放和最终脱离：正文、封面背景、Dashboard 开孔、面板外壳
+共用一套位置和缩放值。隐藏部分裁切在条栏内侧，不经过时钟或条栏外侧。
+间距增大时，宽接触面逐渐收窄并断开，最终停在条栏内侧 24 px 处。
+不存在独立的连接柱或圆形种子。
+
+`progress` 是直接经过 Bézier 曲线后的位姿进度，不再是传入另一组阻尼函数的线性时钟。
+0 为完全埋入，1 为完全展开；展开曲线允许略大于 1，因此位移和缩放一起越位、回弹。
+这里采用 Caelestia 的 expressive spatial Bézier，不包含其原生速度形变求解器。
+
+## 可调参数
 
 | 参数 | 默认值 | 含义 |
 | --- | --- | --- |
-| `peekWidth` | 240 px | 鼓包两侧接回条栏的总宽度 |
-| `peekDepth` | 8 px | 鼓包中心向屏幕内侧探出的高度 |
-| `peekDuration` | 220 ms | 鼓包探出、收回的时长 |
-| `peekCurve` | `[0.25, 0, 0.3, 1, 1, 1]` | 不越界的 Bézier 缓入缓出曲线，两端速度为零 |
+| `thickness` | 42 px | 主条栏厚度 |
+| `gap` | 24 px | 展开静止时的间距，同时界定粘连残余消失的位置 |
+| `panelRadius` | 24 px | 面板原始圆角，随面板等比缩放 |
+| `seedLength` | 220 px | 完全隐藏时沿条栏方向的面板长度；小面板不放大 |
+| `filletRadius` | 20 px | 接触时内凹肩部的圆弧半径及粘连范围 |
+| `peekExposure` | 2 px | peak 时面板前缘越过条栏内侧的距离；平滑融合后的可见鼓包会更深一些 |
+| `openDuration` | 500 ms | 展开与回弹的完整时长 |
+| `openCurve` | `[0.38, 1.21, 0.22, 1, 1, 1]` | Caelestia expressive spatial 曲线，带小幅越位 |
+| `closeDuration` | 320 ms | 从展开状态收回、或收回到 peak 的时长 |
+| `closeCurve` | `[0.4, 0, 0.2, 1, 1, 1]` | 收缩缓入缓出，不倒放展开回弹 |
+| `peekDuration` | 220 ms | 隐藏与 peak 之间的时长 |
+| `peekCurve` | `[0.25, 0, 0.3, 1, 1, 1]` | 克制、无越位的 peak 曲线 |
+| `contentOpacity` 的区间 | `peekProgress` 后 0.3 | 正文随出场逐渐显现；peak 时保持隐藏 |
+| `heldWidth/heldHeight` 的 Behavior | 400 ms、OutCubic | 展开后切换不同内容尺寸时的过渡 |
 
-`peekAmount` 在 0–1 之间独立变化。截面使用 `peekDepth × (1−t²)³`，
-t 是中心到边缘的归一化距离，肩部斜率和曲率均为零。调大宽度会展开肩部，
-调大深度会增加突出程度；不需要修改面板尺寸或融合参数。
+Bézier 使用 Qt 的 `[x1, y1, x2, y2, 1, 1]` 格式。横坐标影响加减速分配；
+纵坐标超过 1 可产生越位。要降低回弹，先把 `openCurve` 的 1.21 向 1 调小；
+要放慢整体展开，增加 `openDuration`。不要额外叠加固定像素的回弹脉冲。
 
-peak 只变形条栏内侧边缘，不推动隐藏面板，也不改变面板的 `progress`、
-`childOffset`、`pillWidth/pillHeight` 或 `blendRadius`。
-从 peak 点击展开时，鼓包自行收回，面板按既有动画展开；正文不会因 peak 而显示。
+调 peak 深度修改 `peekExposure`，调初始宽度修改 `seedLength`；后者也会影响面板
+初始缩放。peak 是同一个面板的临界姿态，点击展开直接从当前姿态继续。
+设置中心的悬停延迟发生在动画之前，不包含在 `peekDuration` 中。
 
-Bézier 使用 Qt 的 `[x1, y1, x2, y2, 1, 1]` 格式。修改控制点的横坐标调整加减速分配，
-纵坐标保持在 0–1 内。设置中心的悬停延迟发生在动画开始前，不是此处的动画时长。
+## 几何和粘连
 
-## 面板展开与收起
+`heldWidth/heldHeight` 保存内容布局尺寸，收起时不会被时钟尺寸替换。
+初始比例为 `min(1, seedLength / 沿条栏方向的布局尺寸)`，随后按 `progress` 变到 1。
+`childOffset` 把整块面板从隐藏位置移到 `thickness + gap`。
+`peekProgress` 根据尺寸解出前缘恰好露出 `peekExposure` 的位置，不是固定时间点。
 
-这些参数属于原有面板动画。peak 的调节不需要改动本节。
+`retarget()` 从当前进度起步。快速收起、重开不会先复位到隐藏位置；若收起到 peak
+时布局尺寸还在过渡，peak 目标会跟随修正，保持露出深度。
 
-| 位置 | 默认值 | 含义 |
-| --- | --- | --- |
-| `thickness` | 42 px | 条栏主体厚度 |
-| `gap` | 24 px | 面板静止时与条栏之间的间距 |
-| `pillWidth/pillHeight` | 横向 220 × 42 px；纵向 42 × 220 px | 面板藏在条栏内时的初始尺寸 |
-| `progressAnimation.duration` | 展开 580 ms；收起 210 ms | 面板进入和退出的时间 |
-| `travel` 的 `response` | `(0, 6.4, 7.2)` | 面板位移的延迟、衰减、振荡频率 |
-| `alongGrowth` 的 `response` | `(0.025, 6.8, 5.8)` | 沿条栏方向的尺寸变化 |
-| `inwardGrowth` 的 `response` | `(0.055, 6.4, 5.4)` | 向屏幕内部方向的尺寸变化 |
-| `contentOpacity` | `stage(0.12, 0.50)` | 展开时正文淡入区间 |
-| `contentOffset` | 最大 10 px | 正文相对面板的入场位移 |
-| `openingBlend` 的基础强度 | 56 px | 出场期间平滑并集的融合范围 |
-| `openingBlend` 的释放区间 | 0.25–0.65 | 逐渐解除出场融合的进度区间 |
-| 收起 `blendRadius` 中的系数 | 56 px | 收起时恢复内凹融合的强度 |
-| `childRadius` | 21 → 24 px | 面板圆角，同时受当前尺寸限制 |
-| `heldWidth/heldHeight` 的 Behavior | 400 ms、OutCubic | 完全展开后切换内容尺寸的过渡 |
+粘连由距离场决定：
 
-`progressAnimation` 的 Linear 是阻尼函数的时钟，不是最终视觉运动。
-`response(delay, decay, frequency)` 使用指数衰减与正弦、余弦形成非线性运动和轻微回弹：
+- `blendRadius` 随 `separation / gap` 平滑衰减，最终为零。
+- `junctionRadius()` 在分离时按沿条栏位置逐渐减弱两侧融合，接触区从两侧向内断开。
+- `facingRadius` 只在面板朝向条栏的角靠近条栏时减小，离开后恢复原圆角。
+- `burial = filletRadius + 1` 保证进度为零时，融合也不会留下鼓包。
 
-- delay：开始时间，归一化到展开时长。
-- decay：振荡衰减速度，增大通常减弱回弹。
-- frequency：振荡频率，增大会改变第一次越位的时间与幅度。
+更宽的内凹肩部可增大 `filletRadius`；增大前应一起观察 peak 的深度，以及不同宽度
+面板的分离。`gap` 太小可能在最终姿态残留粘连，因此不要只改 shader 中的半径。
 
-位移与两个尺寸方向的响应不同步，形成原有的探出和回弹。
-回弹由这些响应自然产生，不叠加固定像素的位移脉冲。
-同一 response 的参数在中途转向补偿表达式中也有一份，调节时需保持一致。
+## Shader、裁切、模糊与输入区域
 
-收起使用 `closingRemaining = smoothStep(progress / legStart)`，从当前姿态收缩，
-同时恢复用于内凹肩部的融合强度。它不倒放展开弹簧。
-`legPose` 和 `legStart` 保存转向时的状态，保证动画中途关闭、再打开时姿态连续；
-它们不是样式参数。更改时长优先调整 `onExpandedChanged` 中的 duration。
+Shader 源码为 `assets/shaders/keystone/frag/long_split.frag`。
+`circularMinimum` 生成圆形相切连接；它只添加融合部分，不插值整张面板距离场。
+面板与条栏使用同一背景透明度，阴影留白四周 24 px，半径 14，内向偏移 4 px。
+`edgeSoftness: 0.8` 是抗锯齿宽度，不是粘连强度。
 
-## Shader、模糊和输入区域
+`KeystoneSurface.qml` 中 `longContentViewport` 裁切正文，`layoutOffset` 补偿等比缩放
+的中心原点。不要另给正文增加偏移，也不要让封面背景单独缩放。
+`cutoutBlur` 将 Dashboard 开孔映射到同一缩放后的坐标。
 
-源码为 `assets/shaders/keystone/frag/long_split.frag`。
-面板融合沿用圆角矩形、主体中央的圆形种子及 `smoothMinimum` 的平滑并集。
-面板仍与主体重叠时，两侧肩部进行完整融合；分离后由距离场自然收窄、断开。
-没有单独绘制固定宽度的连接柱。
+`surfaceRegion` 包含裁切后的圆角面板和 32 行内接粘连区域，供 compositor blur
+和鼠标 mask 共用。行宽使用与 shader 相同的距离场，断开的透明间隙不会吃掉鼠标。
+`junctionDistance()` / `junctionRadius()` 与 shader 的轮廓公式须同步维护。
+完整面板仍使用原生圆角 Region，不按行采样整块面板。
 
-- `contact` 中的 12 px：接触边界由宽融合转向局部融合的距离区间。
-- `joinRadius` 中的 0.30：分离后主体连接处的融合比例。
-- `edgeSoftness: 0.8`：抗锯齿宽度，不是粘连强度。
-- `inwardNormal`：四个屏幕边缘的内向方向。
-- `cutoutRect/cutoutRadius`：Dashboard 开孔，不用于调节动画。
-
-peak 的距离场仅与既有面板表面取并集，不插值整张距离场，也不改变面板内部。
-其 `peekRegion` 使用 24 条内接窄条供 blur 和鼠标 mask 使用。
-面板仍用自己的圆角区域和连接处模糊区域；改变 peak 不会扩大面板的鼠标区域。
-修改鼓包截面公式时，需同步 QML 的 `peekHeightAt` 与 shader 的 `arch`。
-
-主体与子面板在同一个 shader 外壳中绘制，再统一应用背景透明度。
-阴影留白四周 24 px，DropShadow 半径 14、采样 29、内向偏移 4 px。
-`Long.qml` 中的 `edgeMargin: 8` 是屏幕边距，不是鼓包深度。
-
-只改 QML 参数无需重新编译 shader。修改 shader 源码后生成并提交 QSB：
+仅修改 QML 参数无需编译 shader。修改 shader 源码后生成并提交 QSB：
 
 ```bash
 /usr/lib/qt6/bin/qsb --glsl '100 es,120,150' --hlsl 50 --msl 12 \
@@ -91,6 +90,7 @@ peak 的距离场仅与既有面板表面取并集，不插值整张距离场，
   assets/shaders/keystone/frag/long_split.frag
 ```
 
-修改 QML 后运行 `scripts/dev/format-qml.sh`，然后运行 `scripts/dev/check.sh`。
-观察 peak 移入/移出、从 peak 展开、中途关闭再打开，以及上下左右四个位置。
-离屏渲染可对照轮廓与动画姿态，桌面 compositor blur 和鼠标体验需在真实会话观察。
+修改 QML 后运行 `scripts/dev/format-qml.sh`，再运行 `scripts/dev/check.sh`。
+视觉检查覆盖 peak 移入/移出、peak 展开、中途收回重开、大小面板切换、Dashboard
+开孔及四个边缘方向。离屏渲染可检查轮廓和变换；真实 compositor blur 和鼠标体验
+仍需在桌面会话确认。
