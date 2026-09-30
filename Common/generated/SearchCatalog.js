@@ -510,21 +510,6 @@ var catalog = {
       "title": "Spotlight"
     },
     {
-      "aliases": [
-        "screen corners",
-        "corner actions"
-      ],
-      "context": "GeneralPage",
-      "icon": "open_in_full",
-      "id": "general.hot-corners",
-      "path": [
-        "general",
-        "hot-corners"
-      ],
-      "source": "HotCornersPage.qml",
-      "title": "Hot corners"
-    },
-    {
       "aliases": [],
       "context": "GeneralPage",
       "icon": "blur_on",
@@ -814,23 +799,6 @@ var catalog = {
       "route": "general.spotlight",
       "source": "SpotlightPage.qml",
       "title": "Spotlight"
-    },
-    {
-      "aliases": [
-        "screen corners",
-        "corner actions"
-      ],
-      "anchor": false,
-      "context": "GeneralPage",
-      "icon": "open_in_full",
-      "id": "general.hot-corners",
-      "path": [
-        "general",
-        "hot-corners"
-      ],
-      "route": "general.hot-corners",
-      "source": "HotCornersPage.qml",
-      "title": "Hot corners"
     },
     {
       "aliases": [],
@@ -1267,6 +1235,24 @@ var catalog = {
     },
     {
       "aliases": [
+        "corner actions",
+        "screen corners"
+      ],
+      "anchor": true,
+      "context": "HotCornersPage",
+      "icon": "open_in_full",
+      "id": "general.displays.configuration.section.hot-corners",
+      "path": [
+        "general",
+        "displays",
+        "configuration"
+      ],
+      "route": "general.displays.configuration",
+      "source": "DisplayConfigurationPage.qml",
+      "title": "Hot corners"
+    },
+    {
+      "aliases": [
         "size",
         "position",
         "magnification"
@@ -1520,20 +1506,6 @@ var catalog = {
       "route": "keystone.horizontal-clock",
       "source": "HorizontalClockPage.qml",
       "title": "Horizontal clock style"
-    },
-    {
-      "aliases": [],
-      "anchor": true,
-      "context": "HotCornersPage",
-      "icon": "open_in_full",
-      "id": "general.hot-corners.section.actions",
-      "path": [
-        "general",
-        "hot-corners"
-      ],
-      "route": "general.hot-corners",
-      "source": "HotCornersPage.qml",
-      "title": "Corner actions"
     },
     {
       "aliases": [],
@@ -1954,7 +1926,6 @@ function title(id) {
     case "general.dock": return qsTranslate("GeneralPage", "Dock");
     case "general.sidebar": return qsTranslate("GeneralPage", "Sidebars");
     case "general.spotlight": return qsTranslate("GeneralPage", "Spotlight");
-    case "general.hot-corners": return qsTranslate("GeneralPage", "Hot corners");
     case "general.effects": return qsTranslate("GeneralPage", "Transparency and blur");
     case "general.shortcuts": return qsTranslate("GeneralPage", "Keyboard shortcuts");
     case "general.language-region": return qsTranslate("GeneralPage", "Language & region");
@@ -1986,6 +1957,7 @@ function title(id) {
     case "general.default-apps.section.multimedia": return qsTranslate("DefaultAppsPage", "Multimedia");
     case "general.displays.configuration.section.layout": return qsTranslate("DisplayConfigurationPage", "Layout");
     case "general.displays.configuration.section.output-settings": return qsTranslate("DisplayConfigurationPage", "Output settings");
+    case "general.displays.configuration.section.hot-corners": return qsTranslate("HotCornersPage", "Hot corners");
     case "general.dock.section.appearance": return qsTranslate("DockPage", "Appearance");
     case "general.dock.section.behavior": return qsTranslate("DockPage", "Behavior");
     case "general.dock.section.previews": return qsTranslate("DockPage", "Window previews");
@@ -2003,7 +1975,6 @@ function title(id) {
     case "general.sidebar.section.clock-style": return qsTranslate("GeneralSidebarPage", "Clock style");
     case "general.sidebar.section.system-cards": return qsTranslate("GeneralSidebarPage", "System cards");
     case "keystone.horizontal-clock.section.horizontal-clock-style": return qsTranslate("HorizontalClockPage", "Horizontal clock style");
-    case "general.hot-corners.section.actions": return qsTranslate("HotCornersPage", "Corner actions");
     case "keystone.section.keystone-style": return qsTranslate("KeystonePage", "Keystone style");
     case "keystone.section.mouse-actions": return qsTranslate("KeystonePage", "Mouse actions");
     case "keystone.section.media-controls": return qsTranslate("KeystonePage", "Media controls");

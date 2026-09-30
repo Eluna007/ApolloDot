@@ -1963,6 +1963,11 @@ Variants {
                 item: styleSurface.elongated && longFrame.item && longFrame.item.progress > 0.02 ? root : null
                 radius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius : 0
             }
+
+            HotCornerExclusionRegion {
+                surfaceWidth: keystoneWindow.width
+                surfaceHeight: keystoneWindow.height
+            }
         }
     }
 

@@ -4,14 +4,15 @@ import qs.Common
 import qs.Services
 import qs.Widgets.common
 
-StyledFlickable {
+SidebarFlickable {
     id: root
+    motionEnabled: !searchAnchorsEnabled
     property real contentPadding: Metrics.pageMargin
     property bool searchAnchorsEnabled: true
     readonly property var preferences: DisplayColor.preferences
     clip: true
     contentWidth: width
-    contentHeight: content.implicitHeight + root.contentPadding * 2
+    contentHeight: content.implicitHeight + root.contentPadding * 2 + root.contentTopInset
     function timeText(minutes) {
         return Math.floor(minutes / 60).toString().padStart(2, "0") + ":" + (minutes % 60).toString().padStart(
                     2, "0");
@@ -25,14 +26,18 @@ StyledFlickable {
         id: content
         width: Math.min(640, Math.max(0, root.width - root.contentPadding * 2))
         x: Math.max(root.contentPadding, (root.width - width) / 2)
-        y: root.contentPadding
+        y: root.contentPadding + root.contentTopInset
         spacing: Metrics.spacingXL
         InlineStatusBanner {
+            Layout.topMargin: root.gapFor(0, 1)
+
             Layout.fillWidth: true
             visible: !DisplayColor.available
             message: qsTr("The compositor does not provide Gamma control")
         }
         InlineStatusBanner {
+            Layout.topMargin: root.gapFor(1, 1)
+
             Layout.fillWidth: true
             visible: DisplayColor.error !== ""
             tone: "error"
@@ -40,6 +45,8 @@ StyledFlickable {
         }
         SettingsSection {
             id: searchSection0
+            pullExpansion: root.detailExpansion
+            Layout.topMargin: root.gapFor(2, 1)
             Layout.fillWidth: true
             title: searchAnchor0.title
             SettingsSearchAnchor {
@@ -81,6 +88,9 @@ StyledFlickable {
             }
         }
         SettingsSection {
+            pullExpansion: root.detailExpansion
+            Layout.topMargin: root.gapFor(3, 1)
+
             Layout.fillWidth: true
             flat: true
             SettingsRow {
@@ -106,6 +116,8 @@ StyledFlickable {
         }
         SettingsSection {
             id: searchSection1
+            pullExpansion: root.detailExpansion
+            Layout.topMargin: root.gapFor(4, 1)
             Layout.fillWidth: true
             visible: root.preferences.nightEnabled
             title: searchAnchor1.title
@@ -269,6 +281,8 @@ StyledFlickable {
 
         SettingsSection {
             id: searchSection2
+            pullExpansion: root.detailExpansion
+            Layout.topMargin: root.gapFor(5, 1)
             Layout.fillWidth: true
             visible: root.preferences.nightEnabled && root.preferences.mode !== "fixed"
             title: searchAnchor2.title
@@ -323,6 +337,8 @@ StyledFlickable {
         }
 
         InlineStatusBanner {
+            Layout.topMargin: root.gapFor(6, 1)
+
             Layout.fillWidth: true
             readonly property var failedOutputs: DisplayColor.outputs.filter(o => o.state === "failed"
                                                                                   || o.state

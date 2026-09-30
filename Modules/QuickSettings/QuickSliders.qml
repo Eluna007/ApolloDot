@@ -10,6 +10,7 @@ Rectangle {
     readonly property real gammaCutoff: 0.3
     property var screen: null
     property bool detailed: false
+    property real pullExpansion: 0
     readonly property var brightnessMonitor: Brightness.getMonitorForScreen(screen)
     readonly property real brightnessValue: brightnessMonitor ? brightnessMonitor.brightness :
                                                                 Brightness.brightnessValue
@@ -32,7 +33,7 @@ Rectangle {
             topMargin: root.verticalPadding
             bottomMargin: root.verticalPadding
         }
-        spacing: root.detailed ? Metrics.spacingS : 0
+        spacing: (root.detailed ? Metrics.spacingS : 0) + root.pullExpansion
 
         SliderHeading {
             visible: root.detailed
@@ -77,7 +78,7 @@ Rectangle {
 
         SliderHeading {
             visible: root.detailed
-            Layout.topMargin: root.detailed ? Metrics.spacingS : 0
+            Layout.topMargin: (root.detailed ? Metrics.spacingS : 0) + root.pullExpansion * 1.5
             title: qsTr("Sound")
             detail: Volume.sinkName
         }
@@ -93,7 +94,7 @@ Rectangle {
 
         SliderHeading {
             visible: root.detailed
-            Layout.topMargin: root.detailed ? Metrics.spacingS : 0
+            Layout.topMargin: (root.detailed ? Metrics.spacingS : 0) + root.pullExpansion * 1.5
             title: qsTr("Microphone")
             detail: Volume.sourceName
         }
@@ -113,7 +114,7 @@ Rectangle {
         property string title: ""
         property string detail: ""
         Layout.fillWidth: true
-        spacing: Metrics.spacingXXS
+        spacing: Metrics.spacingXXS + root.pullExpansion * 0.5
         Text {
             Layout.fillWidth: true
             text: heading.title

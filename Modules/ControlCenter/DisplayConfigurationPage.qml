@@ -21,7 +21,20 @@ StyledFlickable {
         if (!visible)
             scaleDialog.dismiss();
     }
-    Component.onCompleted: DisplayConfigService.refresh()
+    function revealAdvancedSearch() {
+        if (ControlCenterService.searchTarget?.id === "general.displays.configuration.section.hot-corners")
+            advanced = true;
+    }
+    Component.onCompleted: {
+        DisplayConfigService.refresh();
+        root.revealAdvancedSearch();
+    }
+    Connections {
+        target: ControlCenterService
+        function onSearchTargetChanged() {
+            root.revealAdvancedSearch();
+        }
+    }
     function edit(key, value) {
         if (selected)
             DisplayConfigService.edit(selected.key, key, value);
@@ -278,6 +291,17 @@ StyledFlickable {
                     Layout.fillWidth: true
                     visible: root.advanced
                     row: root.selected
+                }
+                DisplayHotCornerSettings {
+                    id: hotCornerSettings
+                    Layout.fillWidth: true
+                    visible: root.advanced
+
+                    SettingsSearchAnchor {
+                        target: hotCornerSettings
+                        declaration:
+                            '{"id":"general.displays.configuration.section.hot-corners","route":"general.displays.configuration","title":"Hot corners","context":"HotCornersPage","icon":"open_in_full","aliases":["corner actions", "screen corners"]}'
+                    }
                 }
                 ActionButton {
                     visible: root.selected && !root.selected.connected

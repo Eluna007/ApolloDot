@@ -15,10 +15,12 @@ WidgetPanel {
 
     property bool editMode: false
     readonly property bool capturesWheel: editMode
-    property int toggleColumns: width < Metrics.sidebarWidthCompact ? 3 : 4
-    property real toggleSpacing: Metrics.spacingS
-    property real togglePadding: Metrics.spacingS
-    property real baseCellHeight: 72
+    readonly property int toggleColumns: Math.max(1, Math.floor((togglePanel.width - togglePadding * 2
+                                                                 + toggleSpacing) / (baseCellHeight * 1.25
+                                                                                     + toggleSpacing)))
+    property real toggleSpacing: 6
+    property real togglePadding: 6
+    property real baseCellHeight: 56
     property real contentSpacing: Metrics.spacingL
     property real headerButtonSize: 40
     property real headerButtonSpacing: 5
@@ -294,25 +296,31 @@ WidgetPanel {
         }
     }
 
-    StyledFlickable {
+    SidebarFlickable {
+        id: sidebarScroll
         Layout.fillWidth: true
         Layout.fillHeight: true
         contentWidth: width
-        contentHeight: pageContent.implicitHeight
+        contentHeight: pageContent.implicitHeight + sidebarScroll.contentTopInset
 
         ColumnLayout {
             id: pageContent
+            y: sidebarScroll.contentTopInset
             width: parent.width
             spacing: root.contentSpacing
 
             QuickSliders {
+                Layout.topMargin: sidebarScroll.gapFor(0, 1)
+
                 detailed: true
+                pullExpansion: sidebarScroll.detailExpansion
                 screen: root.screen
                 Layout.fillWidth: true
             }
 
             Rectangle {
                 id: togglePanel
+                Layout.topMargin: sidebarScroll.gapFor(1, 1)
 
                 Layout.fillWidth: true
                 Layout.preferredHeight: toggleContent.implicitHeight + root.togglePadding * 2
@@ -322,10 +330,13 @@ WidgetPanel {
                 readonly property real baseCellWidth: {
                     const availableWidth = width - root.togglePadding * 2 - root.toggleSpacing * (
                               root.toggleColumns - 1);
-                    return Math.max(root.baseCellHeight, availableWidth / root.toggleColumns);
+                    // Fill all available columns while preserving the rounded-square proportions.
+                    return Math.max(root.baseCellHeight, Math.min(root.baseCellHeight * 1.25, availableWidth
+                                                                  / root.toggleColumns));
                 }
 
                 Behavior on Layout.preferredHeight {
+                    enabled: sidebarScroll.pullOffset === 0
                     NumberAnimation {
                         duration: Appearance.animation.expressiveDefaultSpatial.duration
                         easing.type: Appearance.animation.expressiveDefaultSpatial.type
@@ -348,7 +359,7 @@ WidgetPanel {
                         id: usedRows
                         width: parent.width
 
-                        spacing: root.toggleSpacing
+                        spacing: root.toggleSpacing + sidebarScroll.sectionExpansion
 
                         Repeater {
                             model: ScriptModel {
@@ -372,6 +383,9 @@ WidgetPanel {
 
                                     QuickToggleButton {
                                         required property var modelData
+                                        required property int index
+                                        Layout.alignment: Qt.AlignTop
+                                        Layout.topMargin: sidebarScroll.detailExpansion * (index + 1)
 
                                         readonly property string toggleType: modelData.type
                                         readonly property int toggleSize: root.sizeForToggle(modelData)
@@ -416,6 +430,9 @@ WidgetPanel {
             }
 
             SettingsSection {
+                pullExpansion: sidebarScroll.detailExpansion
+                Layout.topMargin: sidebarScroll.gapFor(2, 1)
+
                 Layout.fillWidth: true
                 title: qsTr("Device settings")
 

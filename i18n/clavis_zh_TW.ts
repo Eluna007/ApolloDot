@@ -100,7 +100,7 @@
         <translation>已連線，開放</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1969"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1940"/>
         <source>Language</source>
         <translation>語言</translation>
     </message>
@@ -115,7 +115,7 @@
         <translation>選擇語言</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1970"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1941"/>
         <source>Bluetooth devices</source>
         <translation>藍牙裝置</translation>
     </message>
@@ -161,7 +161,7 @@
         <translation>更多藍牙設定</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1971"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1942"/>
         <source>Keyboard shortcuts</source>
         <translation>快捷鍵</translation>
     </message>
@@ -176,7 +176,7 @@
         <translation>快捷鍵配置圖</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1972"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1943"/>
         <source>Cloud storage</source>
         <translation>雲端儲存</translation>
     </message>
@@ -246,7 +246,7 @@
         <translation>管理雲端儲存</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1973"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1944"/>
         <source>Personalization</source>
         <translation>個性化</translation>
     </message>
@@ -402,12 +402,12 @@
         <translation>請輸入有效的遠端目錄</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1974"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1945"/>
         <source>Map and weather services</source>
         <translation>地圖與天氣服務</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1975"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1946"/>
         <source>Cloud storage</source>
         <translation>雲端儲存</translation>
     </message>
@@ -452,7 +452,7 @@
         <translation>電腦備份位置</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1976"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1947"/>
         <source>Matugen template generation</source>
         <translation>Matugen 範本產生</translation>
     </message>
@@ -634,32 +634,32 @@
         <translation>開啟高階聲音設定</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="68"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="77"/>
         <source>Output</source>
         <translation>輸出</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="73"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="82"/>
         <source>Default output</source>
         <translation>預設輸出</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="88"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="102"/>
         <source>Output devices</source>
         <translation>輸出裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="120"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="141"/>
         <source>Volume</source>
         <translation>音量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="135"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="161"/>
         <source>Application volume</source>
         <translation>應用音量</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="160"/>
+        <location filename="../Modules/Sidebars/QuickSettings/AudioContent.qml" line="193"/>
         <source>No active application audio</source>
         <translation>沒有活動的應用音訊</translation>
     </message>
@@ -740,7 +740,7 @@
         <translation>重試</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1977"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1948"/>
         <source>Add application to autostart</source>
         <translation>新增應用到開機啟動</translation>
     </message>
@@ -756,7 +756,7 @@
         <translation>選擇一個已安裝應用加入使用者級開機啟動</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1978"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1949"/>
         <source>User autostart applications</source>
         <translation>使用者自啟應用</translation>
     </message>
@@ -1473,19 +1473,19 @@
     </message>
     <message>
         <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="90"/>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="196"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="210"/>
         <source>Connected</source>
         <translation>已連線</translation>
     </message>
     <message>
         <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="92"/>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="204"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="223"/>
         <source>Paired</source>
         <translation>已配對</translation>
     </message>
     <message>
         <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="94"/>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="212"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="236"/>
         <source>Available devices</source>
         <translation>可用裝置</translation>
     </message>
@@ -1500,153 +1500,153 @@
         <translation>藍牙</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="228"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="252"/>
         <source>Searching for available Bluetooth devices</source>
         <translation>正在查詢可用藍牙裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="233"/>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="289"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="257"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="310"/>
         <source>Searching for nearby devices</source>
         <translation>正在查詢附近裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="282"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="298"/>
         <source>No available devices found</source>
         <translation>未發現可用裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="288"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="309"/>
         <source>Adapters</source>
         <translation>介面卡</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="290"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="311"/>
         <source>Device discovery is paused</source>
         <translation>裝置發現已暫停</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="292"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="313"/>
         <source>Turn on Bluetooth to start discovery</source>
         <translation>開啟藍牙後可開始發現</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="302"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="329"/>
         <source>Bluetooth adapter</source>
         <translation>藍牙介面卡</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="303"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="330"/>
         <source>Blocked by rfkill</source>
         <translation>已被 rfkill 阻止</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="304"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="331"/>
         <source>Off</source>
         <translation>已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="311"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="338"/>
         <source>Toggle adapter </source>
         <translation>切換介面卡 </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="321"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="352"/>
         <source>Allow discovery</source>
         <translation>允許被發現</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="322"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="353"/>
         <source>Let nearby devices find this computer</source>
         <translation>讓附近裝置可以找到這臺電腦</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="329"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="360"/>
         <source>Bluetooth discoverability</source>
         <translation>藍牙可發現</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="338"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="369"/>
         <source>Allow pairing</source>
         <translation>允許配對</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="346"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="377"/>
         <source>Bluetooth pairing</source>
         <translation>藍牙可配對</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="366"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="402"/>
         <source>Forget Bluetooth device</source>
         <translation>遺忘藍牙裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="379"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="415"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="387"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="423"/>
         <source>Forget</source>
         <translation>遺忘</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="409"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="445"/>
         <source>Scan for Bluetooth devices again</source>
         <translation>重新掃描藍牙裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="427"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="455"/>
         <source>Bluetooth switch</source>
         <translation>藍牙開關</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="459"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="494"/>
         <source>Trust device</source>
         <translation>信任裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="464"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="499"/>
         <source>Trust %1</source>
         <translation>信任 %1</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="471"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="506"/>
         <source>Wake computer</source>
         <translation>喚醒電腦</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="476"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="511"/>
         <source>Allow %1 to wake the computer</source>
         <translation>允許 %1 喚醒電腦</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="512"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="551"/>
         <source>Disconnect</source>
         <translation>斷開</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="513"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="552"/>
         <source>Connect</source>
         <translation>連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="515"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="554"/>
         <source>Pair</source>
         <translation>配對</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="535"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="574"/>
         <source>Bluetooth device action</source>
         <translation>藍牙裝置操作</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="546"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="585"/>
         <source>Forget device</source>
         <translation>遺忘裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="367"/>
+        <location filename="../Modules/Sidebars/QuickSettings/BluetoothContent.qml" line="403"/>
         <source>This will delete the pairing information for “%1”.</source>
         <translation>這將刪除「%1」的配對資訊。</translation>
     </message>
@@ -1800,7 +1800,7 @@
 <context>
     <name>BluetoothPairingPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1979"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1950"/>
         <source>Nearby devices</source>
         <translation>附近裝置</translation>
     </message>
@@ -2551,7 +2551,7 @@ Scroll to adjust</source>
         <translation>Bluetooth 開關</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1980"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1951"/>
         <source>Saved devices</source>
         <translation>已儲存的裝置</translation>
     </message>
@@ -2566,7 +2566,7 @@ Scroll to adjust</source>
         <translation>配對新裝置</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1981"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1952"/>
         <location filename="../Modules/ControlCenter/ConnectedDevicesPage.qml" line="155"/>
         <source>Bluetooth adapter</source>
         <translation>藍牙介面卡</translation>
@@ -2582,7 +2582,7 @@ Scroll to adjust</source>
         <translation>切換介面卡 %1</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1982"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1953"/>
         <source>Advanced settings</source>
         <translation>進階設定</translation>
     </message>
@@ -2616,32 +2616,32 @@ Scroll to adjust</source>
 <context>
     <name>ControlCenterWindow</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1946"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1918"/>
         <source>Account</source>
         <translation>賬戶</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1947"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1919"/>
         <source>General</source>
         <translation>通用</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1948"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1920"/>
         <source>Wallpaper</source>
         <translation>桌布</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1949"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1921"/>
         <source>Theme</source>
         <translation>主題</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1950"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1922"/>
         <source>Keystone</source>
         <translation>拱心石</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1951"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1923"/>
         <source>Advanced</source>
         <translation>進階</translation>
     </message>
@@ -3252,7 +3252,7 @@ Scroll to adjust</source>
         <translation>沒有找到可用的系統應用</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1983"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1954"/>
         <source>Internet</source>
         <translation>網際網路</translation>
     </message>
@@ -3267,7 +3267,7 @@ Scroll to adjust</source>
         <translation>郵件</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1984"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1955"/>
         <source>Utilities</source>
         <translation>實用工具</translation>
     </message>
@@ -3282,7 +3282,7 @@ Scroll to adjust</source>
         <translation>終端</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1985"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1956"/>
         <source>Documents</source>
         <translation>文件</translation>
     </message>
@@ -3297,7 +3297,7 @@ Scroll to adjust</source>
         <translation>PDF 閱讀器</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1986"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1957"/>
         <source>Multimedia</source>
         <translation>多媒體</translation>
     </message>
@@ -3447,8 +3447,8 @@ Scroll to adjust</source>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="27"/>
-        <source>Hot corners</source>
-        <translation>熱角</translation>
+        <source>Overview corners</source>
+        <translation>概覽觸發角</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/DisplayAdvancedSettings.qml" line="31"/>
@@ -3632,166 +3632,174 @@ Scroll to adjust</source>
 <context>
     <name>DisplayConfigurationPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="41"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="54"/>
         <source>Display configuration</source>
         <translation>顯示器設定</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1987"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1958"/>
         <source>Layout</source>
         <translation>配置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="77"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="90"/>
         <source>Identify displays</source>
         <translation>識別顯示器</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="297"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="321"/>
         <source>Discard</source>
         <translation>捨棄變更</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="308"/>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="404"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="332"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="428"/>
         <source>Apply</source>
         <translation>套用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="108"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="121"/>
         <source>Display</source>
         <translation>顯示器</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="112"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="125"/>
         <source>%1 (disconnected)</source>
         <translation>%1（已中斷連線）</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="90"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="103"/>
         <source>This output is read-only. Resolve conflicting or unsupported settings in %1.</source>
         <translation>此輸出為唯讀。請在 %1 中解決衝突或不支援的設定。</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1988"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1959"/>
         <source>Output settings</source>
         <translation>輸出設定</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="123"/>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="130"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="136"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="143"/>
         <source>Enabled</source>
         <translation>啟用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="137"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="150"/>
         <source>Resolution and refresh rate</source>
         <translation>解析度與更新率</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="142"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="155"/>
         <source>%1 × %2 · %3 Hz</source>
         <translation>%1 × %2 · %3 Hz</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="149"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="162"/>
         <source>Scale</source>
         <translation>縮放</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="166"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="179"/>
         <source>Custom</source>
         <translation>自訂</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="371"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="395"/>
         <source>Custom scale</source>
         <translation>自訂縮放</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="187"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="200"/>
         <source>Logical X</source>
         <translation>邏輯 X 座標</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="161"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="174"/>
         <source>%1% (Custom)</source>
         <translation>%1%（自訂）</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="191"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="204"/>
         <source>Logical Y</source>
         <translation>邏輯 Y 座標</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="210"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="223"/>
         <source>Rotation and reflection</source>
         <translation>旋轉與翻轉</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="214"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="227"/>
         <source>Normal</source>
         <translation>正常</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="230"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="243"/>
         <source>Flipped</source>
         <translation>翻轉</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="234"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="247"/>
         <source>Flipped · 90°</source>
         <translation>翻轉 · 90°</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="238"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="251"/>
         <source>Flipped · 180°</source>
         <translation>翻轉 · 180°</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="242"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="255"/>
         <source>Flipped · 270°</source>
         <translation>翻轉 · 270°</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="250"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="263"/>
         <source>Variable refresh rate</source>
         <translation>可變更新率</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="256"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="269"/>
         <source>Off</source>
         <translation>關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="260"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="273"/>
         <source>On</source>
         <translation>開啟</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="264"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="277"/>
         <source>On-Demand</source>
         <translation>視需要</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="272"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="285"/>
         <source>Advanced settings</source>
         <translation>進階設定</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="284"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="308"/>
         <source>Delete saved display</source>
         <translation>刪除已儲存的顯示器</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="381"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="405"/>
         <source>Scale (%)</source>
         <translation>縮放比例（%）</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="400"/>
+        <location filename="../Modules/ControlCenter/DisplayConfigurationPage.qml" line="424"/>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+</context>
+<context>
+    <name>DisplayHotCornerSettings</name>
+    <message>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="122"/>
+        <source>Actions apply to all displays.</source>
+        <translation>操作套用至所有顯示器。</translation>
     </message>
 </context>
 <context>
@@ -3822,12 +3830,12 @@ Scroll to adjust</source>
 <context>
     <name>DisplaysPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1966"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1937"/>
         <source>Display configuration</source>
         <translation>顯示器設定</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1967"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1938"/>
         <source>Gamma Control</source>
         <translation>Gamma 控制</translation>
     </message>
@@ -3981,17 +3989,17 @@ Scroll to adjust</source>
 <context>
     <name>DockPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1989"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1961"/>
         <source>Appearance</source>
         <translation>外觀</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1990"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1962"/>
         <source>Behavior</source>
         <translation>行為</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1991"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1963"/>
         <source>Window previews</source>
         <translation>視窗預覽</translation>
     </message>
@@ -4498,166 +4506,166 @@ Scroll to adjust</source>
 <context>
     <name>GammaControlPage</name>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="33"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="39"/>
         <source>The compositor does not provide Gamma control</source>
         <translation>合成器未提供 Gamma 控制</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1992"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1964"/>
         <source>Color</source>
         <translation>色彩</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="56"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="71"/>
         <source>Gamma</source>
         <translation>Gamma</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="65"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="80"/>
         <source>Contrast</source>
         <translation>對比度</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="74"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="89"/>
         <source>Software dimming</source>
         <translation>軟體調暗</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="88"/>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="92"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="108"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="112"/>
         <source>Night Mode</source>
         <translation>夜間模式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="98"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="118"/>
         <source>Night temperature</source>
         <translation>夜間色溫</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1993"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1965"/>
         <source>Schedule</source>
         <translation>排程</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="123"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="147"/>
         <source>Automatic control</source>
         <translation>自動控制</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="127"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="151"/>
         <source>Fixed temperature</source>
         <translation>固定色溫</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="131"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="155"/>
         <source>Time</source>
         <translation>時間</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="135"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="159"/>
         <source>Sunrise and sunset</source>
         <translation>日出與日落</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="144"/>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="151"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="168"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="175"/>
         <source>Night starts</source>
         <translation>夜間開始</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="162"/>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="169"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="186"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="193"/>
         <source>Day starts</source>
         <translation>日間開始</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="245"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="269"/>
         <source>Day temperature</source>
         <translation>日間色溫</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="255"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="279"/>
         <source>Transition duration</source>
         <translation>轉換時間</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="259"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="283"/>
         <source> min</source>
         <translation> 分鐘</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="185"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="209"/>
         <source>Latitude</source>
         <translation>緯度</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="190"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="214"/>
         <source>Longitude</source>
         <translation>經度</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="213"/>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="217"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="237"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="241"/>
         <source>Automatic IP location</source>
         <translation>自動 IP 定位</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="300"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="328"/>
         <source>Period</source>
         <translation>時段</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="304"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="332"/>
         <source>Daytime</source>
         <translation>日間</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="304"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="332"/>
         <source>Nighttime</source>
         <translation>夜間</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="302"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="330"/>
         <source>Transitioning</source>
         <translation>過渡中</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="313"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="341"/>
         <source>Transition ends</source>
         <translation>過渡結束</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="332"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="365"/>
         <source>Gamma control unavailable: %1</source>
         <translation>Gamma 控制無法使用：%1</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="232"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="256"/>
         <source>Refresh location</source>
         <translation>重新取得位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="240"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="264"/>
         <source>Use weather location</source>
         <translation>使用天氣位置</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1994"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1966"/>
         <source>Current status</source>
         <translation>目前狀態</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="291"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="319"/>
         <source>%1 K</source>
         <translation>%1 K</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="287"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="315"/>
         <source>Scheduled temperature</source>
         <translation>排程色溫</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="313"/>
+        <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="341"/>
         <source>Next transition</source>
         <translation>下次轉換</translation>
     </message>
@@ -4665,7 +4673,7 @@ Scroll to adjust</source>
 <context>
     <name>GeneralBarPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1995"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1967"/>
         <source>Position</source>
         <translation>位置</translation>
     </message>
@@ -4675,7 +4683,7 @@ Scroll to adjust</source>
         <translation>螢幕邊緣</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1996"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1968"/>
         <source>Components</source>
         <translation>元件</translation>
     </message>
@@ -4747,7 +4755,7 @@ Scroll to adjust</source>
         <translation>建立或接入 Clavis X-Ray 規則。</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1997"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1969"/>
         <source>Background</source>
         <translation>背景</translation>
     </message>
@@ -4782,37 +4790,37 @@ Scroll to adjust</source>
 <context>
     <name>GeneralOverviewPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1998"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1970"/>
         <source>Interface</source>
         <translation>介面</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1999"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1971"/>
         <source>System</source>
         <translation>系統</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="143"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="135"/>
         <source>Bluetooth unavailable</source>
         <translation>藍牙不可用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="146"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="138"/>
         <source>Bluetooth is off</source>
         <translation>藍牙已關閉</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="152"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="144"/>
         <source>%1 devices connected</source>
         <translation>%1 台裝置已連線</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2000"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1972"/>
         <source>Applications</source>
         <translation>應用程式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="131"/>
+        <location filename="../Modules/ControlCenter/GeneralOverviewPage.qml" line="123"/>
         <source>Network unavailable</source>
         <translation>網路無法使用</translation>
     </message>
@@ -4820,72 +4828,67 @@ Scroll to adjust</source>
 <context>
     <name>GeneralPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1952"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1924"/>
         <source>Displays</source>
         <translation>顯示器</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1953"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1925"/>
         <source>Bar</source>
         <translation>條欄</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1954"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1926"/>
         <source>Dock</source>
         <translation>Dock</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1955"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1927"/>
         <source>Sidebars</source>
         <translation>側邊欄</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1956"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1928"/>
         <source>Spotlight</source>
         <translation>Spotlight</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1957"/>
-        <source>Hot corners</source>
-        <translation>觸發角</translation>
-    </message>
-    <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1958"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1929"/>
         <source>Transparency and blur</source>
         <translation>透明與模糊</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1959"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1930"/>
         <source>Keyboard shortcuts</source>
         <translation>快捷鍵</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1960"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1931"/>
         <source>Language &amp; region</source>
         <translation>語言與地區</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1961"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1932"/>
         <source>Autostart</source>
         <translation>開機啟動</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1962"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1933"/>
         <source>Default applications</source>
         <translation>預設應用</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1963"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1934"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1964"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1935"/>
         <source>Connected devices</source>
         <translation>已連線的裝置</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1965"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1936"/>
         <source>Pair new device</source>
         <translation>配對新裝置</translation>
     </message>
@@ -4922,7 +4925,7 @@ Scroll to adjust</source>
         <translation>跟隨磁碟 I/O 卡片</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2001"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1973"/>
         <source>Sidebars</source>
         <translation type="unfinished">側邊欄</translation>
     </message>
@@ -4960,7 +4963,7 @@ Scroll to adjust</source>
         <translation>再次開啟更快，但會增加記憶體佔用</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2002"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1974"/>
         <source>Desktop card layout</source>
         <translation>桌面卡片佈局</translation>
     </message>
@@ -5017,7 +5020,7 @@ Scroll to adjust</source>
         <translation>拖曳時顯示桌面網格</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2003"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1975"/>
         <source>Clock style</source>
         <translation>時鐘樣式</translation>
     </message>
@@ -5168,7 +5171,7 @@ Scroll to adjust</source>
         <translation>矩形</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2004"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1976"/>
         <source>System cards</source>
         <translation>系統卡片</translation>
     </message>
@@ -5229,7 +5232,7 @@ Scroll to adjust</source>
 <context>
     <name>HorizontalClockPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2005"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1977"/>
         <source>Horizontal clock style</source>
         <translation>橫向時鐘樣式</translation>
     </message>
@@ -5369,107 +5372,104 @@ Scroll to adjust</source>
 <context>
     <name>HotCornersPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2006"/>
-        <source>Corner actions</source>
-        <translation>角落動作</translation>
-    </message>
-    <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="15"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="15"/>
         <source>Top left</source>
         <translation>左上角</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="19"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="19"/>
         <source>Top right</source>
         <translation>右上角</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="23"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="23"/>
         <source>Bottom left</source>
         <translation>左下角</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="27"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="27"/>
         <source>Bottom right</source>
         <translation>右下角</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="33"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="33"/>
         <source>Disabled</source>
         <translation>停用</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="37"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="37"/>
         <source>Niri Overview</source>
         <translation>Niri 概覽</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="41"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="41"/>
         <source>Information</source>
         <translation>資訊</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="45"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="45"/>
         <source>Drawer</source>
         <translation>抽屜</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="49"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="49"/>
         <source>Weather</source>
         <translation>天氣</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="53"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="53"/>
         <source>Quick settings</source>
         <translation>快速設定</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="57"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="57"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="61"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="61"/>
         <source>Bluetooth</source>
         <translation>藍牙</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="65"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="65"/>
         <source>Audio output</source>
         <translation>音訊輸出</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="69"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="69"/>
         <source>Microphone</source>
         <translation>麥克風</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="73"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="73"/>
         <source>Idle management</source>
         <translation>空閒管理</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="77"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="77"/>
         <source>Night light</source>
         <translation>夜間模式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="96"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1960"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="85"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="121"/>
         <source>Hot corners</source>
         <translation>觸發角</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="97"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="86"/>
         <source>Let Clavis manage corner actions instead of the compositor&apos;s overview gesture.</source>
         <translation>由 Clavis 管理角落動作，取代合成器的概覽手勢。</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="115"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="104"/>
         <source>Disable the compositor&apos;s hot corners for %1 in %2.</source>
         <translation>請在 %2 中停用合成器為 %1 設定的觸發角。</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/HotCornersPage.qml" line="125"/>
+        <location filename="../Modules/ControlCenter/DisplayHotCornerSettings.qml" line="113"/>
         <source>Another compositor configuration enables hot corners: %1</source>
         <translation>其他合成器設定啟用了觸發角：%1</translation>
     </message>
@@ -5616,54 +5616,54 @@ Scroll to adjust</source>
         <translation>空閒管理</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="72"/>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="76"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="83"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="87"/>
         <source>Keep awake</source>
         <translation>保持喚醒</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="84"/>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="88"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="95"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="99"/>
         <source>Automatic idle</source>
         <translation>自動空閒</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="97"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="113"/>
         <source>Dim screen</source>
         <translation>調暗螢幕</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="104"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="125"/>
         <source>Lock session</source>
         <translation>鎖定會話</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="110"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="136"/>
         <source>Turn off displays</source>
         <translation>關閉顯示器</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="116"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="147"/>
         <source>Suspend system</source>
         <translation>掛起系統</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="152"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="183"/>
         <source>Wait time</source>
         <translation>等待時間</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="175"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="206"/>
         <source>Dim percentage</source>
         <translation>調暗比例</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="210"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="241"/>
         <source>Skip while keeping awake</source>
         <translation>保持喚醒時跳過</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="193"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="224"/>
         <source>Screen dim percentage</source>
         <translation>螢幕調暗比例</translation>
     </message>
@@ -5687,17 +5687,17 @@ Scroll to adjust</source>
         <translation>%1 分鐘</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="140"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="171"/>
         <source>Triggered</source>
         <translation>已觸發</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="163"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="194"/>
         <source>%1 wait time</source>
         <translation>%1等待時間</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="214"/>
+        <location filename="../Modules/Sidebars/QuickSettings/IdleContent.qml" line="245"/>
         <source>%1: respect keep-awake</source>
         <translation>%1遵守保持喚醒</translation>
     </message>
@@ -5804,7 +5804,7 @@ Scroll to adjust</source>
 <context>
     <name>KeystonePage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1968"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1939"/>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="415"/>
         <source>Horizontal clock style</source>
         <translation>橫向時鐘樣式</translation>
@@ -5815,7 +5815,7 @@ Scroll to adjust</source>
         <translation>返回拱心石設定</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2007"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1978"/>
         <source>Keystone style</source>
         <translation>拱心石樣式</translation>
     </message>
@@ -5835,7 +5835,7 @@ Scroll to adjust</source>
         <translation>螢幕邊緣</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2010"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1981"/>
         <source>Keyboard indicators</source>
         <translation>鍵盤狀態提示</translation>
     </message>
@@ -5852,17 +5852,17 @@ Scroll to adjust</source>
         <translation>數字鍵盤鎖定狀態變化</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2009"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1980"/>
         <source>Media controls</source>
         <translation>媒體控制</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2011"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1982"/>
         <source>Keyhole</source>
         <translation>鑰匙孔</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2012"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1983"/>
         <source>Horizontal clock</source>
         <translation>橫向時鐘</translation>
     </message>
@@ -5878,7 +5878,7 @@ Scroll to adjust</source>
         <translation>字型、數字位置和顏色</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2013"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1984"/>
         <source>Recording</source>
         <translation>錄製</translation>
     </message>
@@ -5956,7 +5956,7 @@ Scroll to adjust</source>
         <translation>可選擇目前資料夾或選取的子資料夾</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2008"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1979"/>
         <source>Mouse actions</source>
         <translation>滑鼠操作</translation>
     </message>
@@ -6045,7 +6045,7 @@ Scroll to adjust</source>
 <context>
     <name>LanguageAndRegionPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2014"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1985"/>
         <source>Language</source>
         <translation>語言</translation>
     </message>
@@ -6060,12 +6060,12 @@ Scroll to adjust</source>
         <translation>選擇語言</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2015"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1986"/>
         <source>Region &amp; weather location</source>
         <translation>地區與天氣位置</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2016"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1987"/>
         <source>Weather map</source>
         <translation>天氣地圖</translation>
     </message>
@@ -6090,7 +6090,7 @@ Scroll to adjust</source>
         <translation>OpenWeather 未設定，目前使用 RainViewer</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2017"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1988"/>
         <source>Units</source>
         <translation>單位</translation>
     </message>
@@ -6105,7 +6105,7 @@ Scroll to adjust</source>
         <translation>硬體溫度</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2018"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1989"/>
         <source>Time &amp; date</source>
         <translation>時間與日期</translation>
     </message>
@@ -6137,6 +6137,24 @@ Scroll to adjust</source>
         <location filename="../Modules/Launcher/LauncherWindow.qml" line="701"/>
         <source>Copy failed</source>
         <translation>複製失敗</translation>
+    </message>
+</context>
+<context>
+    <name>ListPagination</name>
+    <message>
+        <location filename="../Widgets/common/ListPagination.qml" line="24"/>
+        <source>Previous page</source>
+        <translation>上一頁</translation>
+    </message>
+    <message>
+        <location filename="../Widgets/common/ListPagination.qml" line="31"/>
+        <source>%1–%2 of %3</source>
+        <translation>第 %1–%2 項，共 %3 項</translation>
+    </message>
+    <message>
+        <location filename="../Widgets/common/ListPagination.qml" line="41"/>
+        <source>Next page</source>
+        <translation>下一頁</translation>
     </message>
 </context>
 <context>
@@ -6667,22 +6685,22 @@ Scroll to adjust; click to open microphone controls</source>
         <translation>開啟高階聲音設定</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="68"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="77"/>
         <source>Input</source>
         <translation>輸入</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="73"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="82"/>
         <source>Default input</source>
         <translation>預設輸入</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="88"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="102"/>
         <source>Input devices</source>
         <translation>輸入裝置</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="120"/>
+        <location filename="../Modules/Sidebars/QuickSettings/MicrophoneContent.qml" line="141"/>
         <source>Volume</source>
         <translation>音量</translation>
     </message>
@@ -6810,168 +6828,168 @@ Click to open network settings</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="214"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="234"/>
         <source>Not connected</source>
         <translation>未連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="242"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="264"/>
         <source>Open network portal</source>
         <translation>開啟網路門戶</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="274"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="291"/>
         <source>Wired connections</source>
         <translation>有線連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="286"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="310"/>
         <source>Network cable unplugged</source>
         <translation>網路線未連接</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="287"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="311"/>
         <source>%1 Mbps</source>
         <translation>%1 Mbps</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="307"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="340"/>
         <source>Connection details</source>
         <translation>連線詳細資訊</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="312"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="345"/>
         <source>Signal strength</source>
         <translation>訊號強度</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="313"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="346"/>
         <source>%1%</source>
         <translation>%1%</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="317"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="350"/>
         <source>Security</source>
         <translation>安全性</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="318"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="351"/>
         <source>Protected network</source>
         <translation>加密網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="324"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="357"/>
         <source>Network adapter</source>
         <translation>網路介面卡</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="337"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="375"/>
         <source>Saved networks</source>
         <translation>已儲存網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="353"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="406"/>
         <source>Available networks</source>
         <translation>可選網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="371"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="376"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="424"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="429"/>
         <source>Searching for available networks</source>
         <translation>正在查詢可選網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="424"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="469"/>
         <source>No available networks found</source>
         <translation>未發現可選網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="442"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="568"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="690"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="492"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="610"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="732"/>
         <source>Forget network</source>
         <translation>遺忘網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="455"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="762"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="505"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="804"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="463"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="513"/>
         <source>Forget</source>
         <translation>遺忘</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="488"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="538"/>
         <source>Refresh network list</source>
         <translation>重新整理網路列表</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="507"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="549"/>
         <source>Wi-Fi switch</source>
         <translation>Wi-Fi 開關</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="557"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="672"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="599"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="714"/>
         <source>Network action</source>
         <translation>網路操作</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="624"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="666"/>
         <source>Connected · </source>
         <translation>已連線 · </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="625"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="667"/>
         <source>Saved · </source>
         <translation>已儲存 · </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="320"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="628"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="353"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="670"/>
         <source>Open network</source>
         <translation>開放網路</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="291"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="328"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="683"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="315"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="361"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="725"/>
         <source>Disconnect</source>
         <translation>斷開連線</translation>
     </message>
     <message numerus="yes">
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="355"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="408"/>
         <source>%n network(s)</source>
         <translation>
             <numerusform>%n 個網路</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="731"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="773"/>
         <source>Network password</source>
         <translation>網路密碼</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="744"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="786"/>
         <source>Hide password</source>
         <translation>隱藏密碼</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="744"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="786"/>
         <source>Show password</source>
         <translation>顯示密碼</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="291"/>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="767"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="315"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="809"/>
         <source>Connect</source>
         <translation>連線</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="443"/>
+        <location filename="../Modules/Sidebars/QuickSettings/NetworkContent.qml" line="493"/>
         <source>This will delete the saved connection for “%1”.</source>
         <translation>這將刪除「%1」的已儲存連線。</translation>
     </message>
@@ -7049,7 +7067,7 @@ Click to open network settings</source>
         <translation>網路服務不可用</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2019"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1990"/>
         <source>Wired connections</source>
         <translation>有線連線</translation>
     </message>
@@ -7077,7 +7095,7 @@ Click to open network settings</source>
         <translation>沒有可編輯的連線</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2020"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1991"/>
         <location filename="../Modules/ControlCenter/NetworkPage.qml" line="303"/>
         <source>Wi-Fi</source>
         <translation>Wi-Fi</translation>
@@ -7134,7 +7152,7 @@ Click to open network settings</source>
         <translation>連線</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2021"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1992"/>
         <source>Other settings</source>
         <translation>其他設定</translation>
     </message>
@@ -7149,7 +7167,7 @@ Click to open network settings</source>
         <translation>新增網路</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2022"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1993"/>
         <source>Connection information</source>
         <translation>連線資訊</translation>
     </message>
@@ -9379,7 +9397,7 @@ Click to open network settings</source>
     </message>
     <message>
         <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="97"/>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="443"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="464"/>
         <source>%1 K</source>
         <translation>%1 K</translation>
     </message>
@@ -9475,12 +9493,12 @@ Right-click to change shape; scroll to reorder</source>
         <translation>電源選單</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="420"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="441"/>
         <source>Device settings</source>
         <translation>裝置設定</translation>
     </message>
     <message>
-        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="429"/>
+        <location filename="../Modules/QuickSettings/QuickSettingsSurface.qml" line="450"/>
         <source>Idle management</source>
         <translation>空閒管理</translation>
     </message>
@@ -10035,6 +10053,14 @@ Right click: Control Center</source>
     </message>
 </context>
 <context>
+    <name>SidebarFlickable</name>
+    <message>
+        <location filename="../Widgets/common/SidebarFlickable.qml" line="48"/>
+        <source>Refreshing</source>
+        <translation>正在重新整理</translation>
+    </message>
+</context>
+<context>
     <name>SidebarPillButton</name>
     <message>
         <location filename="../Modules/Bar/ActiveWindow/SidebarPillButton.qml" line="27"/>
@@ -10071,222 +10097,222 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightActions</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2037"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2008"/>
         <source>Lock screen</source>
         <translation>鎖定螢幕</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2038"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2009"/>
         <source>Search</source>
         <translation>搜尋</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2039"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2010"/>
         <source>Web search</source>
         <translation>網頁搜尋</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2040"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2011"/>
         <source>Find files</source>
         <translation>尋找檔案</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2041"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2012"/>
         <source>Applications</source>
         <translation>應用程式</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2042"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2013"/>
         <source>Clipboard history</source>
         <translation>剪貼簿歷史</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2043"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2014"/>
         <source>Wallpaper picker</source>
         <translation>桌布選擇</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2044"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2015"/>
         <source>Reset wallpaper</source>
         <translation>重設桌布</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2045"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2016"/>
         <source>Previous wallpaper</source>
         <translation>上一張桌布</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2046"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2017"/>
         <source>Next wallpaper</source>
         <translation>下一張桌布</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2047"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2018"/>
         <source>Random wallpaper</source>
         <translation>隨機桌布</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2048"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2019"/>
         <source>Close Keystone panels</source>
         <translation>關閉 Keystone 面板</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2049"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2020"/>
         <source>Keystone dashboard</source>
         <translation>Keystone 儀表板</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2050"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2021"/>
         <source>Keystone hub</source>
         <translation>Keystone 主面板</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2051"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2022"/>
         <source>Lyrics</source>
         <translation>歌詞</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2052"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2023"/>
         <source>Keystone tools</source>
         <translation>Keystone 工具</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2053"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2024"/>
         <source>Notifications</source>
         <translation>通知</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2054"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2025"/>
         <source>Quick settings</source>
         <translation>快速設定</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2057"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2028"/>
         <source>Shortcut map</source>
         <translation>快捷鍵配置圖</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2058"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2029"/>
         <source>Power menu</source>
         <translation>電源選單</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2065"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2036"/>
         <source>Lock the current session</source>
         <translation>鎖定目前工作階段</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2066"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2037"/>
         <source>Open Spotlight Search</source>
         <translation>開啟 Spotlight 搜尋</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2067"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2038"/>
         <source>Enter Spotlight Web search</source>
         <translation>進入 Spotlight 網頁搜尋</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2068"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2039"/>
         <source>Open Spotlight Files</source>
         <translation>開啟 Spotlight 檔案搜尋</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2069"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2040"/>
         <source>Open the application launcher</source>
         <translation>開啟應用程式啟動器</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2070"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2041"/>
         <source>Open clipboard history</source>
         <translation>開啟剪貼簿歷史</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2071"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2042"/>
         <source>Browse and apply wallpapers</source>
         <translation>瀏覽並套用桌布</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2072"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2043"/>
         <source>Clear the global wallpaper selection</source>
         <translation>清除全域桌布選擇</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2073"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2044"/>
         <source>Apply the previous wallpaper</source>
         <translation>套用上一張桌布</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2074"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2045"/>
         <source>Apply the next wallpaper</source>
         <translation>套用下一張桌布</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2075"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2046"/>
         <source>Apply a random wallpaper</source>
         <translation>套用隨機桌布</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2076"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2047"/>
         <source>Dismiss open Keystone panels</source>
         <translation>收起已開啟的 Keystone 面板</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2077"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2048"/>
         <source>Toggle the Keystone dashboard</source>
         <translation>展開或收起 Keystone 儀表板</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2078"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2049"/>
         <source>Toggle the Keystone hub</source>
         <translation>展開或收起 Keystone 主面板</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2079"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2050"/>
         <source>Toggle Keystone lyrics</source>
         <translation>展開或收起 Keystone 歌詞</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2080"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2051"/>
         <source>Toggle the Keystone tools panel</source>
         <translation>展開或收起 Keystone 工具面板</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2081"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2052"/>
         <source>Open the notifications sidebar</source>
         <translation>開啟通知側欄</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2082"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2053"/>
         <source>Open the Quick settings sidebar</source>
         <translation>開啟快速設定側欄</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2085"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2056"/>
         <source>Show keyboard shortcuts</source>
         <translation>顯示鍵盤快捷鍵</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2086"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2057"/>
         <source>Choose a session or power action</source>
         <translation>選擇工作階段或電源操作</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2055"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2026"/>
         <source>Weather sidebar</source>
         <translation>天氣側邊欄</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2056"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2027"/>
         <source>Sidebar drawer</source>
         <translation>側邊欄抽屜</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2083"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2054"/>
         <source>Toggle the weather sidebar</source>
         <translation>切換天氣側邊欄</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2084"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2055"/>
         <source>Toggle the sidebar drawer</source>
         <translation>切換側邊欄抽屜</translation>
     </message>
@@ -10708,7 +10734,7 @@ Right click: Control Center</source>
 <context>
     <name>SpotlightPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2023"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1994"/>
         <source>Applications</source>
         <translation>應用程式</translation>
     </message>
@@ -10760,7 +10786,7 @@ Right click: Control Center</source>
         <translation>名稱</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2024"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1995"/>
         <source>Web search</source>
         <translation>網頁搜尋</translation>
     </message>
@@ -10771,7 +10797,7 @@ Right click: Control Center</source>
         <translation>搜尋引擎</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2025"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1996"/>
         <source>Clipboard</source>
         <translation>剪貼簿</translation>
     </message>
@@ -12310,12 +12336,12 @@ detected</source>
         <translation>深色</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2026"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1997"/>
         <source>matugen color scheme</source>
         <translation>matugen配色方案</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2028"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1999"/>
         <source>Lock screen</source>
         <translation>鎖定螢幕</translation>
     </message>
@@ -12330,12 +12356,12 @@ detected</source>
         <translation>建立或接入 Clavis 游標配置。</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2027"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1998"/>
         <source>Super key appearance</source>
         <translation>Super 鍵樣式</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2029"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2000"/>
         <source>Cursor theme</source>
         <translation>游標主題</translation>
     </message>
@@ -12370,7 +12396,7 @@ detected</source>
         <translation>毫秒</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2030"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2001"/>
         <location filename="../Modules/ControlCenter/ThemePage.qml" line="657"/>
         <source>Icon theme</source>
         <translation>圖示主題</translation>
@@ -12381,7 +12407,7 @@ detected</source>
         <translation>選擇圖示主題</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2031"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2002"/>
         <source>Fonts</source>
         <translation>字型</translation>
     </message>
@@ -12871,7 +12897,7 @@ Scroll to adjust; click to open sound</source>
         <translation>翻轉</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2032"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2003"/>
         <location filename="../Modules/ControlCenter/WallpaperPage.qml" line="324"/>
         <source>Desktop wallpaper manager</source>
         <translation>桌面壁紙管理器</translation>
@@ -12892,7 +12918,7 @@ Scroll to adjust; click to open sound</source>
         <translation>正在檢測 awww…</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2033"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2004"/>
         <source>Current wallpaper</source>
         <translation>當前桌布</translation>
     </message>
@@ -12936,7 +12962,7 @@ Scroll to adjust; click to open sound</source>
         <translation>桌面壁紙輸出</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2034"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2005"/>
         <source>Transition</source>
         <translation>過渡效果</translation>
     </message>
@@ -13008,7 +13034,7 @@ Scroll to adjust; click to open sound</source>
         <translation>目前轉場不使用緩動曲線。</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2035"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2006"/>
         <source>Parallax effects</source>
         <translation>視差效果</translation>
     </message>
@@ -13059,7 +13085,7 @@ Scroll to adjust; click to open sound</source>
         <translation>桌面視差僅適用於 Quickshell。</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="2036"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2007"/>
         <source>Overview background</source>
         <translation>Overview 背景</translation>
     </message>
@@ -14027,27 +14053,27 @@ Scroll to adjust; click to open sound</source>
         <translation>重新整理天氣</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="571"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="578"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="618"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="625"/>
         <source>Feels like: </source>
         <translation>體感溫度: </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="628"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="635"/>
         <source>High </source>
         <translation>最高 </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="628"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="635"/>
         <source> · Low </source>
         <translation> · 最低 </translation>
     </message>
     <message>
-        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="702"/>
+        <location filename="../Modules/Sidebars/Dashboard/WeatherView.qml" line="721"/>
         <source>Gusts </source>
         <translation>陣風 </translation>
     </message>

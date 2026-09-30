@@ -44,25 +44,30 @@ WidgetPanel {
         Layout.fillHeight: true
         spacing: Metrics.spacingL
 
-        InlineStatusBanner {
-            Layout.fillWidth: true
-            visible: root.stateMessage.length > 0
-            tone: Volume.lastError.length > 0 ? "error" : "info"
-            message: root.stateMessage
-        }
-
-        StyledFlickable {
+        SidebarFlickable {
+            id: sidebarScroll
             Layout.fillWidth: true
             Layout.fillHeight: true
             contentWidth: width
-            contentHeight: content.implicitHeight
+            contentHeight: content.implicitHeight + sidebarScroll.contentTopInset
 
             ColumnLayout {
                 id: content
+                y: sidebarScroll.contentTopInset
                 width: parent.width
                 spacing: Metrics.spacingL
+                InlineStatusBanner {
+                    Layout.topMargin: sidebarScroll.gapFor(0, 1)
+                    Layout.fillWidth: true
+                    visible: root.stateMessage.length > 0
+                    tone: Volume.lastError.length > 0 ? "error" : "info"
+                    message: root.stateMessage
+                }
 
                 SettingsSection {
+                    pullExpansion: sidebarScroll.detailExpansion
+                    Layout.topMargin: sidebarScroll.gapFor(1, 1)
+
                     Layout.fillWidth: true
                     visible: Volume.ready && Volume.inputAvailable
                     title: qsTr("Input")
@@ -83,6 +88,9 @@ WidgetPanel {
                 }
 
                 SettingsSection {
+                    pullExpansion: sidebarScroll.detailExpansion
+                    Layout.topMargin: sidebarScroll.gapFor(2, 1)
+
                     Layout.fillWidth: true
                     visible: Volume.ready && Volume.inputDevices.length > 0
                     title: qsTr("Input devices")
@@ -95,8 +103,11 @@ WidgetPanel {
                         ColumnLayout {
                             id: device
                             required property var modelData
+                            required property int index
+                            Layout.topMargin: sidebarScroll.gapFor(index, 0.16)
+
                             Layout.fillWidth: true
-                            spacing: Metrics.spacingXS
+                            spacing: Metrics.spacingXS + sidebarScroll.detailExpansion
 
                             SettingsRow {
                                 Layout.fillWidth: true

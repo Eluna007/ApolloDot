@@ -14,6 +14,7 @@ import qs.Modules.PowerMenu
 import qs.Modules.RegionSelector
 import qs.Modules.Sidebars
 import qs.Modules.Wallpaper
+import qs.Common
 import qs.Services
 
 Item {
@@ -136,12 +137,16 @@ Item {
         locked: sessionLocker.active
         onTriggered: (action, screenName) => {
             if (action === "overview") {
+                WidgetState.closeAllPopups();
                 Niri.toggleOverview();
                 return;
             }
             const target = action.split(":");
-            if (target.length === 2)
+            if (target.length === 2) {
+                if (Niri.inOverview)
+                    Niri.toggleOverview();
                 sidebarHost.openOnScreen(target[0], target[1], screenName);
+            }
         }
     }
 

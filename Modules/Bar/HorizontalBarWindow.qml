@@ -71,5 +71,12 @@ PanelWindow {
         Region {
             item: content.trailingInputRegionItem
         }
+
+        HotCornerExclusionRegion {
+            surfaceWidth: root.width
+            surfaceHeight: root.height
+            topEdge: axis.isTop
+            bottomEdge: axis.isBottom
+        }
     }
 }

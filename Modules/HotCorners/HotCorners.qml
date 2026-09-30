@@ -30,16 +30,11 @@ Item {
                     required property string modelData
                     readonly property string action: PersonalizationConfig.hotCornerActions[modelData]
                                                      || "disabled"
-                    readonly property bool blocked: !Niri.connected || root.locked || (Niri.inOverview
-                                                                                       && action
-                                                                                       !== "overview")
-                                                    || WidgetState.sidebarHasPriority(screen ? screen.name :
-                                                                                               "")
-                    property bool latched: false
+                    readonly property bool blocked: !Niri.connected || root.locked
 
                     screen: output.modelData
-                    implicitWidth: 4
-                    implicitHeight: 4
+                    implicitWidth: Metrics.hotCornerSize
+                    implicitHeight: Metrics.hotCornerSize
                     color: "transparent"
                     visible: action !== "disabled"
                     exclusionMode: ExclusionMode.Ignore
@@ -54,46 +49,16 @@ Item {
                         right: corner.modelData.endsWith("-right")
                     }
 
-                    onBlockedChanged: {
-                        if (blocked && (hover.containsMouse || dwell.running))
-                            latched = true;
-                        dwell.stop();
-                        // Occlusion can clear containsMouse without pointer
-                        // motion. Only a later unblocked exit rearms this corner.
-                    }
-                    onActionChanged: {
-                        dwell.stop();
-                        latched = latched || hover.containsMouse;
-                    }
-
+                    // Other shell surfaces exclude these corners from their
+                    // input masks, so opening a sidebar cannot synthesize a
+                    // leave/enter cycle or consume the next physical entry.
                     MouseArea {
-                        id: hover
-
                         anchors.fill: parent
                         hoverEnabled: true
                         acceptedButtons: Qt.NoButton
                         onEntered: {
-                            if (corner.blocked)
-                                corner.latched = true;
-                            else if (!corner.latched)
-                                dwell.restart();
-                        }
-                        onExited: {
-                            dwell.stop();
                             if (!corner.blocked)
-                                corner.latched = false;
-                        }
-                    }
-
-                    Timer {
-                        id: dwell
-
-                        interval: 300
-                        onTriggered: {
-                            if (hover.containsMouse && !corner.blocked && !corner.latched) {
-                                corner.latched = true;
                                 root.triggered(corner.action, corner.screen.name);
-                            }
                         }
                     }
                 }

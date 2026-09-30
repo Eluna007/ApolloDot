@@ -45,18 +45,22 @@ WidgetPanel {
         onTriggered: IdleService.setDimFraction(panelRoot.pendingDimFraction)
     }
 
-        StyledFlickable {
+        SidebarFlickable {
+        id: sidebarScroll
         Layout.fillWidth: true
         Layout.fillHeight: true
         contentWidth: width
-        contentHeight: content.implicitHeight
+        contentHeight: content.implicitHeight + sidebarScroll.contentTopInset
 
         ColumnLayout {
         id: content
+        y: sidebarScroll.contentTopInset
         width: parent.width
         spacing: Metrics.spacingL
 
         InlineStatusBanner {
+        Layout.topMargin: sidebarScroll.gapFor(0, 1)
+
         Layout.fillWidth: true
         visible: IdleService.lastError.length > 0
         tone: "error"
@@ -64,6 +68,9 @@ WidgetPanel {
     }
 
         SettingsSection {
+        pullExpansion: sidebarScroll.detailExpansion
+        Layout.topMargin: sidebarScroll.gapFor(1, 1)
+
         Layout.fillWidth: true
 
         SettingsRow {
@@ -92,6 +99,8 @@ WidgetPanel {
     }
 
         StageEditor {
+        Layout.topMargin: sidebarScroll.gapFor(2, 1)
+
         Layout.fillWidth: true
         stageName: "dim"
         stageTitle: qsTr("Dim screen")
@@ -99,18 +108,24 @@ WidgetPanel {
         showDimFraction: true
     }
         StageEditor {
+        Layout.topMargin: sidebarScroll.gapFor(3, 1)
+
         Layout.fillWidth: true
         stageName: "lock"
         stageTitle: qsTr("Lock session")
         stageIcon: "lock"
     }
         StageEditor {
+        Layout.topMargin: sidebarScroll.gapFor(4, 1)
+
         Layout.fillWidth: true
         stageName: "displayOff"
         stageTitle: qsTr("Turn off displays")
         stageIcon: "display_settings"
     }
         StageEditor {
+        Layout.topMargin: sidebarScroll.gapFor(5, 1)
+
         Layout.fillWidth: true
         stageName: "suspend"
         stageTitle: qsTr("Suspend system")
@@ -121,6 +136,7 @@ WidgetPanel {
 
         component StageEditor: SettingsSection {
         id: stageEditor
+        pullExpansion: sidebarScroll.detailExpansion
 
         required property string stageName
         required property string stageTitle

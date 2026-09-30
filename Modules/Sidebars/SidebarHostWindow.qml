@@ -140,6 +140,11 @@ PanelWindow {
 
     mask: Region {
         item: root.anySidebarOpen ? interactionRegion : null
+
+        HotCornerExclusionRegion {
+            surfaceWidth: root.width
+            surfaceHeight: root.height
+        }
     }
 
     Component.onCompleted: {

@@ -21,7 +21,7 @@ WidgetPanel {
                                           && NetworkService.wifiEnabled
     readonly property var savedWifiProfiles: NetworkService.savedWifiProfiles
     readonly property var availableWifiNetworks: NetworkService.availableWifiNetworks
-    readonly property bool linearLoading: refreshLoading || NetworkService.busy
+    readonly property bool linearLoading: NetworkService.busy && !refreshLoading
     readonly property string stateMessage: {
         if (NetworkService.lastError.length > 0)
             return NetworkService.lastError;
@@ -204,81 +204,95 @@ WidgetPanel {
             }
         }
 
-        SettingsSection {
-            Layout.fillWidth: true
+        SidebarFlickable {
+            id: sidebarScroll
+            refreshEnabled: root.isActive && root.networkUsable && !NetworkService.busy
+            refreshing: root.refreshLoading
+            onRefreshRequested: root.requestRefresh()
 
-            SettingsRow {
-                Layout.fillWidth: true
-                iconName: NetworkService.activeNetwork && NetworkService.activeNetwork.type === "wired"
-                          ? "lan" : NetworkService.wifiConnected ? "wifi" : "wifi_off"
-                title: NetworkService.activeNetwork ? NetworkService.activeConnection : qsTr("Not connected")
-                supportingText: root.connectivityText()
-                highlighted: NetworkService.connected
-
-                trailing: RowLayout {
-                    spacing: Appearance.spacing.xSmall
-
-                    Text {
-                        visible: NetworkService.wifiConnected
-                        text: NetworkService.signalStrength + "%"
-                        color: Appearance.colors.colOnLayer1
-                        font.family: Fonts.numeric
-                        font.pixelSize: 12
-                    }
-
-                    MaterialSymbol {
-                        text: NetworkService.internetAvailable ? "language" : NetworkService.captivePortal
-                                                                 ? "captive_portal" : "public_off"
-                        iconSize: 19
-                        color: NetworkService.internetAvailable ? Appearance.colors.colPrimary :
-                                                                  Appearance.colors.colOnLayer1
-                    }
-                }
-            }
-
-            ActionButton {
-                Layout.fillWidth: true
-                visible: NetworkService.captivePortal
-                text: qsTr("Open network portal")
-                filled: true
-                onClicked: {
-                    WidgetState.closeAllPopups();
-                    NetworkService.openPublicWifiPortal();
-                }
-            }
-        }
-
-        InlineStatusBanner {
-            Layout.fillWidth: true
-            visible: root.stateMessage.length > 0
-            tone: NetworkService.lastError.length > 0 ? "error" : "info"
-            message: root.stateMessage
-        }
-
-        StyledFlickable {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            visible: NetworkService.available
             contentWidth: width
-            contentHeight: networkContent.implicitHeight
+            contentHeight: networkContent.implicitHeight + sidebarScroll.contentTopInset
 
             ColumnLayout {
                 id: networkContent
+                y: sidebarScroll.contentTopInset
 
                 width: parent.width
                 spacing: Metrics.spacingL
+                SettingsSection {
+                    pullExpansion: sidebarScroll.detailExpansion
+                    Layout.topMargin: sidebarScroll.gapFor(0, 1)
+                    Layout.fillWidth: true
+
+                    SettingsRow {
+                        Layout.fillWidth: true
+                        iconName: NetworkService.activeNetwork && NetworkService.activeNetwork.type
+                                  === "wired" ? "lan" : NetworkService.wifiConnected ? "wifi" : "wifi_off"
+                        title: NetworkService.activeNetwork ? NetworkService.activeConnection : qsTr(
+                                                                  "Not connected")
+                        supportingText: root.connectivityText()
+                        highlighted: NetworkService.connected
+
+                        trailing: RowLayout {
+                            spacing: Appearance.spacing.xSmall
+
+                            Text {
+                                visible: NetworkService.wifiConnected
+                                text: NetworkService.signalStrength + "%"
+                                color: Appearance.colors.colOnLayer1
+                                font.family: Fonts.numeric
+                                font.pixelSize: 12
+                            }
+
+                            MaterialSymbol {
+                                text: NetworkService.internetAvailable ? "language" :
+                                                                         NetworkService.captivePortal
+                                                                         ? "captive_portal" : "public_off"
+                                iconSize: 19
+                                color: NetworkService.internetAvailable ? Appearance.colors.colPrimary :
+                                                                          Appearance.colors.colOnLayer1
+                            }
+                        }
+                    }
+
+                    ActionButton {
+                        Layout.fillWidth: true
+                        visible: NetworkService.captivePortal
+                        text: qsTr("Open network portal")
+                        filled: true
+                        onClicked: {
+                            WidgetState.closeAllPopups();
+                            NetworkService.openPublicWifiPortal();
+                        }
+                    }
+                }
+                InlineStatusBanner {
+                    Layout.topMargin: sidebarScroll.gapFor(1, 1)
+                    Layout.fillWidth: true
+                    visible: root.stateMessage.length > 0
+                    tone: NetworkService.lastError.length > 0 ? "error" : "info"
+                    message: root.stateMessage
+                }
 
                 SettingsSection {
+                    pullExpansion: sidebarScroll.detailExpansion
+                    Layout.topMargin: sidebarScroll.gapFor(2, 1)
+
                     Layout.fillWidth: true
                     visible: NetworkService.wiredDevices.length > 0
                     title: qsTr("Wired connections")
                     iconName: "lan"
 
                     Repeater {
-                        model: NetworkService.wiredDevices
+                        model: wiredPages.items
 
                         SettingsRow {
                             required property var modelData
+                            required property int index
+                            Layout.topMargin: sidebarScroll.gapFor(index, 0.16)
+
                             Layout.fillWidth: true
                             title: modelData.name
                             iconName: "lan"
@@ -299,9 +313,16 @@ WidgetPanel {
                             }
                         }
                     }
+                    ListPagination {
+                        id: wiredPages
+                        model: NetworkService.wiredDevices
+                    }
                 }
 
                 SettingsSection {
+                    pullExpansion: sidebarScroll.detailExpansion
+                    Layout.topMargin: sidebarScroll.gapFor(3, 1)
+
                     Layout.fillWidth: true
                     visible: NetworkService.activeWifi !== null
                     title: qsTr("Connection details")
@@ -332,23 +353,35 @@ WidgetPanel {
                 }
 
                 SettingsSection {
+                    pullExpansion: sidebarScroll.detailExpansion
+                    Layout.topMargin: sidebarScroll.gapFor(4, 1)
+
                     Layout.fillWidth: true
                     visible: root.networkUsable && root.savedWifiProfiles.length > 0
                     title: qsTr("Saved networks")
 
                     Repeater {
-                        model: root.savedWifiProfiles
+                        model: savedPages.items
 
                         SavedWifiProfileItem {
                             required property var modelData
+                            required property int index
+                            Layout.topMargin: sidebarScroll.gapFor(index, 0.16)
 
                             Layout.fillWidth: true
                             profile: modelData
                         }
                     }
+                    ListPagination {
+                        id: savedPages
+                        model: root.savedWifiProfiles
+                    }
                 }
 
                 SettingsSection {
+                    pullExpansion: sidebarScroll.detailExpansion
+                    Layout.topMargin: sidebarScroll.gapFor(5, 1)
+
                     Layout.fillWidth: true
                     title: qsTr("Available networks")
                     visible: root.networkUsable
@@ -389,31 +422,19 @@ WidgetPanel {
                         }
                     }
 
-                    StyledListView {
-                        id: availableNetworkList
-
-                        readonly property real baseContentHeight: count * 64 + Math.max(0, count - 1)
-                                                                  * spacing
-
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: Math.max(baseContentHeight, contentHeight)
-                        visible: count > 0
-                        spacing: Appearance.spacing.xSmall
-                        clip: true
-                        boundsBehavior: Flickable.StopAtBounds
-                        interactive: false
-                        model: NetworkService.availableWifiNetworks
-
-                        delegate: WifiNetworkItem {
+                    Repeater {
+                        model: availablePages.items
+                        WifiNetworkItem {
                             required property var modelData
-
-                            width: ListView.view.width
+                            required property int index
+                            Layout.fillWidth: true
+                            Layout.topMargin: sidebarScroll.gapFor(index, 0.18)
                             wifiNetwork: modelData
                         }
-
-                        Behavior on Layout.preferredHeight {
-                            ElementMoveAnimation {}
-                        }
+                    }
+                    ListPagination {
+                        id: availablePages
+                        model: NetworkService.availableWifiNetworks
                     }
 
                     SettingsRow {
@@ -426,6 +447,8 @@ WidgetPanel {
                 }
 
                 Item {
+                    Layout.topMargin: sidebarScroll.gapFor(6, 1)
+
                     Layout.fillWidth: true
                     Layout.preferredHeight: Appearance.spacing.small
                 }
@@ -489,14 +512,6 @@ WidgetPanel {
             hoverStateLayerColor: Appearance.colors.colLayer2Hover
             pressedStateLayerColor: Appearance.colors.colLayer2Active
             onClicked: root.requestRefresh()
-
-            RotationAnimation on iconRotation {
-                from: 0
-                to: 360
-                duration: 900
-                loops: Animation.Infinite
-                running: root.refreshLoading
-            }
         }
 
         StyledSwitch {

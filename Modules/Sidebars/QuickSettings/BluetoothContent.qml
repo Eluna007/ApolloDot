@@ -17,7 +17,7 @@ WidgetPanel {
     property bool initialLoading: false
     property bool refreshLoading: false
     property var pendingForgetDevice: null
-    readonly property bool linearLoading: refreshLoading || BluetoothService.busy
+    readonly property bool linearLoading: BluetoothService.busy && !refreshLoading
     readonly property string stateMessage: {
         if (BluetoothService.lastError.length > 0)
             return BluetoothService.lastError;
@@ -171,26 +171,35 @@ WidgetPanel {
             }
         }
 
-        InlineStatusBanner {
-            Layout.fillWidth: true
-            visible: root.stateMessage.length > 0
-            tone: BluetoothService.lastError.length > 0 ? "error" : "info"
-            message: root.stateMessage
-        }
+        SidebarFlickable {
+            id: sidebarScroll
+            refreshEnabled: root.isActive && BluetoothService.available && BluetoothService.enabled &&
+                            !BluetoothService.busy
+            refreshing: root.refreshLoading
+            onRefreshRequested: root.restartDiscoveryLease()
 
-        StyledFlickable {
             Layout.fillWidth: true
             Layout.fillHeight: true
             contentWidth: width
-            contentHeight: bluetoothContent.implicitHeight
+            contentHeight: bluetoothContent.implicitHeight + sidebarScroll.contentTopInset
 
             ColumnLayout {
                 id: bluetoothContent
+                y: sidebarScroll.contentTopInset
 
                 width: parent.width
                 spacing: Metrics.spacingL
+                InlineStatusBanner {
+                    Layout.topMargin: sidebarScroll.gapFor(0, 1)
+                    Layout.fillWidth: true
+                    visible: root.stateMessage.length > 0
+                    tone: BluetoothService.lastError.length > 0 ? "error" : "info"
+                    message: root.stateMessage
+                }
 
                 DeviceSection {
+                    Layout.topMargin: sidebarScroll.gapFor(1, 1)
+
                     Layout.fillWidth: true
                     visible: BluetoothService.enabled && BluetoothService.connectedDevices.length > 0
                     sectionTitle: qsTr("Connected")
@@ -199,6 +208,8 @@ WidgetPanel {
                 }
 
                 DeviceSection {
+                    Layout.topMargin: sidebarScroll.gapFor(2, 1)
+
                     Layout.fillWidth: true
                     visible: BluetoothService.enabled && BluetoothService.pairedDevices.length > 0
                     sectionTitle: qsTr("Paired")
@@ -207,6 +218,9 @@ WidgetPanel {
                 }
 
                 SettingsSection {
+                    pullExpansion: sidebarScroll.detailExpansion
+                    Layout.topMargin: sidebarScroll.gapFor(3, 1)
+
                     Layout.fillWidth: true
                     visible: BluetoothService.enabled
                     title: qsTr("Available devices")
@@ -246,32 +260,20 @@ WidgetPanel {
                         }
                     }
 
-                    StyledListView {
-                        id: availableDeviceList
-
-                        readonly property real baseContentHeight: count * 56 + Math.max(0, count - 1)
-                                                                  * spacing
-
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: Math.max(baseContentHeight, contentHeight)
-                        visible: count > 0
-                        spacing: Appearance.spacing.xSmall
-                        clip: true
-                        boundsBehavior: Flickable.StopAtBounds
-                        interactive: false
-                        model: BluetoothService.availableDevices
-
-                        delegate: BluetoothDeviceRow {
+                    Repeater {
+                        model: availablePages.items
+                        BluetoothDeviceRow {
                             required property var modelData
-
-                            width: ListView.view.width
+                            required property int index
+                            Layout.fillWidth: true
+                            Layout.topMargin: sidebarScroll.gapFor(index, 0.18)
                             deviceData: modelData
                             deviceCategory: "available"
                         }
-
-                        Behavior on Layout.preferredHeight {
-                            ElementMoveAnimation {}
-                        }
+                    }
+                    ListPagination {
+                        id: availablePages
+                        model: BluetoothService.availableDevices
                     }
 
                     SettingsRow {
@@ -284,6 +286,9 @@ WidgetPanel {
                 }
 
                 SettingsSection {
+                    pullExpansion: sidebarScroll.detailExpansion
+                    Layout.topMargin: sidebarScroll.gapFor(4, 1)
+
                     Layout.fillWidth: true
                     title: qsTr("Adapters")
                     supportingText: BluetoothService.discovering ? qsTr("Searching for nearby devices") :
@@ -292,10 +297,12 @@ WidgetPanel {
                                                                                               qsTr("Turn on Bluetooth to start discovery")
 
                     Repeater {
-                        model: BluetoothService.adapters
+                        model: adapterPages.items
 
                         SettingsRow {
                             required property var modelData
+                            required property int index
+                            Layout.topMargin: sidebarScroll.gapFor(index, 0.16)
 
                             Layout.fillWidth: true
                             iconName: modelData.blocked ? "bluetooth_disabled" : "settings_bluetooth"
@@ -312,6 +319,10 @@ WidgetPanel {
                                 onToggled: BluetoothService.setAdapterEnabled(modelData, checked)
                             }
                         }
+                    }
+                    ListPagination {
+                        id: adapterPages
+                        model: BluetoothService.adapters
                     }
 
                     SettingsRow {
@@ -350,6 +361,8 @@ WidgetPanel {
                 }
 
                 Item {
+                    Layout.topMargin: sidebarScroll.gapFor(5, 1)
+
                     Layout.fillWidth: true
                     Layout.preferredHeight: Appearance.spacing.small
                 }
@@ -410,14 +423,6 @@ WidgetPanel {
             hoverStateLayerColor: Appearance.colors.colLayer2Hover
             pressedStateLayerColor: Appearance.colors.colLayer2Active
             onClicked: root.restartDiscoveryLease()
-
-            RotationAnimation on iconRotation {
-                from: 0
-                to: 360
-                duration: 800
-                loops: Animation.Infinite
-                running: root.refreshLoading
-            }
         }
 
         StyledSwitch {
@@ -431,6 +436,7 @@ WidgetPanel {
 
     component DeviceSection: SettingsSection {
         id: deviceSection
+        pullExpansion: sidebarScroll.detailExpansion
 
         property string sectionTitle: ""
         property var devicesModel: []
@@ -440,13 +446,16 @@ WidgetPanel {
         contentSpacing: Metrics.spacingL
 
         Repeater {
-            model: deviceSection.devicesModel
+            model: devicePages.items
 
             ColumnLayout {
                 id: deviceDetails
                 required property var modelData
+                required property int index
+                Layout.topMargin: sidebarScroll.gapFor(index, 0.16)
+
                 Layout.fillWidth: true
-                spacing: Metrics.spacingXS
+                spacing: Metrics.spacingXS + sidebarScroll.detailExpansion
 
                 BluetoothDeviceRow {
                     Layout.fillWidth: true
@@ -479,6 +488,10 @@ WidgetPanel {
                     }
                 }
             }
+        }
+        ListPagination {
+            id: devicePages
+            model: deviceSection.devicesModel
         }
     }
 

@@ -9,6 +9,7 @@ Rectangle {
     property string title: ""
     property string iconName: ""
     property string supportingText: ""
+    property real pullExpansion: 0
     property real contentSpacing: Metrics.spacingXS
     // General subpages use the same semantic grouping without the overview
     // page's card containment. Keep the default so first-level pages retain
@@ -27,7 +28,7 @@ Rectangle {
     ColumnLayout {
         id: sectionLayout
 
-        spacing: Metrics.spacingS
+        spacing: Metrics.spacingS + root.pullExpansion * 1.5
 
         anchors {
             fill: parent
@@ -51,9 +52,9 @@ Rectangle {
                     text: root.iconName
                     iconSize: Metrics.iconM
                     fill: root.hasIconContainer ? 1 : 0
-                    color: root.hasIconContainer ? Appearance.colors.colOnSecondaryContainer : Appearance.colors.colOnSurfaceVariant
+                    color: root.hasIconContainer ? Appearance.colors.colOnSecondaryContainer :
+                                                   Appearance.colors.colOnSurfaceVariant
                 }
-
             }
 
             Text {
@@ -66,7 +67,6 @@ Rectangle {
                 font.weight: Typography.titleMedium.weight
                 elide: Text.ElideRight
             }
-
         }
 
         Text {
@@ -83,17 +83,13 @@ Rectangle {
             id: body
 
             Layout.fillWidth: true
-            spacing: root.contentSpacing
+            spacing: root.contentSpacing + root.pullExpansion
         }
-
     }
 
     Behavior on implicitHeight {
-        enabled: !root.flat
+        enabled: !root.flat && root.pullExpansion === 0
 
-        ElementMoveAnimation {
-        }
-
+        ElementMoveAnimation {}
     }
-
 }

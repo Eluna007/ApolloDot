@@ -128,18 +128,6 @@
       "aliases": []
     },
     {
-      "id": "general.hot-corners",
-      "title": "Hot corners",
-      "context": "GeneralPage",
-      "icon": "open_in_full",
-      "source": "HotCornersPage.qml",
-      "path": [
-        "general",
-        "hot-corners"
-      ],
-      "aliases": ["screen corners", "corner actions"]
-    },
-    {
       "id": "general.effects",
       "title": "Transparency and blur",
       "context": "GeneralPage",
