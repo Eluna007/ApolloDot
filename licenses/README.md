@@ -88,8 +88,7 @@ in `modules/drawers/ContentWindow.qml`, the expressive spatial Bézier from
 near-edge corner filling in `plugin/src/Caelestia/Blobs/shaders/blob.frag` and
 `plugin/src/Caelestia/Blobs/blobshape.cpp`.
 
-Clavis adds uniform panel scaling, a shallow peak pose on the same trajectory,
-distance-dependent peeling and detachment, four-edge clipping, and transient
+Clavis adds uniform panel scaling, distance-dependent peeling and detachment, four-edge clipping, and transient
 blur/input regions. It uses the 500 ms expressive spatial Bézier for opening;
 it does not port Caelestia's native velocity-driven deformation solver.
 The shader source and compiled QSB are distributed with Clavis. No build or

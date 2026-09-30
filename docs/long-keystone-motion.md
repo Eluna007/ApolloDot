@@ -4,6 +4,9 @@
 实验位于 `codex/long-caelestia-motion` 分支。入口为
 `Modules/Keystone/Styles/Long/LongIslandFrame.qml`。
 
+Long 不支持 peak。设置中不提供该选项；旧配置保存的 peak 在 Long 下按“不打开”处理，
+其他样式保留原偏好。
+
 ## 运动模型
 
 参考 Caelestia 的 dashboard：面板从条栏内侧边缘滑出，接触处使用圆形平滑并集，
@@ -28,33 +31,27 @@ Clavis 的补充是等比缩放和最终脱离：正文、封面背景、Dashboa
 | `panelRadius` | 24 px | 面板原始圆角，随面板等比缩放 |
 | `seedLength` | 220 px | 完全隐藏时沿条栏方向的面板长度；小面板不放大 |
 | `filletRadius` | 20 px | 接触时内凹肩部的圆弧半径及粘连范围 |
-| `peekExposure` | 2 px | peak 时面板前缘越过条栏内侧的距离；平滑融合后的可见鼓包会更深一些 |
 | `openDuration` | 500 ms | 展开与回弹的完整时长 |
 | `openCurve` | `[0.38, 1.21, 0.22, 1, 1, 1]` | Caelestia expressive spatial 曲线，带小幅越位 |
-| `closeDuration` | 320 ms | 从展开状态收回、或收回到 peak 的时长 |
+| `closeDuration` | 320 ms | 从展开状态收回的时长 |
 | `closeCurve` | `[0.4, 0, 0.2, 1, 1, 1]` | 收缩缓入缓出，不倒放展开回弹 |
-| `peekDuration` | 220 ms | 隐藏与 peak 之间的时长 |
-| `peekCurve` | `[0.25, 0, 0.3, 1, 1, 1]` | 克制、无越位的 peak 曲线 |
-| `contentOpacity` 的区间 | `peekProgress` 后 0.3 | 正文随出场逐渐显现；peak 时保持隐藏 |
+| `contentOpacity` 的区间 | `contentRevealStart` 后 0.3 | 正文随出场逐渐显现 |
 | `heldWidth/heldHeight` 的 Behavior | 400 ms、OutCubic | 展开后切换不同内容尺寸时的过渡 |
 
 Bézier 使用 Qt 的 `[x1, y1, x2, y2, 1, 1]` 格式。横坐标影响加减速分配；
 纵坐标超过 1 可产生越位。要降低回弹，先把 `openCurve` 的 1.21 向 1 调小；
 要放慢整体展开，增加 `openDuration`。不要额外叠加固定像素的回弹脉冲。
 
-调 peak 深度修改 `peekExposure`，调初始宽度修改 `seedLength`；后者也会影响面板
-初始缩放。peak 是同一个面板的临界姿态，点击展开直接从当前姿态继续。
-设置中心的悬停延迟发生在动画之前，不包含在 `peekDuration` 中。
+调初始宽度修改 `seedLength`；它控制面板初始缩放。
 
 ## 几何和粘连
 
 `heldWidth/heldHeight` 保存内容布局尺寸，收起时不会被时钟尺寸替换。
 初始比例为 `min(1, seedLength / 沿条栏方向的布局尺寸)`，随后按 `progress` 变到 1。
 `childOffset` 把整块面板从隐藏位置移到 `thickness + gap`。
-`peekProgress` 根据尺寸解出前缘恰好露出 `peekExposure` 的位置，不是固定时间点。
+`contentRevealStart` 根据尺寸解出前缘恰好露出 2 px 的位置，用于保留原有正文淡入时机。
 
-`retarget()` 从当前进度起步。快速收起、重开不会先复位到隐藏位置；若收起到 peak
-时布局尺寸还在过渡，peak 目标会跟随修正，保持露出深度。
+`retarget()` 从当前进度起步。快速收起、重开不会先复位到隐藏位置。
 
 粘连由距离场决定：
 
@@ -63,8 +60,7 @@ Bézier 使用 Qt 的 `[x1, y1, x2, y2, 1, 1]` 格式。横坐标影响加减速
 - `facingRadius` 只在面板朝向条栏的角靠近条栏时减小，离开后恢复原圆角。
 - `burial = filletRadius + 1` 保证进度为零时，融合也不会留下鼓包。
 
-更宽的内凹肩部可增大 `filletRadius`；增大前应一起观察 peak 的深度，以及不同宽度
-面板的分离。`gap` 太小可能在最终姿态残留粘连，因此不要只改 shader 中的半径。
+更宽的内凹肩部可增大 `filletRadius`；增大前应一起观察 不同宽度面板的分离。`gap` 太小可能在最终姿态残留粘连，因此不要只改 shader 中的半径。
 
 ## Shader、裁切、模糊与输入区域
 
@@ -73,7 +69,7 @@ Shader 源码为 `assets/shaders/keystone/frag/long_split.frag`。
 面板与条栏使用同一背景透明度，阴影留白四周 24 px，半径 14，内向偏移 4 px。
 `edgeSoftness: 0.8` 是抗锯齿宽度，不是粘连强度。
 
-`KeystoneSurface.qml` 中 `longContentViewport` 裁切正文，`layoutOffset` 补偿等比缩放
+`LongIslandFrame.qml` 中 `contentViewport` 同时裁切正文和面板区域，`layoutOffset` 补偿等比缩放
 的中心原点。不要另给正文增加偏移，也不要让封面背景单独缩放。
 `cutoutBlur` 将 Dashboard 开孔映射到同一缩放后的坐标。
 
@@ -91,6 +87,6 @@ Shader 源码为 `assets/shaders/keystone/frag/long_split.frag`。
 ```
 
 修改 QML 后运行 `scripts/dev/format-qml.sh`，再运行 `scripts/dev/check.sh`。
-视觉检查覆盖 peak 移入/移出、peak 展开、中途收回重开、大小面板切换、Dashboard
+视觉检查覆盖展开与收起、中途收回重开、大小面板切换、Dashboard
 开孔及四个边缘方向。离屏渲染可检查轮廓和变换；真实 compositor blur 和鼠标体验
 仍需在桌面会话确认。

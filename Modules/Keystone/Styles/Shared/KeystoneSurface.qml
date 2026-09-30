@@ -594,7 +594,6 @@ Variants {
                     }
                     screen: keystoneWindow.screen
                     edge: keystoneWindow.edge
-                    peeking: root.isCollapsedHovered
                     expanded: !root.isCollapsedMode
                     targetWidth: root.targetW
                     targetHeight: root.targetH
@@ -607,18 +606,6 @@ Variants {
                                                                        true)
                     onMediaRequested: root.activateMouseAction("media", true)
                 }
-            }
-
-            Item {
-                id: longContentViewport
-                readonly property real thickness: longFrame.item ? longFrame.item.thickness : 0
-                anchors.alignWhenCentered: false
-                x: keystoneWindow.leftEdge ? thickness : 0
-                y: keystoneWindow.topEdge ? thickness : 0
-                width: Math.max(0, maskContainer.width - (keystoneWindow.horizontalEdge ? 0 : thickness))
-                height: Math.max(0, maskContainer.height - (keystoneWindow.horizontalEdge ? thickness : 0))
-                clip: true
-                z: 100
             }
 
             // The long main bar stays visible while its child surface is collapsed.
@@ -634,20 +621,17 @@ Variants {
 
             KeystoneHoverController {
                 id: hoverIntent
-                triggerHovered: styleSurface.elongated ? !!longFrame.item && (
-                                                             PersonalizationConfig.keystoneHoverAction
-                                                             === "peak" ? longFrame.item.mainHovered :
-                                                                          longFrame.item.clockHovered) :
+                triggerHovered: styleSurface.elongated ? !!longFrame.item && longFrame.item.clockHovered :
                                                          surfaceHover.hovered
                 surfaceHovered: surfaceHover.hovered || (styleSurface.elongated && !!longFrame.item && (
                                                              longFrame.item.mainHovered
                                                              || longFrame.item.surfaceHovered))
-                canOpen: root.isCollapsedMode && PersonalizationConfig.keystoneHoverAction !== "none"
+                canOpen: root.isCollapsedMode && PersonalizationConfig.effectiveKeystoneHoverAction !== "none"
                 previewOpen: root.hoverOpened
                 openDelay: PersonalizationConfig.keystoneHoverOpenDelay
                 closeDelay: PersonalizationConfig.keystoneHoverCloseDelay
                 onOpenRequested: {
-                    const action = PersonalizationConfig.keystoneHoverAction;
+                    const action = PersonalizationConfig.effectiveKeystoneHoverAction;
                     root.activateMouseAction(action, false, true);
                     root.hoverOpened = true;
                 }
@@ -788,8 +772,8 @@ Variants {
                                            !isLyricsMode
                 property bool isCollapsedMode: !contentPresentationActive && !expanded && !isNotifMode &&
                                                !isVolumeMode && !isLyricsMode && !isHubMode && !isToolsMode
-                property bool isCollapsedHovered: PersonalizationConfig.keystoneHoverAction === "peak"
-                                                  && isCollapsedMode && root.hoverOpened
+                property bool isCollapsedHovered: PersonalizationConfig.effectiveKeystoneHoverAction
+                                                  === "peak" && isCollapsedMode && root.hoverOpened
                 readonly property bool escapeDismissActive: !contentPresentationActive && (expanded
                                                                                            || isLyricsMode
                                                                                            || isHubMode
@@ -961,7 +945,8 @@ Variants {
                 }
                 clip: true
                 z: 100
-                parent: styleSurface.elongated ? longContentViewport : maskContainer
+                parent: styleSurface.elongated && longFrame.item ? longFrame.item.contentViewport :
+                                                                   maskContainer
                 width: styleSurface.elongated && longFrame.item ? longFrame.item.heldWidth : targetW
                 height: styleSurface.elongated && longFrame.item ? longFrame.item.heldHeight : targetH
                 scale: styleSurface.elongated && longFrame.item ? longFrame.item.childScale : 1
@@ -1956,7 +1941,7 @@ Variants {
                 additionalRegions: styleSurface.elongated && longFrame.item ? [longFrame.item.surfaceRegion] :
                                                                               []
                 additionalBackgroundItems: styleSurface.elongated && longFrame.item
-                                           ? longFrame.item.blurItems : root.recordingBlurBackgroundItems
+                                           ? [longFrame.item.mainItem] : root.recordingBlurBackgroundItems
                 subtractedBackgroundItems: !root.showDashboardKeyhole ? [] : styleSurface.elongated
                                                                         && longFrame.item
                                                                         ? [longFrame.item.cutoutBlurItem] :

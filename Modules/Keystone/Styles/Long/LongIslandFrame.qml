@@ -16,7 +16,6 @@ Item {
     required property real targetWidth
     required property real targetHeight
     required property Item cutoutItem
-    property bool peeking: false
     property bool cutoutVisible: false
     property color surfaceColor: Appearance.colors.colLayer0
 
@@ -25,15 +24,10 @@ Item {
     readonly property real panelRadius: 24
     readonly property real seedLength: 220
     readonly property real filletRadius: 20
-    // The panel's leading edge is only just beyond the waterline at peak.
-    // The circular union adds a soft shoulder around this small exposure.
-    readonly property real peekExposure: 2
     readonly property int openDuration: 500
     readonly property int closeDuration: 320
-    readonly property int peekDuration: 220
     readonly property var openCurve: [0.38, 1.21, 0.22, 1, 1, 1]
     readonly property var closeCurve: [0.4, 0, 0.2, 1, 1, 1]
-    readonly property var peekCurve: [0.25, 0, 0.3, 1, 1, 1]
 
     readonly property bool horizontal: edge === "top" || edge === "bottom"
     readonly property vector2d inwardNormal: edge === "top" ? Qt.vector2d(0, 1) : edge === "bottom" ? Qt.vector2d(0,
@@ -83,13 +77,15 @@ Item {
     // Beyond this gap the circular fillet cannot bridge the surfaces. Fading
     // its remaining lobes avoids a residual bump after the panel detaches.
     readonly property real blendRadius: filletRadius * (1 - smoothStep(separation / gap))
-    readonly property real peekProgress: {
+    // Preserve the established fade-in: start once the leading edge has
+    // cleared the bar by 2 px, independent of the panel layout size.
+    readonly property real contentRevealStart: {
         const depth = horizontal ? heldHeight : heldWidth;
         const a = depth * (1 - initialScale);
         const b = depth * initialScale + gap + burial;
-        return 2 * (burial + peekExposure) / (b + Math.sqrt(b * b + 4 * a * (burial + peekExposure)));
+        return 2 * (burial + 2) / (b + Math.sqrt(b * b + 4 * a * (burial + 2)));
     }
-    readonly property real contentOpacity: smoothStep((progress - peekProgress) / 0.3)
+    readonly property real contentOpacity: smoothStep((progress - contentRevealStart) / 0.3)
     readonly property bool contentInteractive: expanded && contentOpacity > 0.1
     readonly property bool surfaceHovered: surfaceHover.hovered
     readonly property alias mainItem: mainBar
@@ -97,7 +93,7 @@ Item {
     readonly property bool mainHovered: mainBar.hovered
     readonly property alias childBlurItem: visibleChildBounds
     readonly property alias cutoutBlurItem: cutoutBlur
-    readonly property var blurItems: [mainBar]
+    readonly property alias contentViewport: viewport
     readonly property alias surfaceRegion: surfaceRegion
 
     signal clockClicked(int button)
@@ -120,31 +116,21 @@ Item {
             return;
         updateSize();
         motion.stop();
-        // Each leg starts at the current visible pose, including interrupted
-        // opening/closing and the transition from peak to a real panel.
-        const destination = expanded ? 1 : peeking ? peekProgress : 0;
-        const peakOnly = !expanded && progress <= peekProgress + 0.001;
-        motion.duration = expanded ? openDuration : peakOnly ? peekDuration : closeDuration;
-        motion.easing.bezierCurve = expanded ? openCurve : peakOnly ? peekCurve : closeCurve;
-        motion.to = destination;
+        // Interrupted opening/closing continues from the current pose.
+        motion.duration = expanded ? openDuration : closeDuration;
+        motion.easing.bezierCurve = expanded ? openCurve : closeCurve;
+        motion.to = expanded ? 1 : 0;
         motion.start();
     }
 
     onExpandedChanged: Qt.callLater(retarget)
-    onPeekingChanged: Qt.callLater(retarget)
-    onPeekProgressChanged: {
-        // A panel size transition can still be settling when dismissed into
-        // peak. Keep the small exposure fixed as the held layout settles.
-        if (componentReady && peeking && !expanded)
-            Qt.callLater(retarget);
-    }
     onTargetWidthChanged: Qt.callLater(updateSize)
     onTargetHeightChanged: Qt.callLater(updateSize)
     onAvailableChildWidthChanged: Qt.callLater(updateSize)
     onAvailableChildHeightChanged: Qt.callLater(updateSize)
     Component.onCompleted: {
         updateSize();
-        progress = expanded ? 1 : peeking ? peekProgress : 0;
+        progress = expanded ? 1 : 0;
         componentReady = true;
         const regions = [panelRegion];
         for (let i = 0; i < joinStrips.count; ++i)
@@ -197,6 +183,9 @@ Item {
     // Foreground and all transient regions are clipped to the inner bar edge.
     Item {
         id: viewport
+        anchors.alignWhenCentered: false
+        clip: true
+        z: 1
         x: root.edge === "left" ? root.thickness : 0
         y: root.edge === "top" ? root.thickness : 0
         width: root.width - (root.horizontal ? 0 : root.thickness)
@@ -248,7 +237,7 @@ Item {
 
     // Rasterize only the small junction, not the whole panel. Each row uses
     // the same circular union as the shader; detached rows have zero width.
-    // This keeps peak, shoulders, blur and pointer input on the visible shape.
+    // This keeps shoulders, blur and pointer input on the visible shape.
     function barDistance(along, inward) {
         const ax = Math.abs(along) - length / 2 + thickness / 2;
         const ay = Math.abs(inward + thickness / 2);
