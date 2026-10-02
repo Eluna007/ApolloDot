@@ -52,7 +52,7 @@ Item {
 
     StatusLane {
         id: leadingLane
-        items: PersonalizationConfig.keystoneLongLeading
+        items: PersonalizationConfig.keystoneFullLeading
         x: root.vertical ? 0 : 16
         y: root.vertical ? 16 : 0
         width: root.vertical ? root.width : Math.max(0, clock.x - 28)
@@ -61,7 +61,7 @@ Item {
 
     StatusLane {
         id: trailingLane
-        items: PersonalizationConfig.keystoneLongTrailing
+        items: PersonalizationConfig.keystoneFullTrailing
         x: root.vertical ? 0 : clock.x + clock.width + 12
         y: root.vertical ? clock.y + clock.height + 12 : 0
         width: root.vertical ? root.width : Math.max(0, root.width - x - 16)
@@ -132,7 +132,7 @@ Item {
                     Component {
                         id: systemMonitor
                         SysMonitor {
-                            showValues: PersonalizationConfig.keystoneLongShowMonitorValues
+                            showValues: PersonalizationConfig.keystoneFullShowMonitorValues
                             vertical: root.vertical
                             ownerId: "keystone-long:" + String(root.screen ? root.screen.name : "default") + (
                                          lane.trailing ? ":trailing" : ":leading")
@@ -142,7 +142,7 @@ Item {
 
                     Component {
                         id: status
-                        LongStatusItem {
+                        FullStatusItem {
                             maximumNameWidth: root.vertical ? 96 : 160
                             itemId: statusLoader.modelData
                             edge: root.edge

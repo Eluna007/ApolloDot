@@ -18,14 +18,14 @@ import qs.Modules.Keystone.LyricsContent
 import qs.Modules.Keystone.Hub
 import qs.Modules.Keystone.Tools
 import qs.Modules.Keystone.Styles.Recording
-import qs.Modules.Keystone.Styles.Long
+import qs.Modules.Keystone.FullDisplay
 
 Variants {
     id: styleSurface
 
     property bool detached: false
-    property bool elongated: false
-    readonly property bool splitRecording: detached && !elongated
+    readonly property bool fullDisplay: PersonalizationConfig.keystoneFullDisplay
+    readonly property bool splitRecording: detached && !fullDisplay
     property int edgeMargin: 0
     property int maxPillRadius: 24
     property bool showAttachedEdgeCurves: !detached
@@ -171,9 +171,9 @@ Variants {
         PanelWindow {
             visible: !PersonalizationConfig.keystoneOverlay
             screen: keystoneWindow.screen
-            readonly property real reservedThickness: styleSurface.edgeMargin + (styleSurface.elongated
-                                                                                 && longFrame.item
-                                                                                 ? longFrame.item.thickness :
+            readonly property real reservedThickness: styleSurface.edgeMargin + (styleSurface.fullDisplay
+                                                                                 && fullFrame.item
+                                                                                 ? fullFrame.item.thickness :
                                                                                    keystoneWindow.horizontalEdge
                                                                                    ? horizontalLayout.collapsedHeight :
                                                                                      verticalLayout.collapsedWidth)
@@ -254,8 +254,8 @@ Variants {
 
             Item {
                 id: backgroundVisual
-                visible: !styleSurface.elongated && !(styleSurface.splitRecording
-                                                      && root.recordingPresentationActive)
+                visible: !styleSurface.fullDisplay && !(styleSurface.splitRecording
+                                                        && root.recordingPresentationActive)
                 // Give the compositing layer real shadow margins. Enlarging only
                 // layer.sourceRect would rescale the island into its original bounds.
                 x: -32
@@ -521,12 +521,12 @@ Variants {
             anchors.bottomMargin: keystoneWindow.bottomEdge ? styleSurface.edgeMargin : 0
             anchors.leftMargin: keystoneWindow.leftEdge ? styleSurface.edgeMargin : 0
             anchors.rightMargin: keystoneWindow.rightEdge ? styleSurface.edgeMargin : 0
-            width: styleSurface.elongated && longFrame.item ? longFrame.item.implicitWidth : root.width + (
-                                                                  keystoneWindow.horizontalEdge
-                                                                  ? keystoneWindow.edgeCurveAlong * 2 : 0)
-            height: styleSurface.elongated && longFrame.item ? longFrame.item.implicitHeight : root.height + (
-                                                                   !keystoneWindow.horizontalEdge
-                                                                   ? keystoneWindow.edgeCurveAlong * 2 : 0)
+            width: styleSurface.fullDisplay && fullFrame.item ? fullFrame.item.implicitWidth : root.width + (
+                                                                    keystoneWindow.horizontalEdge
+                                                                    ? keystoneWindow.edgeCurveAlong * 2 : 0)
+            height: styleSurface.fullDisplay && fullFrame.item ? fullFrame.item.implicitHeight : root.height
+                                                                 + (!keystoneWindow.horizontalEdge
+                                                                    ? keystoneWindow.edgeCurveAlong * 2 : 0)
             state: keystoneWindow.edge
             states: [
                 State {
@@ -584,10 +584,11 @@ Variants {
             ]
 
             Loader {
-                id: longFrame
+                id: fullFrame
                 anchors.fill: parent
-                active: styleSurface.elongated
-                sourceComponent: LongIslandFrame {
+                active: styleSurface.fullDisplay
+                sourceComponent: FullIslandFrame {
+                    attached: !styleSurface.detached
                     screen: keystoneWindow.screen
                     edge: keystoneWindow.edge
                     expanded: !root.isCollapsedMode
@@ -605,23 +606,23 @@ Variants {
                 }
             }
 
-            // The long main bar stays visible while its child surface is collapsed.
+            // The full main bar stays visible while its child surface is collapsed.
             DropArea {
-                id: longCloudUploadDropArea
-                parent: styleSurface.elongated && longFrame.item ? longFrame.item.mainItem : maskContainer
+                id: fullCloudUploadDropArea
+                parent: styleSurface.fullDisplay && fullFrame.item ? fullFrame.item.mainItem : maskContainer
                 anchors.fill: parent
                 z: 20000
-                enabled: styleSurface.elongated && !!longFrame.item && root.cloudUploadDropEnabled
+                enabled: styleSurface.fullDisplay && !!fullFrame.item && root.cloudUploadDropEnabled
                 onEntered: drag => root.enterCloudUploadDrag(drag)
                 onDropped: drop => root.acceptCloudUploadDrop(drop)
             }
 
             KeystoneHoverController {
                 id: hoverIntent
-                triggerHovered: styleSurface.elongated ? !!longFrame.item && longFrame.item.clockHovered :
-                                                         surfaceHover.hovered
-                surfaceHovered: surfaceHover.hovered || (styleSurface.elongated && !!longFrame.item
-                                                         && longFrame.item.mainHovered)
+                triggerHovered: styleSurface.fullDisplay ? !!fullFrame.item && fullFrame.item.clockHovered :
+                                                           surfaceHover.hovered
+                surfaceHovered: surfaceHover.hovered || (styleSurface.fullDisplay && !!fullFrame.item
+                                                         && fullFrame.item.mainHovered)
                 canOpen: root.isCollapsedMode && PersonalizationConfig.effectiveKeystoneHoverAction !== "none"
                 previewOpen: root.hoverOpened
                 openDelay: PersonalizationConfig.keystoneHoverOpenDelay
@@ -708,7 +709,7 @@ Variants {
 
                 HoverHandler {
                     id: surfaceHover
-                    enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0.02)
+                    enabled: !styleSurface.fullDisplay || (!!fullFrame.item && fullFrame.item.progress > 0.02)
                 }
 
                 TapHandler {
@@ -724,7 +725,7 @@ Variants {
                 property bool showVolume: false
                 property bool showHub: false
                 property bool showTools: false
-                readonly property bool recordingLaunchPending: styleSurface.elongated && showTools && (
+                readonly property bool recordingLaunchPending: styleSurface.fullDisplay && showTools && (
                                                                    RecordingService.isSelecting
                                                                    || RecordingService.isStarting
                                                                    || AudioRecordingService.isStarting)
@@ -940,22 +941,22 @@ Variants {
                 }
                 clip: true
                 z: 100
-                width: styleSurface.elongated && longFrame.item ? longFrame.item.childWidth : targetW
-                height: styleSurface.elongated && longFrame.item ? longFrame.item.childHeight : targetH
-                opacity: styleSurface.elongated ? (longFrame.item ? longFrame.item.contentOpacity : 0) : 1
-                visible: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0)
-                enabled: !styleSurface.elongated || (!!longFrame.item && longFrame.item.progress > 0.02)
-                anchors.topMargin: styleSurface.elongated && keystoneWindow.topEdge && longFrame.item
-                                   ? longFrame.item.childOffset : 0
-                anchors.bottomMargin: styleSurface.elongated && keystoneWindow.bottomEdge && longFrame.item
-                                      ? longFrame.item.childOffset : 0
-                anchors.leftMargin: styleSurface.elongated && keystoneWindow.leftEdge && longFrame.item
-                                    ? longFrame.item.childOffset : 0
-                anchors.rightMargin: styleSurface.elongated && keystoneWindow.rightEdge && longFrame.item
-                                     ? longFrame.item.childOffset : 0
+                width: styleSurface.fullDisplay && fullFrame.item ? fullFrame.item.childWidth : targetW
+                height: styleSurface.fullDisplay && fullFrame.item ? fullFrame.item.childHeight : targetH
+                opacity: styleSurface.fullDisplay ? (fullFrame.item ? fullFrame.item.contentOpacity : 0) : 1
+                visible: !styleSurface.fullDisplay || (!!fullFrame.item && fullFrame.item.progress > 0)
+                enabled: !styleSurface.fullDisplay || (!!fullFrame.item && fullFrame.item.progress > 0.02)
+                anchors.topMargin: styleSurface.fullDisplay && keystoneWindow.topEdge && fullFrame.item
+                                   ? fullFrame.item.childOffset : 0
+                anchors.bottomMargin: styleSurface.fullDisplay && keystoneWindow.bottomEdge && fullFrame.item
+                                      ? fullFrame.item.childOffset : 0
+                anchors.leftMargin: styleSurface.fullDisplay && keystoneWindow.leftEdge && fullFrame.item
+                                    ? fullFrame.item.childOffset : 0
+                anchors.rightMargin: styleSurface.fullDisplay && keystoneWindow.rightEdge && fullFrame.item
+                                     ? fullFrame.item.childOffset : 0
                 onAudioSessionActiveChanged: {
                     if (root.audioSessionActive) {
-                        if (styleSurface.elongated) {
+                        if (styleSurface.fullDisplay) {
                             root.hoverOpened = false;
                             hoverIntent.cancel();
                         }
@@ -977,7 +978,7 @@ Variants {
                     if (!root.isRecording)
                         return;
 
-                    if (styleSurface.elongated) {
+                    if (styleSurface.fullDisplay) {
                         // Recording already owns the presentation here, so
                         // clearing Tools cannot collapse the existing island.
                         root.showTools = false;
@@ -1430,14 +1431,14 @@ Variants {
                         sourceSize: Qt.size(Math.ceil(Math.min(mediaWidget.panelWidth,
                                                                mediaWidget.panelHeight * 1.5) * 2), Math.ceil(
                                                 mediaWidget.panelHeight * 2))
-                        topLeftRadius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius :
-                                                                                  rootSurface.topLeftRadius
-                        topRightRadius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius :
-                                                                                   rootSurface.topRightRadius
-                        bottomLeftRadius: styleSurface.elongated && longFrame.item
-                                          ? longFrame.item.childRadius : rootSurface.bottomLeftRadius
-                        bottomRightRadius: styleSurface.elongated && longFrame.item
-                                           ? longFrame.item.childRadius : rootSurface.bottomRightRadius
+                        topLeftRadius: styleSurface.fullDisplay && fullFrame.item
+                                       ? fullFrame.item.childRadius : rootSurface.topLeftRadius
+                        topRightRadius: styleSurface.fullDisplay && fullFrame.item
+                                        ? fullFrame.item.childRadius : rootSurface.topRightRadius
+                        bottomLeftRadius: styleSurface.fullDisplay && fullFrame.item
+                                          ? fullFrame.item.childRadius : rootSurface.bottomLeftRadius
+                        bottomRightRadius: styleSurface.fullDisplay && fullFrame.item
+                                           ? fullFrame.item.childRadius : rootSurface.bottomRightRadius
                     }
                 }
 
@@ -1541,16 +1542,16 @@ Variants {
                     transform: Translate {
                         id: contentParallax
 
-                        x: styleSurface.elongated && longFrame.item ? (keystoneWindow.leftEdge ? -1 :
-                                                                                                 keystoneWindow.rightEdge
-                                                                                                 ? 1 : 0)
-                                                                      * longFrame.item.contentOffset : 0
-                        y: styleSurface.elongated && longFrame.item ? (keystoneWindow.topEdge ? -1 :
-                                                                                                keystoneWindow.bottomEdge
-                                                                                                ? 1 : 0)
-                                                                      * longFrame.item.contentOffset : 0
+                        x: styleSurface.fullDisplay && fullFrame.item ? (keystoneWindow.leftEdge ? -1 :
+                                                                                                   keystoneWindow.rightEdge
+                                                                                                   ? 1 : 0)
+                                                                        * fullFrame.item.contentOffset : 0
+                        y: styleSurface.fullDisplay && fullFrame.item ? (keystoneWindow.topEdge ? -1 :
+                                                                                                  keystoneWindow.bottomEdge
+                                                                                                  ? 1 : 0)
+                                                                        * fullFrame.item.contentOffset : 0
                     }
-                    enabled: !styleSurface.elongated || root.opacity > 0.1
+                    enabled: !styleSurface.fullDisplay || root.opacity > 0.1
                     anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: 1600
@@ -1639,8 +1640,8 @@ Variants {
 
                     MediaContent {
                         id: mediaWidget
-                        surfaceTopRightRadius: styleSurface.elongated && longFrame.item
-                                               ? longFrame.item.childRadius : rootSurface.topRightRadius
+                        surfaceTopRightRadius: styleSurface.fullDisplay && fullFrame.item
+                                               ? fullFrame.item.childRadius : rootSurface.topRightRadius
 
                         anchors.top: parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -1668,7 +1669,7 @@ Variants {
                         width: implicitWidth
                         height: implicitHeight
                         screen: keystoneWindow.screen
-                        dragActive: cloudUploadDropArea.containsDrag || longCloudUploadDropArea.containsDrag
+                        dragActive: cloudUploadDropArea.containsDrag || fullCloudUploadDropArea.containsDrag
                         onCurrentIndexChanged: {
                             if (root.hubTabIndex !== currentIndex)
                                 root.hubTabIndex = currentIndex;
@@ -1698,7 +1699,7 @@ Variants {
                         id: toolsWidget
 
                         keyboardActive: root.isToolsMode && !root.recordingLaunchPending
-                        retainForRecording: styleSurface.elongated
+                        retainForRecording: styleSurface.fullDisplay
                         anchors.top: parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: implicitWidth
@@ -1763,9 +1764,9 @@ Variants {
                 }
 
                 Behavior on width {
-                    enabled: !styleSurface.elongated && !(styleSurface.splitRecording
-                                                          && root.recordingPresentationActive
-                                                          && keystoneWindow.horizontalEdge)
+                    enabled: !styleSurface.fullDisplay && !(styleSurface.splitRecording
+                                                            && root.recordingPresentationActive
+                                                            && keystoneWindow.horizontalEdge)
 
                     NumberAnimation {
                         duration: root.wDuration
@@ -1775,9 +1776,9 @@ Variants {
                 }
 
                 Behavior on height {
-                    enabled: !styleSurface.elongated && !(styleSurface.splitRecording
-                                                          && root.recordingPresentationActive &&
-                                                          !keystoneWindow.horizontalEdge)
+                    enabled: !styleSurface.fullDisplay && !(styleSurface.splitRecording
+                                                            && root.recordingPresentationActive &&
+                                                            !keystoneWindow.horizontalEdge)
 
                     NumberAnimation {
                         duration: root.hDuration
@@ -1798,7 +1799,7 @@ Variants {
             AudioRecordingVisual {
                 id: audioRecordingVisual
 
-                parent: styleSurface.elongated ? root : maskContainer
+                parent: styleSurface.fullDisplay ? root : maskContainer
                 anchors.centerIn: root
                 width: root.width
                 height: root.height
@@ -1830,7 +1831,7 @@ Variants {
                 anchors.fill: root
                 player: root.currentPlayer
                 edge: keystoneWindow.edge
-                opacity: !styleSurface.elongated && root.isCollapsedMode ? 1 : 0
+                opacity: !styleSurface.fullDisplay && root.isCollapsedMode ? 1 : 0
                 scale: 0.96 + 0.04 * opacity
                 visible: opacity > 0.01
                 z: root.z + 4
@@ -1914,7 +1915,7 @@ Variants {
             BangsRecordingVisual {
                 id: bangsRecordingVisual
 
-                parent: styleSurface.elongated ? root : maskContainer
+                parent: styleSurface.fullDisplay ? root : maskContainer
                 anchors.centerIn: root
                 width: root.width
                 height: root.height
@@ -1936,32 +1937,31 @@ Variants {
 
             CompositorBlurRegion {
                 targetWindow: keystoneWindow
-                backgroundItem: styleSurface.elongated || root.useRecordingBlurRegions ? null : root
-                additionalBackgroundItems: styleSurface.elongated && longFrame.item
-                                           ? longFrame.item.blurItems : root.recordingBlurBackgroundItems
-                subtractedBackgroundItems: !root.showDashboardKeyhole ? [] : styleSurface.elongated
-                                                                        && longFrame.item
-                                                                        ? [longFrame.item.cutoutBlurItem] :
+                backgroundItem: styleSurface.fullDisplay || root.useRecordingBlurRegions ? null : root
+                additionalBackgroundItems: styleSurface.fullDisplay && fullFrame.item
+                                           ? fullFrame.item.blurItems : root.recordingBlurBackgroundItems
+                subtractedBackgroundItems: !root.showDashboardKeyhole ? [] : styleSurface.fullDisplay
+                                                                        && fullFrame.item
+                                                                        ? [fullFrame.item.cutoutBlurItem] :
                                                                           [dashboardKeyholeCutout]
                 postSubtractionBackgroundItems: root.showDashboardKeyhole && root.visible && root.opacity
                                                 > 0.01 && hub.opacity > 0.01 ? hub.dashboardKeyholeGlassItems :
                                                                                []
-                postSubtractionClipItem: styleSurface.elongated && longFrame.item
-                                         ? longFrame.item.childBlurItem : root
+                postSubtractionClipItem: styleSurface.fullDisplay && fullFrame.item
+                                         ? fullFrame.item.childBlurItem : root
                 radius: root.radius
             }
         }
 
         mask: Region {
             Region {
-                item: styleSurface.elongated ? (longFrame.item ? longFrame.item.mainItem : null) :
-                                               maskContainer
-
-                radius: styleSurface.elongated ? 21 : 0
+                item: styleSurface.fullDisplay ? null : maskContainer
+                regions: styleSurface.fullDisplay && fullFrame.item ? [fullFrame.item.mainInputRegion] : []
             }
             Region {
-                item: styleSurface.elongated && longFrame.item && longFrame.item.progress > 0.02 ? root : null
-                radius: styleSurface.elongated && longFrame.item ? longFrame.item.childRadius : 0
+                item: styleSurface.fullDisplay && fullFrame.item && fullFrame.item.progress > 0.02 ? root :
+                                                                                                     null
+                radius: styleSurface.fullDisplay && fullFrame.item ? fullFrame.item.childRadius : 0
             }
 
             HotCornerExclusionRegion {

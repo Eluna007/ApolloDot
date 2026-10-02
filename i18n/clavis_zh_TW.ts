@@ -4504,6 +4504,139 @@ Scroll to adjust</source>
     </message>
 </context>
 <context>
+    <name>FullStatusItem</name>
+    <message numerus="yes">
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="36"/>
+        <source>%n device(s)</source>
+        <translation>
+            <numerusform>%n 台裝置</numerusform>
+        </translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="108"/>
+        <source>No media</source>
+        <translation>沒有媒體</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="110"/>
+        <source>Network connected</source>
+        <translation>網路已連線</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="111"/>
+        <source>Network disconnected</source>
+        <translation>網路未連線</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="115"/>
+        <source>Bluetooth unavailable</source>
+        <translation>藍牙不可用</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="116"/>
+        <source>Bluetooth on</source>
+        <translation>藍牙已開啟</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="116"/>
+        <source>Bluetooth off</source>
+        <translation>藍牙已關閉</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="119"/>
+        <source>Detecting battery</source>
+        <translation>正在偵測電池</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="121"/>
+        <source>No battery detected</source>
+        <translation>未偵測到電池</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="122"/>
+        <source>Fully charged</source>
+        <translation>已充滿</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="122"/>
+        <source>Charging</source>
+        <translation>充電中</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="124"/>
+        <source>Discharging</source>
+        <translation>放電中</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="125"/>
+        <source>Plugged in</source>
+        <translation>已接通電源</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="126"/>
+        <source>Battery: %1% · %2</source>
+        <translation>電量：%1% · %2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="128"/>
+        <source>Brightness: %1%
+%2
+Scroll to adjust</source>
+        <translation>亮度：%1%
+%2
+捲動調整</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="132"/>
+        <source>No audio output</source>
+        <translation>沒有音訊輸出裝置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="132"/>
+        <source>Volume: muted
+%1</source>
+        <translation>音量：已靜音
+%1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="135"/>
+        <source>Volume: %1%
+%2</source>
+        <translation>音量：%1%
+%2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="141"/>
+        <source>No audio input</source>
+        <translation>沒有音訊輸入裝置</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="141"/>
+        <source>Microphone: muted
+%1</source>
+        <translation>麥克風：已靜音
+%1</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="144"/>
+        <source>Microphone: %1%
+%2</source>
+        <translation>麥克風：%1%
+%2</translation>
+    </message>
+    <message>
+        <location filename="../Modules/Keystone/FullDisplay/FullStatusItem.qml" line="150"/>
+        <source>CPU: %1
+Memory: %2
+Disk: %3
+Temperature: %4</source>
+        <translation>CPU：%1
+記憶體：%2
+磁碟：%3
+溫度：%4</translation>
+    </message>
+</context>
+<context>
     <name>GammaControlPage</name>
     <message>
         <location filename="../Modules/ControlCenter/GammaControlPage.qml" line="36"/>
@@ -5805,7 +5938,7 @@ Scroll to adjust</source>
     <name>KeystonePage</name>
     <message>
         <location filename="../Common/generated/SearchCatalog.js" line="1939"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="415"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="425"/>
         <source>Horizontal clock style</source>
         <translation>橫向時鐘樣式</translation>
     </message>
@@ -5830,7 +5963,7 @@ Scroll to adjust</source>
         <translation>選擇拱心石樣式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="146"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="156"/>
         <source>Screen edge</source>
         <translation>螢幕邊緣</translation>
     </message>
@@ -5840,14 +5973,14 @@ Scroll to adjust</source>
         <translation>鍵盤狀態提示</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="335"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="338"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="345"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="348"/>
         <source>Caps Lock changes</source>
         <translation>大小寫鎖定狀態變化</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="345"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="348"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="355"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="358"/>
         <source>Num Lock changes</source>
         <translation>數字鍵盤鎖定狀態變化</translation>
     </message>
@@ -5867,13 +6000,13 @@ Scroll to adjust</source>
         <translation>橫向時鐘</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="403"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="407"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="413"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="417"/>
         <source>Hide date</source>
         <translation>隱藏日期</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="416"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="426"/>
         <source>Font, digit positions, and colors</source>
         <translation>字型、數字位置和顏色</translation>
     </message>
@@ -5883,75 +6016,75 @@ Scroll to adjust</source>
         <translation>錄製</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="248"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="258"/>
         <source>Status items</source>
         <translation>狀態項</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="285"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="295"/>
         <source>Left</source>
         <translation>左側</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="285"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="295"/>
         <source>Top</source>
         <translation>上側</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="304"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="314"/>
         <source>Right</source>
         <translation>右側</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="304"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="314"/>
         <source>Bottom</source>
         <translation>下側</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="434"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="444"/>
         <source>Video recording</source>
         <translation>影片錄製</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="440"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="450"/>
         <source>GIF recording</source>
         <translation>GIF 錄製</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="446"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="456"/>
         <source>Microphone recording</source>
         <translation>麥克風錄音</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="452"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="462"/>
         <source>System audio recording</source>
         <translation>系統音訊錄音</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="497"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="544"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="507"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="554"/>
         <source>Save location</source>
         <translation>儲存位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="501"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="511"/>
         <source>This folder is empty</source>
         <translation>目前資料夾為空</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="502"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="554"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="555"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="512"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="564"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="565"/>
         <source>Choose folder</source>
         <translation>選擇資料夾</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="503"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="513"/>
         <source>Choose</source>
         <translation>選擇</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="504"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="514"/>
         <source>Choose the current folder or a selected subfolder</source>
         <translation>可選擇目前資料夾或選取的子資料夾</translation>
     </message>
@@ -5961,59 +6094,59 @@ Scroll to adjust</source>
         <translation>滑鼠操作</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="169"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="179"/>
         <source>Hover</source>
         <translation>懸停</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="176"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="186"/>
         <source>Hover open delay</source>
         <translation>懸停展開延遲</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="181"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="192"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="191"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="202"/>
         <source> ms</source>
         <translation> ms</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="187"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="197"/>
         <source>Hover close delay</source>
         <translation>離開收合延遲</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="198"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="208"/>
         <source>Left click</source>
         <translation>按一下左鍵</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="205"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="215"/>
         <source>Middle click</source>
         <translation>按一下中鍵</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="225"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="235"/>
         <source>Progress bar</source>
         <translation>進度條</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="232"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="242"/>
         <source>Cover style</source>
         <translation>封面樣式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="239"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="249"/>
         <source>Colors</source>
         <translation>配色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="366"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="376"/>
         <source>Card</source>
         <translation>卡片</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="273"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="276"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="283"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="286"/>
         <source>Show numeric values</source>
         <translation>顯示數值</translation>
     </message>
@@ -6030,14 +6163,20 @@ Scroll to adjust</source>
         <translation>浮動</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="253"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="256"/>
-        <source>Show device names</source>
-        <translation>顯示裝置名稱</translation>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="146"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="149"/>
+        <source>Full display</source>
+        <translation>完整顯示</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="263"/>
         <location filename="../Modules/ControlCenter/KeystonePage.qml" line="266"/>
+        <source>Show device names</source>
+        <translation>顯示裝置名稱</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="273"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="276"/>
         <source>Show system monitor values</source>
         <translation>顯示系統監測數值</translation>
     </message>
@@ -6250,148 +6389,6 @@ Scroll to adjust</source>
         <location filename="../Modules/Lock/LockContent.qml" line="390"/>
         <source>Num Lock is on.</source>
         <translation>數字鎖定已開啟。</translation>
-    </message>
-</context>
-<context>
-    <name>LongStatusItem</name>
-    <message numerus="yes">
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="36"/>
-        <source>%n device(s)</source>
-        <translation>
-            <numerusform>%n 台裝置</numerusform>
-        </translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="108"/>
-        <source>No media</source>
-        <translation>沒有媒體</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="110"/>
-        <source>Network connected</source>
-        <translation>網路已連線</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="111"/>
-        <source>Network disconnected</source>
-        <translation>網路未連線</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="115"/>
-        <source>Bluetooth unavailable</source>
-        <translation>藍牙不可用</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="116"/>
-        <source>Bluetooth on</source>
-        <translation>藍牙已開啟</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="116"/>
-        <source>Bluetooth off</source>
-        <translation>藍牙已關閉</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="119"/>
-        <source>Detecting battery</source>
-        <translation>正在偵測電池</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="121"/>
-        <source>No battery detected</source>
-        <translation>未偵測到電池</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="122"/>
-        <source>Fully charged</source>
-        <translation>已充滿</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="122"/>
-        <source>Charging</source>
-        <translation>充電中</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="124"/>
-        <source>Discharging</source>
-        <translation>放電中</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="125"/>
-        <source>Plugged in</source>
-        <translation>已接通電源</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="126"/>
-        <source>Battery: %1% · %2</source>
-        <translation>電量：%1% · %2</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="128"/>
-        <source>Brightness: %1%
-%2
-Scroll to adjust</source>
-        <translation>亮度：%1%
-%2
-捲動調整</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="132"/>
-        <source>No audio output</source>
-        <translation>沒有音訊輸出裝置</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="132"/>
-        <source>Volume: muted
-%1</source>
-        <translation>音量：已靜音
-%1</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="135"/>
-        <source>Volume: %1%
-%2</source>
-        <translation>音量：%1%
-%2</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="141"/>
-        <source>No audio input</source>
-        <translation>沒有音訊輸入裝置</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="141"/>
-        <source>Microphone: muted
-%1</source>
-        <translation>麥克風：已靜音
-%1</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="144"/>
-        <source>Microphone: %1%
-%2</source>
-        <translation>麥克風：%1%
-%2</translation>
-    </message>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongStatusItem.qml" line="150"/>
-        <source>CPU: %1
-Memory: %2
-Disk: %3
-Temperature: %4</source>
-        <translation>CPU：%1
-記憶體：%2
-磁碟：%3
-溫度：%4</translation>
-    </message>
-</context>
-<context>
-    <name>LongWorkspaces</name>
-    <message>
-        <location filename="../Modules/Keystone/Styles/Long/LongWorkspaces.qml" line="48"/>
-        <location filename="../Modules/Keystone/Styles/Long/LongWorkspaces.qml" line="71"/>
-        <source>Workspace %1</source>
-        <translation>工作區 %1</translation>
     </message>
 </context>
 <context>
@@ -9009,212 +9006,207 @@ Click to open network settings</source>
         <translation>彩虹</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="190"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="191"/>
         <source>Bangs</source>
         <translation>劉海</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="193"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="195"/>
         <source>Pill</source>
         <translation>藥丸</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="197"/>
-        <source>Long</source>
-        <translation>長條</translation>
-    </message>
-    <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="202"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="200"/>
         <source>Top</source>
         <translation>頂部</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="206"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="204"/>
         <source>Left</source>
         <translation>左側</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="210"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="208"/>
         <source>Bottom</source>
         <translation>底部</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="214"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="212"/>
         <source>Right</source>
         <translation>右側</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="351"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="536"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="640"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="350"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="535"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="639"/>
         <source>Weather</source>
         <translation>天氣</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="394"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="393"/>
         <source>Quick Settings</source>
         <translation>快速設定</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="472"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="471"/>
         <source>Caelestia</source>
         <translation>Caelestia</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="356"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="355"/>
         <source>Pomodoro</source>
         <translation>番茄鐘</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="370"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="526"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="369"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="525"/>
         <source>Media</source>
         <translation>媒體</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="374"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="521"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="373"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="520"/>
         <source>Workspaces</source>
         <translation>工作區</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="378"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="377"/>
         <source>Information</source>
         <translation>資訊</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="382"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="381"/>
         <source>Active Window</source>
         <translation>聚焦視窗</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="386"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="385"/>
         <source>Tray</source>
         <translation>系統匣</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="390"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="389"/>
         <source>System Monitor</source>
         <translation>系統監視器</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="403"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="541"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="402"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="540"/>
         <source>Network</source>
         <translation>網路</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="407"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="546"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="406"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="545"/>
         <source>Bluetooth</source>
         <translation>藍牙</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="411"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="551"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="410"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="550"/>
         <source>Brightness</source>
         <translation>亮度</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="415"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="556"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="414"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="555"/>
         <source>Volume</source>
         <translation>音量</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="419"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="561"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="418"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="560"/>
         <source>Microphone</source>
         <translation>麥克風</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="423"/>
-        <location filename="../Services/PersonalizationConfig.qml" line="566"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="422"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="565"/>
         <source>Battery</source>
         <translation>電池</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="428"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="427"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="433"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="432"/>
         <source>Power</source>
         <translation>電源</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="458"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="457"/>
         <source>Sine wave</source>
         <translation>正弦波浪</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="462"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="461"/>
         <source>Material wave</source>
         <translation>Material 波浪</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="468"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="467"/>
         <source>Rounded cover</source>
         <translation>圓角封面</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="476"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="475"/>
         <source>Cover background</source>
         <translation>封面背景</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="482"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="481"/>
         <source>Theme colors</source>
         <translation>主題配色</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="486"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="485"/>
         <source>Cover colors</source>
         <translation>封面配色</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="516"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="515"/>
         <source>System tray</source>
         <translation>系統匣</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="531"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="530"/>
         <source>System monitor</source>
         <translation>系統監測</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="620"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="619"/>
         <source>Do not open</source>
         <translation>不開啟</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="624"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="623"/>
         <source>Media controls</source>
         <translation>媒體控制</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="628"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="627"/>
         <source>Lyrics</source>
         <translation>歌詞</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="632"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="631"/>
         <source>Dashboard</source>
         <translation>儀表板</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="636"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="635"/>
         <source>Upload</source>
         <translation>上傳</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="644"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="643"/>
         <source>Tools</source>
         <translation>工具</translation>
     </message>
     <message>
-        <location filename="../Services/PersonalizationConfig.qml" line="651"/>
+        <location filename="../Services/PersonalizationConfig.qml" line="650"/>
         <source>Peak</source>
         <translation>Peak</translation>
     </message>

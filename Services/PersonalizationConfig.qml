@@ -185,16 +185,14 @@ Singleton {
                                                                                         "label": qsTr(
                                                                                                      "Rainbow")
                                                                                     })]
-    readonly property var keystoneStyles: [({
-                                                "value": "bangs",
-                                                "label": qsTr("Bangs")
-                                            }), ({
-                                                     "value": "pill",
-                                                     "label": qsTr("Pill")
-                                                 }),
+    readonly property var keystoneStyles: [
         {
-            value: "long",
-            label: qsTr("Long")
+            value: "bangs",
+            label: qsTr("Bangs")
+        },
+        {
+            value: "pill",
+            label: qsTr("Pill")
         }
     ]
     readonly property var edgePositions: [({
@@ -344,6 +342,7 @@ Singleton {
     property bool keystoneEnabled: true
     property bool keystoneOverlay: false
     property string keystoneStyle: "bangs"
+    property bool keystoneFullDisplay: false
     readonly property var keystoneKeyholeCardIds: ["weather", "pomodoro"]
     readonly property var keystoneKeyholeCardOptions: [
         {
@@ -441,11 +440,11 @@ Singleton {
     property bool keystoneCapsLockOsd: true
     property bool keystoneNumLockOsd: true
     property bool keystoneHideDate: false
-    property bool keystoneLongShowNames: true
-    property bool keystoneLongShowMonitorValues: true
+    property bool keystoneFullShowNames: true
+    property bool keystoneFullShowMonitorValues: true
     property bool barShowValues: true
     property bool barShowNames: false
-    property bool keystoneLongShowValues: true
+    property bool keystoneFullShowValues: true
     property string keystoneHoverAction: "peak"
     property string keystoneLeftClickAction: "media"
     property string keystoneMiddleClickAction: "lyrics"
@@ -503,14 +502,14 @@ Singleton {
 
     property int keystoneHoverOpenDelay: 150
     property int keystoneHoverCloseDelay: 250
-    readonly property var keystoneLongItemIds: ["workspaces", "media", "systemMonitor", "tray", "network",
+    readonly property var keystoneFullItemIds: ["workspaces", "media", "systemMonitor", "tray", "network",
         "bluetooth", "brightness", "volume", "microphone", "battery", "weather"]
-    readonly property var defaultKeystoneLongLeading: ["workspaces", "media", "systemMonitor"]
-    readonly property var defaultKeystoneLongTrailing: ["network", "bluetooth", "brightness", "volume",
+    readonly property var defaultKeystoneFullLeading: ["workspaces", "media", "systemMonitor"]
+    readonly property var defaultKeystoneFullTrailing: ["network", "bluetooth", "brightness", "volume",
         "microphone", "battery"]
-    property var keystoneLongLeading: defaultKeystoneLongLeading.slice()
-    property var keystoneLongTrailing: defaultKeystoneLongTrailing.slice()
-    readonly property var keystoneLongItemOptions: [
+    property var keystoneFullLeading: defaultKeystoneFullLeading.slice()
+    property var keystoneFullTrailing: defaultKeystoneFullTrailing.slice()
+    readonly property var keystoneFullItemOptions: [
         {
             value: "tray",
             label: qsTr("System tray"),
@@ -576,42 +575,42 @@ Singleton {
         setValue("keystoneHoverCloseDelay", normalizedBoundedInt(value, 250, 0, 600));
     }
 
-    function normalizedKeystoneLongItems(raw, excluded) {
+    function normalizedKeystoneFullItems(raw, excluded) {
         const result = [];
         for (const value of Array.isArray(raw) ? raw : []) {
-            if (root.keystoneLongItemIds.indexOf(value) >= 0 && excluded.indexOf(value) < 0 && result.indexOf(value)
+            if (root.keystoneFullItemIds.indexOf(value) >= 0 && excluded.indexOf(value) < 0 && result.indexOf(value)
                     < 0)
                 result.push(value);
         }
         return result;
     }
 
-    function moveKeystoneLongItem(id, zone, index) {
-        if (root.keystoneLongItemIds.indexOf(id) < 0 || (zone !== "leading" && zone !== "trailing"))
+    function moveKeystoneFullItem(id, zone, index) {
+        if (root.keystoneFullItemIds.indexOf(id) < 0 || (zone !== "leading" && zone !== "trailing"))
             return;
-        const leading = root.keystoneLongLeading.filter(value => value !== id);
-        const trailing = root.keystoneLongTrailing.filter(value => value !== id);
+        const leading = root.keystoneFullLeading.filter(value => value !== id);
+        const trailing = root.keystoneFullTrailing.filter(value => value !== id);
         const target = zone === "leading" ? leading : trailing;
         const position = Number(index);
         target.splice(isFinite(position) ? Math.max(0, Math.min(target.length, Math.round(position))) :
                                            target.length, 0, id);
-        root.keystoneLongLeading = leading;
-        root.keystoneLongTrailing = trailing;
+        root.keystoneFullLeading = leading;
+        root.keystoneFullTrailing = trailing;
         root.save();
     }
 
-    function removeKeystoneLongItem(id) {
-        root.keystoneLongLeading = root.keystoneLongLeading.filter(value => value !== id);
-        root.keystoneLongTrailing = root.keystoneLongTrailing.filter(value => value !== id);
+    function removeKeystoneFullItem(id) {
+        root.keystoneFullLeading = root.keystoneFullLeading.filter(value => value !== id);
+        root.keystoneFullTrailing = root.keystoneFullTrailing.filter(value => value !== id);
         root.save();
     }
 
-    function toggleKeystoneLongItem(id, zone) {
-        const target = zone === "leading" ? root.keystoneLongLeading : root.keystoneLongTrailing;
+    function toggleKeystoneFullItem(id, zone) {
+        const target = zone === "leading" ? root.keystoneFullLeading : root.keystoneFullTrailing;
         if (target.indexOf(id) >= 0)
-            root.removeKeystoneLongItem(id);
+            root.removeKeystoneFullItem(id);
         else
-            root.moveKeystoneLongItem(id, zone, target.length);
+            root.moveKeystoneFullItem(id, zone, target.length);
     }
 
     readonly property var keystoneActionOptions: [
@@ -652,13 +651,12 @@ Singleton {
         }
     ].concat(root.keystoneActionOptions)
 
-    readonly property var availableKeystoneHoverActionOptions: keystoneStyle === "long"
-                                                               ? keystoneActionOptions :
-                                                                 keystoneHoverActionOptions
+    readonly property var availableKeystoneHoverActionOptions: keystoneFullDisplay ? keystoneActionOptions :
+                                                                                     keystoneHoverActionOptions
 
-    // Older saved configurations can still request peak. Long has no peak
-    // state; retain the preference for other styles but resolve it to none.
-    readonly property string effectiveKeystoneHoverAction: keystoneStyle === "long" && keystoneHoverAction
+    // Full display has no peak state. Retain the saved preference for compact
+    // mode, but resolve it to none while the status controls are visible.
+    readonly property string effectiveKeystoneHoverAction: keystoneFullDisplay && keystoneHoverAction
                                                            === "peak" ? "none" : keystoneHoverAction
 
     function setKeystoneAction(gesture, action) {
@@ -672,8 +670,8 @@ Singleton {
         setValue(properties[gesture], normalizedOption(gesture === "hover"
                                                        ? root.availableKeystoneHoverActionOptions :
                                                          root.keystoneActionOptions, action, gesture
-                                                       === "hover" && root.keystoneStyle !== "long" ? "peak" :
-                                                                                                      "none"));
+                                                       === "hover" && !root.keystoneFullDisplay ? "peak" :
+                                                                                                  "none"));
     }
 
     readonly property var horizontalClockAxisDefaults: ({
@@ -1681,12 +1679,12 @@ Singleton {
         setValue("keystoneNumLockOsd", !!value);
     }
 
-    function setKeystoneLongShowNames(value) {
-        setValue("keystoneLongShowNames", !!value);
+    function setKeystoneFullShowNames(value) {
+        setValue("keystoneFullShowNames", !!value);
     }
 
-    function setKeystoneLongShowMonitorValues(value) {
-        setValue("keystoneLongShowMonitorValues", !!value);
+    function setKeystoneFullShowMonitorValues(value) {
+        setValue("keystoneFullShowMonitorValues", !!value);
     }
 
     function setBarShowNames(value) {
@@ -1697,8 +1695,8 @@ Singleton {
         setValue("barShowValues", !!value);
     }
 
-    function setKeystoneLongShowValues(value) {
-        setValue("keystoneLongShowValues", !!value);
+    function setKeystoneFullShowValues(value) {
+        setValue("keystoneFullShowValues", !!value);
     }
 
     function setKeystoneHideDate(value) {
@@ -1870,18 +1868,19 @@ Singleton {
                 "enabled": root.keystoneEnabled,
                 "overlay": root.keystoneOverlay,
                 "style": root.keystoneStyle,
+                "fullDisplay": root.keystoneFullDisplay,
                 "position": root.keystonePosition,
                 "capsLockOsd": root.keystoneCapsLockOsd,
                 "numLockOsd": root.keystoneNumLockOsd,
                 "hideDate": root.keystoneHideDate,
-                "longShowNames": root.keystoneLongShowNames,
-                "longShowMonitorValues": root.keystoneLongShowMonitorValues,
-                "longShowValues": root.keystoneLongShowValues,
+                "longShowNames": root.keystoneFullShowNames,
+                "longShowMonitorValues": root.keystoneFullShowMonitorValues,
+                "longShowValues": root.keystoneFullShowValues,
                 "hoverAction": root.keystoneHoverAction,
                 "hoverOpenDelay": root.keystoneHoverOpenDelay,
                 "hoverCloseDelay": root.keystoneHoverCloseDelay,
-                "longLeading": root.keystoneLongLeading.slice(),
-                "longTrailing": root.keystoneLongTrailing.slice(),
+                "longLeading": root.keystoneFullLeading.slice(),
+                "longTrailing": root.keystoneFullTrailing.slice(),
                 "leftClickAction": root.keystoneLeftClickAction,
                 "middleClickAction": root.keystoneMiddleClickAction,
                 "media": {
@@ -2014,28 +2013,33 @@ Singleton {
                                                         "theme");
         root.keystoneEnabled = typeof keystone.enabled === "boolean" ? keystone.enabled : true;
         root.keystoneOverlay = typeof keystone.overlay === "boolean" ? keystone.overlay : false;
-        root.keystoneStyle = normalizedOption(root.keystoneStyles, keystone.style, "bangs");
+        // Migrate the former standalone long style without losing its layout.
+        root.keystoneStyle = normalizedOption(root.keystoneStyles, keystone.style === "long" ? "pill" :
+                                                                                               keystone.style,
+                                              "bangs");
+        root.keystoneFullDisplay = typeof keystone.fullDisplay === "boolean" ? keystone.fullDisplay :
+                                                                               keystone.style === "long";
         root.keystonePosition = normalizedEdgePosition(keystone.position);
         root.keystoneCapsLockOsd = typeof keystone.capsLockOsd === "boolean" ? keystone.capsLockOsd : true;
         root.keystoneNumLockOsd = typeof keystone.numLockOsd === "boolean" ? keystone.numLockOsd : true;
-        root.keystoneLongShowValues = typeof keystone.longShowValues === "boolean" ? keystone.longShowValues :
+        root.keystoneFullShowValues = typeof keystone.longShowValues === "boolean" ? keystone.longShowValues :
                                                                                      true;
-        root.keystoneLongShowNames = typeof keystone.longShowNames === "boolean" ? keystone.longShowNames :
+        root.keystoneFullShowNames = typeof keystone.longShowNames === "boolean" ? keystone.longShowNames :
                                                                                    true;
-        root.keystoneLongShowMonitorValues = typeof keystone.longShowMonitorValues === "boolean"
+        root.keystoneFullShowMonitorValues = typeof keystone.longShowMonitorValues === "boolean"
                 ? keystone.longShowMonitorValues : true;
         root.keystoneHideDate = typeof keystone.hideDate === "boolean" ? keystone.hideDate : false;
         root.keystoneHoverAction = normalizedOption(root.keystoneHoverActionOptions, keystone.hoverAction
                                                     === "library" ? "media" : keystone.hoverAction, "peak");
         root.keystoneHoverOpenDelay = normalizedBoundedInt(keystone.hoverOpenDelay, 150, 0, 500);
         root.keystoneHoverCloseDelay = normalizedBoundedInt(keystone.hoverCloseDelay, 250, 0, 600);
-        root.keystoneLongLeading = root.normalizedKeystoneLongItems(Array.isArray(keystone.longLeading)
+        root.keystoneFullLeading = root.normalizedKeystoneFullItems(Array.isArray(keystone.longLeading)
                                                                     ? keystone.longLeading :
-                                                                      root.defaultKeystoneLongLeading, []);
-        root.keystoneLongTrailing = root.normalizedKeystoneLongItems(Array.isArray(keystone.longTrailing)
+                                                                      root.defaultKeystoneFullLeading, []);
+        root.keystoneFullTrailing = root.normalizedKeystoneFullItems(Array.isArray(keystone.longTrailing)
                                                                      ? keystone.longTrailing :
-                                                                       root.defaultKeystoneLongTrailing,
-                                                                     root.keystoneLongLeading);
+                                                                       root.defaultKeystoneFullTrailing,
+                                                                     root.keystoneFullLeading);
         root.keystoneLeftClickAction = normalizedOption(root.keystoneActionOptions, keystone.leftClickAction
                                                         === "library" ? "media" : keystone.leftClickAction,
                                                         "media");

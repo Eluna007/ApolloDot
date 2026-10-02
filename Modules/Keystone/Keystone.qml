@@ -4,7 +4,6 @@ import qs.Common
 import qs.Services
 import qs.Modules.FilePicker
 import qs.Modules.Keystone.Styles.Bangs
-import qs.Modules.Keystone.Styles.Long
 import qs.Modules.Keystone.Styles.Pill
 
 Item {
@@ -28,9 +27,7 @@ Item {
         id: styleLoader
         active: PersonalizationConfig.keystoneEnabled
 
-        sourceComponent: PersonalizationConfig.keystoneStyle === "long" ? longStyle :
-                                                                          PersonalizationConfig.keystoneStyle
-                                                                          === "pill" ? pillStyle : bangsStyle
+        sourceComponent: PersonalizationConfig.keystoneStyle === "pill" ? pillStyle : bangsStyle
     }
 
     FilePickerWindow {
@@ -79,13 +76,6 @@ Item {
         id: pillStyle
 
         Pill {
-            onAvatarEditRequested: screen => root.openAvatarPicker(screen)
-        }
-    }
-    Component {
-        id: longStyle
-
-        Long {
             onAvatarEditRequested: screen => root.openAvatarPicker(screen)
         }
     }
