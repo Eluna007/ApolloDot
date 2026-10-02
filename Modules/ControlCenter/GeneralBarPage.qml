@@ -69,6 +69,84 @@ StyledFlickable {
         }
 
         SettingsSection {
+            id: dimensionsSection
+            Layout.fillWidth: true
+            title: dimensionsSearchAnchor.title
+            iconName: "space_bar"
+            SettingsSearchAnchor {
+                id: dimensionsSearchAnchor
+                target: dimensionsSection
+                declaration:
+                    '{"id":"general.bar.section.size-spacing","route":"general.bar","title":"Size and spacing","context":"GeneralBarPage","icon":"space_bar","aliases":[]}'
+            }
+
+            GeneralSliderSetting {
+                title: qsTr("Edge spacing")
+                value: PersonalizationConfig.barEdgeSpacing
+                from: PersonalizationConfig.barDimensionLimits.edgeSpacing[1]
+                to: PersonalizationConfig.barDimensionLimits.edgeSpacing[2]
+                suffix: qsTr(" px")
+                onMoved: value => PersonalizationConfig.setPanelDimension("bar", "edgeSpacing", value)
+            }
+
+            GeneralSliderSetting {
+                title: qsTr("Exclusive zone offset")
+                value: PersonalizationConfig.barExclusiveZoneOffset
+                from: PersonalizationConfig.barDimensionLimits.exclusiveZoneOffset[1]
+                to: PersonalizationConfig.barDimensionLimits.exclusiveZoneOffset[2]
+                suffix: qsTr(" px")
+                enabled: !PersonalizationConfig.barOverlay
+                onMoved: value => PersonalizationConfig.setPanelDimension("bar", "exclusiveZoneOffset", value)
+            }
+
+            GeneralSliderSetting {
+                title: qsTr("Size")
+                value: PersonalizationConfig.barThickness
+                from: PersonalizationConfig.barDimensionLimits.thickness[1]
+                to: PersonalizationConfig.barDimensionLimits.thickness[2]
+                suffix: qsTr(" px")
+                onMoved: value => PersonalizationConfig.setPanelDimension("bar", "thickness", value)
+            }
+
+            GeneralSliderSetting {
+                title: qsTr("Inner padding")
+                value: PersonalizationConfig.barInnerPadding
+                from: PersonalizationConfig.barDimensionLimits.innerPadding[1]
+                to: PersonalizationConfig.barDimensionLimits.innerPadding[2]
+                suffix: qsTr(" px")
+                onMoved: value => PersonalizationConfig.setPanelDimension("bar", "innerPadding", value)
+            }
+
+            GeneralSliderSetting {
+                title: qsTr("Inset padding")
+                value: PersonalizationConfig.barInsetPadding
+                from: PersonalizationConfig.barDimensionLimits.insetPadding[1]
+                to: PersonalizationConfig.barDimensionLimits.insetPadding[2]
+                suffix: qsTr(" px")
+                onMoved: value => PersonalizationConfig.setPanelDimension("bar", "insetPadding", value)
+            }
+
+            GeneralSliderSetting {
+                title: qsTr("Bar length padding")
+                description: qsTr("Limited by the space required by visible modules.")
+                value: PersonalizationConfig.barLengthPadding
+                from: PersonalizationConfig.barDimensionLimits.lengthPadding[1]
+                to: PersonalizationConfig.barDimensionLimits.lengthPadding[2]
+                suffix: qsTr(" px")
+                onMoved: value => PersonalizationConfig.setPanelDimension("bar", "lengthPadding", value)
+            }
+
+            GeneralSliderSetting {
+                title: qsTr("Module corner radius")
+                value: PersonalizationConfig.barModuleRadius
+                from: PersonalizationConfig.barDimensionLimits.moduleRadius[1]
+                to: PersonalizationConfig.barDimensionLimits.moduleRadius[2]
+                suffix: qsTr(" px")
+                onMoved: value => PersonalizationConfig.setPanelDimension("bar", "moduleRadius", value)
+            }
+        }
+
+        SettingsSection {
             id: searchSection1
             Layout.fillWidth: true
             flat: true

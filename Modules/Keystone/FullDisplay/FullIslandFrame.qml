@@ -4,6 +4,7 @@ import QtQuick
 import Qt5Compat.GraphicalEffects
 import Quickshell
 import qs.Common
+import qs.Services
 
 Item {
     id: root
@@ -20,16 +21,18 @@ Item {
     property color surfaceColor: Appearance.colors.colLayer0
     readonly property bool horizontal: edge === "top" || edge === "bottom"
     readonly property real length: mainBar.contentLength
+    readonly property real screenMargin: attached ? 0 : PersonalizationConfig.keystoneEdgeSpacing
     readonly property real availableChildWidth: Math.max(24, screen.width - (horizontal ? 32 : thickness + gap
+                                                                                          + screenMargin
                                                                                           + 24))
-    readonly property real availableChildHeight: Math.max(24, screen.height - (horizontal ? thickness + gap + 24 :
-                                                                                            32))
-    readonly property real thickness: 42
-    readonly property real gap: 24
+    readonly property real availableChildHeight: Math.max(24, screen.height - (horizontal ? thickness + gap + screenMargin
+                                                                                            + 24 : 32))
+    readonly property real thickness: PersonalizationConfig.keystoneThickness
+    readonly property real gap: PersonalizationConfig.keystonePopupGap
     // Match the collapsed Pill surface. Only the child deforms; the status
     // bar and its clock remain fixed throughout the split and fusion.
-    readonly property real pillWidth: horizontal ? 220 : 42
-    readonly property real pillHeight: horizontal ? 42 : 220
+    readonly property real pillWidth: horizontal ? PersonalizationConfig.keystoneCompactLength : thickness
+    readonly property real pillHeight: horizontal ? thickness : PersonalizationConfig.keystoneCompactLength
     property real progress: 0
     property bool componentReady: false
     // Capture the visible pose when changing direction. Closing uses a single
@@ -69,8 +72,10 @@ Item {
     readonly property real childHeight: pillHeight + (heldHeight - pillHeight) * (horizontal ? inwardGrowth :
                                                                                                alongGrowth)
     readonly property real childOffset: (thickness + gap) * travel
-    readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, 21 + 3 * Math.min(1,
-                                                                                                    inwardGrowth))
+    readonly property real childRadius: Math.min(childWidth / 2, childHeight / 2, thickness / 2 + (24
+                                                                                                   - thickness
+                                                                                                   / 2) * Math.min(
+                                                     1, inwardGrowth))
     readonly property real contentOpacity: closing ? legPose.opacity * closingRemaining : stage(0.12, 0.50) + (
                                                          legPose.opacity - smoothStep((legStart - 0.12)
                                                                                       / 0.38))

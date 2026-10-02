@@ -335,7 +335,6 @@ StyledFlickable {
 
             ClockSliderSetting {
                 title: qsTr("Rotation")
-                discrete: true
                 axisTag: "°"
                 from: -12
                 to: 12

@@ -4806,9 +4806,14 @@ Temperature: %4</source>
 <context>
     <name>GeneralBarPage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1967"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1994"/>
         <source>Position</source>
         <translation>位置</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="1995"/>
+        <source>Size and spacing</source>
+        <translation>尺寸与间距</translation>
     </message>
     <message>
         <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="60"/>
@@ -4816,7 +4821,7 @@ Temperature: %4</source>
         <translation>屏幕边缘</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1968"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1996"/>
         <source>Components</source>
         <translation>组件</translation>
     </message>
@@ -4833,44 +4838,95 @@ Temperature: %4</source>
         <translation>浮动</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="86"/>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="89"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="84"/>
+        <source>Edge spacing</source>
+        <translation>屏幕边缘间距</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="88"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="97"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="107"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="116"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="125"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="135"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="144"/>
+        <source> px</source>
+        <translation> 像素</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="93"/>
+        <source>Exclusive zone offset</source>
+        <translation>独占区域偏移</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="103"/>
+        <source>Size</source>
+        <translation>尺寸</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="112"/>
+        <source>Inner padding</source>
+        <translation>内边距</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="121"/>
+        <source>Inset padding</source>
+        <translation>状态内嵌边距</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="130"/>
+        <source>Bar length padding</source>
+        <translation>条栏两端留白</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="131"/>
+        <source>Limited by the space required by visible modules.</source>
+        <translation>受可见模块所需空间限制。</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="140"/>
+        <source>Module corner radius</source>
+        <translation>模块圆角</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="164"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="167"/>
         <source>Show device names</source>
         <translation>显示设备名称</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="95"/>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="98"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="173"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="176"/>
         <source>Show numeric values</source>
         <translation>显示数值</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="102"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="180"/>
         <source>Drag components to reorder them or move them to the other side.</source>
         <translation>拖动组件调整顺序，拖到另一侧可移动位置。</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="107"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="185"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="107"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="185"/>
         <source>Top</source>
         <translation>上方</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="130"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="208"/>
         <source>Right</source>
         <translation>右侧</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="130"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="208"/>
         <source>Bottom</source>
         <translation>下方</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="158"/>
+        <location filename="../Modules/ControlCenter/GeneralBarPage.qml" line="236"/>
         <source>Quick settings widgets</source>
         <translation>快捷设置组件</translation>
     </message>
@@ -5937,8 +5993,8 @@ Temperature: %4</source>
 <context>
     <name>KeystonePage</name>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1939"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="425"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="1966"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="511"/>
         <source>Horizontal clock style</source>
         <translation>横向时钟样式</translation>
     </message>
@@ -5948,7 +6004,7 @@ Temperature: %4</source>
         <translation>返回拱心石设置</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1978"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2006"/>
         <source>Keystone style</source>
         <translation>拱心石样式</translation>
     </message>
@@ -5968,185 +6024,190 @@ Temperature: %4</source>
         <translation>屏幕边缘</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1981"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2010"/>
         <source>Keyboard indicators</source>
         <translation>键盘状态提示</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="345"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="348"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="431"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="434"/>
         <source>Caps Lock changes</source>
         <translation>大小写锁定状态变化</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="355"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="358"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="441"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="444"/>
         <source>Num Lock changes</source>
         <translation>小键盘数字锁定状态变化</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1980"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2007"/>
+        <source>Size and spacing</source>
+        <translation>尺寸与间距</translation>
+    </message>
+    <message>
+        <location filename="../Common/generated/SearchCatalog.js" line="2009"/>
         <source>Media controls</source>
         <translation>媒体控制</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1982"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2011"/>
         <source>Keyhole</source>
         <translation>钥匙孔</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1983"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2012"/>
         <source>Horizontal clock</source>
         <translation>横向时钟</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="413"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="417"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="499"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="503"/>
         <source>Hide date</source>
         <translation>隐藏日期</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="426"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="512"/>
         <source>Font, digit positions, and colors</source>
         <translation>字体、数字位置和颜色</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1984"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2013"/>
         <source>Recording</source>
         <translation>录制</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="258"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="344"/>
         <source>Status items</source>
         <translation>状态项</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="295"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="381"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="295"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="381"/>
         <source>Top</source>
         <translation>上侧</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="314"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="400"/>
         <source>Right</source>
         <translation>右侧</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="314"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="400"/>
         <source>Bottom</source>
         <translation>下侧</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="444"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="530"/>
         <source>Video recording</source>
         <translation>视频录制</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="450"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="536"/>
         <source>GIF recording</source>
         <translation>GIF 录制</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="456"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="542"/>
         <source>Microphone recording</source>
         <translation>麦克风录音</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="462"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="548"/>
         <source>System audio recording</source>
         <translation>系统音频录音</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="507"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="554"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="593"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="640"/>
         <source>Save location</source>
         <translation>保存位置</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="511"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="597"/>
         <source>This folder is empty</source>
         <translation>当前文件夹为空</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="512"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="564"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="565"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="598"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="650"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="651"/>
         <source>Choose folder</source>
         <translation>选择文件夹</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="513"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="599"/>
         <source>Choose</source>
         <translation>选择</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="514"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="600"/>
         <source>Choose the current folder or a selected subfolder</source>
         <translation>可选择当前文件夹或选中的子文件夹</translation>
     </message>
     <message>
-        <location filename="../Common/generated/SearchCatalog.js" line="1979"/>
+        <location filename="../Common/generated/SearchCatalog.js" line="2008"/>
         <source>Mouse actions</source>
         <translation>鼠标操作</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="179"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="265"/>
         <source>Hover</source>
         <translation>悬停</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="186"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="272"/>
         <source>Hover open delay</source>
         <translation>悬停展开延迟</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="191"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="202"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="277"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="288"/>
         <source> ms</source>
         <translation> ms</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="197"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="283"/>
         <source>Hover close delay</source>
         <translation>离开收起延迟</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="208"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="294"/>
         <source>Left click</source>
         <translation>左键点击</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="215"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="301"/>
         <source>Middle click</source>
         <translation>中键点击</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="235"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="321"/>
         <source>Progress bar</source>
         <translation>进度条</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="242"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="328"/>
         <source>Cover style</source>
         <translation>封面样式</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="249"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="335"/>
         <source>Colors</source>
         <translation>配色</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="376"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="462"/>
         <source>Card</source>
         <translation>卡片</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="283"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="286"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="369"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="372"/>
         <source>Show numeric values</source>
         <translation>显示数值</translation>
     </message>
@@ -6169,14 +6230,60 @@ Temperature: %4</source>
         <translation>完整显示</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="263"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="266"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="180"/>
+        <source>Edge spacing</source>
+        <translation>屏幕边缘间距</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="184"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="195"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="206"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="215"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="225"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="236"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="247"/>
+        <source> px</source>
+        <translation> 像素</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="191"/>
+        <source>Exclusive zone offset</source>
+        <translation>独占区域偏移</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="202"/>
+        <source>Size</source>
+        <translation>尺寸</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="211"/>
+        <source>Compact length</source>
+        <translation>收起长度</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="221"/>
+        <source>Inset padding</source>
+        <translation>状态内嵌边距</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="232"/>
+        <source>Item spacing</source>
+        <translation>控件间距</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="243"/>
+        <source>Popup gap</source>
+        <translation>弹出界面间距</translation>
+    </message>
+    <message>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="349"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="352"/>
         <source>Show device names</source>
         <translation>显示设备名称</translation>
     </message>
     <message>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="273"/>
-        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="276"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="359"/>
+        <location filename="../Modules/ControlCenter/KeystonePage.qml" line="362"/>
         <source>Show system monitor values</source>
         <translation>显示系统监测数值</translation>
     </message>

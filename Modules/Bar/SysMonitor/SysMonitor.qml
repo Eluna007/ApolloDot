@@ -70,8 +70,8 @@ TopBarPill {
                                                                                  + " / " + total;
     }
 
-    implicitWidth: root.vertical ? Sizes.barPillThickness : mouseArea.implicitWidth
-    implicitHeight: root.vertical ? mouseArea.implicitHeight : Sizes.barPillThickness
+    implicitWidth: root.vertical ? root.pillThickness : mouseArea.implicitWidth
+    implicitHeight: root.vertical ? mouseArea.implicitHeight : root.pillThickness
     Component.onCompleted: SystemMonitorService.setConsumerModules(root.ownerId, ["cpu", "memory", "disk"])
     Component.onDestruction: SystemMonitorService.clearConsumer(root.ownerId)
 
@@ -80,6 +80,7 @@ TopBarPill {
 
         anchors.fill: parent
         vertical: root.vertical
+        contentPadding: root.pillPadding + 2
         contentItem: Item {
             implicitWidth: resourceLayout.implicitWidth
             implicitHeight: resourceLayout.implicitHeight

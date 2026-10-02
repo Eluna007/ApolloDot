@@ -340,6 +340,22 @@ Singleton {
     property int cursorHideAfterInactiveMs: 0
     property string iconTheme: ""
     property bool keystoneEnabled: true
+    property int keystoneEdgeSpacing: 8
+    property int keystoneExclusiveZoneOffset: 0
+    property int keystoneThickness: 42
+    property int keystoneCompactLength: 220
+    property int keystoneInsetPadding: 16
+    property int keystoneItemSpacing: 8
+    property int keystonePopupGap: 24
+    readonly property var keystoneDimensionLimits: ({
+                                                        "edgeSpacing": [8, 0, 48],
+                                                        "exclusiveZoneOffset": [0, -50, 50],
+                                                        "thickness": [42, 36, 72],
+                                                        "compactLength": [220, 180, 400],
+                                                        "insetPadding": [16, 0, 48],
+                                                        "itemSpacing": [8, 0, 24],
+                                                        "popupGap": [24, 8, 64]
+                                                    })
     property bool keystoneOverlay: false
     property string keystoneStyle: "bangs"
     property bool keystoneFullDisplay: false
@@ -358,6 +374,22 @@ Singleton {
     ]
     property string keystoneKeyholeCard: "weather"
     property bool barEnabled: true
+    property int barEdgeSpacing: 8
+    property int barExclusiveZoneOffset: 0
+    property int barThickness: 36
+    property int barInnerPadding: 8
+    property int barInsetPadding: 10
+    property int barLengthPadding: 0
+    property int barModuleRadius: 18
+    readonly property var barDimensionLimits: ({
+                                                   "edgeSpacing": [8, 0, 48],
+                                                   "exclusiveZoneOffset": [0, -50, 50],
+                                                   "thickness": [36, 32, 64],
+                                                   "innerPadding": [8, 0, 24],
+                                                   "insetPadding": [10, 0, 48],
+                                                   "lengthPadding": [0, 0, 512],
+                                                   "moduleRadius": [18, 0, 32]
+                                               })
     property bool barOverlay: false
     property string barPosition: "top"
     readonly property var barComponentIds: ["workspaces", "information", "activeWindow", "media", "tray",
@@ -958,6 +990,38 @@ Singleton {
                 result.push(value);
         }
         return result;
+    }
+
+    function panelDimensionProperty(panel, key) {
+        return panel + key.charAt(0).toUpperCase() + key.slice(1);
+    }
+
+    function panelDimensions(panel) {
+        const limits = root[panel + "DimensionLimits"];
+        const result = {};
+        for (const key of Object.keys(limits))
+            result[key] = root[panelDimensionProperty(panel, key)];
+        return result;
+    }
+
+    function setPanelDimension(panel, key, value) {
+        if (panel !== "bar" && panel !== "keystone")
+            return;
+        const limits = root[panel + "DimensionLimits"][key];
+        if (!limits)
+            return;
+        setValue(panelDimensionProperty(panel, key), normalizedBoundedInt(value, limits[0], limits[1],
+                                                                          limits[2]));
+    }
+
+    function restorePanelDimensions(panel, values) {
+        const limits = root[panel + "DimensionLimits"];
+        const source = values && typeof values === "object" ? values : {};
+        for (const key of Object.keys(limits)) {
+            const range = limits[key];
+            root[panelDimensionProperty(panel, key)] = normalizedBoundedInt(source[key], range[0], range[1],
+                                                                            range[2]);
+        }
     }
 
     function setValue(propertyName, value) {
@@ -1866,6 +1930,7 @@ Singleton {
             },
             "keystone": {
                 "enabled": root.keystoneEnabled,
+                "dimensions": root.panelDimensions("keystone"),
                 "overlay": root.keystoneOverlay,
                 "style": root.keystoneStyle,
                 "fullDisplay": root.keystoneFullDisplay,
@@ -1899,6 +1964,7 @@ Singleton {
             },
             "bar": {
                 "enabled": root.barEnabled,
+                "dimensions": root.panelDimensions("bar"),
                 "overlay": root.barOverlay,
                 "position": root.barPosition,
                 "showValues": root.barShowValues,
@@ -2011,6 +2077,7 @@ Singleton {
                                                         "rounded");
         root.keystoneMediaColorStyle = normalizedOption(root.keystoneMediaColorOptions, media.colorStyle,
                                                         "theme");
+        root.restorePanelDimensions("keystone", keystone.dimensions);
         root.keystoneEnabled = typeof keystone.enabled === "boolean" ? keystone.enabled : true;
         root.keystoneOverlay = typeof keystone.overlay === "boolean" ? keystone.overlay : false;
         // Migrate the former standalone long style without losing its layout.
@@ -2056,6 +2123,7 @@ Singleton {
                                                                    typeof bar.showMonitorValues === "boolean"
                                                                    ? bar.showMonitorValues : true;
         root.barShowNames = typeof bar.showNames === "boolean" ? bar.showNames : false;
+        root.restorePanelDimensions("bar", bar.dimensions);
         root.barEnabled = typeof bar.enabled === "boolean" ? bar.enabled : true;
         root.barOverlay = typeof bar.overlay === "boolean" ? bar.overlay : false;
         root.barPosition = normalizedEdgePosition(bar.position);

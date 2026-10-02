@@ -9,10 +9,8 @@ TopBarPill {
 
     property bool vertical: false
 
-    implicitHeight: vertical ? buttonRow.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
-                               Sizes.barPillThickness
-    implicitWidth: vertical ? Sizes.barPillThickness : buttonRow.implicitWidth + 2
-                              * Sizes.barPillHorizontalPadding
+    implicitHeight: vertical ? buttonRow.implicitHeight + 2 * root.pillPadding : root.pillThickness
+    implicitWidth: vertical ? root.pillThickness : buttonRow.implicitWidth + 2 * root.pillPadding
 
     GridLayout {
         id: buttonRow

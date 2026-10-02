@@ -165,6 +165,93 @@ Item {
             }
 
             KeystoneSection {
+                id: dimensionsSection
+                Layout.fillWidth: true
+                title: dimensionsSearchAnchor.title
+                iconName: "space_bar"
+                SettingsSearchAnchor {
+                    id: dimensionsSearchAnchor
+                    target: dimensionsSection
+                    declaration:
+                        '{"id":"keystone.section.size-spacing","route":"keystone","title":"Size and spacing","context":"KeystonePage","icon":"space_bar","aliases":[]}'
+                }
+
+                GeneralSliderSetting {
+                    title: qsTr("Edge spacing")
+                    value: PersonalizationConfig.keystoneStyle === "pill"
+                           ? PersonalizationConfig.keystoneEdgeSpacing : 0
+                    from: PersonalizationConfig.keystoneDimensionLimits.edgeSpacing[1]
+                    to: PersonalizationConfig.keystoneDimensionLimits.edgeSpacing[2]
+                    suffix: qsTr(" px")
+                    enabled: PersonalizationConfig.keystoneStyle === "pill"
+                    onMoved: value => PersonalizationConfig.setPanelDimension("keystone", "edgeSpacing",
+                                                                              value)
+                }
+
+                GeneralSliderSetting {
+                    title: qsTr("Exclusive zone offset")
+                    value: PersonalizationConfig.keystoneExclusiveZoneOffset
+                    from: PersonalizationConfig.keystoneDimensionLimits.exclusiveZoneOffset[1]
+                    to: PersonalizationConfig.keystoneDimensionLimits.exclusiveZoneOffset[2]
+                    suffix: qsTr(" px")
+                    enabled: !PersonalizationConfig.keystoneOverlay
+                    onMoved: value => PersonalizationConfig.setPanelDimension("keystone",
+                                                                              "exclusiveZoneOffset", value)
+                }
+
+                GeneralSliderSetting {
+                    title: qsTr("Size")
+                    value: PersonalizationConfig.keystoneThickness
+                    from: PersonalizationConfig.keystoneDimensionLimits.thickness[1]
+                    to: PersonalizationConfig.keystoneDimensionLimits.thickness[2]
+                    suffix: qsTr(" px")
+                    onMoved: value => PersonalizationConfig.setPanelDimension("keystone", "thickness", value)
+                }
+
+                GeneralSliderSetting {
+                    title: qsTr("Compact length")
+                    value: PersonalizationConfig.keystoneCompactLength
+                    from: PersonalizationConfig.keystoneDimensionLimits.compactLength[1]
+                    to: PersonalizationConfig.keystoneDimensionLimits.compactLength[2]
+                    suffix: qsTr(" px")
+                    onMoved: value => PersonalizationConfig.setPanelDimension("keystone", "compactLength",
+                                                                              value)
+                }
+
+                GeneralSliderSetting {
+                    title: qsTr("Inset padding")
+                    value: PersonalizationConfig.keystoneInsetPadding
+                    from: PersonalizationConfig.keystoneDimensionLimits.insetPadding[1]
+                    to: PersonalizationConfig.keystoneDimensionLimits.insetPadding[2]
+                    suffix: qsTr(" px")
+                    enabled: PersonalizationConfig.keystoneFullDisplay
+                    onMoved: value => PersonalizationConfig.setPanelDimension("keystone", "insetPadding",
+                                                                              value)
+                }
+
+                GeneralSliderSetting {
+                    title: qsTr("Item spacing")
+                    value: PersonalizationConfig.keystoneItemSpacing
+                    from: PersonalizationConfig.keystoneDimensionLimits.itemSpacing[1]
+                    to: PersonalizationConfig.keystoneDimensionLimits.itemSpacing[2]
+                    suffix: qsTr(" px")
+                    enabled: PersonalizationConfig.keystoneFullDisplay
+                    onMoved: value => PersonalizationConfig.setPanelDimension("keystone", "itemSpacing",
+                                                                              value)
+                }
+
+                GeneralSliderSetting {
+                    title: qsTr("Popup gap")
+                    value: PersonalizationConfig.keystonePopupGap
+                    from: PersonalizationConfig.keystoneDimensionLimits.popupGap[1]
+                    to: PersonalizationConfig.keystoneDimensionLimits.popupGap[2]
+                    suffix: qsTr(" px")
+                    enabled: PersonalizationConfig.keystoneFullDisplay
+                    onMoved: value => PersonalizationConfig.setPanelDimension("keystone", "popupGap", value)
+                }
+            }
+
+            KeystoneSection {
                 id: searchSection1
                 title: searchAnchor1.title
                 SettingsSearchAnchor {

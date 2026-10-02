@@ -1374,6 +1374,20 @@ var catalog = {
       "aliases": [],
       "anchor": true,
       "context": "GeneralBarPage",
+      "icon": "space_bar",
+      "id": "general.bar.section.size-spacing",
+      "path": [
+        "general",
+        "bar"
+      ],
+      "route": "general.bar",
+      "source": "GeneralBarPage.qml",
+      "title": "Size and spacing"
+    },
+    {
+      "aliases": [],
+      "anchor": true,
+      "context": "GeneralBarPage",
       "icon": "dock_to_bottom",
       "id": "general.bar.section.components",
       "path": [
@@ -1519,6 +1533,19 @@ var catalog = {
       "route": "keystone",
       "source": "KeystonePage.qml",
       "title": "Keystone style"
+    },
+    {
+      "aliases": [],
+      "anchor": true,
+      "context": "KeystonePage",
+      "icon": "space_bar",
+      "id": "keystone.section.size-spacing",
+      "path": [
+        "keystone"
+      ],
+      "route": "keystone",
+      "source": "KeystonePage.qml",
+      "title": "Size and spacing"
     },
     {
       "aliases": [],
@@ -1965,6 +1992,7 @@ function title(id) {
     case "general.displays.gamma.section.schedule": return qsTranslate("GammaControlPage", "Schedule");
     case "general.displays.gamma.section.current-status": return qsTranslate("GammaControlPage", "Current status");
     case "general.bar.section.position": return qsTranslate("GeneralBarPage", "Position");
+    case "general.bar.section.size-spacing": return qsTranslate("GeneralBarPage", "Size and spacing");
     case "general.bar.section.components": return qsTranslate("GeneralBarPage", "Components");
     case "general.effects.section.background": return qsTranslate("GeneralEffectsPage", "Background");
     case "general.section.interface": return qsTranslate("GeneralOverviewPage", "Interface");
@@ -1976,6 +2004,7 @@ function title(id) {
     case "general.sidebar.section.system-cards": return qsTranslate("GeneralSidebarPage", "System cards");
     case "keystone.horizontal-clock.section.horizontal-clock-style": return qsTranslate("HorizontalClockPage", "Horizontal clock style");
     case "keystone.section.keystone-style": return qsTranslate("KeystonePage", "Keystone style");
+    case "keystone.section.size-spacing": return qsTranslate("KeystonePage", "Size and spacing");
     case "keystone.section.mouse-actions": return qsTranslate("KeystonePage", "Mouse actions");
     case "keystone.section.media-controls": return qsTranslate("KeystonePage", "Media controls");
     case "keystone.section.keyboard-indicators": return qsTranslate("KeystonePage", "Keyboard indicators");

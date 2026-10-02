@@ -9,11 +9,15 @@ PanelWindow {
     id: root
 
     required property string edge
-    readonly property real visualThickness: Sizes.barVisualThickness
-    readonly property real outerEdgeMargin: Sizes.barOuterEdgeMargin
+    readonly property real visualThickness: PersonalizationConfig.barThickness + 8
+    readonly property real outerEdgeMargin: PersonalizationConfig.barEdgeSpacing
+    readonly property real lengthPadding: Math.min(PersonalizationConfig.barLengthPadding, Math.max(0, (height
+                                                                                                        - content.minimumLength)
+                                                                                                    / 2))
     // Shadow pixels need surface space, but must not reserve desktop space.
     readonly property real surfaceThickness: outerEdgeMargin + visualThickness + Sizes.barShadowBuffer
-    readonly property real exclusiveThickness: outerEdgeMargin + visualThickness
+    readonly property real exclusiveThickness: Math.max(0, outerEdgeMargin + visualThickness
+                                                        + PersonalizationConfig.barExclusiveZoneOffset)
 
     implicitWidth: surfaceThickness
     color: "transparent"
@@ -41,9 +45,9 @@ PanelWindow {
         id: visualBand
 
         x: axis.isLeft ? root.outerEdgeMargin : Sizes.barShadowBuffer
-        y: 0
+        y: root.lengthPadding
         width: root.visualThickness
-        height: parent.height
+        height: Math.max(0, parent.height - 2 * root.lengthPadding)
 
         VerticalBarContent {
             id: content
@@ -58,7 +62,7 @@ PanelWindow {
         targetWindow: root
         backgroundItem: content.backgroundItems.length > 0 ? content.backgroundItems[0] : null
         additionalBackgroundItems: content.backgroundItems.slice(1)
-        radius: 18
+        radius: PersonalizationConfig.barModuleRadius
     }
 
     mask: Region {

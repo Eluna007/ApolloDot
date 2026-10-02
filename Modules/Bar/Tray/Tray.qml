@@ -29,10 +29,8 @@ TopBarPill {
     readonly property var pinnedItems: TrayService.pinnedItems
     readonly property var unpinnedItems: TrayService.unpinnedItems
 
-    implicitHeight: vertical ? content.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
-                               Sizes.barPillThickness
-    implicitWidth: vertical ? Sizes.barPillThickness : content.implicitWidth + 2
-                              * Sizes.barPillHorizontalPadding
+    implicitHeight: vertical ? content.implicitHeight + 2 * root.pillPadding : root.pillThickness
+    implicitWidth: vertical ? root.pillThickness : content.implicitWidth + 2 * root.pillPadding
 
     onUnpinnedItemsChanged: {
         if (root.unpinnedItems.length === 0) {

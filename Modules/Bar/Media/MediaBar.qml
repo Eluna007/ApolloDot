@@ -14,10 +14,8 @@ TopBarPill {
     readonly property var player: MediaManager.active
     readonly property string title: player ? player.trackTitle || player.identity || qsTr("No media") : qsTr(
                                                  "No media")
-    implicitWidth: vertical ? Sizes.barPillThickness : layout.implicitWidth + 2
-                              * Sizes.barPillHorizontalPadding
-    implicitHeight: vertical ? layout.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
-                               Sizes.barPillThickness
+    implicitWidth: vertical ? root.pillThickness : layout.implicitWidth + 2 * root.pillPadding
+    implicitHeight: vertical ? layout.implicitHeight + 2 * root.pillPadding : root.pillThickness
 
     GridLayout {
         id: layout

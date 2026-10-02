@@ -7,7 +7,7 @@ Item {
 
     property real from: 0
     property real to: 1
-    property real stepSize: 0
+    property real stepSize: 0.01
     property real value: 0
     property bool discrete: false
     property bool live: true
@@ -54,7 +54,7 @@ Item {
         from: root.from
         to: root.to
         stepSize: root.stepSize
-        snapMode: root.discrete ? Slider.SnapAlways : Slider.NoSnap
+        snapMode: Slider.SnapAlways
         enabled: root.enabled
         live: root.live
         hoverEnabled: true

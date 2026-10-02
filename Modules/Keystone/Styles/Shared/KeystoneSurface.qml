@@ -26,7 +26,7 @@ Variants {
     property bool detached: false
     readonly property bool fullDisplay: PersonalizationConfig.keystoneFullDisplay
     readonly property bool splitRecording: detached && !fullDisplay
-    property int edgeMargin: 0
+    readonly property int edgeMargin: detached ? PersonalizationConfig.keystoneEdgeSpacing : 0
     property int maxPillRadius: 24
     property bool showAttachedEdgeCurves: !detached
 
@@ -171,12 +171,14 @@ Variants {
         PanelWindow {
             visible: !PersonalizationConfig.keystoneOverlay
             screen: keystoneWindow.screen
-            readonly property real reservedThickness: styleSurface.edgeMargin + (styleSurface.fullDisplay
-                                                                                 && fullFrame.item
-                                                                                 ? fullFrame.item.thickness :
-                                                                                   keystoneWindow.horizontalEdge
-                                                                                   ? horizontalLayout.collapsedHeight :
-                                                                                     verticalLayout.collapsedWidth)
+            readonly property real reservedThickness: Math.max(0,
+                                                               PersonalizationConfig.keystoneExclusiveZoneOffset
+                                                               + styleSurface.edgeMargin + (
+                                                                   styleSurface.fullDisplay && fullFrame.item
+                                                                   ? fullFrame.item.thickness :
+                                                                     keystoneWindow.horizontalEdge
+                                                                     ? horizontalLayout.collapsedHeight :
+                                                                       verticalLayout.collapsedWidth))
             implicitWidth: keystoneWindow.horizontalEdge ? 1 : reservedThickness
             implicitHeight: keystoneWindow.horizontalEdge ? reservedThickness : 1
             color: "transparent"

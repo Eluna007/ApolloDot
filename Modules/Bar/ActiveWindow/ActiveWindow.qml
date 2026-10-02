@@ -41,10 +41,8 @@ TopBarPill {
         return Array.from(root.limitedVerticalTitle(value)).join("\n");
     }
 
-    implicitHeight: vertical ? layout.implicitHeight + 2 * Sizes.barPillHorizontalPadding :
-                               Sizes.barPillThickness
-    implicitWidth: vertical ? Sizes.barPillThickness : layout.implicitWidth + 2
-                              * Sizes.barPillHorizontalPadding
+    implicitHeight: vertical ? layout.implicitHeight + 2 * root.pillPadding : root.pillThickness
+    implicitWidth: vertical ? root.pillThickness : layout.implicitWidth + 2 * root.pillPadding
 
     GridLayout {
         id: layout
