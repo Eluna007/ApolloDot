@@ -96,7 +96,6 @@ SidebarFlickable {
             SettingsRow {
                 Layout.fillWidth: true
                 title: qsTr("Night Mode")
-                iconName: "nightlight"
                 trailing: StyledSwitch {
                     checked: root.preferences.nightEnabled
                     Accessible.name: qsTr("Night Mode")
@@ -154,7 +153,6 @@ SidebarFlickable {
                 Layout.fillWidth: true
                 visible: root.preferences.mode === "time"
                 title: qsTr("Night starts")
-                iconName: "nightlight"
                 trailing: OutlinedTextField {
                     Layout.preferredWidth: 140
                     Layout.minimumWidth: 140
@@ -172,7 +170,6 @@ SidebarFlickable {
                 Layout.fillWidth: true
                 visible: root.preferences.mode === "time"
                 title: qsTr("Day starts")
-                iconName: "light_mode"
                 trailing: OutlinedTextField {
                     Layout.preferredWidth: 140
                     Layout.minimumWidth: 140
@@ -299,7 +296,6 @@ SidebarFlickable {
                 Layout.fillWidth: true
                 visible: true
                 title: qsTr("Scheduled temperature")
-                iconName: "thermostat"
                 supportingText: ""
                 trailing: Text {
                     text: qsTr("%1 K").arg(DisplayColor.schedule.temperature)
@@ -312,7 +308,6 @@ SidebarFlickable {
                 Layout.fillWidth: true
                 visible: true
                 title: qsTr("Period")
-                iconName: DisplayColor.schedule.period === "day" ? "light_mode" : "nightlight"
                 supportingText: DisplayColor.schedule.transitioning ? qsTr("Transitioning") : ""
                 trailing: Text {
                     text: DisplayColor.schedule.period === "day" ? qsTr("Daytime") : qsTr("Nighttime")
@@ -325,7 +320,6 @@ SidebarFlickable {
                 Layout.fillWidth: true
                 visible: DisplayColor.schedule.next > 0
                 title: DisplayColor.schedule.transitioning ? qsTr("Transition ends") : qsTr("Next transition")
-                iconName: "schedule"
                 supportingText: ""
                 trailing: Text {
                     text: Qt.formatDateTime(new Date(DisplayColor.schedule.next), "ddd hh:mm")

@@ -118,6 +118,7 @@ ColumnLayout {
         id: cornerSection
 
         Layout.fillWidth: true
+        flat: true
         title: qsTranslate("HotCornersPage", "Hot corners")
         supportingText: qsTr("Actions apply to all displays.")
         iconName: "open_in_full"

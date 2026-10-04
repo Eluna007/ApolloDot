@@ -49,8 +49,8 @@ StyledFlickable {
     ColumnLayout {
         id: contentColumn
 
-        width: root.pageContentWidth
-        x: Math.max(24, (root.width - width) / 2)
+        width: Math.min(root.pageContentWidth, Math.max(0, root.width - Metrics.pageMargin * 2))
+        x: Math.max(Metrics.pageMargin, (root.width - width) / 2)
         y: 28
         spacing: 30
 

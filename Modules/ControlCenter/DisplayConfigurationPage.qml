@@ -134,7 +134,6 @@ StyledFlickable {
                 SettingsRow {
                     Layout.fillWidth: true
                     title: qsTr("Enabled")
-                    iconName: "monitor"
                     trailing: StyledSwitch {
                         checked: root.settings.enabled !== false
                         enabled: !root.selected || !root.selected.connected || !checked

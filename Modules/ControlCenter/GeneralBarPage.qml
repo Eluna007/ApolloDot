@@ -71,6 +71,7 @@ StyledFlickable {
         SettingsSection {
             id: dimensionsSection
             Layout.fillWidth: true
+            flat: true
             title: dimensionsSearchAnchor.title
             iconName: "space_bar"
             SettingsSearchAnchor {
