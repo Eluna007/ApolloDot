@@ -451,6 +451,38 @@ StyledFlickable {
         }
 
         Section {
+            id: windowSection
+            title: windowSearchAnchor.title
+            iconName: "window"
+
+            SettingsSearchAnchor {
+                id: windowSearchAnchor
+                target: windowSection
+                declaration:
+                    '{"id":"theme.section.settings-window","route":"theme","title":"Settings window","context":"ThemePage","icon":"window","aliases":["window controls","traffic lights"]}'
+            }
+
+            SettingsRow {
+                Layout.fillWidth: true
+                title: qsTr("Window controls")
+                trailing: StyledButtonGroup {
+                    model: [
+                        {
+                            value: "left",
+                            label: qsTr("Left")
+                        },
+                        {
+                            value: "right",
+                            label: qsTr("Right")
+                        }
+                    ]
+                    currentValue: PersonalizationConfig.settingsWindowControlsSide
+                    onValueSelected: value => PersonalizationConfig.setSettingsWindowControlsSide(value)
+                }
+            }
+        }
+
+        Section {
             id: searchSection0
             title: searchAnchor0.title
             SettingsSearchAnchor {

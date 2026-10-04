@@ -1795,6 +1795,22 @@ var catalog = {
       "title": "Clipboard"
     },
     {
+      "aliases": [
+        "window controls",
+        "traffic lights"
+      ],
+      "anchor": true,
+      "context": "ThemePage",
+      "icon": "window",
+      "id": "theme.section.settings-window",
+      "path": [
+        "theme"
+      ],
+      "route": "theme",
+      "source": "ThemePage.qml",
+      "title": "Settings window"
+    },
+    {
       "aliases": [],
       "anchor": true,
       "context": "ThemePage",
@@ -2023,6 +2039,7 @@ function title(id) {
     case "general.spotlight.section.applications": return qsTranslate("SpotlightPage", "Applications");
     case "general.spotlight.section.web-search": return qsTranslate("SpotlightPage", "Web search");
     case "general.spotlight.section.clipboard": return qsTranslate("SpotlightPage", "Clipboard");
+    case "theme.section.settings-window": return qsTranslate("ThemePage", "Settings window");
     case "theme.section.matugen-color-scheme": return qsTranslate("ThemePage", "matugen color scheme");
     case "theme.section.super-key-appearance": return qsTranslate("ThemePage", "Super key appearance");
     case "theme.section.lock-screen": return qsTranslate("ThemePage", "Lock screen");
